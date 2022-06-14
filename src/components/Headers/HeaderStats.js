@@ -4,7 +4,7 @@ import React from "react";
 
 import CardStats from "components/Cards/CardStats.js";
 
-export default function HeaderStats() {
+export default function HeaderStats({nombreEstandar}) {
   return (
     <>
       {/* Header */}

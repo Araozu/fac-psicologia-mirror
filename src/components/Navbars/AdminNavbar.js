@@ -6,7 +6,7 @@ export default function Navbar(  {viewName} ) {
   return (
     <>
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
+      <nav className="absolute top-0 left-0 w-full z-10 bg-lightBlue-600 md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
         <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
           <a
@@ -15,11 +15,11 @@ export default function Navbar(  {viewName} ) {
             onClick={(e) => e.preventDefault()}
           >
             { /*TODO: Enlazar con la propiedad de vista actual*/ }
-            Vista Actual
+            {viewName}
           </a>
           {/* User Info */}
 
-            <span className={" text-white "}>Brayan Fernando Guillen Nakagawa</span>
+            <span className={" text-white "}>Nombre de usuario</span>
 
           {/* User */}
           <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
