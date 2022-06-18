@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+# idea, pnpm
+.idea
+.npmrc
+pnpm-lock.yaml
+
 # testing
 /coverage
 
