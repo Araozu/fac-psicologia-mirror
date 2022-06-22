@@ -3,19 +3,19 @@ import {Switch, Route, Redirect} from "react-router-dom";
 
 // components
 
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
-import HeaderStats from "components/Headers/HeaderStats.js";
-import FooterAdmin from "components/Footers/FooterAdmin.js";
+import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
+import Sidebar from "../components/Sidebar/Sidebar.jsx";
+import HeaderStats from "../components/Headers/HeaderStats.jsx";
+import FooterAdmin from "../components/Footers/FooterAdmin.jsx";
 
 // views
 
-import Dashboard from "views/admin/Dashboard.js";
-import Maps from "views/admin/Maps.js";
-import Settings from "views/admin/Settings.js";
-import Tables from "views/admin/Tables.js";
-import Estandar8 from "views/admin/Estandar8.js";
-import HeaderStandard from "components/Headers/HeaderStandard";
+import Dashboard from "../views/admin/Dashboard.jsx";
+import Maps from "../views/admin/Maps.jsx";
+import Settings from "../views/admin/Settings.jsx";
+import Tables from "../views/admin/Tables.jsx";
+import Estandar8 from "../views/admin/Estandar8.jsx";
+import HeaderStandard from "../components/Headers/HeaderStandard";
 
 export default function Admin() {
 

@@ -2,8 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import Footer from "components/Footers/Footer.js";
+import IndexNavbar from "../components/Navbars/IndexNavbar.jsx";
+import Footer from "../components/Footers/Footer.jsx";
 
 export default function Index() {
   return (
@@ -224,7 +224,7 @@ export default function Index() {
                 <i className="fa fa-angle-double-right ml-1 leading-relaxed"></i>
               </a>
             </div>
-
+            {/*}
             <div className="w-full md:w-5/12 px-4 mr-auto ml-auto mt-32">
               <div className="relative flex flex-col min-w-0 w-full mb-6 mt-48 md:mt-0">
                 <img
@@ -259,6 +259,7 @@ export default function Index() {
                 />
               </div>
             </div>
+            {*/}
           </div>
 
           <div className="flex flex-wrap items-center pt-32">
@@ -486,7 +487,7 @@ export default function Index() {
                   transform:
                     "scale(1) perspective(1040px) rotateY(-11deg) rotateX(2deg) rotate(2deg)",
                 }}
-                src={require("assets/img/documentation.png").default}
+                src={require("../assets/img/documentation.png").default}
               />
             </div>
           </div>
@@ -518,7 +519,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("assets/img/login.jpg").default}
+                        src={require("../assets/img/login.jpg").default}
                       />
                     </div>
                   </Link>
@@ -533,7 +534,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("assets/img/profile.jpg").default}
+                        src={require("../assets/img/profile.jpg").default}
                       />
                     </div>
                   </Link>
@@ -548,7 +549,7 @@ export default function Index() {
                       <img
                         alt="..."
                         className="align-middle border-none max-w-full h-auto rounded-lg"
-                        src={require("assets/img/landing.jpg").default}
+                        src={require("../assets/img/landing.jpg").default}
                       />
                     </div>
                   </Link>

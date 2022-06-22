@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // components
 
-import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import TableDropdown from "../Dropdowns/TableDropdown.jsx";
 
 export default function CardTable({ color }) {
   return (
@@ -26,7 +26,7 @@ export default function CardTable({ color }) {
                 Planes de mejora
               </h3>
 
-              <button 
+              <button
                 className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                 onClick={() => {alert("Nuevo elemento button")}}>
                 <i className="fas fa-plus"></i> Nuevo PM
@@ -49,7 +49,7 @@ export default function CardTable({ color }) {
                 >
                   Codigo
                 </th>
-               
+
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -104,11 +104,11 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    PM-0001
+                    Argon Design System
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
+                  <i className="fas fa-circle text-orange-500 mr-2"></i> pending
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -164,13 +164,13 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    PM-0002
+                    Angular Now UI Kit PRO
                   </span>
                 </th>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  Completado
+                  completed
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -226,11 +226,11 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    PM-0003
+                    Black Dashboard Sketch
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
+                  <i className="fas fa-circle text-red-500 mr-2"></i> delayed
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -286,12 +286,13 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    PM-0004
+                    React Material Dashboard
                   </span>
                 </th>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
+                  <i className="fas fa-circle text-teal-500 mr-2"></i> on
+                  schedule
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -347,12 +348,12 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    PM-0005
+                    React Material Dashboard
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  Completado
+                  completed
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">

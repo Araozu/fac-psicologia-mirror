@@ -2,11 +2,11 @@
 import React, {useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 
-import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import NotificationDropdown from "../Dropdowns/NotificationDropdown.jsx";
+import UserDropdown from "../Dropdowns/UserDropdown.jsx";
 
 // Assets
-import unsaLogo from 'assets/img/unsa.jpg'
+import unsaLogo from '../../assets/img/unsa.jpg'
 import {useLocation} from "react-router";
 
 /**

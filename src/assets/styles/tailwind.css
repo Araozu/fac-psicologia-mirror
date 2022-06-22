@@ -1,6 +1,6 @@
 /*! tailwindcss v2.0.4 | MIT License | https://tailwindcss.com */
 
-/*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
@@ -12,8 +12,8 @@ Use a better box model (opinionated).
 */
 
 *,
-::before,
-::after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -21,9 +21,41 @@ Use a better box model (opinionated).
 Use a more readable tab size (opinionated).
 */
 
-html {
+:root {
+  -moz-tab-size: 4;
   tab-size: 4;
 }
+
+/**
+SCROLL BAR
+*/
+
+*::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+*::-webkit-scrollbar:vertical {
+  width:8px;
+}
+
+*::-webkit-scrollbar-button:increment,*::-webkit-scrollbar-button {
+  display: none;
+} 
+
+*::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #cbcbcb;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 10px;  
+}
+
 
 /**
 1. Correct the line height in all browsers.
@@ -593,24 +625,25 @@ select {
 
       [type='checkbox'] {
   -webkit-appearance: none;
-        appearance: none;
-        padding: 0;
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
-        display: inline-block;
-        vertical-align: middle;
-        background-origin: border-box;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        flex-shrink: 0;
-        height: 1rem;
-        width: 1rem;
-        color: #2563eb;
-        background-color: #fff;
-        border-color: #71717a;
-        border-width: 1px;
-      }
+          appearance: none;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+          color-adjust: exact;
+  display: inline-block;
+  vertical-align: middle;
+  background-origin: border-box;
+  -webkit-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-flex-shrink: 0;
+          flex-shrink: 0;
+  height: 1rem;
+  width: 1rem;
+  color: #2563eb;
+  background-color: #fff;
+  border-color: #71717a;
+  border-width: 1px;
+}
 
 [type='checkbox'] {
   border-radius: 0px;
@@ -1388,10 +1421,12 @@ select {
 }
 
 .flex {
+  display: -webkit-flex;
   display: flex;
 }
 
 .inline-flex {
+  display: -webkit-inline-flex;
   display: inline-flex;
 }
 
@@ -1404,51 +1439,68 @@ select {
 }
 
 .flex-row {
-  flex-direction: row;
+  -webkit-flex-direction: row;
+          flex-direction: row;
 }
 
 .flex-col {
-  flex-direction: column;
+  -webkit-flex-direction: column;
+          flex-direction: column;
 }
 
 .flex-wrap {
-  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 
 .items-center {
-  align-items: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+
+.items-stretch {
+  -webkit-align-items: stretch;
+          align-items: stretch;
 }
 
 .content-center {
-  align-content: center;
+  -webkit-align-content: center;
+          align-content: center;
 }
 
 .justify-end {
-  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
 }
 
 .justify-center {
-  justify-content: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 
 .justify-between {
-  justify-content: space-between;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
 
 .flex-1 {
-  flex: 1 1 0%;
+  -webkit-flex: 1 1 0%;
+          flex: 1 1 0%;
 }
 
 .flex-auto {
-  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .flex-initial {
-  flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+          flex: 0 1 auto;
 }
 
 .flex-grow {
-  flex-grow: 1;
+  -webkit-flex-grow: 1;
+          flex-grow: 1;
 }
 
 .float-left {
@@ -1529,6 +1581,10 @@ select {
 
 .h-500-px {
   height: 500px;
+}
+
+.h-600-px {
+  height: 600px;
 }
 
 .text-55 {
@@ -2036,6 +2092,10 @@ select {
   padding-bottom: 0.5rem;
 }
 
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
 .pr-4 {
   padding-right: 1rem;
 }
@@ -2058,6 +2118,10 @@ select {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pl-10 {
+  padding-left: 2.5rem;
 }
 
 .pt-12 {
@@ -2361,11 +2425,6 @@ select {
   color: rgba(239, 68, 68, var(--tw-text-opacity));
 }
 
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgba(220, 38, 38, var(--tw-text-opacity));
-}
-
 .text-blueGray-100 {
   --tw-text-opacity: 1;
   color: rgba(241, 245, 249, var(--tw-text-opacity));
@@ -2614,36 +2673,10 @@ select {
 
   50% {
     -webkit-transform: none;
-    transform: none;
-    -webkit-animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            transform: none;
+    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
   }
-}
-
-*::-webkit-scrollbar {
-  -webkit-appearance: none;
-}
-
-*::-webkit-scrollbar:vertical {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-button:increment, .contenedor::-webkit-scrollbar-button {
-  display: none;
-}
-
-*::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #797979;
-  border-radius: 20px;
-  border: 2px solid #f1f2f3;
-}
-
-*::-webkit-scrollbar-track {
-  border-radius: 10px;
 }
 
 @media (min-width: 640px) {
@@ -2677,11 +2710,8 @@ select {
     display: block;
   }
 
-  .md\:inline-block {
-    display: inline-block;
-  }
-
   .md\:flex {
+    display: -webkit-flex;
     display: flex;
   }
 
@@ -2690,31 +2720,38 @@ select {
   }
 
   .md\:flex-row {
-    flex-direction: row;
+    -webkit-flex-direction: row;
+            flex-direction: row;
   }
 
   .md\:flex-col {
-    flex-direction: column;
+    -webkit-flex-direction: column;
+            flex-direction: column;
   }
 
   .md\:flex-nowrap {
-    flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
   }
 
   .md\:items-stretch {
-    align-items: stretch;
+    -webkit-align-items: stretch;
+            align-items: stretch;
   }
 
   .md\:justify-start {
-    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+            justify-content: flex-start;
   }
 
   .md\:justify-end {
-    justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+            justify-content: flex-end;
   }
 
   .md\:justify-between {
-    justify-content: space-between;
+    -webkit-justify-content: space-between;
+            justify-content: space-between;
   }
 
   .md\:mt-0 {
@@ -2725,8 +2762,8 @@ select {
     margin-top: 1rem;
   }
 
-  .md\:ml-24 {
-    margin-left: 6rem;
+  .md\:mb-4 {
+    margin-bottom: 1rem;
   }
 
   .md\:mt-40 {
@@ -2851,6 +2888,7 @@ select {
   }
 
   .lg\:flex {
+    display: -webkit-flex;
     display: flex;
   }
 
@@ -2859,27 +2897,33 @@ select {
   }
 
   .lg\:flex-row {
-    flex-direction: row;
+    -webkit-flex-direction: row;
+            flex-direction: row;
   }
 
   .lg\:self-center {
-    align-self: center;
+    -webkit-align-self: center;
+            align-self: center;
   }
 
   .lg\:justify-start {
-    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+            justify-content: flex-start;
   }
 
   .lg\:order-1 {
-    order: 1;
+    -webkit-order: 1;
+            order: 1;
   }
 
   .lg\:order-2 {
-    order: 2;
+    -webkit-order: 2;
+            order: 2;
   }
 
   .lg\:order-3 {
-    order: 3;
+    -webkit-order: 3;
+            order: 3;
   }
 
   .lg\:mb-0 {
