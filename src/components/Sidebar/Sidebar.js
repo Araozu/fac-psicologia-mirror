@@ -125,11 +125,9 @@ export default function Sidebar({handleViewChange, setIsHiddenParent}) {
                             to="/"
                         >
                             <img src={unsaLogo} alt="Logo Unsa"/>
-                            <h3>Escuela Profesional de <br/> Relaciones Industriales</h3>
+                            <h3 className="mt-3">Escuela Profesional de <br/> Relaciones Industriales</h3>
                         </Link>
 
-                        <p className="prose prose-gray prose-sm">Sistema para la gestion de la calidad y
-                            acreditacion</p>
                         {/* User */}
                         <ul className="md:hidden items-center flex flex-wrap list-none">
                             <li className="inline-block relative">
