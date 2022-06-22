@@ -2,7 +2,7 @@ import React from "react";
 
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-export default function Navbar(  {viewName} ) {
+export default function Navbar(  ) {
   return (
     <>
       {/* Navbar */}
@@ -15,16 +15,17 @@ export default function Navbar(  {viewName} ) {
             onClick={(e) => e.preventDefault()}
           >
             { /*TODO: Enlazar con la propiedad de vista actual*/ }
-            {viewName}
+            Sistema Gestion de Calidad
           </a>
           {/* User Info */}
+          <div className="flex flex-row justify-center items-center">
+            <span className="text-white inline-block mr-4">Juanito Perez</span>
 
-            <span className={" text-white "}>Nombre de usuario</span>
-
-          {/* User */}
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-            <UserDropdown />
-          </ul>
+            {/* User */}
+            <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+              <UserDropdown />
+            </ul>
+          </div>        
         </div>
       </nav>
       {/* End Navbar */}

@@ -29,7 +29,7 @@ export default function CardTable({ color }) {
               <button 
                 className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
                 onClick={() => {alert("Nuevo elemento button")}}>
-                <i className="fas fa-plus"></i> Nuevo
+                <i className="fas fa-plus"></i> Nuevo PM
               </button>
             </div>
           </div>
@@ -104,11 +104,11 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    Argon Design System
+                    PM-0001
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-orange-500 mr-2"></i> pending
+                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -164,13 +164,13 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    Angular Now UI Kit PRO
+                    PM-0002
                   </span>
                 </th>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  completed
+                  Completado
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -226,11 +226,11 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    Black Dashboard Sketch
+                    PM-0003
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-red-500 mr-2"></i> delayed
+                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -286,13 +286,12 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    React Material Dashboard
+                    PM-0004
                   </span>
                 </th>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-teal-500 mr-2"></i> on
-                  schedule
+                  <i className="fas fa-circle text-orange-500 mr-2"></i> En curso
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
@@ -348,12 +347,12 @@ export default function CardTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                    React Material Dashboard
+                    PM-0005
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  completed
+                  Completado
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <div className="flex">
