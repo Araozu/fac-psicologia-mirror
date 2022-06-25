@@ -1,12 +1,20 @@
 import React, { FormEvent, useState } from "react";
 
 export default function Register() {
-    type nameAlertStyleType = { display: "none" | "block" }
-    const [nameAlertStyle, setNameAlertStyle] = useState<nameAlertStyleType>({display: "none"});
+    type alertStyle = { display: "none" | "block" }
+    const [nameAlertStyle, setNameAlertStyle] = useState<alertStyle>({display: "none"});
+    const [emailAlertStyle, setEmailAlertStyle] = useState<alertStyle>({display: "none"});
 
-    const register = (ev: FormEvent) => {
+    const [name, setName] = useState("");
+
+    const register = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
-        setNameAlertStyle({display: "block"});
+
+        if (!name || name.length === 0) {
+            setNameAlertStyle({display: "block"});
+        }
+
+        setEmailAlertStyle({display: "block"});
     };
 
     return (
@@ -35,15 +43,17 @@ export default function Register() {
                                             Name
                                         </label>
                                         <input
-                                            type="email"
                                             id="user-name"
                                             name="user-name"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Name"
+                                            value={name}
+                                            onChange={(x) => setName(x.target.value)}
                                         />
                                     </div>
 
                                     <div className="relative w-full mb-3">
+                                        <div className="text-red-500 font-bold" style={emailAlertStyle}>Email is empty</div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-email"
