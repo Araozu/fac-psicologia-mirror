@@ -30,7 +30,7 @@ export default function Login() {
                       <img
                           alt="..."
                           className="w-5 mr-1"
-                          src={require("assets/img/logo unsa.png").default}
+                          src={require("../../assets/img/logo unsa.png").default}
                       />
                       Acceder con cuenta institucional
                     </button>
