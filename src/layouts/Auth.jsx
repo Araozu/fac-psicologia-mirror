@@ -9,7 +9,7 @@ import FooterSmall from "../components/Footers/FooterSmall.jsx";
 // views
 
 import Login from "../views/auth/Login.jsx";
-import Register from "../views/auth/Register.jsx";
+import Register from "../views/auth/Register.tsx";
 
 export default function Auth() {
     return (
