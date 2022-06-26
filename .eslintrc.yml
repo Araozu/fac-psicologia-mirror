@@ -87,3 +87,6 @@ rules:
   comma-style: error
   radix: error
   no-new-wrappers: error
+  object-curly-spacing:
+    - error
+    - never

@@ -1,12 +1,17 @@
-import { render, RenderResult, fireEvent } from "@testing-library/react";
+import {render, RenderResult, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Register from "@/views/auth/Register";
 
 let body: RenderResult;
+const mockRegisterFn = jest.fn();
+
+function fillInput(input: HTMLElement, value: string) {
+    fireEvent.change(input, {target: {value}});
+}
 
 describe("Register", () => {
     beforeEach(() => {
-        body = render(<Register />);
+        body = render(<Register registerFn={mockRegisterFn} />);
     });
 
     it("Must display a title", () => {
@@ -33,10 +38,7 @@ describe("Register", () => {
 
         const submitButton = body.getByText("Create Account");
 
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // After the event the alert message should be shown
         expect(nameEmptyEl.style.display).not.toBe("none");
@@ -52,10 +54,7 @@ describe("Register", () => {
         expect(nameInput.value).toBe("Juan Perez");
 
         // Submit form
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // The alert message should be hidden, since we put a value
         expect(nameEmptyEl.style.display).toBe("none");
@@ -72,10 +71,7 @@ describe("Register", () => {
 
         const submitButton = body.getByText("Create Account");
 
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // After the event the alert message should be shown
         expect(emailEmptyEl.style.display).not.toBe("none");
@@ -92,10 +88,7 @@ describe("Register", () => {
         expect(emailInput.value).toBe("sample@email.com");
 
         // Submit form
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // The alert message should be hidden, since we put a value
         expect(emailEmptyEl.style.display).toBe("none");
@@ -110,10 +103,7 @@ describe("Register", () => {
 
         const submitButton = body.getByText("Create Account");
 
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // After the event the alert message should be shown
         expect(passwordEmptyEl.style.display).not.toBe("none");
@@ -130,13 +120,37 @@ describe("Register", () => {
         expect(passwordInput.value).toBe("12345678");
 
         // Submit form
-        fireEvent(submitButton, new MouseEvent("click", {
-            bubbles: true,
-            cancelable: false,
-        }));
+        fireEvent(submitButton, new MouseEvent("click"));
 
         // The alert message should be hidden, since we put a value
         expect(passwordEmptyEl.style.display).toBe("none");
+    });
+
+    it("Should call the registration function if all fields are correct", () => {
+        const submitButton = body.getByText("Create Account");
+
+        // Fill inputs
+        fillInput(body.getByPlaceholderText("Name"), "Juan Perez");
+        fillInput(body.getByPlaceholderText("Email"), "sample@test.com");
+        fillInput(body.getByPlaceholderText("Password"), "12345678");
+
+        // Submit form
+        fireEvent(submitButton, new MouseEvent("click"));
+
+        expect(mockRegisterFn).toBeCalled();
+    });
+
+    it("Should not call the registration function if one field is empty", () => {
+        const submitButton = body.getByText("Create Account");
+
+        // Fill some inputs
+        fillInput(body.getByPlaceholderText("Name"), "Juan Perez");
+        fillInput(body.getByPlaceholderText("Email"), "sample@test.com");
+
+        // Submit form
+        fireEvent(submitButton, new MouseEvent("click"));
+
+        expect(mockRegisterFn).not.toBeCalled();
     });
 });
 

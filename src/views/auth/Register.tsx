@@ -1,6 +1,33 @@
-import React, { FormEvent, useState } from "react";
+import React, {FormEvent, useState} from "react";
 
-export default function Register() {
+/** Data of the user to register */
+interface RegistrationData {
+    name: string,
+    email: string,
+    password: string,
+}
+/** Abstraction of the response of the server */
+interface ResponseData {
+    /** Signals whether the response is in the range of HTTP 200-2009 */
+    ok: boolean,
+    /** The possible response of the server, only if `ok` is `true` */
+    json?: {
+        /** Response of the server. Should always be "registro exitoso" */
+        message: string
+    }
+}
+/** A function that abstracts the process of communicating with the server to register */
+type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
+
+const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve, reject) => {
+    resolve({ok: false});
+});
+
+export default function Register(props: {registerFn?: RegisterFunction}) {
+    // Default values
+    const registerFunction = props.registerFn ?? defaultRegisterFn;
+
+
     type alertStyle = { display: "none" | "block" }
     const [nameAlertStyle, setNameAlertStyle] = useState<alertStyle>({display: "none"});
     const [emailAlertStyle, setEmailAlertStyle] = useState<alertStyle>({display: "none"});
@@ -24,6 +51,10 @@ export default function Register() {
         if (!password || password.length === 0) {
             setPasswordAlertStyle({display: "block"});
         }
+
+        if (name && email && password) {
+            registerFunction({name, email, password});
+        }
     };
 
     return (
@@ -44,7 +75,8 @@ export default function Register() {
                                     }}
                                 >
                                     <div className="relative w-full mb-3">
-                                        <div className="text-red-500 font-bold" style={nameAlertStyle}>Name is empty</div>
+                                        <div className="text-red-500 font-bold" style={nameAlertStyle}>Name is empty
+                                        </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-name"
@@ -62,7 +94,8 @@ export default function Register() {
                                     </div>
 
                                     <div className="relative w-full mb-3">
-                                        <div className="text-red-500 font-bold" style={emailAlertStyle}>Email is empty</div>
+                                        <div className="text-red-500 font-bold" style={emailAlertStyle}>Email is empty
+                                        </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-email"
