@@ -4,8 +4,11 @@ export default function Register() {
     type alertStyle = { display: "none" | "block" }
     const [nameAlertStyle, setNameAlertStyle] = useState<alertStyle>({display: "none"});
     const [emailAlertStyle, setEmailAlertStyle] = useState<alertStyle>({display: "none"});
+    const [passwordAlertStyle, setPasswordAlertStyle] = useState<alertStyle>({display: "none"});
 
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const register = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
@@ -14,7 +17,13 @@ export default function Register() {
             setNameAlertStyle({display: "block"});
         }
 
-        setEmailAlertStyle({display: "block"});
+        if (!email || email.length === 0) {
+            setEmailAlertStyle({display: "block"});
+        }
+
+        if (!password || password.length === 0) {
+            setPasswordAlertStyle({display: "block"});
+        }
     };
 
     return (
@@ -66,10 +75,15 @@ export default function Register() {
                                             name="user-email"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Email"
+                                            value={email}
+                                            onChange={(x) => setEmail(x.target.value)}
                                         />
                                     </div>
 
                                     <div className="relative w-full mb-3">
+                                        <div className="text-red-500 font-bold" style={passwordAlertStyle}>
+                                            Password is empty
+                                        </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-password"
@@ -82,6 +96,8 @@ export default function Register() {
                                             name="user-password"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Password"
+                                            value={password}
+                                            onChange={(x) => setPassword(x.target.value)}
                                         />
                                     </div>
 
