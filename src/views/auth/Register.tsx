@@ -28,7 +28,7 @@ type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
 
 const SERVER_PATH = "http://127.0.0.1:8000";
 const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
-    fetch(`${SERVER_PATH}/api/login`, {
+    fetch(`${SERVER_PATH}/api/register`, {
         method: "POST",
         headers: {
             "Accept": "application/json",
