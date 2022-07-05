@@ -26,8 +26,33 @@ export interface ResponseData {
  */
 type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
 
-const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve, reject) => {
-    resolve({ok: false});
+const SERVER_PATH = "http://127.0.0.1:8000";
+const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
+    fetch(`${SERVER_PATH}/api/login`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password,
+        }),
+    })
+        .then((res) => {
+            if (res.ok) {
+                res.json().then((jsonObj) => {
+                    resolve({
+                        ok: true,
+                        json: jsonObj,
+                    });
+                });
+            } else {
+                resolve({ok: false});
+            }
+        });
 });
 
 type alertStyle = { display: "none" | "block" }
