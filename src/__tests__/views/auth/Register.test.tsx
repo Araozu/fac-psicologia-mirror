@@ -1,9 +1,10 @@
-import {render, RenderResult, fireEvent} from "@testing-library/react";
+import {render, RenderResult, fireEvent, cleanup, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Register from "@/views/auth/Register";
+import Register, {RegistrationData, ResponseData} from "@/views/auth/Register";
+import {BrowserRouter, Route} from "react-router-dom";
 
 let body: RenderResult;
-const mockRegisterFn = jest.fn();
+let mockRegisterFn = jest.fn();
 
 function fillInput(input: HTMLElement, value: string) {
     fireEvent.change(input, {target: {value}});
@@ -11,7 +12,12 @@ function fillInput(input: HTMLElement, value: string) {
 
 describe("Register", () => {
     beforeEach(() => {
+        mockRegisterFn = jest.fn();
         body = render(<Register registerFn={mockRegisterFn} />);
+    });
+
+    afterEach(() => {
+        cleanup();
     });
 
     it("Must display a title", () => {
@@ -154,3 +160,69 @@ describe("Register", () => {
     });
 });
 
+function RouterMock(component: JSX.Element) {
+    return (
+        <BrowserRouter>
+            {component}
+            <Route path={"/admin/dashboard"}>
+                <span>Redirection successful</span>
+            </Route>
+        </BrowserRouter>
+    );
+}
+
+describe("Registration", () => {
+    afterEach(() => {
+        cleanup();
+    });
+
+    it("Should display an error message on registration error", () => {
+        const errorMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
+            resolve({
+                ok: false,
+            });
+        }));
+
+        const body = render(<Register registerFn={errorMock} />);
+        const submitButton = body.getByText("Create Account");
+        const registrationErrorEl = body.getByText("Registration error");
+
+        // Fill inputs
+        fillInput(body.getByPlaceholderText("Name"), "Juan Perez");
+        fillInput(body.getByPlaceholderText("Email"), "sample@test.com");
+        fillInput(body.getByPlaceholderText("Password"), "12345678");
+
+        // Submit form
+        fireEvent(submitButton, new MouseEvent("click"));
+
+        waitFor(() => {
+            expect(errorMock).toHaveBeenCalledTimes(1);
+            expect(registrationErrorEl.style.display).not.toBe("none");
+        });
+    });
+
+    it("Should redirect to dashboard after success", () => {
+        const successMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
+            resolve({
+                ok: true,
+            });
+        }));
+
+        const body = render(RouterMock(<Register registerFn={successMock} />));
+        const submitButton = body.getByText("Create Account");
+
+
+        // Fill inputs
+        fillInput(body.getByPlaceholderText("Name"), "Juan Perez");
+        fillInput(body.getByPlaceholderText("Email"), "sample@test.com");
+        fillInput(body.getByPlaceholderText("Password"), "12345678");
+
+        // Submit form
+        fireEvent(submitButton, new MouseEvent("click"));
+
+        waitFor(() => {
+            expect(successMock).toHaveBeenCalledTimes(1);
+            expect(body.getByText("Redirection successful")).toBeInTheDocument();
+        });
+    });
+});

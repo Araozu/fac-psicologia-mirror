@@ -1,13 +1,15 @@
 import React, {FormEvent, useState} from "react";
+import {useHistory} from "react-router";
 
 /** Data of the user to register */
-interface RegistrationData {
+export interface RegistrationData {
     name: string,
     email: string,
     password: string,
 }
+
 /** Abstraction of the response of the server */
-interface ResponseData {
+export interface ResponseData {
     /** Signals whether the response is in the range of HTTP 200-2009 */
     ok: boolean,
     /** The possible response of the server, only if `ok` is `true` */
@@ -16,28 +18,41 @@ interface ResponseData {
         message: string
     }
 }
-/** A function that abstracts the process of communicating with the server to register */
+
+/**
+ * A function that abstracts the process of communicating with the server to register.
+ * The return promise should never reject. Instead, the error data should be sent
+ * via the success payload.
+ */
 type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
 
 const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve, reject) => {
     resolve({ok: false});
 });
 
-export default function Register(props: {registerFn?: RegisterFunction}) {
+type alertStyle = { display: "none" | "block" }
+
+function useAlertStyle() {
+    return useState<alertStyle>({display: "none"});
+}
+
+export default function Register(props: { registerFn?: RegisterFunction }) {
     // Default values
     const registerFunction = props.registerFn ?? defaultRegisterFn;
 
 
-    type alertStyle = { display: "none" | "block" }
-    const [nameAlertStyle, setNameAlertStyle] = useState<alertStyle>({display: "none"});
-    const [emailAlertStyle, setEmailAlertStyle] = useState<alertStyle>({display: "none"});
-    const [passwordAlertStyle, setPasswordAlertStyle] = useState<alertStyle>({display: "none"});
+    const [nameAlertStyle, setNameAlertStyle] = useAlertStyle();
+    const [emailAlertStyle, setEmailAlertStyle] = useAlertStyle();
+    const [passwordAlertStyle, setPasswordAlertStyle] = useAlertStyle();
+    const [registrationErrorStyle, setRegistrationErrorStyle] = useAlertStyle();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const register = (ev: FormEvent<HTMLFormElement>) => {
+    const history = useHistory();
+
+    const register = async(ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
 
         if (!name || name.length === 0) {
@@ -53,7 +68,12 @@ export default function Register(props: {registerFn?: RegisterFunction}) {
         }
 
         if (name && email && password) {
-            registerFunction({name, email, password});
+            const response = await registerFunction({name, email, password});
+            if (response.ok) {
+                history.push("/admin/dashboard");
+            } else {
+                setRegistrationErrorStyle({display: "block"});
+            }
         }
     };
 
@@ -140,6 +160,10 @@ export default function Register(props: {registerFn?: RegisterFunction}) {
                                             type="submit"
                                             value="Create Account"
                                         />
+                                    </div>
+
+                                    <div className="text-red-500 font-bold" style={registrationErrorStyle}>
+                                        Registration error
                                     </div>
                                 </form>
                             </div>
