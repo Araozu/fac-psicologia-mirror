@@ -1,12 +1,14 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 /** @type {import('jsdom/index.d.ts')} */
 
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig');
+const {pathsToModuleNameMapper} = require("ts-jest");
+const {compilerOptions} = require("./tsconfig");
+
+compilerOptions.target = "esnext";
 
 module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'jsdom',
+    preset: "ts-jest",
+    testEnvironment: "jsdom",
 
     // The root of your source code, typically /src
     // `<rootDir>` is a token Jest substitutes
@@ -16,7 +18,7 @@ module.exports = {
     // using ts-jest
     transform: {
         "^.+\\.tsx?$": "ts-jest",
-        "^.+\\.svg$": "jest-transform-stub"
+        "^.+\\.svg$": "jest-transform-stub",
     },
 
     // Runs special logic, such as cleaning up components
@@ -24,7 +26,7 @@ module.exports = {
     // extended assertions to Jest
     setupFilesAfterEnv: [
         // "@testing-library/react/cleanup-after-each",
-        "@testing-library/jest-dom/extend-expect"
+        "@testing-library/jest-dom/extend-expect",
     ],
 
     // Test spec file resolution pattern
@@ -35,7 +37,7 @@ module.exports = {
     // Module file extensions for importing
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {prefix: "<rootDir>/"}),
 
-    modulePathIgnorePatterns: ["<rootDir>/src/assets/"]
+    modulePathIgnorePatterns: ["<rootDir>/src/assets/"],
 };
