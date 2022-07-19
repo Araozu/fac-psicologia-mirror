@@ -9,11 +9,14 @@ import "./assets/styles/tailwind.css";
 
 // @ts-ignore
 import Admin from "./layouts/Admin";
+// @ts-ignore
 import Auth from "./layouts/Auth";
 
 // views without layouts
 
+// @ts-ignore
 import Landing from "./views/Landing";
+// @ts-ignore
 import Profile from "./views/Profile";
 
 function require(url: string) {
