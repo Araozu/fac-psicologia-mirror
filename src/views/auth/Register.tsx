@@ -17,7 +17,8 @@ export interface ResponseData {
     /** The possible response of the server, only if `ok` is `true` */
     json?: {
         /** Response of the server. Should always be "registro exitoso" */
-        message: string
+        message: string,
+        [key: string]: string | undefined,
     }
 }
 

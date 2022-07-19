@@ -1,14 +1,96 @@
-import React, {useState} from "react";
+import React, {FormEvent, useState} from "react";
 import {Link, Redirect, useHistory} from "react-router-dom";
-import Admin from "./../../layouts/Admin";
+
+import {ResponseData} from "@/views/auth/Register";
+import {SERVER_PATH} from "@/variables";
+
+/** Data of the user to register */
+export interface LoginData {
+    email: string,
+    password: string,
+}
+
+type LoginFunction = (data: LoginData) => Promise<ResponseData>
+
+const defaultLoginFn: LoginFunction = (data) => new Promise((resolve) => {
+    fetch(`${SERVER_PATH}/api/login`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+        }),
+    })
+        .then((res) => {
+            if (res.ok) {
+                res.json()
+                    .then((jsonObj) => {
+                        resolve({
+                            ok: true,
+                            json: jsonObj,
+                        });
+                    });
+            } else {
+                resolve({ok: false});
+            }
+        });
+});
+
+type alertStyle = { display: "none" | "block" }
+
+function useAlertStyle() {
+    return useState<alertStyle>({display: "none"});
+}
+
+
 
 export default function Login() {
+    const loginFunction = defaultLoginFn;
+
+    const [usuarioAlert, setUsuarioAlert] = useAlertStyle();
+    const [contrasenaAlert, setContrasenaAlert] = useAlertStyle();
+    const [loginAlert, setLoginAlert] = useAlertStyle();
+
     const [usuario, setUsuario] = useState("");
-    const [contraseña, setContraseña] = useState("");
+    const [contrasena, setContrasena] = useState("");
     const history = useHistory();
-    const redirect = () => {
-        history.push("/admin");
+
+    const login = async(ev: FormEvent<HTMLFormElement>) => {
+        ev.preventDefault();
+
+        if (!usuario || usuario.length === 0) {
+            setUsuarioAlert({display: "block"});
+        }
+        if (!contrasena || contrasena.length === 0) {
+            setContrasenaAlert({display: "block"});
+        }
+
+        if (usuario && contrasena) {
+            const response = await loginFunction({
+                email: usuario,
+                password: contrasena,
+            });
+
+            if (response.ok) {
+                console.log("Login: respuesta.", response.json?.message);
+
+                const token = response.json?.access_token ?? "";
+
+                if (token.length !== 0) {
+                    console.log("Token:", token);
+                    localStorage.setItem("access_token", token);
+                }
+
+                history.push("/admin/dashboard");
+            } else {
+                setLoginAlert({display: "block"});
+            }
+        }
     };
+
     return (
         <>
             <div className="container mx-auto px-4 h-full">
@@ -17,6 +99,7 @@ export default function Login() {
                         <div
                             className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
                         >
+                            {/*
                             <div className="rounded-t mb-0 px-6 py-6">
                                 <div className="text-center mb-3">
                                     <h6 className="text-blueGray-500 text-sm font-bold" />
@@ -39,12 +122,22 @@ export default function Login() {
                                 </div>
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                             </div>
+                            */}
+
                             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                 <div className="text-blueGray-400 text-center mb-3 font-bold">
-                                    <small>O Inicia con tus credenciales de Usuario</small>
+                                    <small>Inicia sesión con tus credenciales de Usuario</small>
                                 </div>
-                                <form>
+                                <form
+                                    onSubmit={(ev) => {
+                                        login(ev);
+                                    }}
+                                >
                                     <div className="relative w-full mb-3">
+                                        <div className="text-red-500 font-bold" style={usuarioAlert}>
+                                            "Email" está vacio.
+                                        </div>
+
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="grid-password"
@@ -61,6 +154,10 @@ export default function Login() {
                                     </div>
 
                                     <div className="relative w-full mb-3">
+                                        <div className="text-red-500 font-bold" style={contrasenaAlert}>
+                                            "Contraseña" está vacio.
+                                        </div>
+
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="grid-password"
@@ -71,8 +168,8 @@ export default function Login() {
                                             type="password"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                             placeholder="Contraseña"
-                                            value={contraseña}
-                                            onChange={(e) => setContraseña(e.target.value)}
+                                            value={contrasena}
+                                            onChange={(e) => setContrasena(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -83,42 +180,41 @@ export default function Login() {
                                                 className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                                             />
                                             <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                        Recuerdame
+                                                Recuerdame
                                             </span>
                                         </label>
                                     </div>
 
                                     <div className="text-center mt-6">
-                                        <button
+                                        <input
                                             className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                                            type="button"
-                                            onClick={() => {
-                                                if (usuario === "" && contraseña === "") {
-                                                    console.log("No contraseña no ingreso");
-                                                } else {
-                                                    redirect();
-                                                }
-                                            }}
-                                        >
-                                            Iniciar Sesión
-                                        </button>
+                                            type="submit"
+                                            value="Iniciar Sesión"
+                                        />
+                                    </div>
+
+
+                                    <div className="text-red-500 font-bold" style={loginAlert}>
+                                        Error al iniciar sesión.
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div className="flex flex-wrap mt-6 relative">
+
                             <div className="w-1/2">
                                 <a
                                     href="#pablo"
                                     onClick={(e) => e.preventDefault()}
                                     className="text-blueGray-200"
                                 >
-                                    <small>Forgot password?</small>
+                                    <small />
                                 </a>
                             </div>
+
                             <div className="w-1/2 text-right">
                                 <Link to="/auth/register" className="text-blueGray-200">
-                                    <small>Create new account</small>
+                                    <small>Crear nueva cuenta</small>
                                 </Link>
                             </div>
                         </div>
