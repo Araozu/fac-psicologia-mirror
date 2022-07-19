@@ -5,8 +5,17 @@ import {Switch, Route, Redirect} from "react-router-dom";
 
 import Login from "../views/auth/Login.tsx";
 import Register from "../views/auth/Register.tsx";
+import {useHistory} from "react-router";
 
 export default function Auth() {
+    const history = useHistory();
+    const accessToken = localStorage.getItem("access_token");
+    console.log("Access token:", accessToken);
+
+    if (accessToken !== null) {
+        history.replace("/admin/dashboard");
+    }
+
     return (
         <>
             <main>
