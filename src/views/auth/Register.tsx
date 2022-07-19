@@ -1,9 +1,11 @@
 import React, {FormEvent, useState} from "react";
 import {useHistory} from "react-router";
+import {SERVER_PATH} from "@/variables";
 
 /** Data of the user to register */
 export interface RegistrationData {
     name: string,
+    lastname: string,
     email: string,
     password: string,
 }
@@ -15,7 +17,8 @@ export interface ResponseData {
     /** The possible response of the server, only if `ok` is `true` */
     json?: {
         /** Response of the server. Should always be "registro exitoso" */
-        message: string
+        message: string,
+        [key: string]: string | undefined,
     }
 }
 
@@ -26,7 +29,7 @@ export interface ResponseData {
  */
 type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
 
-const SERVER_PATH = "http://127.0.0.1:8000";
+
 const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
     fetch(`${SERVER_PATH}/api/register`, {
         method: "POST",
@@ -36,6 +39,7 @@ const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
         },
         body: JSON.stringify({
             name: data.name,
+            lastname: data.lastname,
             email: data.email,
             password: data.password,
             password_confirmation: data.password,
@@ -43,12 +47,13 @@ const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
     })
         .then((res) => {
             if (res.ok) {
-                res.json().then((jsonObj) => {
-                    resolve({
-                        ok: true,
-                        json: jsonObj,
+                res.json()
+                    .then((jsonObj) => {
+                        resolve({
+                            ok: true,
+                            json: jsonObj,
+                        });
                     });
-                });
             } else {
                 resolve({ok: false});
             }
@@ -65,13 +70,13 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
     // Default values
     const registerFunction = props.registerFn ?? defaultRegisterFn;
 
-
     const [nameAlertStyle, setNameAlertStyle] = useAlertStyle();
     const [emailAlertStyle, setEmailAlertStyle] = useAlertStyle();
     const [passwordAlertStyle, setPasswordAlertStyle] = useAlertStyle();
     const [registrationErrorStyle, setRegistrationErrorStyle] = useAlertStyle();
 
     const [name, setName] = useState("");
+    const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -93,7 +98,12 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
         }
 
         if (name && email && password) {
-            const response = await registerFunction({name, email, password});
+            const response = await registerFunction({
+                name,
+                lastname,
+                email,
+                password,
+            });
             if (response.ok) {
                 history.push("/admin/dashboard");
             } else {
@@ -112,7 +122,7 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
                         >
                             <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                                 <div className="text-blueGray-400 text-center mb-3 font-bold">
-                                    <small>Sign up with credentials</small>
+                                    <small>Registrarse con credenciales</small>
                                 </div>
                                 <form
                                     onSubmit={(ev) => {
@@ -120,26 +130,48 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
                                     }}
                                 >
                                     <div className="relative w-full mb-3">
-                                        <div className="text-red-500 font-bold" style={nameAlertStyle}>Name is empty
+                                        <div className="text-red-500 font-bold" style={nameAlertStyle}>
+                                            "Nombre" está vacio.
                                         </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-name"
                                         >
-                                            Name
+                                            Nombres
                                         </label>
                                         <input
                                             id="user-name"
                                             name="user-name"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                            placeholder="Name"
+                                            placeholder="Nombres"
                                             value={name}
                                             onChange={(x) => setName(x.target.value)}
                                         />
                                     </div>
 
                                     <div className="relative w-full mb-3">
-                                        <div className="text-red-500 font-bold" style={emailAlertStyle}>Email is empty
+                                        <div className="text-red-500 font-bold" style={nameAlertStyle}>
+                                            "Apellidos" está vacio.
+                                        </div>
+                                        <label
+                                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                            htmlFor="user-lastname"
+                                        >
+                                            Apellidos
+                                        </label>
+                                        <input
+                                            id="user-lastname"
+                                            name="user-lastname"
+                                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                            placeholder="Apellidos"
+                                            value={lastname}
+                                            onChange={(x) => setLastname(x.target.value)}
+                                        />
+                                    </div>
+
+                                    <div className="relative w-full mb-3">
+                                        <div className="text-red-500 font-bold" style={emailAlertStyle}>
+                                            "Email" está vacio.
                                         </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -160,20 +192,20 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
 
                                     <div className="relative w-full mb-3">
                                         <div className="text-red-500 font-bold" style={passwordAlertStyle}>
-                                            Password is empty
+                                            La contraseña está vacia.
                                         </div>
                                         <label
                                             className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                                             htmlFor="user-password"
                                         >
-                                            Password
+                                            Contraseña
                                         </label>
                                         <input
                                             type="password"
                                             id="user-password"
                                             name="user-password"
                                             className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                            placeholder="Password"
+                                            placeholder="Contraseña"
                                             value={password}
                                             onChange={(x) => setPassword(x.target.value)}
                                         />
@@ -183,12 +215,12 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
                                         <input
                                             className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                                             type="submit"
-                                            value="Create Account"
+                                            value="Crear cuenta"
                                         />
                                     </div>
 
                                     <div className="text-red-500 font-bold" style={registrationErrorStyle}>
-                                        Registration error
+                                        Error en el registro.
                                     </div>
                                 </form>
                             </div>
