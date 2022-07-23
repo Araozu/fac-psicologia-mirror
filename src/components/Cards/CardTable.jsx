@@ -1,11 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import {useHistory} from "react-router-dom";
 // components
 
 import TableDropdown from "../Dropdowns/TableDropdown.jsx";
 
 export default function CardTable({ color }) {
+
+  let history  = useHistory();
+  const redirect = () => {
+    history.push("/crear/crearpm")
+  }
+
   return (
     <>
       <div
@@ -28,7 +34,7 @@ export default function CardTable({ color }) {
 
               <button
                 className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
-                onClick={() => {alert("Nuevo elemento button")}}>
+                onClick={() => {redirect()}}>
                 <i className="fas fa-plus"></i> Nuevo PM
               </button>
             </div>
