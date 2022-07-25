@@ -1,6 +1,6 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
 enum EstadoPlanMejora {
-    "EnProceso",
+    EnProceso,
     Concluido,
     Programado,
     Reprogramado,
@@ -13,10 +13,34 @@ interface PlanMejoraData {
     responsable: string,
     /** Se asume que siempre es un entero entre 0 y 100 */
     avance: number,
-    estado: string,
+    estado: EstadoPlanMejora,
+}
+
+function estadoPlanMejoraToString(estado: EstadoPlanMejora): string {
+    switch (estado) {
+        case EstadoPlanMejora.Reprogramado: return "Reprogramado";
+        case EstadoPlanMejora.Programado: return "Programado";
+        case EstadoPlanMejora.Planificado: return "Planificado";
+        case EstadoPlanMejora.Concluido: return "Concluido";
+        case EstadoPlanMejora.EnProceso: return "En Proceso";
+        default: return "";
+    }
+}
+
+function estadoPlanMejoraToColor(estado: EstadoPlanMejora): [string, string] {
+    switch (estado) {
+        case EstadoPlanMejora.EnProceso: return ["#ef4444", "#FECACA"];
+        case EstadoPlanMejora.Concluido: return ["#10B981", "#68d7b2"];
+        case EstadoPlanMejora.Programado: return ["#FF8F0C", "#F7C78E"];
+        case EstadoPlanMejora.Planificado: return ["#0f8dc4", "#25BAFA"];
+        case EstadoPlanMejora.Reprogramado: return ["#F3F80C", "#FCFDB7"];
+        default: return ["red", "blue"];
+    }
 }
 
 function PlanMejora(props: { plan: PlanMejoraData }) {
+    const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
+
     return (
         <tr>
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
@@ -34,10 +58,10 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
                     <span>{props.plan.avance}%</span>
 
                     <div className="relative w-full inline-block py-1">
-                        <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
+                        <div className="overflow-hidden h-2 text-xs flex rounded" style={{backgroundColor: colorFondo2}}>
                             <div
-                                style={{width: `${props.plan.avance}%`}}
-                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                                style={{width: `${props.plan.avance}%`, backgroundColor: colorFondo1}}
+                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
                             />
                         </div>
                     </div>
@@ -45,8 +69,12 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle text-emerald-500 mr-4" />
-                {props.plan.estado}
+                <i className="fas fa-circle mr-4" style={{color: colorFondo1}} />
+                {estadoPlanMejoraToString(props.plan.estado)}
+            </td>
+
+            <td>
+                <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
             </td>
         </tr>
     );
@@ -54,7 +82,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
 
 
 const mockPlan1: PlanMejoraData = {
-    estado: "Concluido",
+    estado: EstadoPlanMejora.Concluido,
     codigo: "OM-01-2020",
     estandar: 15,
     avance: 6,
@@ -62,7 +90,7 @@ const mockPlan1: PlanMejoraData = {
 };
 
 const mockPlan2: PlanMejoraData = {
-    estado: "Concluido",
+    estado: EstadoPlanMejora.Programado,
     codigo: "OM-01-2020",
     estandar: 15,
     avance: 54,
@@ -70,10 +98,26 @@ const mockPlan2: PlanMejoraData = {
 };
 
 const mockPlan3: PlanMejoraData = {
-    estado: "Concluido",
+    estado: EstadoPlanMejora.Planificado,
     codigo: "OM-01-2020",
     estandar: 15,
-    avance: 100,
+    avance: 57,
+    responsable: "Brayan Guillen",
+};
+
+const mockPlan4: PlanMejoraData = {
+    estado: EstadoPlanMejora.EnProceso,
+    codigo: "OM-01-2020",
+    estandar: 15,
+    avance: 83,
+    responsable: "Brayan Guillen",
+};
+
+const mockPlan5: PlanMejoraData = {
+    estado: EstadoPlanMejora.Reprogramado,
+    codigo: "OM-01-2020",
+    estandar: 15,
+    avance: 29,
     responsable: "Brayan Guillen",
 };
 
@@ -91,7 +135,7 @@ export default function CardPageVisits() {
                         </div>
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                             <button
-                                className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
                             >
                                 + Nuevo PM
@@ -119,13 +163,15 @@ export default function CardPageVisits() {
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Estado
                                 </th>
+                                <td />
                             </tr>
                         </thead>
                         <tbody>
                             <PlanMejora plan={mockPlan1} />
                             <PlanMejora plan={mockPlan2} />
                             <PlanMejora plan={mockPlan3} />
-                            <PlanMejora plan={mockPlan1} />
+                            <PlanMejora plan={mockPlan4} />
+                            <PlanMejora plan={mockPlan5} />
                         </tbody>
                     </table>
                 </div>
