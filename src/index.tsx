@@ -22,7 +22,9 @@ import Landing from "./views/Landing";
 import Profile from "./views/Profile";
 
 function require(url: string) {
-    return new URL(url, import.meta.url).href;
+    try {
+        return new URL(url, import.meta.url).href;
+    } catch (e) {}
 }
 
 /// @ts-ignore
