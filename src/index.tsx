@@ -11,6 +11,8 @@ import "./assets/styles/tailwind.css";
 import Admin from "./layouts/Admin";
 // @ts-ignore
 import Auth from "./layouts/Auth";
+// @ts-ignore
+import Crear from "./layouts/Crear";
 
 // views without layouts
 
@@ -33,6 +35,8 @@ const rootTree = (
         <Switch>
             <Route path="/admin" component={Admin} />
             <Route path="/auth" component={Auth} />
+            <Route path="/crear" component={Crear} />
+
             {/* add routes without layouts*/}
             <Route path="/landing" exact component={Landing} />
             <Route path="/profile" exact component={Profile} />
