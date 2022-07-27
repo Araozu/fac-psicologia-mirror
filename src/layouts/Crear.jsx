@@ -3,15 +3,31 @@ import {Switch, Route, Redirect} from "react-router-dom";
 
 // components
 import CrearPM from "../views/Create/CrearPM";
+import Sidebar from "../components/Sidebar/Sidebar";
+import HeaderStandard from "../components/Headers/HeaderStandard";
+import HeaderCreate from "../components/Headers/HeaderCreate";
 
 export default function Crear() {
-return(
-    <>
-        <Switch>
-            <Route path="/crear/crearpm" exact component={CrearPM}/>
-            <Redirect from="/crear" to="/admin/estandar8"/>
-        </Switch>
-    </>
-)
+    const [isHidden, setIsHidden] = useState(false);
+    const handleViewChange = (estandarN) => {
+        setEstandar(estandarList[estandarN]);
+    };
+    const containerClass = useMemo(
+        () => isHidden ? "md:ml-24" : "md:ml-64",
+        [isHidden],
+    );
+    return (
+        <>
+            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden}/>
+            <div className={`relative ${containerClass} bg-blueGray-100`}>
+                <HeaderCreate estandar={"Estandar 8"} tipo ={"Plan de Mejora"}/>
+                <Switch>
+                    <Route path="/crear/crearpm" exact component={CrearPM}/>
+                    <Redirect from="/crear" to="/admin"/>
+                </Switch>
+            </div>
+
+        </>
+    );
 
 }
