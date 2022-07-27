@@ -128,7 +128,7 @@ const mockPlan5: PlanMejoraData = {
     responsable: "Brayan Guillen",
 };
 
-export default function CardPageVisits() {
+export default function CardPlanesMejora() {
     const h = useHistory();
 
     (async() => {
