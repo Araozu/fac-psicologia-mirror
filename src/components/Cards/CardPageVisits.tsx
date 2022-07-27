@@ -1,4 +1,8 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
+/// @ts-ignore
+import TableDropdown from "../Dropdowns/TableDropdown";
+import {useHistory} from "react-router";
+
 enum EstadoPlanMejora {
     EnProceso,
     Concluido,
@@ -74,7 +78,10 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
             </td>
 
             <td>
+                <TableDropdown />
+                {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
+                */}
             </td>
         </tr>
     );
@@ -83,7 +90,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
 
 const mockPlan1: PlanMejoraData = {
     estado: EstadoPlanMejora.Concluido,
-    codigo: "OM-01-2020",
+    codigo: "OM-06-2020",
     estandar: 15,
     avance: 6,
     responsable: "Brayan Guillen",
@@ -99,7 +106,7 @@ const mockPlan2: PlanMejoraData = {
 
 const mockPlan3: PlanMejoraData = {
     estado: EstadoPlanMejora.Planificado,
-    codigo: "OM-01-2020",
+    codigo: "OM-02-2020",
     estandar: 15,
     avance: 57,
     responsable: "Brayan Guillen",
@@ -107,7 +114,7 @@ const mockPlan3: PlanMejoraData = {
 
 const mockPlan4: PlanMejoraData = {
     estado: EstadoPlanMejora.EnProceso,
-    codigo: "OM-01-2020",
+    codigo: "OM-03-2020",
     estandar: 15,
     avance: 83,
     responsable: "Brayan Guillen",
@@ -115,13 +122,31 @@ const mockPlan4: PlanMejoraData = {
 
 const mockPlan5: PlanMejoraData = {
     estado: EstadoPlanMejora.Reprogramado,
-    codigo: "OM-01-2020",
+    codigo: "OM-04-2020",
     estandar: 15,
     avance: 29,
     responsable: "Brayan Guillen",
 };
 
 export default function CardPageVisits() {
+    const h = useHistory();
+
+    (async() => {
+        const userToken = localStorage.getItem("access_token");
+        if (userToken === null) return;
+
+        const obj = await fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`,
+            },
+        });
+        const objF = await obj.json();
+        console.log(objF);
+        console.log(objF.data);
+    })();
 
     return (
         <>
@@ -137,6 +162,9 @@ export default function CardPageVisits() {
                             <button
                                 className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
+                                onClick={() => {
+                                    h.push("/crear/crearpm");
+                                }}
                             >
                                 + Nuevo PM
                             </button>

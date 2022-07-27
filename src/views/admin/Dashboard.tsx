@@ -1,7 +1,8 @@
 import React from "react";
 
 // components
-
+/// @ts-ignore
+import CardTable from "../../components/Cards/CardTable.jsx";
 import CardPageVisits from "../../components/Cards/CardPageVisits";
 
 export default function Dashboard() {
@@ -9,7 +10,7 @@ export default function Dashboard() {
         <>
             <div className="flex flex-wrap mt-4">
                 <div className="w-full mb-12 px-4">
-                    <CardPageVisits />
+                    <CardTable />
                 </div>
             </div>
         </>
