@@ -20,7 +20,7 @@ export default function Crear() {
         <>
             <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden}/>
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <HeaderCreate estandar={"EstandarSelector 8"} tipo ={"Plan de Mejora"}/>
+                <HeaderCreate estandar={"Estandar 8"} tipo ={"Plan de Mejora"}/>
                 <Switch>
                     <Route path="/crear/crearpm" exact component={CrearPM}/>
                     <Redirect from="/crear" to="/admin"/>
