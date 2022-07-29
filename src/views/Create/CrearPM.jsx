@@ -6,15 +6,17 @@ import EstandarSelector from "../../components/Selects/EstandarSelector";
 import IDinamics from "../../components/Inputs/IDinamics";
 import EstadoSelector from "../../components/Selects/EstadoSelector";
 import Eficacia from "../../components/Selects/Eficacia";
+import IDinamicsRes from "../../components/Inputs/IDinamicsRes";
 
 
 export default function Crear() {
-    const token = localStorage.getItem("access_token")
+    //const token = localStorage.getItem("access_token")
+    const token = "48|56X6mbt23xMH66zlPBEl9w31w59l25yEDxmLz6z2"
 
     const formik = useFormik({
         initialValues: {
             nombre: "",
-            estandar: 0,
+            estandar: 1,
             codigo: "",
             fuente: [],
             po: [],
@@ -34,28 +36,7 @@ export default function Crear() {
         },
         onSubmit: (values) => {
             //console.log(JSON.stringify(values, null, 1));
-            /* const data = {
-                 nombre: values.nombre,
-                 oportunidad_plan: values.omr,
-                 semestre_ejecucion: values.semestre,
-                 duracion: values.duracion,
-                 estado: values.estado,
-                 avance: values.avance,
-                 evaluacion_eficacia: values.eficacia,
-                 estandar_id: values.estandar,
-                 codigo: values.codigo,
-                 metas: values.meta,
-                 observaciones: values.observaciones,
-                 problemas_oportunidades: values.po,
-                 fuentes: values.fuente,
-                 responsables: values.responsables,
-                 causas_raices: values.cr,
-                 recursos: values.recursos,
-                 acciones_mejoras: values.amr,
-                 evidencias_planes_mejoras: values.evidencias,
-             };
-             console.log(data);*/
-            axios.post("",
+            axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
                 {
                     nombre: values.nombre,
                     oportunidad_plan: values.omr,
@@ -82,9 +63,11 @@ export default function Crear() {
                         Authorization: "Bearer " + token,
                     },
                 },
-            ).then();
-
-
+            ).then(function(response){
+                console.log(response);
+            }).catch(function(error){
+                console.log(error);
+            });
         },
         validate: (values) => {
             let errors = {};
@@ -98,7 +81,11 @@ export default function Crear() {
     });
 
     const setEficacia = (data) => {
-        formik.values.eficacia = data;
+        if(data === "true")
+        formik.values.eficacia = true;
+        else if(data==="false"){
+            formik.values.eficacia = false;
+        }
     };
     const setFuente = (data) => {
         formik.values.fuente = data;
@@ -196,7 +183,7 @@ export default function Crear() {
                 </tr>
                 {/*Responsables*/}
                 <tr>
-                    <IDinamics title={"Responsables (11)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
+                    <IDinamicsRes title={"Responsables (11)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
                 </tr>
                 {/*Observaciones*/}
                 <tr>
