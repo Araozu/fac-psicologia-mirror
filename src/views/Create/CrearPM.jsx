@@ -8,13 +8,13 @@ import EstadoSelector from "../../components/Selects/EstadoSelector";
 import Eficacia from "../../components/Selects/Eficacia";
 
 
-
 export default function Crear() {
+    const token = localStorage.getItem("access_token")
 
     const formik = useFormik({
         initialValues: {
             nombre: "",
-            estandar: "",
+            estandar: 0,
             codigo: "",
             fuente: [],
             po: [],
@@ -22,7 +22,7 @@ export default function Crear() {
             omr: "",
             amr: [],
             semestre: "",
-            duracion: "",
+            duracion: 0,
             recursos: [],
             meta: [],
             responsables: [],
@@ -33,7 +33,7 @@ export default function Crear() {
             eficacia: true,
         },
         onSubmit: (values) => {
-            console.log(JSON.stringify(values, null, 1));
+            //console.log(JSON.stringify(values, null, 1));
             /* const data = {
                  nombre: values.nombre,
                  oportunidad_plan: values.omr,
@@ -53,15 +53,36 @@ export default function Crear() {
                  recursos: values.recursos,
                  acciones_mejoras: values.amr,
                  evidencias_planes_mejoras: values.evidencias,
-
              };
              console.log(data);*/
-            /* axios.post("",
-                 {
-                     nombre: values.nombre,
-                     oportunidad_plan:values.po,
-                 },
-             );*/
+            axios.post("",
+                {
+                    nombre: values.nombre,
+                    oportunidad_plan: values.omr,
+                    semestre_ejecucion: values.semestre,
+                    duracion: values.duracion,
+                    estado: values.estado,
+                    avance: values.avance,
+                    evaluacion_eficacia: values.eficacia,
+                    estandar_id: values.estandar,
+                    codigo: values.codigo,
+                    metas: values.meta,
+                    observaciones: values.observaciones,
+                    problemas_oportunidades: values.po,
+                    fuentes: values.fuente,
+                    responsables: values.responsables,
+                    causas_raices: values.cr,
+                    recursos: values.recursos,
+                    acciones_mejoras: values.amr,
+                    evidencias_planes_mejoras: values.evidencias,
+                }, {
+                    headers: {
+                        "Content-type":"application/json",
+                        Accept:"application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                },
+            ).then();
 
 
         },
@@ -76,16 +97,16 @@ export default function Crear() {
 
     });
 
-    const setEficacia =(data)=>{
-        formik.values.eficacia=data
-    }
-    const setFuente =(data) =>{
-        formik.values.fuente=data
-    }
+    const setEficacia = (data) => {
+        formik.values.eficacia = data;
+    };
+    const setFuente = (data) => {
+        formik.values.fuente = data;
+    };
     //recursos
-    const setRecursos =(data)=> {
-        formik.values.recursos=data
-    }
+    const setRecursos = (data) => {
+        formik.values.recursos = data;
+    };
     //PO
     const setPO = (data) => {
         formik.values.po = data;
@@ -196,7 +217,7 @@ export default function Crear() {
                 </tr>
                 {/*Eficacia*/}
                 <tr>
-                   <Eficacia title={"Eficacia"} setDt={setEficacia}/>
+                    <Eficacia title={"Eficacia"} setDt={setEficacia}/>
                 </tr>
                 </tbody>
 
