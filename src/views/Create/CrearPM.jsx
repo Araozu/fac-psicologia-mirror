@@ -7,11 +7,11 @@ import IDinamics from "../../components/Inputs/IDinamics";
 import EstadoSelector from "../../components/Selects/EstadoSelector";
 import Eficacia from "../../components/Selects/Eficacia";
 import IDinamicsRes from "../../components/Inputs/IDinamicsRes";
-
+import './CrearPM.css'
 
 export default function Crear() {
-    //const token = localStorage.getItem("access_token")
-    const token = "48|56X6mbt23xMH66zlPBEl9w31w59l25yEDxmLz6z2"
+    const token = localStorage.getItem("access_token")
+    //const token = "48|56X6mbt23xMH66zlPBEl9w31w59l25yEDxmLz6z2"
 
     const formik = useFormik({
         initialValues: {
@@ -126,96 +126,57 @@ export default function Crear() {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <table className="items-center w-full bg-transparent border-collapse">
-                <thead>
-                <tr className={"flex-col border border-solid justify-center items-center px-3 py-3 uppercase text-lg border font-semibold border-l-0 border-r-0"}>
-                    Formulario de Creación de Planes de Mejora
-
-                </tr>
-                </thead>
-                <tbody>
+            <div className="div-title">
+                <label className="title">Formulario de Creación de Planes de Mejora</label>
+            </div>
+            <div className= "div-head">
                 {/*nombre del PM*/}
-                <tr>
-                    <IData title={"Nombra tu plan de Mejora"} name="nombre" type="text" onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Nombra tu plan de Mejora"} name="nombre" type="text" onChange={formik.handleChange}/>
                 {/*selecciona el estandar*/}
-                <tr>
-                    <EstandarSelector title={"Estandares"} total={30} onChange={handleSelectestandarChange}/>
-                </tr>
+                <EstandarSelector title={"Estandares"} total={30} onChange={handleSelectestandarChange}/>
+            </div>
+            <div className="div-body">
                 {/*Código*/}
-                <tr>
-                    <IData title={"Código (1)"} name="codigo" type={"text"} onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Código (1)"} name="codigo" type={"text"} onChange={formik.handleChange}/>
                 {/*Seleccion de fuente*/}
-                <tr>
-                    <IDinamics title={"Fuentes (2)"} name={"fuentes"} type={"text"} setDt={setFuente}/>
-                </tr>
+                <IDinamics title={"Fuentes (2)"} name={"fuentes"} type={"text"} setDt={setFuente}/>
                 {/*fila problema oportunidad */}
-                <tr>
-                    <IDinamics title={"Problema/Oportunidad (3)"} name={"po"} type={"text"} setDt={setPO}/>
-                </tr>
+                <IDinamics title={"Problema/Oportunidad (3)"} name={"po"} type={"text"} setDt={setPO}/>
                 {/*Fila Causa Raiz*/}
-                <tr>
-                    <IDinamics title={"Causa/Raiz (4)"} name={"cr"} type={"text"} setDt={setCR}/>
-                </tr>
+                <IDinamics title={"Causa/Raiz (4)"} name={"cr"} type={"text"} setDt={setCR}/>
                 {/*Fila oportunidad mejora*/}
-                <tr>
-                    <IData title={"Oportunidad de Mejora (5)"} name="omr" type="text" onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Oportunidad de Mejora (5)"} name="omr" type="text" onChange={formik.handleChange}/>
                 {/*Acciones de mejora*/}
-                <tr>
-                    <IDinamics title={"Acciones de Mejora (6)"} name={"amr"} type={"text"} setDt={setAM}/>
-                </tr>
+                <IDinamics title={"Acciones de Mejora (6)"} name={"amr"} type={"text"} setDt={setAM}/>
                 {/*Fila semestre y año de Ejecución*/}
-                <tr>
-                    <IData title={"Año-Semestre de Ejecución (7)"} name={"semestre"} type={"text"}
-                           onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Año-Semestre de Ejecución (7)"} name={"semestre"} type={"text"}
+                       onChange={formik.handleChange}/>
                 {/*DUración*/}
-                <tr>
-                    <IData title={"Duración (8)"} name={"duracion"} type={"number"} onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Duración (8)"} name={"duracion"} type={"number"} onChange={formik.handleChange}/>
                 {/*Recursos*/}
                 <IDinamics title={"Recursos (9)"} name={"recursos"} type={"text"} setDt={setRecursos}/>
                 {/*Metas*/}
-                <tr>
-                    <IDinamics title={"Metas (10)"} name={"meta"} type={"text"} setDt={setMeta}/>
-                </tr>
+                <IDinamics title={"Metas (10)"} name={"meta"} type={"text"} setDt={setMeta}/>
                 {/*Responsables*/}
-                <tr>
-                    <IDinamicsRes title={"Responsables (11)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
-                </tr>
+                <IDinamicsRes title={"Responsables (11)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
                 {/*Observaciones*/}
-                <tr>
-                    <IDinamics title={"Observaciones (12)"} name={"observaciones"} type={"text"}
-                               setDt={setObervaciones}/>
-                </tr>
+                <IDinamics title={"Observaciones (12)"} name={"observaciones"} type={"text"}
+                           setDt={setObervaciones}/>
                 {/*Estados*/}
                 <EstadoSelector title={"Estado (13)"} onChange={handleStateChange}/>
                 {/*Evidencias*/}
-                <tr>
-                    <IData title={"Evidencias (14)"} name={"evidencias"} type={"text"}
-                           onChange={formik.handleChange}/>
-                </tr>
+                <IData title={"Evidencias (14)"} name={"evidencias"} type={"text"}
+                       onChange={formik.handleChange}/>
                 {/*Avances*/}
-                <tr>
-                    <IData title={"Avances"} name="avance" type="number" onChange={formik.handleChange}
-                           value={formik.values.avance}/>
-                </tr>
+                <IData title={"Avances"} name="avance" type="number" onChange={formik.handleChange}
+                       value={formik.values.avance}/>
                 {/*Eficacia*/}
-                <tr>
-                    <Eficacia title={"Eficacia"} setDt={setEficacia}/>
-                </tr>
-                </tbody>
+                <Eficacia title={"Eficacia"} setDt={setEficacia}/>
+            </div>
 
-            </table>
-
-            <button type="submit" style={{
-                width: "80px",
-                height: "35px",
-                backgroundColor: "white",
-            }}>Guardar
-            </button>
+            <div className="div-save">
+                <button className="button-save" type="submit">Guardar</button>
+            </div>
         </form>);
 }
 

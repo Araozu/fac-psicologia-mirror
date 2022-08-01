@@ -33,11 +33,11 @@ export default function EstadoSelector(props) {
         },
     ];
 
-    return (<div>
-        <label>
+    return (<>
+        <label className="etiqueta">
             {title}
         </label>
 
-        <Select options={estados} onChange={onChange}/>
-    </div>);
+        <Select className="estandarS" options={estados} onChange={onChange}/>
+    </>);
 }

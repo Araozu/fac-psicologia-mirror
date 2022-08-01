@@ -24,8 +24,8 @@ export default function Eficacia(props){
         setDt(eficacia)
     },[eficacia])
     return(<div>
-        <label>{title}</label>
-        <select onChange={(e) => selectEficacia(e)}>
+        <label className="etiqueta">{title}</label>
+        <select className="eficacia" onChange={(e) => selectEficacia(e)}>
             {efis.map((option, index) => (
                 <option key={index} value={option.value}>{option.text}</option>
             ))}

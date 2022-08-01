@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-
+import { AiFillPlusCircle as Add, AiFillMinusCircle as Delete } from "react-icons/ai";
 export default function IDinamicsRes(props) {
     let {
         title,
@@ -32,19 +32,19 @@ export default function IDinamicsRes(props) {
 
 
     return (<div>
-        <label>{title}</label>
-        <div>
+        <label className="etiqueta">{title}</label>
+        <div className="div-dinamico">
             {data.map((singleData, index) => (
                 <div key={index}>
                     <div>
-                        <input id={name} name={"nombre"} type={type} value={singleData.nombre}
+                        <input  className="input-dinamico" id={name} name={"nombre"} type={type} value={singleData.nombre}
                                onChange={(e) => handleChange(e, index)}
                         />
                         {data.length - 1 === index && data.length < 4 && (
-                            <button type={"button"} onClick={handleAdd}>+</button>
+                            <button type={"button"} onClick={handleAdd}><Add className="icon"/></button>
                         )}
                         {data.length > 1 && (
-                            <button type={"button"} onClick={() => handleRemove(index)}>Eliminar</button>
+                            <button type={"button"} onClick={() => handleRemove(index)}><Delete className="icon"/></button>
                         )}
                     </div>
                 </div>

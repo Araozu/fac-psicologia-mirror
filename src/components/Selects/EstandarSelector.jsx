@@ -1,18 +1,27 @@
 import React from "react";
 import Select from "react-select";
+import "../../views/Create/CrearPM.css";
 
-export  default function EstandarSelector(props){
-    const {title, total,onChange} = props;
-    const estandares=[{value:0, label:""}]
-    for (let i=1; i<=total;i++){
-        estandares.push({value:i,label:(i)})
+export default function EstandarSelector(props) {
+    const {
+        title,
+        total,
+        onChange,
+    } = props;
+    const estandares = [{
+        value: 0,
+        label: "",
+    }];
+    for (let i = 1; i <= total; i++) {
+        estandares.push({
+            value: i,
+            label: (i),
+        });
     }
 
-    return(<div>
-        <label>
+    return (<>
+        <label className="etiqueta">
             {title}
-        </label>
-
-        <Select options={estandares} onChange={onChange}/>
-    </div>);
+        </label><Select className="estandarS" options={estandares} onChange={onChange}/>
+    </>);
 }
