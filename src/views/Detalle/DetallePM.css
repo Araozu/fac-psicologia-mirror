@@ -1,0 +1,37 @@
+.pm-section{
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 30px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 5px 5px 5px rgb(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 10px;
+    
+}
+
+.pm-section-content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pm-section .pm-section-title{
+    font-size: 24px;
+    font-weight: bold;
+    color: #777777;
+}
+
+.pm-section hr {
+    margin: 10px 0;
+}
+
+.pm-attrib-name {
+    font-size: 10px;
+    display: block;
+}
+
+.pm-attrib {
+    display: block;
+    margin: 10px 20px;
+}

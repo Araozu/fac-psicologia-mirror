@@ -13,6 +13,9 @@ import Admin from "./layouts/Admin";
 import Auth from "./layouts/Auth";
 // @ts-ignore
 import Crear from "./layouts/Crear";
+// @ts-ignore
+import Detalle from "./layouts/Detalle";
+
 
 // views without layouts
 
@@ -36,6 +39,7 @@ const rootTree = (
             <Route path="/admin" component={Admin} />
             <Route path="/auth" component={Auth} />
             <Route path="/crear" component={Crear} />
+            <Route path="/detalle/:codigo" component={Detalle} />
 
             {/* add routes without layouts*/}
             <Route path="/landing" exact component={Landing} />
