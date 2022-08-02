@@ -2,6 +2,7 @@
 /// @ts-ignore
 import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory} from "react-router";
+import {ChangeEventHandler, useState} from "react";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -130,6 +131,8 @@ const mockPlan5: PlanMejoraData = {
 
 export default function CardPlanesMejora() {
     const h = useHistory();
+    const [filtroCodigo, setFiltroCodigo] = useState("OM-");
+    const [filtroEstado, setFiltroEstado] = useState(-1);
 
     (async() => {
         const userToken = localStorage.getItem("access_token");
@@ -150,15 +153,18 @@ export default function CardPlanesMejora() {
 
     return (
         <>
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
                 <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="flex flex-wrap items-center">
-                        <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 className="font-semibold text-base text-blueGray-700">
+                    <div className="grid grid-cols-2" style={{gridTemplateColumns: "auto 12rem"}}>
+                        <div className="relative w-full max-w-full">
+                            <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
                                 Filtros
                             </h3>
+                            <FiltroInput onChange={setFiltroCodigo} />
+                            <FiltroEstado onChange={setFiltroEstado} />
+                            <FiltroEstandar onChange={() => {}} />
                         </div>
-                        <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                        <div className="relative w-full px-4 max-w-full text-right">
                             <button
                                 className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
@@ -205,5 +211,73 @@ export default function CardPlanesMejora() {
                 </div>
             </div>
         </>
+    );
+}
+
+function FiltroInput(props: {onChange: (_: string) => void}) {
+    const [value, setValue] = useState("OM-");
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (ev) => {
+        let v = ev.target.value;
+        if (!v.startsWith("OM-")) {
+            v = "OM-";
+        }
+        setValue(v);
+    };
+
+    return (
+        <span className="relative px-2">
+            <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Codigo</span>
+            <input value={value} onChange={handleChange} type="text" id="codigo-input" className="rounded-xl text-sm p-2 w-48" />
+        </span>
+    );
+}
+
+function FiltroEstado(props: {onChange: (_: number) => void}) {
+    const [selected, setSelected] = useState(-1);
+
+    const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
+        const value = parseInt(ev.target.value, 10);
+        props.onChange(value);
+        setSelected(value);
+    };
+
+    return (
+        <span className="relative">
+            <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Estado</span>
+            <select value={selected} onChange={handleChange} name="estado" id="filtro-estado" className="rounded-xl text-sm p-2 w-48">
+                <option value="-1">Todos</option>
+                <option value="0">En Proceso</option>
+                <option value="1">Concluido</option>
+                <option value="2">Programado</option>
+                <option value="3">Reprogramado</option>
+                <option value="4">Planificado</option>
+            </select>
+        </span>
+    );
+}
+
+function FiltroEstandar(props: {onChange: (_: number) => void}) {
+    const [selected, setSelected] = useState(8);
+
+    const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
+        const value = parseInt(ev.target.value, 10);
+        props.onChange(value);
+        setSelected(value);
+    };
+
+    return (
+        <span className="relative px-2">
+            <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Estandar</span>
+            <select
+                value={selected}
+                onChange={handleChange}
+                name="estado"
+                id="filtro-estado"
+                className="rounded-xl text-sm p-2 w-48"
+            >
+                <option value={8}>Estandar 8</option>
+            </select>
+        </span>
     );
 }
