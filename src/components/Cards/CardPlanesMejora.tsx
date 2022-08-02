@@ -2,7 +2,7 @@
 /// @ts-ignore
 import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory} from "react-router";
-import {ChangeEventHandler, useState} from "react";
+import {ChangeEventHandler, useEffect, useState} from "react";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -19,6 +19,43 @@ interface PlanMejoraData {
     /** Se asume que siempre es un entero entre 0 y 100 */
     avance: number,
     estado: EstadoPlanMejora,
+}
+
+interface PlanMejoraServer {
+    avance: number,
+    codigo: string,
+    estado: string,
+    estandar_name: string,
+    id: number,
+    user_name: string,
+}
+
+function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
+    let estadoPlan = EstadoPlanMejora.Planificado;
+    switch (plan.estado.toLowerCase()) {
+        case "desarrollo": {
+            estadoPlan = EstadoPlanMejora.EnProceso;
+            break;
+        }
+        case "planificado": {
+            estadoPlan = EstadoPlanMejora.Programado;
+            break;
+        }
+        case "programado": {
+            estadoPlan = EstadoPlanMejora.Programado;
+            break;
+        }
+    }
+
+    const codigoPlan = plan.codigo.startsWith("OM-") ? plan.codigo : `OM-${plan.codigo}`;
+
+    return {
+        codigo: codigoPlan,
+        estandar: 8,
+        responsable: plan.user_name,
+        avance: plan.avance,
+        estado: estadoPlan,
+    };
 }
 
 function estadoPlanMejoraToString(estado: EstadoPlanMejora): string {
@@ -134,22 +171,31 @@ export default function CardPlanesMejora() {
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState(-1);
 
-    (async() => {
-        const userToken = localStorage.getItem("access_token");
-        if (userToken === null) return;
+    const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
-        const obj = await fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${userToken}`,
-            },
-        });
-        const objF = await obj.json();
-        console.log(objF);
-        console.log(objF.data);
-    })();
+    useEffect(
+        () => {
+            const userToken = localStorage.getItem("access_token");
+            if (userToken === null) return;
+
+            const obj = fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`,
+                },
+            })
+                .then((obj) => obj.json())
+                .then((objF: {data: Array<PlanMejoraServer>}) => {
+                    const planesMejora = objF.data.map((x) => planMejoraServerToData(x));
+                    console.log(planesMejora);
+
+                    setPlanesMejora(planesMejora);
+                });
+        },
+        [],
+    );
 
     return (
         <>
@@ -201,11 +247,7 @@ export default function CardPlanesMejora() {
                             </tr>
                         </thead>
                         <tbody>
-                            <PlanMejora plan={mockPlan1} />
-                            <PlanMejora plan={mockPlan2} />
-                            <PlanMejora plan={mockPlan3} />
-                            <PlanMejora plan={mockPlan4} />
-                            <PlanMejora plan={mockPlan5} />
+                            { planesMejora.map((p, i) => <PlanMejora key={i} plan={p} />) }
                         </tbody>
                     </table>
                 </div>
