@@ -2,7 +2,7 @@
 /// @ts-ignore
 import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory} from "react-router";
-import {ChangeEventHandler, useEffect, useState} from "react";
+import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -178,7 +178,7 @@ export default function CardPlanesMejora() {
             const userToken = localStorage.getItem("access_token");
             if (userToken === null) return;
 
-            const obj = fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
+            fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -195,6 +195,18 @@ export default function CardPlanesMejora() {
                 });
         },
         [],
+    );
+
+    const planesMejoraEls = useMemo(
+        () => planesMejora
+            .filter((plan) => {
+                const contieneCodigoPlan = plan.codigo.indexOf(filtroCodigo) !== -1;
+                const contieneEstado = filtroEstado === -1 || plan.estado === filtroEstado;
+
+                return contieneCodigoPlan && contieneEstado;
+            })
+            .map((plan, i) => <PlanMejora plan={plan} key={i} />),
+        [filtroCodigo, filtroEstado, planesMejora],
     );
 
     return (
@@ -247,7 +259,7 @@ export default function CardPlanesMejora() {
                             </tr>
                         </thead>
                         <tbody>
-                            { planesMejora.map((p, i) => <PlanMejora key={i} plan={p} />) }
+                            { planesMejoraEls }
                         </tbody>
                     </table>
                 </div>
@@ -265,6 +277,7 @@ function FiltroInput(props: {onChange: (_: string) => void}) {
             v = "OM-";
         }
         setValue(v);
+        props.onChange(v);
     };
 
     return (
