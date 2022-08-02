@@ -35,3 +35,18 @@
     display: block;
     margin: 10px 20px;
 }
+
+.loading-gif {
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.title-cargando {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 150px;
+    font-size: 14px;
+    color: #777777;
+}
