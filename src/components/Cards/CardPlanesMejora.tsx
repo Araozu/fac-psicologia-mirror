@@ -3,6 +3,7 @@
 import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
+import {SERVER_PATH} from "@/variables";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -178,7 +179,7 @@ export default function CardPlanesMejora() {
             const userToken = localStorage.getItem("access_token");
             if (userToken === null) return;
 
-            fetch("http://gestion-calidad-rrii-api.herokuapp.com/api/plan", {
+            fetch(`${SERVER_PATH}/api/plan`, {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
