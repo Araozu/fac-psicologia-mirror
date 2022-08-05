@@ -1,12 +1,14 @@
 import React, {useState} from "react";
 import Select from "react-select";
 import "../../views/Create/CrearPM.css";
+import Label from "../Labels/Label";
 
 export default function Duracion(props) {
 
     const {
         title,
         setData,
+        detalle
     } = props;
 
     const data = [
@@ -43,7 +45,7 @@ export default function Duracion(props) {
 
     return (
         <>
-            <label className="etiqueta">{title}</label>
+            <Label title={title} detalle={detalle}/>
             <Select className={"estandarS"} options={data} onChange={handleChange}/>
             <input className="otros" disabled={editable} onChange={handleChangeInput} onWheel={(e) => e.target.blur()}
                    type={"number"} value={valor}/>
