@@ -8,10 +8,7 @@ export default function EstandarSelector(props) {
         total,
         onChange,
     } = props;
-    const estandares = [{
-        value: 0,
-        label: "",
-    }];
+    const estandares = [];
     for (let i = 1; i <= total; i++) {
         estandares.push({
             value: i,
