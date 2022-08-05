@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/ai";
-import {element} from "prop-types";
+import Label from "../Labels/Label";
 
 export default function(props) {
-    const {title,setData} = props;
+    const {title,setData, detalle} = props;
     const [selecteds, setSelecteds] = useState([]);
     const [addNewOption, setAddNewOption] = useState(false);
     const [valueNewOption, setValueNewOption] = useState("");
@@ -40,7 +40,7 @@ export default function(props) {
     return (
         <div>
             <div className={"titulo"}>
-                <label className={"etiqueta"}>{title}</label>
+                <Label className={"etiqueta"} title={title} detalle ={detalle}/>
             </div>
 
             <div className={"titulo"}>
