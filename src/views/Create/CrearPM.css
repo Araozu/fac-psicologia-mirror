@@ -6,30 +6,34 @@
     width: 280px;
 }
 
-.title{
+.title {
     font-size: 24px;
     font-weight: bold;
     padding: 10px;
     color: #1E293B;
 }
-.div-title{
+
+.div-title {
     display: flex;
     align-items: center;
     justify-content: center;
 
     border-bottom: 1px solid #1E293B;
 }
-.div-head{
+
+.div-head {
     border-bottom: 1px solid #1E293B;
     padding: 10px;
 }
-.div-body{
+
+.div-body {
     border-bottom: 1px solid #1E293B;
     padding: 10px;
 }
+
 .input-line {
     font-size: 16px;
-    height: 35px;
+    height: 42px;
     width: 900px;
     margin-top: 10px;
     border-radius: 8px;
@@ -37,25 +41,32 @@
 
 .estandarS {
     display: inline-block;
+    border-radius: 8px;
+    width: 250px;
+    margin-top: 10px;
+    height: 42px;
 }
-.div-dinamico{
+
+.div-dinamico {
     display: inline-block;
 }
 
-.div-dinamico .input-dinamico{
+.div-dinamico .input-dinamico {
     width: 900px;
     margin-top: 10px;
-    height: 35px;
+    height: 42px;
     border-radius: 8px;
     margin-right: 5px;
 }
-.div-save{
+
+.div-save {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 20px;
 }
-.button-save{
+
+.button-save {
     width: 100px;
     height: 50px;
     font-size: 18px;
@@ -64,12 +75,80 @@
     color: white;
     border-radius: 8px;
 }
-.icon{
+
+.icon {
     height: 25px;
     width: 25px;
 }
-.eficacia{
+
+.eficacia {
+    margin-top: 10px;
     border-radius: 8px;
-    height: 40px;
+    height: 42px;
 }
 
+.error {
+    color: red;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+}
+
+.otros {
+    height: 42px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 15px;
+    width: 80px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #1E293B;
+}
+
+.sup {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.semestre {
+    height: 42px;
+    margin-top: 10px;
+    margin-right: 15px;
+    width: 150px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    color: #1E293B;
+}
+
+.fuente {
+    font-size: 16px;
+    width: 500px;
+    margin-top: 10px;
+}
+
+.sFuente {
+    display: table-row;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.buton-fuente {
+    align-items: end;
+    align-content: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.titulo {
+    display: inline-block;
+}
+.icon-fuente{
+    height: 20px;
+    width: 20px;
+}
+.cuerpo{
+    display: flex;
+}

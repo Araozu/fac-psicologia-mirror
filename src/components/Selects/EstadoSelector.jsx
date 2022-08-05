@@ -8,10 +8,6 @@ export default function EstadoSelector(props) {
     } = props;
     const estados = [
         {
-            value: "",
-            label: "",
-        },
-        {
             value: "planificado",
             label: "Planificado",
         },
@@ -33,11 +29,11 @@ export default function EstadoSelector(props) {
         },
     ];
 
-    return (<>
+    return (<div>
         <label className="etiqueta">
             {title}
         </label>
 
         <Select className="estandarS" options={estados} onChange={onChange}/>
-    </>);
+    </div>);
 }
