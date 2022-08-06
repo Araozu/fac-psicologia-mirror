@@ -36,10 +36,16 @@
     margin: 10px 20px;
 }
 
+.pm-list{
+    list-style: decimal;
+}
+
 .loading-gif {
     margin: 0 auto;
     margin-top: 100px;
 }
+
+
 
 .title-cargando {
     display: block;

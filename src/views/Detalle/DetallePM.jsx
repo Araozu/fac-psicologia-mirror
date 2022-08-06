@@ -97,7 +97,7 @@ export default function DetallePM(props) {
                     <div className="pm-section-content">
                         <div className="pm-po pm-attrib">
                             <span className="pm-attrib-name">Problema/Oportunidad: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
 
                                 {
                                     pm.problemas_oportunidades.map( po => 
@@ -105,17 +105,17 @@ export default function DetallePM(props) {
                                     )
                                 }
                                 
-                            </ul>
+                            </ol>
                         </div>
                         <div className="pm-cr pm-attrib">
                             <span className="pm-attrib-name">Causa/Raiz: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                                 {
                                     pm.causas_raices.map( cr => 
                                         <li className="pm-list-item">{cr.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
                         <div className="pm-om pm-attrib">
                             <span className="pm-attrib-name">Oportunidad de mejora: </span>
@@ -123,64 +123,64 @@ export default function DetallePM(props) {
                         </div>
                         <div className="pm-am pm-attrib">
                             <span className="pm-attrib-name">Acciones de mejora: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                                 {
                                     pm.acciones_mejoras.map( am => 
                                         <li className="pm-list-item">{am.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
 
                         <div className="pm-recursos pm-attrib">
                             <span className="pm-attrib-name">Recursos: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                                 {
                                     pm.recursos.map( rec => 
                                         <li className="pm-list-item">{rec.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
 
                         <div className="pm-metas pm-attrib">
                             <span className="pm-attrib-name">Metas: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                                 {
                                     pm.metas.map( meta => 
                                         <li className="pm-list-item">{meta.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
 
                         <div className="pm-responsables pm-attrib">
                             <span className="pm-attrib-name">Responsables: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Brayan Guillen</li>
-                            </ul>
+                            <ol className="pm-list">
+                                <li className="pm-list-item">Comite</li>
+                            </ol>
                         </div>
 
                         <div className="pm-obser pm-attrib">
                             <span className="pm-attrib-name">Observaciones: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                              {
                                     pm.observaciones.map( ob => 
                                         <li className="pm-list-item">{ob.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
 
                         <div className="pm-obser pm-attrib">
                             <span className="pm-attrib-name">Fuentes: </span>
-                            <ul className="pm-list">
+                            <ol className="pm-list">
                              {
                                     pm.fuentes.map( fu => 
                                         <li className="pm-list-item">{fu.descripcion}</li>
                                     )
                                 }
-                            </ul>
+                            </ol>
                         </div>
 
                         <div className="pm-eficacia pm-attrib">
