@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import { AiFillPlusCircle as Add, AiFillMinusCircle as Delete } from "react-icons/ai";
+import Label from "../Labels/Label";
 export default function IDinamicsRes(props) {
     let {
         title,
         name,
         type,
         setDt,
+        detalle
     } = props;
     const [data, setData] = useState([{nombre: ""}]);
     const handleAdd = () => {
@@ -32,7 +34,7 @@ export default function IDinamicsRes(props) {
 
 
     return (<div>
-        <label className="etiqueta">{title}</label>
+        <Label title={title} detalle={detalle}/>
         <div className="div-dinamico">
             {data.map((singleData, index) => (
                 <div key={index}>

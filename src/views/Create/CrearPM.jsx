@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Formik, useFormik} from "formik";
+import {Formik, useFormik, ErrorMessage} from "formik";
 import IData from "../../components/Inputs/IData";
 import axios from "axios";
 import EstandarSelector from "../../components/Selects/EstandarSelector";
@@ -7,16 +7,18 @@ import IDinamics from "../../components/Inputs/IDinamics";
 import EstadoSelector from "../../components/Selects/EstadoSelector";
 import Eficacia from "../../components/Selects/Eficacia";
 import IDinamicsRes from "../../components/Inputs/IDinamicsRes";
-import './CrearPM.css'
+import "./CrearPM.css";
+import Duracion from "../../components/Selects/Duración";
+import Semestre from "../../components/Selects/Semestre";
+import SelectorFuente from "../../components/Selects/SelectorFuente";
 
 export default function Crear() {
-    const token = localStorage.getItem("access_token")
-    //const token = "48|56X6mbt23xMH66zlPBEl9w31w59l25yEDxmLz6z2"
+    const token = localStorage.getItem("access_token");
 
     const formik = useFormik({
         initialValues: {
             nombre: "",
-            estandar: 1,
+            estandar: 0,
             codigo: "",
             fuente: [],
             po: [],
@@ -35,7 +37,6 @@ export default function Crear() {
             eficacia: true,
         },
         onSubmit: (values) => {
-            //console.log(JSON.stringify(values, null, 1));
             axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
                 {
                     nombre: values.nombre,
@@ -71,9 +72,20 @@ export default function Crear() {
         },
         validate: (values) => {
             let errors = {};
-            /*if (values.codigo === "") {
-                errors.codigo = "Required";
-            }*/
+            if (values.estandar === 0) {
+                errors.estandar = "Se requiere especificar un Estándar";
+            }
+            if (values.codigo === "") {
+                errors.codigo = "Especifique un código para el Plan de Mejora Formato (OM-XX-20XX)";
+            } else if (!/^OM+\-+[0-9]{2}\-+20[2-9][0-9]$/i.test(values.codigo)) {
+                errors.codigo = "El código necesita formato OM-XX-20XX";
+            }
+            if (values.nombre === "") {
+                errors.nombre = "Es necesario nombrar el Plan de Mejora";
+            }
+            if (values.duracion > 12) {
+                errors.duracion = "El tiempo de duración no puede ser más de 12 meses";
+            }
 
             return errors;
         },
@@ -81,9 +93,9 @@ export default function Crear() {
     });
 
     const setEficacia = (data) => {
-        if(data === "true")
-        formik.values.eficacia = true;
-        else if(data==="false"){
+        if (data === "true")
+            formik.values.eficacia = true;
+        else if (data === "false") {
             formik.values.eficacia = false;
         }
     };
@@ -124,54 +136,68 @@ export default function Crear() {
         formik.values.estado = event.value;
     };
 
+    const handleDuracionChange = (data) => {
+        formik.values.duracion = data;
+    };
+    const handleSemestreChange = (data) => {
+        formik.values.semestre = data;
+    };
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className="div-title">
                 <label className="title">Formulario de Creación de Planes de Mejora</label>
             </div>
-            <div className= "div-head">
+            <div className="div-head">
                 {/*nombre del PM*/}
-                <IData title={"Nombra tu plan de Mejora"} name="nombre" type="text" onChange={formik.handleChange}/>
+                <IData title={"Nombra tu plan de Mejora"} name="nombre" type="text" detalle={"En esta sección debes ingresar el título de tu plan de mejora"} onChange={formik.handleChange}/>
+                {formik.errors.nombre ? <div className="error">{formik.errors.nombre}</div> : null}
                 {/*selecciona el estandar*/}
-                <EstandarSelector title={"Estandares"} total={30} onChange={handleSelectestandarChange}/>
+                <EstandarSelector title={"Estandares"} total={30}  detalle={"Selecciona el estándar al que pertenece el Plan de Mejora"} onChange={handleSelectestandarChange}/>
+                {formik.errors.estandar ? <div className="error">{formik.errors.estandar}</div> : null}
             </div>
             <div className="div-body">
                 {/*Código*/}
-                <IData title={"Código (1)"} name="codigo" type={"text"} onChange={formik.handleChange}/>
+                <IData title={"Código (1)"} detalle={"Registrar en la columna el código de la acción de la mejora continua, por ejemplo: OM – 01:2020, que refiere a la oportunidad de mejora 01 correspondiente al año 2020."}name="codigo" type={"text"} onChange={formik.handleChange}/>
+                {formik.errors.codigo ? <div className="error">{formik.errors.codigo}</div> : null}
                 {/*Seleccion de fuente*/}
-                <IDinamics title={"Fuentes (2)"} name={"fuentes"} type={"text"} setDt={setFuente}/>
+                <SelectorFuente title={"Fuentes (2)"} detalle={"Registrar si la fuente de la Mejora proviene de: (Usar el selector)"} setData={setFuente}/>
                 {/*fila problema oportunidad */}
-                <IDinamics title={"Problema/Oportunidad (3)"} name={"po"} type={"text"} setDt={setPO}/>
+                <IDinamics title={"Problema/Oportunidad (3)"} detalle={"Registre el problema / oportunidad que genera la mejora "} name={"po"} type={"text"} setDt={setPO}/>
                 {/*Fila Causa Raiz*/}
-                <IDinamics title={"Causa/Raiz (4)"} name={"cr"} type={"text"} setDt={setCR}/>
+                <IDinamics title={"Causa/Raiz (4)"} detalle={"Registre la causa raíz, producto de un análisis (utilice, la técnica de los 5 porqués, Ishikawa, Pareto, entre otros)"} name={"cr"} type={"text"} setDt={setCR}/>
                 {/*Fila oportunidad mejora*/}
-                <IData title={"Oportunidad de Mejora (5)"} name="omr" type="text" onChange={formik.handleChange}/>
+                <IData title={"Oportunidad de Mejora (5)"} detalle={"Registre la denominación de la Oportunidad de mejora o el Plan de mejora"} name="omr" type="text" onChange={formik.handleChange}/>
                 {/*Acciones de mejora*/}
-                <IDinamics title={"Acciones de Mejora (6)"} name={"amr"} type={"text"} setDt={setAM}/>
+                <IDinamics title={"Acciones de Mejora (6)"} detalle={"Registre las acciones necesarias para ejecutar el plan de mejora registrado en el (4)"} name={"amr"} type={"text"} setDt={setAM}/>
+
                 {/*Fila semestre y año de Ejecución*/}
-                <IData title={"Año-Semestre de Ejecución (7)"} name={"semestre"} type={"text"}
-                       onChange={formik.handleChange}/>
+                <Semestre title={"Semestre (7)"} detalle={"Registre si las actividades se realizaran en el semestre A o B"} setData={handleSemestreChange}/>
+                {formik.errors.semestre ? <div className="error">{formik.errors.semestre}</div> : null}
+
                 {/*DUración*/}
-                <IData title={"Duración (8)"} name={"duracion"} type={"number"} onChange={formik.handleChange}/>
+                <Duracion title={"Duración (8)"} detalle={"Registrar la duración en meses"} setData={handleDuracionChange}/>
+                {formik.errors.duracion ? <div className="error">{formik.errors.duracion}</div> : null}
+
                 {/*Recursos*/}
-                <IDinamics title={"Recursos (9)"} name={"recursos"} type={"text"} setDt={setRecursos}/>
+                <IDinamics title={"Recursos (9)"} detalle={"Registrar los recursos necesarios: Humanos, Tecnológicos, logísticos, otros."} name={"recursos"} type={"text"} setDt={setRecursos}/>
                 {/*Metas*/}
-                <IDinamics title={"Metas (10)"} name={"meta"} type={"text"} setDt={setMeta}/>
+                <IDinamics title={"Metas (10)"} detalle={"Registrar la meta que se espera lograr al termino del plan de mejora que atienda directamente la causa raíz del problema / mejora"} name={"meta"} type={"text"} setDt={setMeta}/>
                 {/*Responsables*/}
-                <IDinamicsRes title={"Responsables (11)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
+                <IDinamicsRes title={"Responsables (11)"} detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"} name={"responsables"} type={"text"} setDt={setResponsable}/>
                 {/*Observaciones*/}
-                <IDinamics title={"Observaciones (12)"} name={"observaciones"} type={"text"}
+                <IDinamics title={"Observaciones (12)"} detalle={"Registrar en esta sección las acciones vinculadas a las mejoras y en que circunstancias se están realizando o realizaran, que permita al lector del informe tener conocimiento de la OM"} name={"observaciones"} type={"text"}
                            setDt={setObervaciones}/>
                 {/*Estados*/}
-                <EstadoSelector title={"Estado (13)"} onChange={handleStateChange}/>
+                <EstadoSelector title={"Estado (13)"} detalle={"Registrar algunas de las siguientes alternativas: Planificado, Programado, Reprogramado, En proceso o Concluido."}onChange={handleStateChange}/>
                 {/*Evidencias*/}
-                <IData title={"Evidencias (14)"} name={"evidencias"} type={"text"}
+                <IData title={"Evidencias (14)"} detalle={"Registrar el código de la evidencia (s)"}name={"evidencias"} type={"text"}
                        onChange={formik.handleChange}/>
                 {/*Avances*/}
-                <IData title={"Avances"} name="avance" type="number" onChange={formik.handleChange}
+                <IData title={"Avances (15)"} detalle={"Planificado  de 0% a 10%; Reprogramado de 0% a 5%; En Desarrollo  de 11% a 99%, Concluido 100%"} name="avance" type="number" onChange={formik.handleChange}
                        value={formik.values.avance}/>
                 {/*Eficacia*/}
-                <Eficacia title={"Eficacia"} setDt={setEficacia}/>
+                <Eficacia title={"Eficacia (16)"} detalle={"Registrar el calificativo de la evaluación categóricamente: Sí o No"} setDt={setEficacia}/>
             </div>
 
             <div className="div-save">
