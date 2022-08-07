@@ -1,43 +1,7 @@
 import React, {FormEvent, useState} from "react";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {defaultLoginFn} from "@/views/auth/functions";
 
-import {ResponseData} from "@/views/auth/Register";
-import {SERVER_PATH} from "@/variables";
-
-/** Data of the user to register */
-export interface LoginData {
-    email: string,
-    password: string,
-}
-
-type LoginFunction = (data: LoginData) => Promise<ResponseData>
-
-const defaultLoginFn: LoginFunction = (data) => new Promise((resolve) => {
-    fetch(`${SERVER_PATH}/api/login`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-        }),
-    })
-        .then((res) => {
-            if (res.ok) {
-                res.json()
-                    .then((jsonObj) => {
-                        resolve({
-                            ok: true,
-                            json: jsonObj,
-                        });
-                    });
-            } else {
-                resolve({ok: false});
-            }
-        });
-});
 
 type alertStyle = { display: "none" | "block" }
 
@@ -45,14 +9,14 @@ function useAlertStyle() {
     return useState<alertStyle>({display: "none"});
 }
 
-
-
 export default function Login() {
     const loginFunction = defaultLoginFn;
 
     const [usuarioAlert, setUsuarioAlert] = useAlertStyle();
     const [contrasenaAlert, setContrasenaAlert] = useAlertStyle();
     const [loginAlert, setLoginAlert] = useAlertStyle();
+
+    const [msgError, setMsgError] = useState("");
 
     const [usuario, setUsuario] = useState("");
     const [contrasena, setContrasena] = useState("");
@@ -86,7 +50,14 @@ export default function Login() {
 
                 history.push("/admin/dashboard");
             } else {
+                setMsgError(response.json?.message ?? "");
                 setLoginAlert({display: "block"});
+
+                // Retirar el msg de error tras un tiempo
+                setTimeout(() => {
+                    setMsgError("");
+                    setLoginAlert({display: "none"});
+                }, 5000);
             }
         }
     };
@@ -195,7 +166,7 @@ export default function Login() {
 
 
                                     <div className="text-red-500 font-bold" style={loginAlert}>
-                                        Error al iniciar sesión.
+                                        Error al iniciar sesión. {msgError}
                                     </div>
                                 </form>
                             </div>

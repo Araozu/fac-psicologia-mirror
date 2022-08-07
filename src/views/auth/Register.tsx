@@ -1,64 +1,6 @@
 import React, {FormEvent, useState} from "react";
 import {useHistory} from "react-router";
-import {SERVER_PATH} from "@/variables";
-
-/** Data of the user to register */
-export interface RegistrationData {
-    name: string,
-    lastname: string,
-    email: string,
-    password: string,
-}
-
-/** Abstraction of the response of the server */
-export interface ResponseData {
-    /** Signals whether the response is in the range of HTTP 200-2009 */
-    ok: boolean,
-    /** The possible response of the server, only if `ok` is `true` */
-    json?: {
-        /** Response of the server. Should always be "registro exitoso" */
-        message: string,
-        [key: string]: string | undefined,
-    }
-}
-
-/**
- * A function that abstracts the process of communicating with the server to register.
- * The return promise should never reject. Instead, the error data should be sent
- * via the success payload.
- */
-type RegisterFunction = (data: RegistrationData) => Promise<ResponseData>
-
-
-const defaultRegisterFn: RegisterFunction = (data) => new Promise((resolve) => {
-    fetch(`${SERVER_PATH}/api/register`, {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name: data.name,
-            lastname: data.lastname,
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.password,
-        }),
-    })
-        .then((res) => {
-            if (res.ok) {
-                res.json()
-                    .then((jsonObj) => {
-                        resolve({
-                            ok: true,
-                            json: jsonObj,
-                        });
-                    });
-            } else {
-                resolve({ok: false});
-            }
-        });
-});
+import {defaultLoginFn, defaultRegisterFn, RegisterFunction} from "@/views/auth/functions";
 
 type alertStyle = { display: "none" | "block" }
 
@@ -66,7 +8,7 @@ function useAlertStyle() {
     return useState<alertStyle>({display: "none"});
 }
 
-export default function Register(props: { registerFn?: RegisterFunction }) {
+export default (props: { registerFn?: RegisterFunction }) => {
     // Default values
     const registerFunction = props.registerFn ?? defaultRegisterFn;
 
@@ -105,7 +47,23 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
                 password,
             });
             if (response.ok) {
+                // Iniciar sesion...
+                const resInicio = await defaultLoginFn({
+                    email,
+                    password,
+                });
+
+                console.log("Login: respuesta.", resInicio.json?.message);
+
+                const token = resInicio.json?.access_token ?? "";
+
+                if (token.length !== 0) {
+                    console.log("Token:", token);
+                    localStorage.setItem("access_token", token);
+                }
+
                 history.push("/admin/dashboard");
+
             } else {
                 setRegistrationErrorStyle({display: "block"});
             }
@@ -230,4 +188,4 @@ export default function Register(props: { registerFn?: RegisterFunction }) {
             </div>
         </>
     );
-}
+};

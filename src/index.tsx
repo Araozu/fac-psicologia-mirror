@@ -1,15 +1,12 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
-import {BrowserRouter, Route, Switch, Redirect, useLocation} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 
 // layouts
-
 // @ts-ignore
 import Admin from "./layouts/Admin";
-// @ts-ignore
 import Auth from "./layouts/Auth";
 // @ts-ignore
 import Crear from "./layouts/Crear";
@@ -18,7 +15,6 @@ import Detalle from "./layouts/Detalle";
 
 
 // views without layouts
-
 // @ts-ignore
 import Landing from "./views/Landing";
 // @ts-ignore
@@ -35,6 +31,8 @@ function require(url: string) {
 /// @ts-ignore
 window.require = require;
 
+// Para redirigir a inicio de sesion si no se inicio,
+//  cada componente en el router debe tener el codigo necesario
 const rootTree = (
     <BrowserRouter>
         <Switch>
@@ -44,8 +42,6 @@ const rootTree = (
             <Route path="/detalle/:codigo" component={Detalle} />
 
             {/* add routes without layouts*/}
-            <Route path="/landing" exact component={Landing} />
-            <Route path="/profile" exact component={Profile} />
             <Route path="/" exact component={Auth} />
             {/* add redirect for first page*/}
             <Redirect from="*" to="/" />

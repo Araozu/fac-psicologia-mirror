@@ -1,10 +1,9 @@
 import React from "react";
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 // views
-
-import Login from "../views/auth/Login.tsx";
-import Register from "../views/auth/Register.tsx";
+import Login from "../views/auth/Login";
+import Register from "../views/auth/Register";
 import {useHistory} from "react-router";
 
 export default function Auth() {
