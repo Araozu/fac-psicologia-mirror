@@ -1,14 +1,59 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import './DetallePM.css'
+
+
+import './DetallePM.css';
+import lgif from '../../assets/img/loading-2.gif';
+import { useParams } from "react-router";
+import { parseCommandLine } from "typescript";
 
 export default function DetallePM(props) {
-    let {codigo} = props;
+    
+    const {id} = props;
 
-    let pm = {}
+    const [pm , setPM] = useState({});
+    const [loading, setLoading] = useState(true);
 
     //const token = localStorage.getItem("access_token")
-    const token = "48|56X6mbt23xMH66zlPBEl9w31w59l25yEDxmLz6z2"
+    const token = "6|7HKOIwT3cu23MwVgAf5RqQxi4zD1vYMqZJN4O1wd"
+
+
+    useEffect( () => {
+        const getPM = async () => {
+            
+            setLoading(true);
+
+            const instance = axios.create({
+                baseURL: 'https://gestion-calidad-rrii-api.herokuapp.com/api/',
+                timeout: 10000,
+                headers: {'Authorization': 'Bearer '+token}
+            });
+
+            try{
+                const response = await instance.get('/plan/'+id);
+                console.log(response)
+        
+                setPM(response.data.data)
+                setLoading(false);
+            }catch (error) {
+                console.log(error)
+            }
+
+        }
+        getPM();
+
+    }, [] );
+
+
+    //Si esta cargando retorna el item de carga
+    if(loading) {
+        return (
+            <>
+                <img src={lgif} alt="Loading data gif" className="loading-gif"/>
+                <h2 className="title-cargando">Cargando...</h2>
+            </>
+        );
+    }
 
 
     return (
@@ -20,27 +65,27 @@ export default function DetallePM(props) {
                     <div className="pm-section-content">
                         <div className="pm-codigo pm-attrib">
                             <span className="pm-attrib-name">Codigo: </span>
-                            OM-01-2022
+                        {pm.codigo}
                         </div>
                         <div className="pm-name pm-attrib">
                             <span className="pm-attrib-name">Nombre: </span>
-                            Plan de mejora para la gestion de egresados
+                            {pm.nombre.toUpperCase()}
                         </div>
                         <div className="pm-estandar pm-attrib">
                             <span className="pm-attrib-name">Estandar </span>
-                            1
+                            {pm.id_estandar}
                         </div>
                         <div className="pm-semestre pm-attrib">
                             <span className="pm-attrib-name">Semestre de ejecución </span>
-                            2022-II
+                            {pm.semestre_ejecucion}
                         </div>
                         <div className="pm-avance pm-attrib">
                             <span className="pm-attrib-name">Avance: </span>
-                            50%
+                            {pm.avance}%
                         </div>
                         <div className="pm-estado pm-attrib">
                             <span className="pm-attrib-name">Estado: </span>
-                            Desarrollo
+                            {pm.estado}
                         </div>
                     </div>
                 </div>
@@ -52,60 +97,95 @@ export default function DetallePM(props) {
                     <div className="pm-section-content">
                         <div className="pm-po pm-attrib">
                             <span className="pm-attrib-name">Problema/Oportunidad: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Implementacion de un reglamento para propositos articulados</li>
-                            </ul>
+                            <ol className="pm-list">
+
+                                {
+                                    pm.problemas_oportunidades.map( po => 
+                                        <li className="pm-list-item">{po.descripcion}</li>
+                                    )
+                                }
+                                
+                            </ol>
                         </div>
                         <div className="pm-cr pm-attrib">
                             <span className="pm-attrib-name">Causa/Raiz: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Causa Raiz 1</li>
-                            </ul>
+                            <ol className="pm-list">
+                                {
+                                    pm.causas_raices.map( cr => 
+                                        <li className="pm-list-item">{cr.descripcion}</li>
+                                    )
+                                }
+                            </ol>
                         </div>
                         <div className="pm-om pm-attrib">
                             <span className="pm-attrib-name">Oportunidad de mejora: </span>
-                            Ipoortunidad de mejora test
+                            { pm.oportunidad_plan.toUpperCase() }
                         </div>
                         <div className="pm-am pm-attrib">
                             <span className="pm-attrib-name">Acciones de mejora: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Accion de mejora 1</li>
-                            </ul>
+                            <ol className="pm-list">
+                                {
+                                    pm.acciones_mejoras.map( am => 
+                                        <li className="pm-list-item">{am.descripcion}</li>
+                                    )
+                                }
+                            </ol>
                         </div>
 
                         <div className="pm-recursos pm-attrib">
                             <span className="pm-attrib-name">Recursos: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Recurso 1</li>
-                            </ul>
+                            <ol className="pm-list">
+                                {
+                                    pm.recursos.map( rec => 
+                                        <li className="pm-list-item">{rec.descripcion}</li>
+                                    )
+                                }
+                            </ol>
                         </div>
 
                         <div className="pm-metas pm-attrib">
                             <span className="pm-attrib-name">Metas: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Meta 1</li>
-                                <li className="pm-list-item">Meta 2</li>
-                            </ul>
+                            <ol className="pm-list">
+                                {
+                                    pm.metas.map( meta => 
+                                        <li className="pm-list-item">{meta.descripcion}</li>
+                                    )
+                                }
+                            </ol>
                         </div>
 
                         <div className="pm-responsables pm-attrib">
                             <span className="pm-attrib-name">Responsables: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Brayan Guillen</li>
-                            </ul>
+                            <ol className="pm-list">
+                                <li className="pm-list-item">Comite</li>
+                            </ol>
                         </div>
 
                         <div className="pm-obser pm-attrib">
                             <span className="pm-attrib-name">Observaciones: </span>
-                            <ul className="pm-list">
-                                <li className="pm-list-item">Observacion 1</li>
-                                <li className="pm-list-item">Observacion 2</li>
-                            </ul>
+                            <ol className="pm-list">
+                             {
+                                    pm.observaciones.map( ob => 
+                                        <li className="pm-list-item">{ob.descripcion}</li>
+                                    )
+                                }
+                            </ol>
+                        </div>
+
+                        <div className="pm-obser pm-attrib">
+                            <span className="pm-attrib-name">Fuentes: </span>
+                            <ol className="pm-list">
+                             {
+                                    pm.fuentes.map( fu => 
+                                        <li className="pm-list-item">{fu.descripcion}</li>
+                                    )
+                                }
+                            </ol>
                         </div>
 
                         <div className="pm-eficacia pm-attrib">
                             <span className="pm-attrib-name">Eficacia: </span>
-                            Si
+                            { pm.evaluacion_eficacia? "Si":"No" }
                         </div>
                     </div>
                 </div>

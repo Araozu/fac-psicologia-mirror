@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
+import Label from "../Labels/Label";
 
 export default function Eficacia(props){
-    const {title,setDt}=props;
+    const {title,setDt,detalle}=props;
     const[eficacia,setEficacia] = useState(true);
     const selectEficacia = (e) => {
         setEficacia(e.target.value);
@@ -24,7 +25,7 @@ export default function Eficacia(props){
         setDt(eficacia)
     },[eficacia])
     return(<div>
-        <label className="etiqueta">{title}</label>
+        <Label title={title} detalle={detalle}/>
         <select className="eficacia" onChange={(e) => selectEficacia(e)}>
             {efis.map((option, index) => (
                 <option key={index} value={option.value}>{option.text}</option>
