@@ -13,7 +13,7 @@ enum EstadoPlanMejora {
     Planificado,
 }
 
-interface PlanMejoraData {
+export interface PlanMejoraData {
     codigo: string,
     estandar: number,
     responsable: string,
@@ -22,7 +22,7 @@ interface PlanMejoraData {
     estado: EstadoPlanMejora,
 }
 
-interface PlanMejoraServer {
+export interface PlanMejoraServer {
     avance: number,
     codigo: string,
     estado: string,
@@ -44,6 +44,10 @@ function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
         }
         case "programado": {
             estadoPlan = EstadoPlanMejora.Programado;
+            break;
+        }
+        case "concluido": {
+            estadoPlan = EstadoPlanMejora.Concluido;
             break;
         }
     }
@@ -126,47 +130,6 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
     );
 }
 
-
-const mockPlan1: PlanMejoraData = {
-    estado: EstadoPlanMejora.Concluido,
-    codigo: "OM-06-2020",
-    estandar: 15,
-    avance: 6,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan2: PlanMejoraData = {
-    estado: EstadoPlanMejora.Programado,
-    codigo: "OM-01-2020",
-    estandar: 15,
-    avance: 54,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan3: PlanMejoraData = {
-    estado: EstadoPlanMejora.Planificado,
-    codigo: "OM-02-2020",
-    estandar: 15,
-    avance: 57,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan4: PlanMejoraData = {
-    estado: EstadoPlanMejora.EnProceso,
-    codigo: "OM-03-2020",
-    estandar: 15,
-    avance: 83,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan5: PlanMejoraData = {
-    estado: EstadoPlanMejora.Reprogramado,
-    codigo: "OM-04-2020",
-    estandar: 15,
-    avance: 29,
-    responsable: "Brayan Guillen",
-};
-
 export default function CardPlanesMejora() {
     const h = useHistory();
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
@@ -248,7 +211,7 @@ export default function CardPlanesMejora() {
                                     Estándar
                                 </th>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Responsable Principal
+                                    Creador
                                 </th>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Avance (%)
