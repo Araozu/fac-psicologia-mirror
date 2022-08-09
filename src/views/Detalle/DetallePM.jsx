@@ -50,7 +50,7 @@ export default function DetallePM(props) {
         return (
             <>
                 <img src={lgif} alt="Loading data gif" className="loading-gif"/>
-                <h2 className="title-cargando">Cargando...</h2>
+                {/**<h2 className="title-cargando">Cargando...</h2>*/}  
             </>
         );
     }
@@ -58,139 +58,172 @@ export default function DetallePM(props) {
 
     return (
         <>
-            <div>
-                <div className="pm-section">
-                    <h3 className="pm-section-title"> Datos generales </h3>
-                    <hr></hr>
-                    <div className="pm-section-content">
-                        <div className="pm-codigo pm-attrib">
-                            <span className="pm-attrib-name">Codigo: </span>
-                        {pm.codigo}
-                        </div>
-                        <div className="pm-name pm-attrib">
-                            <span className="pm-attrib-name">Nombre: </span>
-                            {pm.nombre.toUpperCase()}
-                        </div>
-                        <div className="pm-estandar pm-attrib">
-                            <span className="pm-attrib-name">Estandar </span>
-                            {pm.id_estandar}
-                        </div>
-                        <div className="pm-semestre pm-attrib">
-                            <span className="pm-attrib-name">Semestre de ejecución </span>
-                            {pm.semestre_ejecucion}
-                        </div>
-                        <div className="pm-avance pm-attrib">
-                            <span className="pm-attrib-name">Avance: </span>
-                            {pm.avance}%
-                        </div>
-                        <div className="pm-estado pm-attrib">
-                            <span className="pm-attrib-name">Estado: </span>
-                            {pm.estado}
-                        </div>
-                    </div>
-                </div>
+            
+            <table className="detail-table">
+                <tr>
+                    <th>Campo</th>
+                    <th>Contenido</th>
+                </tr>
 
 
-                <div className="pm-section">
-                    <h3 className="pm-section-title"> Datos especificos </h3>
-                    <hr></hr>
-                    <div className="pm-section-content">
-                        <div className="pm-po pm-attrib">
-                            <span className="pm-attrib-name">Problema/Oportunidad: </span>
-                            <ol className="pm-list">
+                <tr>
+                    <td>Codigo </td>
+                    <td> {pm.codigo.toUpperCase()} </td>
+                </tr>
 
-                                {
-                                    pm.problemas_oportunidades.map( po => 
-                                        <li className="pm-list-item">{po.descripcion}</li>
-                                    )
-                                }
-                                
-                            </ol>
-                        </div>
-                        <div className="pm-cr pm-attrib">
-                            <span className="pm-attrib-name">Causa/Raiz: </span>
-                            <ol className="pm-list">
-                                {
-                                    pm.causas_raices.map( cr => 
-                                        <li className="pm-list-item">{cr.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
-                        <div className="pm-om pm-attrib">
-                            <span className="pm-attrib-name">Oportunidad de mejora: </span>
-                            { pm.oportunidad_plan.toUpperCase() }
-                        </div>
-                        <div className="pm-am pm-attrib">
-                            <span className="pm-attrib-name">Acciones de mejora: </span>
-                            <ol className="pm-list">
-                                {
-                                    pm.acciones_mejoras.map( am => 
-                                        <li className="pm-list-item">{am.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
+                <tr>
+                    <td> Nombre del plan  </td>
+                    <td> {pm.nombre.toUpperCase()} </td>
+                </tr>
 
-                        <div className="pm-recursos pm-attrib">
-                            <span className="pm-attrib-name">Recursos: </span>
-                            <ol className="pm-list">
-                                {
-                                    pm.recursos.map( rec => 
-                                        <li className="pm-list-item">{rec.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
+                <tr>
+                    <td>Estado</td>
+                    <td> {pm.estado.toUpperCase()} </td>
+                </tr>
 
-                        <div className="pm-metas pm-attrib">
-                            <span className="pm-attrib-name">Metas: </span>
-                            <ol className="pm-list">
-                                {
-                                    pm.metas.map( meta => 
-                                        <li className="pm-list-item">{meta.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
+                <tr>
+                    <td>Estandar</td>
+                    <td> ESTANDAR {pm.id_estandar}</td>
+                </tr>
 
-                        <div className="pm-responsables pm-attrib">
-                            <span className="pm-attrib-name">Responsables: </span>
-                            <ol className="pm-list">
-                                <li className="pm-list-item">Comite</li>
-                            </ol>
-                        </div>
+                <tr>
+                    <td>Semestre</td>
+                    <td> {pm.semestre_ejecucion.toUpperCase()}</td>
+                </tr>
 
-                        <div className="pm-obser pm-attrib">
-                            <span className="pm-attrib-name">Observaciones: </span>
-                            <ol className="pm-list">
-                             {
-                                    pm.observaciones.map( ob => 
-                                        <li className="pm-list-item">{ob.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
+                <tr>
+                    <td>Duracion</td>
+                    <td> {pm.duracion} MES(ES)</td>
+                </tr>
 
-                        <div className="pm-obser pm-attrib">
-                            <span className="pm-attrib-name">Fuentes: </span>
-                            <ol className="pm-list">
-                             {
-                                    pm.fuentes.map( fu => 
-                                        <li className="pm-list-item">{fu.descripcion}</li>
-                                    )
-                                }
-                            </ol>
-                        </div>
+                <tr>
+                    <td>Avance</td>
+                    <td> {pm.avance} %</td>
+                </tr>
 
-                        <div className="pm-eficacia pm-attrib">
-                            <span className="pm-attrib-name">Eficacia: </span>
-                            { pm.evaluacion_eficacia? "Si":"No" }
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td>Evaluacion eficacia</td>
+                    <td> {pm.evaluacion_eficacia ? "SI":"NO"} </td>
+                </tr>
 
-            </div>
+                <tr>
+                    <td>Fuentes</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.fuentes.map( fu => 
+                                    <li className="pm-list-item">{fu.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Problema/Oportunidad</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.problemas_oportunidades.map( po => 
+                                    <li className="pm-list-item">{po.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Causa Raiz</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.causas_raices.map( cr => 
+                                    <li className="pm-list-item">{cr.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Oportunidad de mejora</td>
+                    <td> Estandar {pm.oportunidad_plan.toUpperCase()}</td>
+                </tr>
+
+                <tr>
+                    <td>Acciones de mejora</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.acciones_mejoras.map( am => 
+                                    <li className="pm-list-item">{am.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Recursos</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.recursos.map( re => 
+                                    <li className="pm-list-item">{re.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Metas</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.metas.map( me => 
+                                    <li className="pm-list-item">{me.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Responsables</td>
+                    <td> 
+                        <ul className="pm-list">
+            
+                            <li className="pm-list-item">COMISION DE CALIDAD</li>
+                        
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Observaciones</td>
+                    <td> 
+                        <ul className="pm-list">
+                            {
+                                pm.observaciones.map( ob => 
+                                    <li className="pm-list-item">{ob.descripcion.toUpperCase()}</li>
+                                )
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Evidencias</td>
+                    <td> 
+                        <ul className="pm-list">
+                            <li className="pm-list-item">UN DOC.dcx</li>
+                        </ul>
+                    </td>
+                </tr>
+
+            </table>
+              
         </>);
 }
 
