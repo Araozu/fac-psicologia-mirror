@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
 // components
 // @ts-ignore
@@ -10,6 +10,24 @@ export default function HeaderStandard({estandar}: any) {
     const [cantidadPlanesMejora, setCantidadPlanesMejora] = useState(-1);
     const [cantidadCompletados, setCantidadCompletados] = useState(-1);
     const [cantidadEnCurso, setCantidadEnCurso] = useState(-1);
+
+    const porcentajeCompletados = useMemo(
+        () => {
+            if (cantidadPlanesMejora === -1 || cantidadCompletados === -1) return "";
+            const val = Math.round((cantidadCompletados / cantidadPlanesMejora) * 100);
+            return val.toString();
+        },
+        [cantidadCompletados, cantidadPlanesMejora],
+    );
+
+    const porcentajeEnCurso = useMemo(
+        () => {
+            if (cantidadPlanesMejora === -1 || cantidadEnCurso === -1) return "";
+            const val = Math.round((cantidadEnCurso / cantidadPlanesMejora) * 100);
+            return val.toString();
+        },
+        [cantidadEnCurso, cantidadPlanesMejora],
+    );
 
     useEffect(
         () => {
@@ -53,10 +71,8 @@ export default function HeaderStandard({estandar}: any) {
                     <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                         <CardStats
                             statSubtitle="PLANES DE MEJORA"
-                            statTitle={cantidadPlanesMejora === -1 ? "" : cantidadPlanesMejora}
-                            statArrow="up"
+                            statTitle={cantidadPlanesMejora === -1 ? "" : cantidadPlanesMejora.toString()}
                             statPercent=""
-                            statPercentColor="text-emerald-500"
                             statDescripiron="Total de PMs"
                             statIconName="far fa-chart-bar"
                             statIconColor="bg-red-500"
@@ -65,10 +81,8 @@ export default function HeaderStandard({estandar}: any) {
                     <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                         <CardStats
                             statSubtitle="COMPLETADOS"
-                            statTitle={cantidadCompletados === -1 ? "" : cantidadCompletados}
-                            statArrow="down"
-                            statPercent="40"
-                            statPercentColor="text-red-500"
+                            statTitle={cantidadCompletados === -1 ? "" : cantidadCompletados.toString()}
+                            statPercent={porcentajeCompletados}
                             statDescripiron="PM Completados"
                             statIconName="fas fa-chart-pie"
                             statIconColor="bg-orange-500"
@@ -77,10 +91,8 @@ export default function HeaderStandard({estandar}: any) {
                     <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                         <CardStats
                             statSubtitle="EN CURSO"
-                            statTitle={cantidadEnCurso === -1 ? "" : cantidadEnCurso}
-                            statArrow="up"
-                            statPercent="60"
-                            statPercentColor="text-emerald-500"
+                            statTitle={cantidadEnCurso === -1 ? "" : cantidadEnCurso.toString()}
+                            statPercent={porcentajeEnCurso}
                             statDescripiron="PM en curso"
                             statIconName="fas fa-users"
                             statIconColor="bg-pink-500"

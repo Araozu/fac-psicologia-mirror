@@ -20,6 +20,7 @@ export interface PlanMejoraData {
     /** Se asume que siempre es un entero entre 0 y 100 */
     avance: number,
     estado: EstadoPlanMejora,
+    estandar_name: string,
 }
 
 export interface PlanMejoraServer {
@@ -60,6 +61,7 @@ function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
         responsable: plan.user_name,
         avance: plan.avance,
         estado: estadoPlan,
+        estandar_name: plan.estandar_name,
     };
 }
 
@@ -94,7 +96,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
                 {props.plan.codigo}
             </th>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                Estándar {props.plan.estandar}
+                {props.plan.estandar_name}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {props.plan.responsable}

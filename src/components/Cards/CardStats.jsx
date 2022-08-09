@@ -4,13 +4,20 @@ import PropTypes from "prop-types";
 export default function CardStats({
     statSubtitle,
     statTitle,
-    statArrow,
     statPercent,
-    statPercentColor,
     statDescripiron,
     statIconName,
     statIconColor,
 }) {
+    const porcentajeEl = statPercent === "" ? <></> : (
+        <p className="text-sm text-blueGray-400 mt-4">
+            <span className={"text-emerald-500 mr-2"}>
+                {statPercent}%
+            </span>
+            <span className="whitespace-nowrap">{statDescripiron}</span>
+        </p>
+    );
+
     return (
         <>
             <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
@@ -35,21 +42,7 @@ export default function CardStats({
                             </div>
                         </div>
                     </div>
-                    <p className="text-sm text-blueGray-400 mt-4">
-                        <span className={`${statPercentColor} mr-2`}>
-                            <i
-                                className={
-                                    statArrow === "up"
-                                        ? "fas fa-arrow-up"
-                                        : statArrow === "down"
-                                            ? "fas fa-arrow-down"
-                                            : ""
-                                }
-                            />{" "}
-                            {statPercent}%
-                        </span>
-                        <span className="whitespace-nowrap">{statDescripiron}</span>
-                    </p>
+                    {porcentajeEl}
                 </div>
             </div>
         </>
@@ -70,11 +63,7 @@ CardStats.defaultProps = {
 CardStats.propTypes = {
     statSubtitle: PropTypes.string,
     statTitle: PropTypes.string,
-    statArrow: PropTypes.oneOf(["up", "down"]),
     statPercent: PropTypes.string,
-    // can be any of the text color utilities
-    // from tailwindcss
-    statPercentColor: PropTypes.string,
     statDescripiron: PropTypes.string,
     statIconName: PropTypes.string,
     // can be any of the background color utilities
