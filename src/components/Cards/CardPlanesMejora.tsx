@@ -1,7 +1,7 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
 /// @ts-ignore
 import TableDropdown from "../Dropdowns/TableDropdown";
-import {useHistory} from "react-router";
+import {useHistory, useRouteMatch} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
 
@@ -14,6 +14,7 @@ enum EstadoPlanMejora {
 }
 
 interface PlanMejoraData {
+    id: number,
     codigo: string,
     estandar: number,
     responsable: string,
@@ -32,6 +33,8 @@ interface PlanMejoraServer {
 }
 
 function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
+    
+
     let estadoPlan = EstadoPlanMejora.Planificado;
     switch (plan.estado.toLowerCase()) {
         case "desarrollo": {
@@ -51,6 +54,7 @@ function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
     const codigoPlan = plan.codigo.startsWith("OM-") ? plan.codigo : `OM-${plan.codigo}`;
 
     return {
+        id: plan.id,
         codigo: codigoPlan,
         estandar: 8,
         responsable: plan.user_name,
@@ -81,11 +85,23 @@ function estadoPlanMejoraToColor(estado: EstadoPlanMejora): [string, string] {
     }
 }
 
+
+
 function PlanMejora(props: { plan: PlanMejoraData }) {
+    const history = useHistory();
     const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
 
+
+    const redirectToDetail = (id:number) => {
+        let path = `/detalle/`+id;
+        history.push(path);
+    };
+
     return (
-        <tr>
+        <tr onClick={ (e) => {
+            e.preventDefault();
+            redirectToDetail(props.plan.id);
+        } }>
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
                 {props.plan.codigo}
             </th>
@@ -116,7 +132,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
                 {estadoPlanMejoraToString(props.plan.estado)}
             </td>
 
-            <td>
+            <td onClick={ (e) => e.stopPropagation() }>
                 <TableDropdown />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
@@ -127,7 +143,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
 }
 
 
-const mockPlan1: PlanMejoraData = {
+/* const mockPlan1: PlanMejoraData = {
     estado: EstadoPlanMejora.Concluido,
     codigo: "OM-06-2020",
     estandar: 15,
@@ -165,7 +181,7 @@ const mockPlan5: PlanMejoraData = {
     estandar: 15,
     avance: 29,
     responsable: "Brayan Guillen",
-};
+}; */
 
 export default function CardPlanesMejora() {
     const h = useHistory();

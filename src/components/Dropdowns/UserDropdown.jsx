@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
+import { useHistory } from 'react-router-dom';
 import {createPopper} from "@popperjs/core";
 import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
+import Modal from "../modals/modal";
 
 const UserDropdown = () => {
+
+    const history = useHistory();
     // dropdown props
     const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
     const btnDropdownRef = React.createRef();
@@ -16,6 +20,27 @@ const UserDropdown = () => {
     const closeDropdownPopover = () => {
         setDropdownPopoverShow(false);
     };
+
+
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+        
+        history.push('/');
+    }
+
+
+    const [show, setShow] = useState(false);
+
+    const handleOnCloseModal = (response) => {
+
+        setShow(false);
+        if(response == 'confirm')
+        {
+            handleLogout();
+        }
+
+    }
+
     return (
         <>
             <a
@@ -49,7 +74,10 @@ const UserDropdown = () => {
                     className={
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                     }
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        
+                    }}
                 >
                     <i className={"fas fa-solid fa-user mr-3"} />Mi perfil
                 </a>
@@ -59,11 +87,17 @@ const UserDropdown = () => {
                     className={
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-red-600"
                     }
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                        e.preventDefault()
+                        setShow(true);
+                    }}
                 >
                     <i className={"fas fa-solid fa-door-open text-red-600 mr-2"} />  Cerrar Sesion
                 </a>
             </div>
+            <Modal type='confirm' show={show} title="Cerrar sesión" onClose={handleOnCloseModal}>
+                    ¿Esta seguro de cerrar sesión?
+            </Modal>
         </>
     );
 };
