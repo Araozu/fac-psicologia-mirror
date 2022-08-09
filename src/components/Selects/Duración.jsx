@@ -48,7 +48,7 @@ export default function Duracion(props) {
             <Label title={title} detalle={detalle}/>
             <Select className={"estandarS"} options={data} onChange={handleChange}/>
             <input className="otros" disabled={editable} onChange={handleChangeInput} onWheel={(e) => e.target.blur()}
-                   type={"number"} value={valor}/>
+                   type={"number"} value={valor} min="1" pattern="^[0-9]+"/>
             <label className={"sup"}>Meses</label>
         </>
     );

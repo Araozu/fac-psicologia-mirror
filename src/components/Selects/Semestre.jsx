@@ -21,7 +21,7 @@ export default function Semestre(props) {
             label: "B",
         },
         {
-            value: "C",
+            value: "A/B",
             label: "Anual",
         },
     ];
