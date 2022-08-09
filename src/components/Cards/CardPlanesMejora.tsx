@@ -136,6 +136,7 @@ export default function CardPlanesMejora() {
     const h = useHistory();
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState(-1);
+    const [filtroAnio, setFiltroAnio] = useState(-1);
 
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
@@ -167,12 +168,13 @@ export default function CardPlanesMejora() {
         () => planesMejora
             .filter((plan) => {
                 const contieneCodigoPlan = plan.codigo.indexOf(filtroCodigo) !== -1;
+                const contieneAnio = filtroAnio === -1 || plan.codigo.indexOf(filtroAnio.toString()) !== -1;
                 const contieneEstado = filtroEstado === -1 || plan.estado === filtroEstado;
 
-                return contieneCodigoPlan && contieneEstado;
+                return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
             .map((plan, i) => <PlanMejora plan={plan} key={i} />),
-        [filtroCodigo, filtroEstado, planesMejora],
+        [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
     );
 
     return (
@@ -185,6 +187,7 @@ export default function CardPlanesMejora() {
                                 Filtros
                             </h3>
                             <FiltroInput onChange={setFiltroCodigo} />
+                            <FiltroAnio onChange={setFiltroAnio} />
                             <FiltroEstado onChange={setFiltroEstado} />
                             <FiltroEstandar onChange={() => {}} />
                         </div>
@@ -273,6 +276,29 @@ function FiltroEstado(props: {onChange: (_: number) => void}) {
                 <option value="2">Programado</option>
                 <option value="3">Reprogramado</option>
                 <option value="4">Planificado</option>
+            </select>
+        </span>
+    );
+}
+
+function FiltroAnio(props: {onChange: (_: number) => void}) {
+    const [selected, setSelected] = useState(-1);
+
+    const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
+        const value = parseInt(ev.target.value, 10);
+        props.onChange(value);
+        setSelected(value);
+    };
+
+    return (
+        <span className="relative">
+            <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
+            <select value={selected} onChange={handleChange} name="anio" id="filtro-anio" className="rounded-xl text-sm p-2 w-48">
+                <option value="-1">Todos</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
             </select>
         </span>
     );
