@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/ai";
 import Label from "../Labels/Label";
 
-export default function(props) {
+export default function SelectorFuente(props) {
     const {title,setData, detalle} = props;
     const [selecteds, setSelecteds] = useState([]);
     const [addNewOption, setAddNewOption] = useState(false);
