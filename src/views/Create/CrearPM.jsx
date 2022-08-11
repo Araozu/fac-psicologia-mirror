@@ -52,6 +52,7 @@ export default function Crear() {
             eficacia: true,
         },
         onSubmit: (values) => {
+            //console.log(JSON.stringify(values));
             axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
                 {
                     nombre: values.nombre,
@@ -74,8 +75,8 @@ export default function Crear() {
                     evidencias_planes_mejoras: values.evidencias,
                 }, {
                     headers: {
-                        "Content-type":"application/json",
-                        Accept:"application/json",
+                        "Content-type": "application/json",
+                        Accept: "application/json",
                         Authorization: "Bearer " + token,
                     },
                 },

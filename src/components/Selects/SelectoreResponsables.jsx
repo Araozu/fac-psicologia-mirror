@@ -2,13 +2,17 @@ import React, {useEffect, useState} from "react";
 import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/ai";
 import Label from "../Labels/Label";
 
-export default function SelectorFuente(props) {
-    const {title,setData, detalle} = props;
+export default function SelectoreResponsables(props) {
+    const {
+        title,
+        setData,
+        detalle,
+    } = props;
     const [selecteds, setSelecteds] = useState([]);
     const [addNewOption, setAddNewOption] = useState(false);
     const [valueNewOption, setValueNewOption] = useState("");
 
-    const list = ["Solicitudes de acción correctiva ", "Servicios no conformes", "Quejas ", "Evaluación de competencias", "Evaluación de los objetivos Educacionales", "Actividades diarias", "Lineamientos institucionales.", "Acuerdos de Consejo de Facultad y Asamblea Docente.", "Buenas prácticas de otras organizaciones", "Otros"];
+    const list = ["Dirección EP RR.II.", "Comisión de desarrollo docente", "Otros"];
 
     const addSelect = (e) => {
         const {value} = e.target;
@@ -18,8 +22,8 @@ export default function SelectorFuente(props) {
             setValueNewOption("");
             return;
         }
-        const valores =[]
-        selecteds.forEach(element=> valores.push(element["descripcion"]));
+        const valores = [];
+        selecteds.forEach(element => valores.push(element["descripcion"]));
 
         if (!valores.includes(value)) {
             setSelecteds([...selecteds, {descripcion: value}]);
@@ -33,14 +37,14 @@ export default function SelectorFuente(props) {
     const removeSelect = (value) => {
         setSelecteds(selecteds.filter((s) => s !== value));
     };
-    useEffect(()=>{
+    useEffect(() => {
         setData(selecteds);
-    },[selecteds])
+    }, [selecteds]);
 
     return (
         <div>
             <div className={"titulo"}>
-                <Label className={"etiqueta"} title={title} detalle ={detalle}/>
+                <Label className={"etiqueta"} title={title} detalle={detalle}/>
             </div>
 
             <div className={"titulo"}>
@@ -51,7 +55,7 @@ export default function SelectorFuente(props) {
                         </h1>
                         <button className={"buton-fuente"} onClick={() => removeSelect(item)}>
                             <Delete
-                            className={"icon-fuente"}/></button>
+                                className={"icon-fuente"}/></button>
                     </div>
 
                 ))}
@@ -78,7 +82,7 @@ export default function SelectorFuente(props) {
                             <button
                                 onClick={() => addSelect({target: {value: valueNewOption}})}
                             >
-                                <Add className={"icon"} />
+                                <Add className={"icon"}/>
                             </button>
                             <button
                                 onClick={() => {
@@ -86,7 +90,7 @@ export default function SelectorFuente(props) {
                                     setValueNewOption("");
                                 }}
                             >
-                                <Delete className={"icon"} />
+                                <Delete className={"icon"}/>
                             </button>
                         </>
                     )}
