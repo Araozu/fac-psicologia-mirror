@@ -4,6 +4,7 @@ import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory, useRouteMatch} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
+import './CardPlanesMejora.css';
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -107,7 +108,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
         <tr onClick={ (e) => {
             e.preventDefault();
             redirectToDetail(props.plan.id);
-        } }>
+        } } className="table-row">
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
                 {props.plan.codigo}
             </th>
