@@ -23,10 +23,10 @@ export default function SelectoreResponsables(props) {
             return;
         }
         const valores = [];
-        selecteds.forEach(element => valores.push(element["descripcion"]));
+        selecteds.forEach(element => valores.push(element["nombre"]));
 
         if (!valores.includes(value)) {
-            setSelecteds([...selecteds, {descripcion: value}]);
+            setSelecteds([...selecteds, {nombre: value}]);
         }
         if (addNewOption) {
             setAddNewOption(false);
@@ -51,7 +51,7 @@ export default function SelectoreResponsables(props) {
                 {selecteds.map((item, index) => (
                     <div className={"cuerpo"}>
                         <h1 className={"fuente"} key={index}>
-                            {item.descripcion}
+                            {item.nombre}
                         </h1>
                         <button className={"buton-fuente"} onClick={() => removeSelect(item)}>
                             <Delete
@@ -73,6 +73,7 @@ export default function SelectoreResponsables(props) {
                 <div>
                     {addNewOption && (
                         <>
+
                             <input
                                 className={"input-line"}
                                 type="text"

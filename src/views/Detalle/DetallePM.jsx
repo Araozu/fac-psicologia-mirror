@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import { parseCommandLine } from "typescript";
 
 export default function DetallePM(props) {
-    
+
     const {id} = props;
 
     const [pm , setPM] = useState({});
@@ -20,7 +20,7 @@ export default function DetallePM(props) {
 
     useEffect( () => {
         const getPM = async () => {
-            
+
             setLoading(true);
 
             const instance = axios.create({
@@ -32,7 +32,7 @@ export default function DetallePM(props) {
             try{
                 const response = await instance.get('/plan/'+id);
                 console.log(response)
-        
+
                 setPM(response.data.data)
                 setLoading(false);
             }catch (error) {
@@ -50,7 +50,7 @@ export default function DetallePM(props) {
         return (
             <>
                 <img src={lgif} alt="Loading data gif" className="loading-gif"/>
-                {/**<h2 className="title-cargando">Cargando...</h2>*/}  
+                {/**<h2 className="title-cargando">Cargando...</h2>*/}
             </>
         );
     }
@@ -58,7 +58,7 @@ export default function DetallePM(props) {
 
     return (
         <>
-            
+
             <table className="detail-table">
                 <tr>
                     <th>Campo</th>
@@ -108,10 +108,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Fuentes</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.fuentes.map( fu => 
+                                pm.fuentes.map( fu =>
                                     <li className="pm-list-item">{fu.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -121,10 +121,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Problema/Oportunidad</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.problemas_oportunidades.map( po => 
+                                pm.problemas_oportunidades.map( po =>
                                     <li className="pm-list-item">{po.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -134,10 +134,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Causa Raiz</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.causas_raices.map( cr => 
+                                pm.causas_raices.map( cr =>
                                     <li className="pm-list-item">{cr.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -152,10 +152,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Acciones de mejora</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.acciones_mejoras.map( am => 
+                                pm.acciones_mejoras.map( am =>
                                     <li className="pm-list-item">{am.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -165,10 +165,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Recursos</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.recursos.map( re => 
+                                pm.recursos.map( re =>
                                     <li className="pm-list-item">{re.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -178,10 +178,10 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Metas</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.metas.map( me => 
+                                pm.metas.map( me =>
                                     <li className="pm-list-item">{me.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -191,21 +191,21 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Responsables</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
-            
+
                             <li className="pm-list-item">COMISION DE CALIDAD</li>
-                        
+
                         </ul>
                     </td>
                 </tr>
 
                 <tr>
                     <td>Observaciones</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             {
-                                pm.observaciones.map( ob => 
+                                pm.observaciones.map( ob =>
                                     <li className="pm-list-item">{ob.descripcion.toUpperCase()}</li>
                                 )
                             }
@@ -215,7 +215,7 @@ export default function DetallePM(props) {
 
                 <tr>
                     <td>Evidencias</td>
-                    <td> 
+                    <td>
                         <ul className="pm-list">
                             <li className="pm-list-item">UN DOC.dcx</li>
                         </ul>
@@ -223,7 +223,7 @@ export default function DetallePM(props) {
                 </tr>
 
             </table>
-              
+
         </>);
 }
 

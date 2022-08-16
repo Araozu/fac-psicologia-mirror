@@ -1,6 +1,7 @@
-import {render, RenderResult, fireEvent, cleanup, waitFor} from "@testing-library/react";
+import {cleanup, fireEvent, render, RenderResult, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Register, {RegistrationData, ResponseData} from "@/views/auth/Register";
+import Register from "@/views/auth/Register";
+import {ResponseData} from "@/views/auth/functions";
 import {BrowserRouter, Route} from "react-router-dom";
 
 let body: RenderResult;
@@ -180,6 +181,7 @@ describe("Registration", () => {
         const errorMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
             resolve({
                 ok: false,
+                json: {message: ""},
             });
         }));
 
@@ -205,6 +207,7 @@ describe("Registration", () => {
         const successMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
             resolve({
                 ok: true,
+                json: {message: ""},
             });
         }));
 
