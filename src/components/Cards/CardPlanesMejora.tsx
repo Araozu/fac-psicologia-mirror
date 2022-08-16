@@ -1,9 +1,9 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
-import TableDropdown from "../Dropdowns/TableDropdown";
 import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
 import "./CardPlanesMejora.css";
+import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -138,7 +138,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
             </td>
 
             <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
-                <TableDropdown />
+                <PlanMejoraDropdown codigo={props.plan.codigo} />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
                 */}
@@ -146,47 +146,6 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
         </tr>
     );
 }
-
-
-/* const mockPlan1: PlanMejoraData = {
-    estado: EstadoPlanMejora.Concluido,
-    codigo: "OM-06-2020",
-    estandar: 15,
-    avance: 6,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan2: PlanMejoraData = {
-    estado: EstadoPlanMejora.Programado,
-    codigo: "OM-01-2020",
-    estandar: 15,
-    avance: 54,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan3: PlanMejoraData = {
-    estado: EstadoPlanMejora.Planificado,
-    codigo: "OM-02-2020",
-    estandar: 15,
-    avance: 57,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan4: PlanMejoraData = {
-    estado: EstadoPlanMejora.EnProceso,
-    codigo: "OM-03-2020",
-    estandar: 15,
-    avance: 83,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan5: PlanMejoraData = {
-    estado: EstadoPlanMejora.Reprogramado,
-    codigo: "OM-04-2020",
-    estandar: 15,
-    avance: 29,
-    responsable: "Brayan Guillen",
-}; */
 
 export default function CardPlanesMejora() {
     const h = useHistory();
@@ -245,7 +204,6 @@ export default function CardPlanesMejora() {
                             <FiltroInput onChange={setFiltroCodigo} />
                             <FiltroAnio onChange={setFiltroAnio} />
                             <FiltroEstado onChange={setFiltroEstado} />
-                            <FiltroEstandar onChange={() => {}} />
                         </div>
                         <div className="relative w-full px-4 max-w-full text-right">
                             <button

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 // components
-import TableDropdown from "../Dropdowns/TableDropdown";
+import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
 // imagenes
 import imgBootstrap from "../../assets/img/bootstrap.jpg";
@@ -167,7 +167,7 @@ export default function CardTable({color}) {
                                     </div>
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <TableDropdown />
+                                    <PlanMejoraDropdown />
                                 </td>
                             </tr>
                             <tr>
@@ -229,7 +229,7 @@ export default function CardTable({color}) {
                                     </div>
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <TableDropdown />
+                                    <PlanMejoraDropdown />
                                 </td>
                             </tr>
                             <tr>
@@ -289,7 +289,7 @@ export default function CardTable({color}) {
                                     </div>
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <TableDropdown />
+                                    <PlanMejoraDropdown />
                                 </td>
                             </tr>
                             <tr>
@@ -351,7 +351,7 @@ export default function CardTable({color}) {
                                     </div>
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <TableDropdown />
+                                    <PlanMejoraDropdown codigo={""} />
                                 </td>
                             </tr>
                             <tr>
@@ -412,7 +412,7 @@ export default function CardTable({color}) {
                                     </div>
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <TableDropdown />
+                                    <PlanMejoraDropdown />
                                 </td>
                             </tr>
                         </tbody>
