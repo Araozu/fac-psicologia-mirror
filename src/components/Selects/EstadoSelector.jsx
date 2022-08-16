@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import Label from "../Labels/Label";
+import axios from "axios";
 
 export default function EstadoSelector(props) {
     const {
@@ -8,28 +9,17 @@ export default function EstadoSelector(props) {
         onChange,
         detalle
     } = props;
-    const estados = [
-        {
-            value: "planificado",
-            label: "Planificado",
-        },
-        {
-            value: "programado",
-            label: "Programado",
-        },
-        {
-            value: "reprogramado",
-            label: "Reprogramado",
-        },
-        {
-            value: "enProceso",
-            label: "En Proceso",
-        },
-        {
-            value: "concluido",
-            label: "Concluido",
-        },
-    ];
+    let estados = [];
+
+    axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/estados")
+        .then(function(response) {
+            response.data.data.forEach((element, index) => estados.push(
+                {
+                    value: index,
+                    label: element["valor"],
+                },
+            ));
+        })
 
     return (<div>
         <Label title={title} detalle={detalle}/>

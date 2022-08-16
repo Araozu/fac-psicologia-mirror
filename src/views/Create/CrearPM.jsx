@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Formik, useFormik, ErrorMessage} from "formik";
+import {Formik, useFormik, ErrorMessage, isEmptyArray} from "formik";
 import IData from "../../components/Inputs/IData";
 import axios from "axios";
 import EstandarSelector from "../../components/Selects/EstandarSelector";
@@ -90,7 +90,29 @@ export default function Crear() {
             if (values.duracion > 12) {
                 errors.duracion = "El tiempo de duración no puede ser más de 12 meses";
             }
-
+            if (values.avance < 0) {
+                errors.avance = "El porcentaje de avance no puede ser menor a 0";
+            } else if (isEmptyArray(values.evidencias) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado evidencias";
+            } else if (isEmptyArray(values.fuente) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado fuentes";
+            } else if (isEmptyArray(values.po) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado problema oportunidad";
+            } else if (isEmptyArray(values.cr) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado causa raiz";
+            } else if (isEmptyArray(values.amr) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado Acciones de mejora";
+            } else if (isEmptyArray(values.recursos) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado recursos";
+            } else if (isEmptyArray(values.metas) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado metas";
+            }else if (isEmptyArray(values.responsables) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado responsables";
+            } else if (isEmptyArray(values.observaciones) && values.avance === 100) {
+                errors.avance = "El porcentaje no puede ser 100 porque no se han llenado observaciones";
+            } else if ( values.avance > 100){
+                errors.avance = "El porcentaje no puede ser mayor a 100";
+            }
             return errors;
         },
 
@@ -212,7 +234,9 @@ export default function Crear() {
                            name={"meta"} type={"text"} setDt={setMeta}/>
                 {/*Responsables*/}
                 {/*<IDinamicsRes title={"Responsables (11)"} detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"} name={"responsables"} type={"text"} setDt={setResponsable}/>*/}
-                <SelectoreResponsables title={"Responsables (11)"} detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"} setData={setResponsable}/>
+                <SelectoreResponsables title={"Responsables (11)"}
+                                       detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"}
+                                       setData={setResponsable}/>
 
                 {/*Observaciones*/}
                 <IDinamics title={"Observaciones (12)"}
@@ -230,8 +254,11 @@ export default function Crear() {
                 {/*Avances*/}
                 <IData title={"Avances (15)"}
                        detalle={"Planificado  de 0% a 10%; Reprogramado de 0% a 5%; En Desarrollo  de 11% a 99%, Concluido 100%"}
-                       name="avance" type="number" onChange={formik.handleChange}
+                       name="avance" type="number"
+                       onChange={formik.handleChange}
+
                        value={formik.values.avance}/>
+                {formik.errors.avance ? <div className="error">{formik.errors.avance}</div> : null}
                 {/*Eficacia*/}
                 <Eficacia title={"Eficacia (16)"}
                           detalle={"Registrar el calificativo de la evaluación categóricamente: Sí o No"}
