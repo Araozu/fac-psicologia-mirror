@@ -13,6 +13,7 @@ import Semestre from "../../components/Selects/Semestre";
 import SelectorFuente from "../../components/Selects/SelectorFuente";
 import { useHistory } from "react-router";
 import Modal from '../../components/modals/Modal'
+import SelectoreResponsables from "../../components/Selects/SelectoreResponsables";
 
 export default function Crear() {
     const token = localStorage.getItem("access_token");
