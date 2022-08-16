@@ -53,7 +53,7 @@ export default function Crear() {
             eficacia: true,
         },
         onSubmit: (values) => {
-            //console.log(JSON.stringify(values));
+            console.log(JSON.stringify(values));
             axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
                 {
                     nombre: values.nombre,
