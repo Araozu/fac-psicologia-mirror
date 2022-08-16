@@ -14,8 +14,8 @@ export default function DetallePM(props) {
     const [pm , setPM] = useState({});
     const [loading, setLoading] = useState(true);
 
-    //const token = localStorage.getItem("access_token")
-    const token = "6|7HKOIwT3cu23MwVgAf5RqQxi4zD1vYMqZJN4O1wd"
+    const token = localStorage.getItem("access_token")
+    //const token = "6|7HKOIwT3cu23MwVgAf5RqQxi4zD1vYMqZJN4O1wd"
 
 
     useEffect( () => {
