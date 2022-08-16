@@ -42,10 +42,13 @@ export default function Login() {
                 console.log("Login: respuesta.", response.json?.message);
 
                 const token = response.json?.access_token ?? "";
-
+                const nombre = response.json?.nombre ?? "";
+                const apellido = response.json?.apellido ?? "";
                 if (token.length !== 0) {
                     console.log("Token:", token);
                     localStorage.setItem("access_token", token);
+                    localStorage.setItem("nombre", nombre);
+                    localStorage.setItem("apellido",apellido);
                 }
 
                 history.push("/admin/dashboard");
@@ -179,7 +182,7 @@ export default function Login() {
                                     onClick={(e) => e.preventDefault()}
                                     className="text-blueGray-200"
                                 >
-                                    <small />
+                                    <small/>
                                 </a>
                             </div>
 

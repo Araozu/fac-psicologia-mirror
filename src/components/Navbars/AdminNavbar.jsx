@@ -4,7 +4,8 @@ import UserDropdown from "../Dropdowns/UserDropdown.jsx";
 
 export default function Navbar(  ) {
 
-
+const nombre = localStorage.getItem("nombre");
+const apellido = localStorage.getItem("apellido");
 
   return (
       <>
@@ -22,7 +23,7 @@ export default function Navbar(  ) {
             </a>
             {/* User Info */}
             <div className="flex flex-row justify-center items-center">
-              <span className="text-white inline-block mr-4">Juanito Perez</span>
+              <span className="text-white inline-block mr-4"> {nombre+ " "+ apellido}</span>
 
               {/* User */}
               <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
@@ -33,7 +34,7 @@ export default function Navbar(  ) {
         </nav>
         {/* End Navbar */}
 
-        
+
       </>
   );
 }
