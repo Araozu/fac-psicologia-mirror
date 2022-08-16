@@ -211,9 +211,9 @@ export default function Crear() {
                            detalle={"Registrar la meta que se espera lograr al termino del plan de mejora que atienda directamente la causa raíz del problema / mejora"}
                            name={"meta"} type={"text"} setDt={setMeta}/>
                 {/*Responsables*/}
-
                 {/*<IDinamicsRes title={"Responsables (11)"} detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"} name={"responsables"} type={"text"} setDt={setResponsable}/>*/}
                 <SelectoreResponsables title={"Responsables (11)"} detalle={"Registrar los responsables de la ejecución de las actividades registradas en el punto (5)"} setData={setResponsable}/>
+
                 {/*Observaciones*/}
                 <IDinamics title={"Observaciones (12)"}
                            detalle={"Registrar en esta sección las acciones vinculadas a las mejoras y en que circunstancias se están realizando o realizaran, que permita al lector del informe tener conocimiento de la OM"}
