@@ -73,6 +73,7 @@ export default function SelectoreResponsables(props) {
                 <div>
                     {addNewOption && (
                         <>
+
                             <input
                                 className={"input-line"}
                                 type="text"
