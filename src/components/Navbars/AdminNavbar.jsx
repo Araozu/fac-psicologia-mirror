@@ -20,21 +20,19 @@ const apellido = localStorage.getItem("apellido");
             >
               { /*TODO: Enlazar con la propiedad de vista actual*/ }
               Sistema Gestion de Calidad
-            </a>
-            {/* User Info */}
-            <div className="flex flex-row justify-center items-center">
-              <span className="text-white inline-block mr-4"> {nombre+ " "+ apellido}</span>
+                    </a>
+                    {/* User Info */}
+                    <div className="flex flex-row justify-center items-center">
+                        <span className="text-white inline-block mr-4"> {nombre+ " "+ apellido}</span>
 
-              {/* User */}
-              <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
-                <UserDropdown />
-              </ul>
-            </div>
-          </div>
-        </nav>
-        {/* End Navbar */}
-
-
-      </>
-  );
+                        {/* User */}
+                        <ul className="flex-col md:flex-row list-none items-center hidden md:flex relative">
+                            <UserDropdown />
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {/* End Navbar */}
+        </>
+    );
 }

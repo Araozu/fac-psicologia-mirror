@@ -1,10 +1,9 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
-/// @ts-ignore
-import TableDropdown from "../Dropdowns/TableDropdown";
-import {useHistory, useRouteMatch} from "react-router";
+import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
-import './CardPlanesMejora.css';
+import "./CardPlanesMejora.css";
+import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -35,8 +34,6 @@ export interface PlanMejoraServer {
 }
 
 function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
-    
-
     let estadoPlan = EstadoPlanMejora.Planificado;
     switch (plan.estado.toLowerCase()) {
         case "desarrollo": {
@@ -100,7 +97,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
 
 
     const redirectToDetail = (id:number) => {
-        let path = `/detalle/`+id;
+        const path = `/detalle/${id}`;
         history.push(path);
     };
 
@@ -108,7 +105,8 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
         <tr onClick={ (e) => {
             e.preventDefault();
             redirectToDetail(props.plan.id);
-        } } className="table-row">
+        } } className="table-row"
+        >
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
                 {props.plan.codigo}
             </th>
@@ -139,8 +137,8 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
                 {estadoPlanMejoraToString(props.plan.estado)}
             </td>
 
-            <td onClick={ (e) => e.stopPropagation() }>
-                <TableDropdown />
+            <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
+                <PlanMejoraDropdown codigo={props.plan.codigo} />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
                 */}
@@ -148,47 +146,6 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
         </tr>
     );
 }
-
-
-/* const mockPlan1: PlanMejoraData = {
-    estado: EstadoPlanMejora.Concluido,
-    codigo: "OM-06-2020",
-    estandar: 15,
-    avance: 6,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan2: PlanMejoraData = {
-    estado: EstadoPlanMejora.Programado,
-    codigo: "OM-01-2020",
-    estandar: 15,
-    avance: 54,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan3: PlanMejoraData = {
-    estado: EstadoPlanMejora.Planificado,
-    codigo: "OM-02-2020",
-    estandar: 15,
-    avance: 57,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan4: PlanMejoraData = {
-    estado: EstadoPlanMejora.EnProceso,
-    codigo: "OM-03-2020",
-    estandar: 15,
-    avance: 83,
-    responsable: "Brayan Guillen",
-};
-
-const mockPlan5: PlanMejoraData = {
-    estado: EstadoPlanMejora.Reprogramado,
-    codigo: "OM-04-2020",
-    estandar: 15,
-    avance: 29,
-    responsable: "Brayan Guillen",
-}; */
 
 export default function CardPlanesMejora() {
     const h = useHistory();
@@ -247,7 +204,6 @@ export default function CardPlanesMejora() {
                             <FiltroInput onChange={setFiltroCodigo} />
                             <FiltroAnio onChange={setFiltroAnio} />
                             <FiltroEstado onChange={setFiltroEstado} />
-                            <FiltroEstandar onChange={() => {}} />
                         </div>
                         <div className="relative w-full px-4 max-w-full text-right">
                             <button
