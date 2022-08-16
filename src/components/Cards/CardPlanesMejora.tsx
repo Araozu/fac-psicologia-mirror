@@ -1,10 +1,9 @@
 // TODO: formalizar con la base de datos, cuales son los valores correctos
-/// @ts-ignore
 import TableDropdown from "../Dropdowns/TableDropdown";
-import {useHistory, useRouteMatch} from "react-router";
+import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
-import './CardPlanesMejora.css';
+import "./CardPlanesMejora.css";
 
 enum EstadoPlanMejora {
     EnProceso,
@@ -35,8 +34,6 @@ export interface PlanMejoraServer {
 }
 
 function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
-    
-
     let estadoPlan = EstadoPlanMejora.Planificado;
     switch (plan.estado.toLowerCase()) {
         case "desarrollo": {
@@ -100,7 +97,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
 
 
     const redirectToDetail = (id:number) => {
-        let path = `/detalle/`+id;
+        const path = `/detalle/${id}`;
         history.push(path);
     };
 
@@ -108,7 +105,8 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
         <tr onClick={ (e) => {
             e.preventDefault();
             redirectToDetail(props.plan.id);
-        } } className="table-row">
+        } } className="table-row"
+        >
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
                 {props.plan.codigo}
             </th>
@@ -139,7 +137,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
                 {estadoPlanMejoraToString(props.plan.estado)}
             </td>
 
-            <td onClick={ (e) => e.stopPropagation() }>
+            <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
                 <TableDropdown />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />

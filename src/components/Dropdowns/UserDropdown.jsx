@@ -1,32 +1,20 @@
 import React, {useState} from "react";
-import { useHistory } from 'react-router-dom';
-import {createPopper} from "@popperjs/core";
+import {useHistory} from "react-router-dom";
 import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
-import Modal from "../modals/modal";
+import Modal from "../modals/Modal";
 
 const UserDropdown = () => {
 
     const history = useHistory();
-    // dropdown props
-    const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-    const btnDropdownRef = React.createRef();
-    const popoverDropdownRef = React.createRef();
-    const openDropdownPopover = () => {
-        createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-            placement: "bottom-start",
-        });
-        setDropdownPopoverShow(true);
-    };
-    const closeDropdownPopover = () => {
-        setDropdownPopoverShow(false);
-    };
 
+    // dropdown props
+    const [isShown, setIsShown] = useState(false);
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
-        
-        history.push('/');
-    }
+
+        history.push("/");
+    };
 
 
     const [show, setShow] = useState(false);
@@ -34,22 +22,21 @@ const UserDropdown = () => {
     const handleOnCloseModal = (response) => {
 
         setShow(false);
-        if(response == 'confirm')
-        {
+        if (response === "confirm") {
             handleLogout();
         }
 
-    }
+    };
 
     return (
         <>
             <a
                 className="text-blueGray-500 block"
                 href="#pablo"
-                ref={btnDropdownRef}
+
                 onClick={(e) => {
                     e.preventDefault();
-                    dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
+                    setIsShown((x) => !x);
                 }}
             >
                 <div className="items-center flex">
@@ -63,11 +50,11 @@ const UserDropdown = () => {
                 </div>
             </a>
             <div
-                ref={popoverDropdownRef}
                 className={
-                    `${dropdownPopoverShow ? "block " : "hidden "
+                    `${isShown ? "block " : "hidden "
                     }bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48`
                 }
+                style={{position: "absolute", right: 0, top: "3rem"}}
             >
                 <a
                     href="#pablo"
@@ -76,7 +63,7 @@ const UserDropdown = () => {
                     }
                     onClick={(e) => {
                         e.preventDefault();
-                        
+
                     }}
                 >
                     <i className={"fas fa-solid fa-user mr-3"} />Mi perfil
@@ -88,7 +75,7 @@ const UserDropdown = () => {
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-red-600"
                     }
                     onClick={(e) => {
-                        e.preventDefault()
+                        e.preventDefault();
                         setShow(true);
                     }}
                 >
