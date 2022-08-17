@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/ai";
 import Label from "../Labels/Label";
 import axios from "axios";
+import Select from "react-select";
 
 export default function SelectorFuente(props) {
     const {
@@ -13,36 +14,36 @@ export default function SelectorFuente(props) {
     const [addNewOption, setAddNewOption] = useState(false);
     const [valueNewOption, setValueNewOption] = useState("");
 
-    const list = ["Solicitudes de acción correctiva ", "Servicios no conformes", "Quejas ", "Evaluación de competencias", "Evaluación de los objetivos Educacionales", "Actividades diarias", "Lineamientos institucionales.", "Acuerdos de Consejo de Facultad y Asamblea Docente.", "Buenas prácticas de otras organizaciones", "Otros"];
-    /*let list = [];
+    //const list = ["Solicitudes de acción correctiva ", "Servicios no conformes", "Quejas ", "Evaluación de competencias", "Evaluación de los objetivos Educacionales", "Actividades diarias", "Lineamientos institucionales.", "Acuerdos de Consejo de Facultad y Asamblea Docente.", "Buenas prácticas de otras organizaciones", "Otros"];
+    let list = [];
     //recuperando info
     axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/fuentes")
-        .then(function(response){
-            response.data.data.forEach(element => {
-                list.push(element["valor"])})
+        .then(function(response) {
+            response.data.data.forEach((element, index) => list.push(
+                {
+                    value: index,
+                    label: element["valor"],
+                },
+            ));
         })
-
-    console.log();*/
 
 
     const addSelect = (e) => {
-        const {value} = e.target;
-        if (value === "Otros") {
+        const {label} = e;
+        if (label === "Otros") {
             setAddNewOption(true);
-            e.target.value = "default";
             setValueNewOption("");
             return;
         }
         const valores = [];
         selecteds.forEach(element => valores.push(element["descripcion"]));
 
-        if (!valores.includes(value)) {
-            setSelecteds([...selecteds, {descripcion: value}]);
+        if (!valores.includes(label)) {
+            setSelecteds([...selecteds, {descripcion: label}]);
         }
         if (addNewOption) {
             setAddNewOption(false);
         }
-        e.target.value = "default";
     };
 
     const removeSelect = (value) => {
@@ -71,16 +72,7 @@ export default function SelectorFuente(props) {
 
                 ))}
 
-                <select className={"sFuente"} onChange={addSelect} defaultValue={"default"}>
-                    <option value="default" disabled>
-                        Seleccione una opción
-                    </option>
-                    {list.map((item, index) => (
-                        <option key={index} value={item}>
-                            {item}
-                        </option>
-                    ))}
-                </select>
+                <Select className="estandarS" options={list} onChange={addSelect}/>
                 <div>
                     {addNewOption && (
                         <>
@@ -89,9 +81,10 @@ export default function SelectorFuente(props) {
                                 type="text"
                                 value={valueNewOption}
                                 onChange={(e) => setValueNewOption(e.target.value)}
+
                             />
                             <button
-                                onClick={() => addSelect({target: {value: valueNewOption}})}
+                                onClick={() => addSelect({label: valueNewOption})}
                             >
                                 <Add className={"icon"}/>
                             </button>
