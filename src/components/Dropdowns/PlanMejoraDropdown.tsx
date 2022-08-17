@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 // @ts-ignore
 import Modal from "../modals/Modal.jsx";
 import {SERVER_PATH} from "@/variables";
+import {useClickOutside} from "@/components/Dropdowns/utils";
 
 async function eliminarPM(codigo: string) {
     const userToken = localStorage.getItem("access_token");
     if (userToken === null) return;
 
     console.log(`Eliminando codigo: ${codigo}`);
-    const response = await fetch(`${SERVER_PATH}/plan/${codigo}`, {
+    const response = await fetch(`${SERVER_PATH}/api/plan/${codigo}`, {
         method: "DELETE",
         headers: {
             "Accept": "application/json",
@@ -19,7 +20,10 @@ async function eliminarPM(codigo: string) {
     return response.ok;
 }
 
+
 export function PlanMejoraDropdown(props: {codigo: string}) {
+    const ref = useRef(null);
+
     // dropdown props
     const [isShown, setIsShown] = useState(false);
 
@@ -33,11 +37,12 @@ export function PlanMejoraDropdown(props: {codigo: string}) {
         if (!eliminado) return;
     };
 
+    useClickOutside([ref], isShown, () => setIsShown(false));
+
     return (
         <>
             <a
                 className="text-blueGray-500 py-1 px-3"
-                href="#pablo"
                 onClick={(e) => {
                     e.preventDefault();
                     setIsShown((x) => !x);
@@ -50,7 +55,9 @@ export function PlanMejoraDropdown(props: {codigo: string}) {
                     `${isShown ? "block " : "hidden "
                     }bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48`
                 }
+                ref={ref}
                 style={{position: "absolute", right: "2rem", top: 0}}
+                onFocusCapture={() => console.log("D:")}
             >
                 <a
                     href="#pablo"

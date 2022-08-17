@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useHistory} from "react-router-dom";
 import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
 import Modal from "../modals/Modal";
+import {useClickOutside} from "./utils";
 
 const UserDropdown = () => {
-
+    const ref = useRef(null);
     const history = useHistory();
 
     // dropdown props
@@ -28,6 +29,8 @@ const UserDropdown = () => {
 
     };
 
+    useClickOutside([ref], isShown, () => setIsShown(false));
+
     return (
         <>
             <a
@@ -36,6 +39,7 @@ const UserDropdown = () => {
 
                 onClick={(e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     setIsShown((x) => !x);
                 }}
             >
@@ -55,6 +59,7 @@ const UserDropdown = () => {
                     }bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48`
                 }
                 style={{position: "absolute", right: 0, top: "3rem"}}
+                ref={ref}
             >
                 <a
                     href="#pablo"

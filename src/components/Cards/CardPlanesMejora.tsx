@@ -138,7 +138,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
             </td>
 
             <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
-                <PlanMejoraDropdown codigo={props.plan.codigo} />
+                <PlanMejoraDropdown codigo={props.plan.id.toString()} />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
                 */}
