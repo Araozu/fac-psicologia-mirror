@@ -32,7 +32,6 @@ export default function SelectorFuente(props) {
         const {label} = e;
         if (label === "Otros") {
             setAddNewOption(true);
-            //e.label = "default";
             setValueNewOption("");
             return;
         }
@@ -45,7 +44,6 @@ export default function SelectorFuente(props) {
         if (addNewOption) {
             setAddNewOption(false);
         }
-        //e.label = "default";
     };
 
     const removeSelect = (value) => {
@@ -74,16 +72,6 @@ export default function SelectorFuente(props) {
 
                 ))}
 
-                {/*<select className={"sFuente"} onChange={addSelect} defaultValue={"default"}>
-                    <option value="default" disabled>
-                        Seleccione una opción
-                    </option>
-                    {list.map((item, index) => (
-                        <option key={index} value={item}>
-                            {item}
-                        </option>
-                    ))}
-                </select>*/}
                 <Select className="estandarS" options={list} onChange={addSelect}/>
                 <div>
                     {addNewOption && (
@@ -93,9 +81,10 @@ export default function SelectorFuente(props) {
                                 type="text"
                                 value={valueNewOption}
                                 onChange={(e) => setValueNewOption(e.target.value)}
+
                             />
                             <button
-                                onClick={() => addSelect({target: {value: valueNewOption}})}
+                                onClick={() => addSelect({label: valueNewOption})}
                             >
                                 <Add className={"icon"}/>
                             </button>
