@@ -6,28 +6,130 @@ import CardStats from "../Cards/CardStats.jsx";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/components/Cards/CardPlanesMejora";
 
-export default function HeaderStandard({estandar}: any) {
+/**
+ * Devuelve que porcentaje de v2 es v1
+ * ejm. porcentaje(4, 10) = 40%
+ */
+const porcentaje = (v1: number, v2: number) => Math.round((v1 / v2) * 100);
+
+/**
+ * Cuenta cuantos planes de mejora tienen como estado 'valor'
+ * @param arr Array con planes de mejora
+ * @param valor El estado de plan de mejora. Ejm: "concluido", "planificado"
+ */
+const filtrarYContarEstado = (arr: PlanMejoraServer[], valor: string): number => {
+    const valorLowercase = valor.toLowerCase();
+    return arr.filter((plan) => plan.estado.toLowerCase() === valorLowercase).length;
+};
+
+/**
+ * Toma un array de planes de mejora, y devuelve:
+ * - Cantidad de planes segun su estado
+ * - Porcentaje de estos valores
+ * @param planesMejora
+ */
+function useDatos(planesMejora: PlanMejoraServer[]) {
     const [cantidadPlanesMejora, setCantidadPlanesMejora] = useState(-1);
-    const [cantidadCompletados, setCantidadCompletados] = useState(-1);
-    const [cantidadEnCurso, setCantidadEnCurso] = useState(-1);
+    const [cantidadConcluido, setCantidadConcluido] = useState(-1);
+    const [cantidadEnProceso, setCantidadEnProceso] = useState(-1);
+    const [cantidadProgramado, setCantidadProgramado] = useState(-1);
+    const [cantidadReprogramado, setCantidadReprogramado] = useState(-1);
+    const [cantidadPlanificado, setCantidadPlanificado] = useState(-1);
 
-    const porcentajeCompletados = useMemo(
+    useEffect(
         () => {
-            if (cantidadPlanesMejora === -1 || cantidadCompletados === -1) return "";
-            const val = Math.round((cantidadCompletados / cantidadPlanesMejora) * 100);
-            return val.toString();
+            setCantidadPlanesMejora(planesMejora.length);
+
+            // cantidad concluido
+            setCantidadConcluido(filtrarYContarEstado(planesMejora, "concluido"));
+
+            // cantidad en proceso
+            setCantidadEnProceso(filtrarYContarEstado(planesMejora, "en proceso"));
+
+            // cantidad programado
+            setCantidadProgramado(filtrarYContarEstado(planesMejora, "programado"));
+
+            // cantidad reprogramado
+            setCantidadReprogramado(filtrarYContarEstado(planesMejora, "reprogramado"));
+
+            // cantidad planificado
+            setCantidadPlanificado(filtrarYContarEstado(planesMejora, "planificado"));
         },
-        [cantidadCompletados, cantidadPlanesMejora],
+        [planesMejora],
     );
 
-    const porcentajeEnCurso = useMemo(
+    const porcentajeConcluidos = useMemo(
         () => {
-            if (cantidadPlanesMejora === -1 || cantidadEnCurso === -1) return "";
-            const val = Math.round((cantidadEnCurso / cantidadPlanesMejora) * 100);
-            return val.toString();
+            if (cantidadPlanesMejora <= 0 || cantidadConcluido === -1) return "";
+            return porcentaje(cantidadConcluido, cantidadPlanesMejora).toString();
         },
-        [cantidadEnCurso, cantidadPlanesMejora],
+        [cantidadConcluido, cantidadPlanesMejora],
     );
+
+    const porcentajeEnProceso = useMemo(
+        () => {
+            if (cantidadPlanesMejora <= 0 || cantidadEnProceso === -1) return "";
+            return porcentaje(cantidadEnProceso, cantidadPlanesMejora).toString();
+        },
+        [cantidadEnProceso, cantidadPlanesMejora],
+    );
+
+    const porcentajeProgramado = useMemo(
+        () => {
+            if (cantidadPlanesMejora <= 0 || cantidadProgramado === -1) return "";
+            return porcentaje(cantidadProgramado, cantidadPlanesMejora).toString();
+        },
+        [cantidadPlanesMejora, cantidadProgramado],
+    );
+
+    const porcentajeReprogramado = useMemo(
+        () => {
+            if (cantidadPlanesMejora <= 0 || cantidadReprogramado === -1) return "";
+            return porcentaje(cantidadReprogramado, cantidadPlanesMejora).toString();
+        },
+        [cantidadPlanesMejora, cantidadReprogramado],
+    );
+
+    const porcentajePlanificado = useMemo(
+        () => {
+            if (cantidadPlanesMejora <= 0 || cantidadPlanificado === -1) return "";
+            return porcentaje(cantidadPlanificado, cantidadPlanesMejora).toString();
+        },
+        [cantidadPlanesMejora, cantidadPlanificado],
+    );
+
+    return {
+        porcentajeConcluidos,
+        porcentajeEnProceso,
+        porcentajeProgramado,
+        porcentajeReprogramado,
+        porcentajePlanificado,
+
+        cantidadConcluido,
+        cantidadEnProceso,
+        cantidadProgramado,
+        cantidadReprogramado,
+        cantidadPlanificado,
+    };
+}
+
+export default function HeaderStandard({estandar}: any) {
+    const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
+
+    const {
+        porcentajeConcluidos,
+        porcentajeEnProceso,
+        porcentajeProgramado,
+        porcentajeReprogramado,
+        porcentajePlanificado,
+
+        cantidadConcluido,
+        cantidadEnProceso,
+        cantidadProgramado,
+        cantidadReprogramado,
+        cantidadPlanificado,
+    } = useDatos(planesMejora);
+
 
     useEffect(
         () => {
@@ -45,15 +147,7 @@ export default function HeaderStandard({estandar}: any) {
                 .then((obj) => obj.json())
                 .then((objF: { data: Array<PlanMejoraServer> }) => {
                     const planesMejora = objF.data;
-
-                    // cantidad total de planes de mejora
-                    setCantidadPlanesMejora(planesMejora.length);
-
-                    // cantidad completados
-                    setCantidadCompletados(planesMejora.filter((plan) => plan.estado === "concluido").length);
-
-                    // cantidad en curso
-                    setCantidadEnCurso(planesMejora.filter((plan) => plan.estado === "en proceso").length);
+                    setPlanesMejora(planesMejora);
                 });
         },
         [],
@@ -70,19 +164,9 @@ export default function HeaderStandard({estandar}: any) {
                 <div className="flex w-full grow">
                     <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                         <CardStats
-                            statSubtitle="PLANES DE MEJORA"
-                            statTitle={cantidadPlanesMejora === -1 ? "" : cantidadPlanesMejora.toString()}
-                            statPercent=""
-                            statDescripiron="Total de PMs"
-                            statIconName="far fa-chart-bar"
-                            statIconColor="bg-red-500"
-                        />
-                    </div>
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="COMPLETADOS"
-                            statTitle={cantidadCompletados === -1 ? "" : cantidadCompletados.toString()}
-                            statPercent={porcentajeCompletados}
+                            statSubtitle="CONCLUIDOS"
+                            statTitle={cantidadConcluido === -1 ? "" : cantidadConcluido.toString()}
+                            statPercent={porcentajeConcluidos}
                             statDescripiron="PM Completados"
                             statIconName="fas fa-chart-pie"
                             statIconColor="bg-orange-500"
@@ -90,9 +174,39 @@ export default function HeaderStandard({estandar}: any) {
                     </div>
                     <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                         <CardStats
-                            statSubtitle="EN CURSO"
-                            statTitle={cantidadEnCurso === -1 ? "" : cantidadEnCurso.toString()}
-                            statPercent={porcentajeEnCurso}
+                            statSubtitle="EN PROCESO"
+                            statTitle={cantidadEnProceso === -1 ? "" : cantidadEnProceso.toString()}
+                            statPercent={porcentajeEnProceso}
+                            statDescripiron="PM en curso"
+                            statIconName="fas fa-users"
+                            statIconColor="bg-pink-500"
+                        />
+                    </div>
+                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                        <CardStats
+                            statSubtitle="PROGRAMADO"
+                            statTitle={cantidadProgramado === -1 ? "" : cantidadProgramado.toString()}
+                            statPercent={porcentajeProgramado}
+                            statDescripiron="PM en curso"
+                            statIconName="fas fa-users"
+                            statIconColor="bg-pink-500"
+                        />
+                    </div>
+                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                        <CardStats
+                            statSubtitle="REPROGRAMADO"
+                            statTitle={cantidadReprogramado === -1 ? "" : cantidadReprogramado.toString()}
+                            statPercent={porcentajeReprogramado}
+                            statDescripiron="PM en curso"
+                            statIconName="fas fa-users"
+                            statIconColor="bg-pink-500"
+                        />
+                    </div>
+                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                        <CardStats
+                            statSubtitle="PLANIFICADO"
+                            statTitle={cantidadPlanificado === -1 ? "" : cantidadPlanificado.toString()}
+                            statPercent={porcentajePlanificado}
                             statDescripiron="PM en curso"
                             statIconName="fas fa-users"
                             statIconColor="bg-pink-500"
