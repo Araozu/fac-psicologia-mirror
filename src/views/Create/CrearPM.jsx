@@ -53,7 +53,7 @@ export default function Crear() {
             eficacia: true,
         },
         onSubmit: (values) => {
-            console.log(JSON.stringify(values));
+            //console.log(JSON.stringify(values,null,1));
             axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
                 {
                     nombre: values.nombre,
@@ -189,7 +189,7 @@ export default function Crear() {
     };
 
     const handleStateChange = (event) => {
-        formik.values.estado = event.value;
+        formik.values.estado = event.label;
     };
 
     const handleDuracionChange = (data) => {
