@@ -90,7 +90,7 @@ function estadoPlanMejoraToColor(estado: EstadoPlanMejora): [string, string] {
 
 
 
-function PlanMejora(props: { plan: PlanMejoraData }) {
+function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
     const history = useHistory();
     const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
 
@@ -137,7 +137,7 @@ function PlanMejora(props: { plan: PlanMejoraData }) {
             </td>
 
             <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
-                <PlanMejoraDropdown codigo={props.plan.id.toString()} />
+                <PlanMejoraDropdown codigo={props.plan.id.toString()} eliminar={props.eliminar} />
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
                 */}
@@ -178,6 +178,11 @@ export default function CardPlanesMejora() {
         [],
     );
 
+    // Elimina un plan de mejora del state
+    const eliminarPlanMejora = (planEliminar: PlanMejoraData) => {
+        setPlanesMejora((x) => x.filter((plan) => plan.id !== planEliminar.id));
+    };
+
     const planesMejoraEls = useMemo(
         () => planesMejora
             .filter((plan) => {
@@ -187,7 +192,7 @@ export default function CardPlanesMejora() {
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => <PlanMejora plan={plan} key={i} />),
+            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
     );
 

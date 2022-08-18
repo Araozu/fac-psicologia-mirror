@@ -21,7 +21,7 @@ async function eliminarPM(codigo: string) {
 }
 
 
-export function PlanMejoraDropdown(props: {codigo: string}) {
+export function PlanMejoraDropdown(props: {codigo: string, eliminar: () => void}) {
     const ref = useRef(null);
 
     // dropdown props
@@ -34,7 +34,9 @@ export function PlanMejoraDropdown(props: {codigo: string}) {
         if (result === "cancel") return;
 
         const eliminado = await eliminarPM(props.codigo);
-        if (!eliminado) return;
+        if (eliminado) {
+            props.eliminar();
+        }
     };
 
     useClickOutside([ref], isShown, () => setIsShown(false));
