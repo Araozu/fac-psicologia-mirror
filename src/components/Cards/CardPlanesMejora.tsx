@@ -1,4 +1,3 @@
-// TODO: formalizar con la base de datos, cuales son los valores correctos
 import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";

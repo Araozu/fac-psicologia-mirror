@@ -157,60 +157,62 @@ export default function HeaderStandard({estandar}: any) {
         <>
             {/* Header */}
             <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12 flex justify-between">
-                <div className="px-4 md:px-10">
+                <div className="px-4 md:pl-10 md:pr-4">
                     <h1 className="text-4xl font-bold text-white">{estandar.n}</h1>
                     <p className="text-lg text-white">{estandar.titulo}</p>
                 </div>
-                <div className="flex w-full grow">
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="CONCLUIDOS"
-                            statTitle={cantidadConcluido === -1 ? "" : cantidadConcluido.toString()}
-                            statPercent={porcentajeConcluidos}
-                            statDescripiron="PM Completados"
-                            statIconName="fas fa-chart-pie"
-                            statIconColor="bg-orange-500"
-                        />
-                    </div>
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="EN PROCESO"
-                            statTitle={cantidadEnProceso === -1 ? "" : cantidadEnProceso.toString()}
-                            statPercent={porcentajeEnProceso}
-                            statDescripiron="PM en curso"
-                            statIconName="fas fa-users"
-                            statIconColor="bg-pink-500"
-                        />
-                    </div>
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="PROGRAMADO"
-                            statTitle={cantidadProgramado === -1 ? "" : cantidadProgramado.toString()}
-                            statPercent={porcentajeProgramado}
-                            statDescripiron="PM en curso"
-                            statIconName="fas fa-users"
-                            statIconColor="bg-pink-500"
-                        />
-                    </div>
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="REPROGRAMADO"
-                            statTitle={cantidadReprogramado === -1 ? "" : cantidadReprogramado.toString()}
-                            statPercent={porcentajeReprogramado}
-                            statDescripiron="PM en curso"
-                            statIconName="fas fa-users"
-                            statIconColor="bg-pink-500"
-                        />
-                    </div>
-                    <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                        <CardStats
-                            statSubtitle="PLANIFICADO"
-                            statTitle={cantidadPlanificado === -1 ? "" : cantidadPlanificado.toString()}
-                            statPercent={porcentajePlanificado}
-                            statDescripiron="PM en curso"
-                            statIconName="fas fa-users"
-                            statIconColor="bg-pink-500"
-                        />
+                <div>
+                    <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
+                        <div className="w-full px-2">
+                            <CardStats
+                                statSubtitle="CONCLUIDOS"
+                                statTitle={cantidadConcluido === -1 ? "" : cantidadConcluido.toString()}
+                                statPercent={porcentajeConcluidos}
+                                statDescripiron="Planes"
+                                statIconName="fas fa-check"
+                                statIconColor="bg-emerald-500"
+                            />
+                        </div>
+                        <div className="w-full px-2">
+                            <CardStats
+                                statSubtitle="EN PROCESO"
+                                statTitle={cantidadEnProceso === -1 ? "" : cantidadEnProceso.toString()}
+                                statPercent={porcentajeEnProceso}
+                                statDescripiron="Planes"
+                                statIconName="fas fa-spinner"
+                                statIconColor="bg-cyan-500"
+                            />
+                        </div>
+                        <div className="w-full px-2">
+                            <CardStats
+                                statSubtitle="PROGRAMADO"
+                                statTitle={cantidadProgramado === -1 ? "" : cantidadProgramado.toString()}
+                                statPercent={porcentajeProgramado}
+                                statDescripiron="Planes"
+                                statIconName="fas fa-calendar-check"
+                                statIconColor="bg-indigo-500"
+                            />
+                        </div>
+                        <div className="w-full px-2">
+                            <CardStats
+                                statSubtitle="REPROGRAMADO"
+                                statTitle={cantidadReprogramado === -1 ? "" : cantidadReprogramado.toString()}
+                                statPercent={porcentajeReprogramado}
+                                statDescripiron="Planes"
+                                statIconName="fas fa-clock-rotate-left"
+                                statIconColor="bg-orange-500"
+                            />
+                        </div>
+                        <div className="w-full pl-2 pr-4">
+                            <CardStats
+                                statSubtitle="PLANIFICADO"
+                                statTitle={cantidadPlanificado === -1 ? "" : cantidadPlanificado.toString()}
+                                statPercent={porcentajePlanificado}
+                                statDescripiron="Planes"
+                                statIconName="fas fa-clock"
+                                statIconColor="bg-pink-500"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
