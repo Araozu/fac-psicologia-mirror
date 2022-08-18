@@ -16,6 +16,7 @@ export default function Detalle(props) {
     }
 
     const {codigo} = useParams();
+
     const [isHidden, setIsHidden] = useState(false);
     const handleViewChange = (estandarN) => {
         setEstandar(estandarList[estandarN]);

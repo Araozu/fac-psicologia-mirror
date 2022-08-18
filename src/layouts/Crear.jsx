@@ -14,7 +14,12 @@ export default function Crear() {
     if (accessToken === null) {
         history.replace("/auth/");
     }
-
+    const estandarList = {
+        "8": {n: "Estandar 8", titulo: "Estadar para la gestion de calidad"},
+        "9": {n: "Estandar 9", titulo: "Estadar para la gestion de calidad"},
+        "10": {n: "Estandar 10", titulo: "Estadar para la gestion de calidad"},
+    };
+    const [estandar, setEstandar] = useState(estandarList["8"]);
     const [isHidden, setIsHidden] = useState(false);
     const handleViewChange = (estandarN) => {
         setEstandar(estandarList[estandarN]);
