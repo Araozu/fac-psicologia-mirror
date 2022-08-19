@@ -26,6 +26,19 @@ export interface ResponseData {
     }
 }
 
+export interface GoogleResponseData {
+    ok: boolean,
+    json: {
+        message: string,
+        access_token: string,
+        user: {
+            id: number,
+            name: string,
+            lastname: string,
+            email: string,
+        }
+    }
+}
 
 type LoginFunction = (data: LoginData) => Promise<ResponseData>
 
@@ -42,7 +55,32 @@ export const defaultLoginFn: LoginFunction = (data) => new Promise((resolve) => 
         }),
     })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            res.json()
+                .then((jsonObj) => {
+                    resolve({
+                        ok: res.ok,
+                        json: jsonObj,
+                    });
+                });
+        })
+        .catch((err) => {
+            console.error(err);
+            resolve({
+                ok: false,
+                json: {
+                    message: "Error interno (Google Login)",
+                },
+            });
+        })
+    ;
+});
+
+export const googleLoginFn = (searchParams: string) => new Promise<GoogleResponseData>((resolve) => {
+    // const paramsEncoded = window.encodeURIComponent(searchParams);
+    fetch(`${SERVER_PATH}/api/login/google/callback${searchParams}`)
+        .then((res) => {
+            console.log(res);
             res.json()
                 .then((jsonObj) => {
                     resolve({

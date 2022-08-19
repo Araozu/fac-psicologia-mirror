@@ -2,34 +2,56 @@ import React, {useEffect, useState} from "react";
 
 import logoUnsa from "../../assets/img/logo unsa.png";
 import {SERVER_PATH} from "@/variables";
+import {useHistory, useLocation} from "react-router";
+import {googleLoginFn} from "@/views/auth/functions";
+import {useAlertStyle} from "@/views/auth/Login";
 
-type alertStyle = { display: "none" | "block" }
-
-function useAlertStyle() {
-    return useState<alertStyle>({display: "none"});
-}
 
 export function GoogleLogin() {
-    const [loginUrl, setLoginUrl] = useState<string | null>(null);
+    const location = useLocation();
+    const history = useHistory();
+    const paramsGoogle = location.search;
 
-    useEffect(() => {
-        fetch(`${SERVER_PATH}/api/login/google/`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Something went wrong!");
-            })
-            .then((data) => setLoginUrl(data.url))
-            .catch((error) => console.error(error));
-    }, []);
+    const [msgError, setMsgError] = useState("");
+    const [loginAlert, setLoginAlert] = useAlertStyle();
 
+    useEffect(
+        () => {
+            if (paramsGoogle !== null && paramsGoogle !== "") {
+                // Enviar parametros a backend
+                googleLoginFn(paramsGoogle)
+                    .then((response) => {
+                        if (response.ok) {
+                            const obj = response.json;
+                            console.log(obj);
 
+                            const token = obj.access_token;
+                            const nombre = obj.user.name;
+                            const apellido = obj.user.lastname;
+
+                            if (token.length !== 0) {
+                                console.log("Token:", token);
+                                localStorage.setItem("access_token", token);
+                                localStorage.setItem("nombre", nombre);
+                                localStorage.setItem("apellido",apellido);
+                            }
+
+                            history.push("/admin/dashboard");
+                        } else {
+                            setMsgError(response.json.message);
+                            setLoginAlert({display: "block"});
+
+                            // Retirar el msg de error tras un tiempo
+                            setTimeout(() => {
+                                setMsgError("");
+                                setLoginAlert({display: "none"});
+                            }, 5000);
+                        }
+                    });
+            }
+        },
+        [],
+    );
 
     return (
         <>
@@ -53,7 +75,6 @@ export function GoogleLogin() {
                                         type="button"
                                         onClick={() => {
                                             window.location.href = `${SERVER_PATH}/api/login/google/`;
-                                            console.log("Intenta logg con institucion");
                                         }}
                                     >
                                         <img
@@ -65,6 +86,9 @@ export function GoogleLogin() {
                                     </button>
                                 </div>
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
+                                <div className="text-red-500 font-bold" style={loginAlert}>
+                                    Error al iniciar sesión con Google. {msgError}
+                                </div>
                             </div>
                         </div>
                     </div>

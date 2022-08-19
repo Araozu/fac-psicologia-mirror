@@ -7,7 +7,7 @@ import {SERVER_PATH} from "@/variables";
 
 type alertStyle = { display: "none" | "block" }
 
-function useAlertStyle() {
+export function useAlertStyle() {
     return useState<alertStyle>({display: "none"});
 }
 
