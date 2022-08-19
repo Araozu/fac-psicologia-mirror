@@ -33,23 +33,33 @@ export interface PlanMejoraServer {
 }
 
 function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
-    let estadoPlan = EstadoPlanMejora.Planificado;
-    switch (plan.estado.toLowerCase()) {
-        case "desarrollo": {
+    let estadoPlan: EstadoPlanMejora;
+    switch (plan.estado) {
+        case "Planificado": {
+            estadoPlan = EstadoPlanMejora.Planificado;
+            break;
+        }
+        case "Programado": {
+            estadoPlan = EstadoPlanMejora.Programado;
+            break;
+        }
+        case "Reprogramado": {
+            estadoPlan = EstadoPlanMejora.Reprogramado;
+            break;
+        }
+        case "En proceso": {
             estadoPlan = EstadoPlanMejora.EnProceso;
             break;
         }
-        case "planificado": {
-            estadoPlan = EstadoPlanMejora.Programado;
-            break;
-        }
-        case "programado": {
-            estadoPlan = EstadoPlanMejora.Programado;
-            break;
-        }
-        case "concluido": {
+        case "Concluido": {
             estadoPlan = EstadoPlanMejora.Concluido;
             break;
+        }
+        default: {
+            console.error("Error al convertir datos del servidor a enum PlanMejoraServer (CardPlanesMejora.tsx)");
+            console.error("Valor recibido:", plan.estado);
+            console.error(plan);
+            estadoPlan = EstadoPlanMejora.Programado;
         }
     }
 
@@ -170,7 +180,6 @@ export default function CardPlanesMejora() {
                 .then((obj) => obj.json())
                 .then((objF: {data: Array<PlanMejoraServer>}) => {
                     const planesMejora = objF.data.map((x) => planMejoraServerToData(x));
-                    console.log(planesMejora);
 
                     setPlanesMejora(planesMejora);
                 });
