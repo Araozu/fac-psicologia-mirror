@@ -260,11 +260,11 @@ export default function Crear() {
                                 detalle={"Registrar algunas de las siguientes alternativas: Planificado, Programado, Reprogramado, En proceso o Concluido."}
                                 onChange={handleStateChange}/>
                 {/*Evidencias*/}
-                <IData title={"Evidencias (14)"} detalle={"Registrar el código de la evidencia (s)"} name={"evidencias"}
+                    {/*  <IData title={"Evidencias (14)"} detalle={"Registrar el código de la evidencia (s)"} name={"evidencias"}
                        type={"text"}
-                       onChange={formik.handleChange}/>
+                       onChange={formik.handleChange}/>*/}
                 {/*Avances*/}
-                <IData title={"Avances (15)"}
+                <IData title={"Avances (14)"}
                        detalle={"Planificado  de 0% a 10%; Reprogramado de 0% a 5%; En Desarrollo  de 11% a 99%, Concluido 100%"}
                        name="avance" type="number"
                        onChange={formik.handleChange}
@@ -272,7 +272,7 @@ export default function Crear() {
                        value={formik.values.avance}/>
                 {formik.errors.avance ? <div className="error">{formik.errors.avance}</div> : null}
                 {/*Eficacia*/}
-                <Eficacia title={"Eficacia (16)"}
+                <Eficacia title={"Eficacia (15)"}
                           detalle={"Registrar el calificativo de la evaluación categóricamente: Sí o No"}
                           setDt={setEficacia}/>
             </div>
