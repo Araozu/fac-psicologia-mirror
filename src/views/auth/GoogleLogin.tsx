@@ -23,9 +23,10 @@ export function GoogleLogin() {
                     .then((response) => {
                         if (response.ok) {
                             const obj = response.json;
-                            console.log(obj);
+                            //console.log(obj);
 
                             const token = obj.access_token;
+                            const foto = obj.image;
                             const nombre = obj.user.name;
                             const apellido = obj.user.lastname;
 
@@ -34,6 +35,7 @@ export function GoogleLogin() {
                                 localStorage.setItem("access_token", token);
                                 localStorage.setItem("nombre", nombre);
                                 localStorage.setItem("apellido",apellido);
+                                localStorage.setItem("FOTO", foto);
                             }
 
                             history.push("/admin/dashboard");

@@ -4,6 +4,9 @@ import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
 import Modal from "../modals/Modal";
 import {useClickOutside} from "./utils";
 
+
+const foto = localStorage.getItem("FOTO");
+
 const UserDropdown = () => {
     const ref = useRef(null);
     const history = useHistory();
@@ -48,7 +51,7 @@ const UserDropdown = () => {
                         <img
                             alt="..."
                             className="w-full rounded-full align-middle border-none shadow-lg"
-                            src={imgTeam1Url}
+                            src={foto}
                         />
                     </span>
                 </div>

@@ -6,7 +6,7 @@ export default function Navbar(  ) {
 
 const nombre = localStorage.getItem("nombre");
 const apellido = localStorage.getItem("apellido");
-
+const foto = localStorage.getItem("FOTO");
   return (
       <>
         {/* Navbar */}
