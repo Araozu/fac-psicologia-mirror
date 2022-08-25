@@ -31,7 +31,7 @@ export default function FormPM(props){
         //Valor por defecto en caso no cargue un PM
         pm = {
             nombre: '',
-            estandar_id: 0,
+            id_estandar: 0,
             codigo: '',
             fuentes: [],
             problemas_oportunidades: [],
@@ -82,8 +82,8 @@ export default function FormPM(props){
 
     const handleSubmit = (values) => {
         const token = localStorage.getItem("access_token");
-        const base_url = 'https://gestion-calidad-rrii-api.herokuapp.com/api/';
-        let url = editing ? (base_url + 'plan/update/' + pm.id) : (base_url + '/plan');
+        const base_url = 'https://gestion-calidad-rrii-api.herokuapp.com/api/plan/';
+        let url = base_url + ( editing ? pm.id : '');
 
         //Validamos si estamos editando un PM o no
         if(editing){
@@ -121,7 +121,7 @@ export default function FormPM(props){
 
 
     //Personalizamos el change en componentes propios
-    const handleChangeEstandar = (value) => { formik.setFieldValue('estandar_id', value) }
+    const handleChangeEstandar = (value) => { formik.setFieldValue('id_estandar', value) }
     const handleChangeCodigo = (value) => { formik.setFieldValue('codigo', `OM-${value}`) }
     const handleChangeFuentes = (values) => { formik.setFieldValue('fuentes', values) }
     const handleChangePo = (values) => { formik.setFieldValue('problemas_oportunidades', values) } 

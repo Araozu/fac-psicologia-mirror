@@ -27,7 +27,7 @@ export default function InputTextDinamics(props){
         if(input.value.trim() === ''){
             setError(true);
         }else{
-            let newValues = [...values, {id: null, value: input.value}]
+            let newValues = [...values, {value: input.value}]
             input.value = '';
             setValues(newValues);
             onChange(newValues);

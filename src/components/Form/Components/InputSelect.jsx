@@ -24,7 +24,7 @@ export default function InputSelect(props){
             response.data.data.forEach((item, index) => optionsResponse.push(
                 {
                     //TODO: CAMBIAR INDEX POR EL ID DEL ESTANDAR CUANNDO LO DEVUELVA LA RUTA
-                    value: optionsRute === 'estandares' ? index : item['valor'],
+                    value: optionsRute === 'estandares' ? item['id'] : item['valor'],
                     label: optionsRute === 'estandares' ? item['name'] : item['valor']
                 },
             ));
