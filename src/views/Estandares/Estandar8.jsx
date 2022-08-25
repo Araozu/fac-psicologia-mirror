@@ -9,12 +9,7 @@ export default function Estandar8() {
             <div className="flex flex-wrap mt-4">
                 <div className="w-full mb-12 px-4">
                     <CardPlanesMejora />
-
                 </div>
-                {/* <div className="w-full mb-12 px-4">
-                    <CardTable color="dark" />
-                </div>*/}
-
             </div>
         </>
     );
