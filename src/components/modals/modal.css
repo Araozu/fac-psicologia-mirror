@@ -81,3 +81,16 @@
 .btn-decline:hover{
     background-color:#b84c4c;
 }
+
+.icon-large{
+    font-size: 80px;
+    margin-bottom: 5px;
+}
+
+.success{
+    color: rgb(44, 255, 44);
+}
+
+.error {
+    color: rgb(255, 44, 44);
+}

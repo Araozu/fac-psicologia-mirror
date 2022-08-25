@@ -35,7 +35,7 @@ export default function Detalle(props) {
         <>
             <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <HeaderDetail />
+                <HeaderDetail/>
                 <DetallePM id={codigo} />
             </div>
 
