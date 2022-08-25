@@ -475,7 +475,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.fuentes.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -488,7 +488,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.problemas_oportunidades.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -501,7 +501,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.causas_raices.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -523,7 +523,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.acciones_mejoras.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -556,7 +556,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.recursos.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -569,7 +569,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.metas.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -582,7 +582,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.responsables.map((el) => {
-                return "- " + el.nombre + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>
@@ -595,7 +595,7 @@ export default function DocEstandar({ plan }) {
           >
             <Text style={{ margin: 2 }}>
               {plan.observaciones.map((el) => {
-                return "- " + el.descripcion + "\n";
+                return "- " + el.value + "\n";
               })}
             </Text>
           </View>

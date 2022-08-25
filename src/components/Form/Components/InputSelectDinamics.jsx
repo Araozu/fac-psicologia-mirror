@@ -64,11 +64,13 @@ export default function InputSelectDinamics(props){
             }
             setError(false);
             newValues = [...values, {
+                id: null,
                 value: input.value
             }];
             input.value = '';
         }else{
             newValues = [...values, {
+                id: null,
                 value: currentItem.value
             }];
         }

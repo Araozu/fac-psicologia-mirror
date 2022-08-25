@@ -39,7 +39,7 @@ export default function DetallePM({ id }) {
       }
     };
     getPM();
-    console.log(pm);
+    console.log("PM:",pm);
   }, []);
 
   //Si esta cargando retorna el item de carga
@@ -107,7 +107,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.fuentes.map((fu, index) => (
                   <li key={index} className="pm-list-item">
-                    {fu.descripcion.toUpperCase()}
+                    {fu.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -120,7 +120,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.problemas_oportunidades.map((po, index) => (
                   <li key={index} className="pm-list-item">
-                    {po.descripcion.toUpperCase()}
+                    {po.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -133,7 +133,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.causas_raices.map((cr, index) => (
                   <li key={index} className="pm-list-item">
-                    {cr.descripcion.toUpperCase()}
+                    {cr.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -151,7 +151,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.acciones_mejoras.map((am, index) => (
                   <li key={index} className="pm-list-item">
-                    {am.descripcion.toUpperCase()}
+                    {am.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -164,7 +164,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.recursos.map((re, index) => (
                   <li key={index} className="pm-list-item">
-                    {re.descripcion.toUpperCase()}
+                    {re.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -177,7 +177,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.metas.map((me, index) => (
                   <li key={index} className="pm-list-item">
-                    {me.descripcion.toUpperCase()}
+                    {me.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -188,7 +188,11 @@ export default function DetallePM({ id }) {
             <td>Responsables</td>
             <td>
               <ul className="pm-list">
-                <li className="pm-list-item">COMISION DE CALIDAD</li>
+                {pm.responsables.map((ob, index) => (
+                  <li key={index} className="pm-list-item">
+                    {ob.value.toUpperCase()}
+                  </li>
+                ))}
               </ul>
             </td>
           </tr>
@@ -199,7 +203,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.observaciones.map((ob, index) => (
                   <li key={index} className="pm-list-item">
-                    {ob.descripcion.toUpperCase()}
+                    {ob.value.toUpperCase()}
                   </li>
                 ))}
               </ul>
@@ -210,7 +214,11 @@ export default function DetallePM({ id }) {
             <td>Evidencias</td>
             <td>
               <ul className="pm-list">
-                <li className="pm-list-item">UN DOC.dcx</li>
+                {pm.evidencias.map((ob, index) => (
+                  <li key={index} className="pm-list-item">
+                    {ob.denominacion}
+                  </li>
+                ))}
               </ul>
             </td>
           </tr>

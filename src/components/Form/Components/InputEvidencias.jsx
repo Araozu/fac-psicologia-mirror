@@ -21,15 +21,21 @@ export default function InputEvidencias(props){
         if(inputFile.files[0] != undefined || inputDenominacion.value.trim() !== '') {
             const token = localStorage.getItem("access_token")
             setLoading(true);
+            let formData = new FormData();
+            formData.append("id_plan", idPM);
+            formData.append("codigo", 'E-OM-01:2022-03');
+            formData.append("denominacion", inputDenominacion.value);
+            formData.append("adjunto", inputFile.files[0]);
+
+            // Display the key/value pairs
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ', ' + pair[1]); 
+            }
+
             axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
-                {
-                    id_plan: idPM,
-                    codigo: '',
-                    denominacion: inputDenominacion.value,
-                    adjunto: inputFile.files[0]
-                }, {
+                formData, {
                     headers: {
-                        "Content-type": "application/json",
+                        "Content-Type": 'multipart/form-data; boundary=<calculated when request is sent>',
                         Accept: "application/json",
                         Authorization: "Bearer " + token,
                     },

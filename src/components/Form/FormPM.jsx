@@ -57,7 +57,7 @@ export default function FormPM(props){
 
     const modalSuccess = {
         estado: "ok",
-        icon: (<i class="fa-solid fa-circle-check icon-large success"></i>),
+        icon: "fa-solid fa-circle-check icon-large success",
         title: "Operacion exitosa",
         body: "Se guardaron los cambios con exito",
         type: "info"
@@ -65,7 +65,7 @@ export default function FormPM(props){
 
     const modalError = {
         estado: "false",
-        icon: (<i class="fa-solid fa-circle-exclamation icon-large error"></i>),
+        icon: "fa-solid fa-circle-exclamation icon-large error-icon",
         title: "Operacion fallida",
         body: "No se guardaron los cambios",
         type: "info"
@@ -82,11 +82,12 @@ export default function FormPM(props){
 
     const handleSubmit = (values) => {
         const token = localStorage.getItem("access_token");
-        const base_url = 'https://gestion-calidad-rrii-api.herokuapp.com/api/plan/';
-        let url = base_url + ( editing ? pm.id : '');
+        const base_url = 'https://gestion-calidad-rrii-api.herokuapp.com/api/plan';
+        let url = base_url + ( editing ? ('/'+pm.id) : '');
 
         //Validamos si estamos editando un PM o no
         if(editing){
+            console.log(JSON.stringify(values,null,1));
             axios.put(url, values, {
                 headers: {
                     "Content-type": "application/json",
@@ -99,6 +100,7 @@ export default function FormPM(props){
                 setModalInfo(modalError);
             }).finally( () => { setModal(true) })
         }else{
+            console.log(JSON.stringify(values,null,1));
             axios.post(url, values, {
                 headers: {
                     "Content-type": "application/json",
@@ -117,6 +119,12 @@ export default function FormPM(props){
     const formik = useFormik({
         initialValues: pm,
         onSubmit: handleSubmit,
+        /**
+         * Obligatoriamente el codigo y el estandar
+         * Verificar que no pueda poner 100% si existe algun campo vacio
+         * Tampoco en estado concluido
+         * porque no hay evidencias
+         */
     });
 
 
@@ -181,7 +189,7 @@ export default function FormPM(props){
                             description='EN ESTA SECCION ELIGE LA FUENTE DEL PLAN DE MEJORA O ESPECIFICA UNA'
                             optionsRute='fuentes'
                             onChange={handleChangeFuentes}
-                            initialValues={pm?.fuentes?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.fuentes}/>
 
                         {/**PROBLEMAS OPORTUNIDADES */}
                         <InputTextDinamics 
@@ -189,7 +197,7 @@ export default function FormPM(props){
                             label='PROBLEMA/OPORTUNIDAD (3)' 
                             description='En esta seccion registra los Problemas/Oportunidades que genera la mejora'
                             onChange={handleChangePo}
-                            initialValues={pm?.problemas_oportunidades?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.problemas_oportunidades}/>
 
                         {/**CAUSAS RAICES */}
                         <InputTextDinamics
@@ -197,7 +205,7 @@ export default function FormPM(props){
                             label='CAUSA/RAIZ (4)'
                             description='En esta seccion se registra las Causas/Raices del plan de mejora'
                             onChange={handleChangeCr}
-                            initialValues={pm?.causas_raices?.map( (item) => ({id: item.id, value: item.descripcion}) )} />
+                            initialValues={pm?.causas_raices} />
 
                         {/**OPORTUNIDAD DE MEJORA */}
                         <InputText 
@@ -213,7 +221,7 @@ export default function FormPM(props){
                             label='ACCIONES DE MEJORA (6)'
                             description='Introduce las acciones que llevan a la mejora establecida'
                             onChange={handleChangeAmr}
-                            initialValues={pm?.acciones_mejoras?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.acciones_mejoras}/>
 
                         {/**SEMESTRE */}
                         <InputSemestre 
@@ -238,7 +246,7 @@ export default function FormPM(props){
                             label='RECURSOS (9)'
                             description='Registrar los recursos necesarios: Humanos, Tecnológicos, logísticos, otros'
                             onChange={handleChangeRecursos}
-                            initialValues={pm?.recursos?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.recursos}/>
 
                         {/**METAS */}
                         <InputTextDinamics 
@@ -246,7 +254,7 @@ export default function FormPM(props){
                             label='METAS (10)'
                             description='Registrar la meta que se espera lograr al termino del plan de mejora que atienda directamente la causa raíz del problema / mejora'
                             onChange={handleChangeMetas}
-                            initialValues={pm?.metas?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.metas}/>
 
                         {/**RESPONSABLES */}
                         <InputSelectDinamics 
@@ -255,7 +263,7 @@ export default function FormPM(props){
                             descripcion='Registrar los responsables de la ejecución de las actividades registradas en el punto (5)'
                             optionsRute='responsables'
                             onChange={handleChangeResponsables}
-                            initialValues={pm?.responsables?.map( (item) => ({id: item.id, value: item.nombre}) )}/> 
+                            initialValues={pm?.responsables}/> 
 
                         {/**OBSERVACIONES */}
                         <InputTextDinamics 
@@ -263,7 +271,7 @@ export default function FormPM(props){
                             label='OBSERVACIONES (12)'
                             description='Registrar en esta sección las acciones vinculadas a las mejoras y en que circunstancias se están realizando o realizaran, que permita al lector del informe tener conocimiento de la OM'
                             onChange={handleChangeObservaciones}
-                            initialValues={pm?.observaciones?.map( (item) => ({id: item.id, value: item.descripcion}) )}/>
+                            initialValues={pm?.observaciones}/>
 
                         {/**ESTADO */}
                         <InputSelect 
@@ -280,7 +288,7 @@ export default function FormPM(props){
                                 name='pm-evidencias'
                                 label='EVIDENCIAS (14)'
                                 descripcion='Aca se gestionan las evidencias, estas se actualizan de manera inmendiata sin tener que dar en "Guardar"'
-                                initialValues={pm?.evidencias?.map( item => ({id: item.id, denominacion: item.denominacion}) )}
+                                initialValues={pm?.evidencias}
                                 idPM={pm?.id}/>) 
                             : (<>
                                 <Label label={'EVIDENCIAS (14)'} descripcion='Las evidencias se gestionan en editar el PM' />
@@ -314,7 +322,7 @@ export default function FormPM(props){
 
                 <Modal show={modal} type='info' onClose={onCloseModalHandle} title={modalInfo.title}>
                     <div className='flex flex-col justify-center items-center'>
-                        {modalInfo.icon}
+                        <i className={modalInfo.icon}></i>
                         {modalInfo.body}
                     </div>
                 </Modal>

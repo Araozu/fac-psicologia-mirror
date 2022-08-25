@@ -10,10 +10,10 @@ import Label from './Label/Label';
 
 export default function InputSelect(props){
     //INITIAL VALUE RECIBE EL ID
-    let {name, label, description, optionsRute, initialValue, onChange ,disabled = false} = props;
+    let {name, label, description, optionsRute, initialValue , onChange ,disabled = false} = props;
 
     const [options, setOptions] = useState([]);
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState();
 
     useEffect( () => {
         axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/"+optionsRute)
