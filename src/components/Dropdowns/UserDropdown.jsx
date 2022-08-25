@@ -1,13 +1,23 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect,useRef, useState} from "react";
 import {useHistory} from "react-router-dom";
 import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
 import Modal from "../modals/Modal";
 import {useClickOutside} from "./utils";
 
-
-const foto = localStorage.getItem("FOTO");
+//console.log(localStorage.getItem("FOTO"));
 
 const UserDropdown = () => {
+    const [foto,setFoto] = useState('')
+
+    useEffect(()=>{
+        const getFotoUser = async ()=>{
+            const x = await localStorage.getItem("FOTO")
+            setFoto(x)
+        }
+        getFotoUser();
+    },[0])
+
+
     const ref = useRef(null);
     const history = useHistory();
 
@@ -51,6 +61,7 @@ const UserDropdown = () => {
                         <img
                             alt="..."
                             className="w-full rounded-full align-middle border-none shadow-lg"
+                            referrerpolicy="no-referrer"
                             src={foto}
                         />
                     </span>
