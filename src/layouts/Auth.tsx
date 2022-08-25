@@ -2,7 +2,7 @@ import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // views
-import Login from "../views/auth/Login";
+import {GoogleLogin} from "@/views/auth/GoogleLogin";
 import Register from "../views/auth/Register";
 import {useHistory} from "react-router";
 
@@ -27,7 +27,7 @@ export default function Auth() {
                         }}
                     />
                     <Switch>
-                        <Route path="/auth/login" exact component={Login} />
+                        <Route path="/auth/login" exact component={GoogleLogin} />
                         <Route path="/auth/register" exact component={Register} />
                         <Redirect from="/" to="/auth/login" />
                     </Switch>
