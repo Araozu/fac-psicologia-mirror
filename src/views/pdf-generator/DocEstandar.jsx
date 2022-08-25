@@ -1,3 +1,4 @@
+import { placements } from "@popperjs/core";
 import {
   Document,
   Page,
@@ -461,17 +462,8 @@ export default function DocEstandar({ plan }) {
               styles.borderLB,
             ]}
           >
-            <Text style={{ margin: 2 }}>OM - 01 - 2020</Text>
-          </View>
-          <View
-            style={[
-              styles.celda,
-              { width: "7%", paddingBottom: 10 },
-              styles.borderLB,
-            ]}
-          >
             <Text style={{ margin: 2 }}>
-              Evaluación de objetivos educacionales.{"\n"}Actividades diarias
+              {plan.codigo.split("-").join("-\n")}
             </Text>
           </View>
           <View
@@ -482,7 +474,22 @@ export default function DocEstandar({ plan }) {
             ]}
           >
             <Text style={{ margin: 2 }}>
-              Reconocimiento docente por logros académicos.
+              {plan.fuentes.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.celda,
+              { width: "7%", paddingBottom: 10 },
+              styles.borderLB,
+            ]}
+          >
+            <Text style={{ margin: 2 }}>
+              {plan.problemas_oportunidades.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
             </Text>
           </View>
           <View
@@ -493,10 +500,9 @@ export default function DocEstandar({ plan }) {
             ]}
           >
             <Text style={{ margin: 2 }}>
-              El reconocimiento docente de parte del departamento académico.
-              {"\n"}
-              {"\n"}
-              Incentivar y premiar los logros académicos de los docentes.
+              {plan.causas_raices.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
             </Text>
           </View>
           <View
@@ -506,9 +512,7 @@ export default function DocEstandar({ plan }) {
               styles.borderLB,
             ]}
           >
-            <Text style={{ margin: 2 }}>
-              Implementación de un reglamento de reconocimiento docente.
-            </Text>
+            <Text style={{ margin: 2 }}>{plan.oportunidad_plan}</Text>
           </View>
           <View
             style={[
@@ -518,8 +522,9 @@ export default function DocEstandar({ plan }) {
             ]}
           >
             <Text style={{ margin: 2 }}>
-              - Determinar los criterios de reconocimiento docente.{"\n"}-
-              Presentarlo a la dirección para su aprobación
+              {plan.acciones_mejoras.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
             </Text>
           </View>
           <View
@@ -529,7 +534,9 @@ export default function DocEstandar({ plan }) {
               styles.borderLB,
             ]}
           >
-            <Text style={{ margin: 2 }}>2020-AB</Text>
+            <Text style={{ margin: 2 }}>
+              {plan.semestre_ejecucion.split("-").join("-\n")}
+            </Text>
           </View>
           <View
             style={[
@@ -538,7 +545,7 @@ export default function DocEstandar({ plan }) {
               styles.borderLB,
             ]}
           >
-            <Text style={{ margin: 2 }}>06 </Text>
+            <Text style={{ margin: 2 }}>{plan.duracion}</Text>
           </View>
           <View
             style={[
@@ -547,17 +554,10 @@ export default function DocEstandar({ plan }) {
               styles.borderLB,
             ]}
           >
-            <Text style={{ margin: 2 }}>- Recursos Humanos</Text>
-          </View>
-          <View
-            style={[
-              styles.celda,
-              { width: "7%", paddingBottom: 10 },
-              styles.borderLB,
-            ]}
-          >
             <Text style={{ margin: 2 }}>
-              {"aprobación del reconocimiento docente"}
+              {plan.recursos.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
             </Text>
           </View>
           <View
@@ -568,7 +568,22 @@ export default function DocEstandar({ plan }) {
             ]}
           >
             <Text style={{ margin: 2 }}>
-              - Dirección EP RR.II. {"\n"}- Comisión de desarrollo docente
+              {plan.metas.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.celda,
+              { width: "7%", paddingBottom: 10 },
+              styles.borderLB,
+            ]}
+          >
+            <Text style={{ margin: 2 }}>
+              {plan.responsables.map((el) => {
+                return "- " + el.nombre + "\n";
+              })}
             </Text>
           </View>
           <View
@@ -579,28 +594,34 @@ export default function DocEstandar({ plan }) {
             ]}
           >
             <Text style={{ margin: 2 }}>
-              - Se realizaron coordinaciones entre los integrantes de la
-              Comision, a fin de determinar los criterios de reconocimiento
-              docente.{"\n"}- Se presentó el reglamento a la dirección para su
-              aprobación.{"\n"}- Los requerimiento y características fueron
-              elaboradas por la comisión de desarrollo docente.{"\n"}- Las
-              gestiones para su desarrollo se realizaron de manera virtual en su
-              mayoría, debido al confinamiento por la Pandemia Covid 19.{"\n"}
+              {plan.observaciones.map((el) => {
+                return "- " + el.descripcion + "\n";
+              })}
             </Text>
           </View>
           <View style={[styles.celda, { width: "5%" }, styles.borderLB]}>
-            <Text style={{ margin: 2, paddingBottom: 10 }}>Concluido</Text>
+            <Text style={{ margin: 2, paddingBottom: 10 }}>{plan.estado}</Text>
           </View>
           <View style={[styles.celda, { width: "6%" }, styles.borderLB]}>
             <Text style={{ margin: 2, paddingBottom: 10 }}>
-              E-OM -01 -2020 -1
+              {plan.evidencias.map((el) => {
+                return (
+                  "- " +
+                  el.codigo.substring(0, 5) +
+                  "\n" +
+                  el.codigo.substring(5, el.codigo.length) +
+                  "\n"
+                );
+              })}
             </Text>
           </View>
           <View style={[styles.celda, { width: "5%" }, styles.borderLB]}>
-            <Text style={{ margin: 2, paddingBottom: 10 }}>100%</Text>
+            <Text style={{ margin: 2, paddingBottom: 10 }}>{plan.avance}</Text>
           </View>
           <View style={[styles.celda, { width: "4%" }, styles.borderLRB]}>
-            <Text style={{ margin: 2, paddingBottom: 10 }}>Si</Text>
+            <Text style={{ margin: 2, paddingBottom: 10 }}>
+              {plan.evaluacion_eficacia ? "SI" : "NO"}
+            </Text>
           </View>
         </View>
 
@@ -875,6 +896,7 @@ export default function DocEstandar({ plan }) {
         </View>
 
         {/* TABLA DE EVIDENCIAS */}
+
         <View
           style={[styles.fila, { backgroundColor: "#f2f2f2", fontSize: 12 }]}
         >
@@ -900,35 +922,48 @@ export default function DocEstandar({ plan }) {
           </View>
         </View>
 
-        <View style={[styles.fila, { fontWeight: "normal", fontSize: 12 }]}>
-          <View style={[styles.celda, { width: "10%" }, styles.borderLB]}>
-            <Text style={{ padding: 2 }}>
-              <Text>1</Text>
-            </Text>
+        {plan.evidencias.length > 0 ? (
+          plan.evidencias.map((evidencia, index) => (
+            <View
+              key={index}
+              style={[styles.fila, { fontWeight: "normal", fontSize: 12 }]}
+            >
+              <View style={[styles.celda, { width: "10%" }, styles.borderLB]}>
+                <Text style={{ padding: 2 }}>
+                  <Text>{index + 1}</Text>
+                </Text>
+              </View>
+              <View style={[styles.celda, { width: "20%" }, styles.borderLB]}>
+                <Text style={{ padding: 2 }}>{evidencia.codigo}</Text>
+              </View>
+              <View style={[styles.celda, { width: "50%" }, styles.borderLB]}>
+                <Text style={{ padding: 2 }}>
+                  <Text>{evidencia.denominacion}</Text>
+                </Text>
+              </View>
+              <View style={[styles.celda, { width: "20%" }, styles.borderLRB]}>
+                <Text style={{ padding: 2 }}>
+                  <Text>Anexo {" " + (index + 1)}</Text>
+                </Text>
+              </View>
+            </View>
+          ))
+        ) : (
+          <View style={[styles.fila, { fontWeight: "normal", fontSize: 12 }]}>
+            <View style={[styles.celda, { width: "100%" }, styles.borderLRB]}>
+              <Text style={{ padding: 2 }}>No hay evidencias</Text>
+            </View>
           </View>
-          <View style={[styles.celda, { width: "20%" }, styles.borderLB]}>
-            <Text style={{ padding: 2 }}>
-              <Link
-                style={{ color: "#0563c1" }}
-                src="https://docs.google.com/document/d/1PIuHjo2GzaAyQXar4L7hAcIvFFGHL_U4"
-              >
-                E-OM-01:20__-01
-              </Link>
-            </Text>
-          </View>
-          <View style={[styles.celda, { width: "50%" }, styles.borderLB]}>
-            <Text style={{ padding: 2 }}>
-              <Text>Oficio 004: Oficio para la aplicación del estándar 18</Text>
-            </Text>
-          </View>
-          <View style={[styles.celda, { width: "20%" }, styles.borderLRB]}>
-            <Text style={{ padding: 2 }}>
-              <Text>Anexo 1</Text>
-            </Text>
-          </View>
-        </View>
+        )}
 
-        <Text style={{ fontWeight: "bold", textAlign: "center", fontSize: 12 }}>
+        <Text
+          style={{
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 12,
+            paddingTop: 5,
+          }}
+        >
           Tabla 4-2 Consolidado de evidencias de los planes de mejora.
         </Text>
 
