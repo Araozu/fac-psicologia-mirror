@@ -4,7 +4,6 @@ import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
 import Modal from "../modals/Modal";
 import {useClickOutside} from "./utils";
 
-//console.log(localStorage.getItem("FOTO"));
 
 const UserDropdown = () => {
     const [foto,setFoto] = useState('')
@@ -61,7 +60,7 @@ const UserDropdown = () => {
                         <img
                             alt="..."
                             className="w-full rounded-full align-middle border-none shadow-lg"
-                            referrerpolicy="no-referrer"
+                            referrerPolicy="no-referrer"
                             src={foto}
                         />
                     </span>
