@@ -32,24 +32,26 @@ export default function InputEvidencias(props){
                 console.log(pair[0]+ ', ' + pair[1]); 
             }
 
-            axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/plan",
+            axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia",
                 formData, {
                     headers: {
-                        "Content-Type": 'multipart/form-data; boundary=<calculated when request is sent>',
+                        //"Content-Type": 'multipart/form-data',
+                        "Content-Type": 'application/json',
                         Accept: "application/json",
                         Authorization: "Bearer " + token,
                     },
                 },
             ).then(function(response){
                 
-                setValues([...values, {id: response.data.id, denominacion: response.data.denominacion}]);
+                let evidencia = response.data.evidencia;
+                setValues([...values, {id: evidencia?.id, denominacion: evidencia?.denominacion}]);
 
                 setLoading(false);
-                console.log(response);
+
             }).catch(function(error){
 
                 setLoading(false);
-                console.log(error);
+                
             });
         }
     }
@@ -58,10 +60,21 @@ export default function InputEvidencias(props){
         //TODO: MANEJAR ESTADO DE LOADING MIENTRAS REALIZA CONSULTA A LA API
         setLoading(true)
         const token = localStorage.getItem("access_token")
-
-        let newValues = [...values];
-        newValues.splice(index, 1);
-        setValues(newValues);
+        console.log(id)
+        axios.delete("https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia/"+id,
+        {
+            headers: {
+                //"Content-Type": 'multipart/form-data',
+                "Content-Type": 'application/json',
+                Accept: "application/json",
+                Authorization: "Bearer " + token,
+            },
+        },)
+        .then( (res) => {
+            let newValues = [...values];
+            newValues.splice(index, 1);
+            setValues(newValues);
+        }).finally( () => {setLoading(false)} )
     }
 
     return (

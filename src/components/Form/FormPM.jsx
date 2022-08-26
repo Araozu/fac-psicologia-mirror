@@ -31,7 +31,7 @@ export default function FormPM(props){
         //Valor por defecto en caso no cargue un PM
         pm = {
             nombre: '',
-            id_estandar: 0,
+            id_estandar: null,
             codigo: '',
             fuentes: [],
             problemas_oportunidades: [],
@@ -40,7 +40,7 @@ export default function FormPM(props){
             acciones_mejoras: [],
             semestre_ejecucion: '',
             duracion: 0,
-            estado: '',
+            estado: null,
             avance: 0,
             evaluacion_eficacia: true,
             metas: [],
@@ -115,10 +115,22 @@ export default function FormPM(props){
         }
     }
 
+    //Objeto que contiene las validaciones
+    const validationSchema = Yup.object().shape({
+        id_estandar: Yup.number().required("No se escogio un estandar").typeError("No es escogio el Estandar"),
+        nombre: Yup.string().required("Debe especificar el nombre del plan"),
+        codigo: Yup.string().required('El codigo es requerido').trim().matches(/^OM+\-+[0-9]{2}\-+20[2-9][0-9]$/, 'El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion'),
+        semestre: Yup.string().required("Se necesita establecer el semestre"),
+        estado: Yup.string().required("Debe elegir un estado para el plan de mejora")
+    });
+
     //Creamos el formulario con formik
     const formik = useFormik({
         initialValues: pm,
         onSubmit: handleSubmit,
+        validationSchema: validationSchema,
+        validateOnChange: false,
+        validateOnBlur: false
         /**
          * Obligatoriamente el codigo y el estandar
          * Verificar que no pueda poner 100% si existe algun campo vacio
@@ -156,6 +168,7 @@ export default function FormPM(props){
                                 optionsRute='estandares'
                                 initialValue={pm?.id_estandar}
                                 disabled={editing}
+                                error={formik.errors.id_estandar}
                                 onChange={handleChangeEstandar}/>
                         </div>
                     </div>
@@ -171,7 +184,8 @@ export default function FormPM(props){
                             label='NOMBRE DEL PLAN DE MEJORA' 
                             description='En esta sección debes ingresar el titulo de tu plan de mejora' 
                             value={pm?.nombre}
-                            onChange={formik.handleChange}/>
+                            onChange={formik.handleChange}
+                            error={formik.errors.nombre}/>
                         
                         {/**CODIGO DEL PLAN DE MEJORA */}
                         <InputTextCodigo 
@@ -180,7 +194,8 @@ export default function FormPM(props){
                             description="EN ESTA SECCION INTRODUCE EL CODIGO EN EL FORMATO OM-XX-XXXX"
                             prefix="OM-"
                             value={pm?.codigo?.substr(3, pm.codigo.length)}
-                            onChange={handleChangeCodigo}/>
+                            onChange={handleChangeCodigo}
+                            error={formik.errors.codigo}/>
 
                         {/**FUENTES DEL PLAN DE MEJORA */}
                         <InputSelectDinamics 

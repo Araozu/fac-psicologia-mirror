@@ -10,7 +10,7 @@ import Label from './Label/Label';
 
 export default function InputSelect(props){
     //INITIAL VALUE RECIBE EL ID
-    let {name, label, description, optionsRute, initialValue , onChange ,disabled = false} = props;
+    let {name, label, description, optionsRute, initialValue , onChange ,disabled = false, error} = props;
 
     const [options, setOptions] = useState([]);
     const [value, setValue] = useState();
@@ -28,10 +28,13 @@ export default function InputSelect(props){
                     label: optionsRute === 'estandares' ? item['name'] : item['valor']
                 },
             ));
-            
-            let labelInitialValue = optionsResponse.find( item => item.value == initialValue )?.label;
             setOptions(optionsResponse);
-            setValue({value: initialValue, label: labelInitialValue});
+            
+            if(initialValue)
+            {
+                let labelInitialValue = optionsResponse.find( item => item.value == initialValue )?.label;
+                setValue({value: initialValue, label: labelInitialValue});
+            }
         })
     }, []);
 
@@ -41,10 +44,16 @@ export default function InputSelect(props){
         onChange(value.value);
     }
 
+    let emessage = <p className='form-input-error-description'>{error}</p>;
+
     return (
         <>
             <Label label={label} description={description} />
-            <Select name={name+'-select'} options={options} value={value} onChange={handleChange} isDisabled={disabled}/>
+            <div>
+                <Select name={name+'-select'} options={options} value={value} onChange={handleChange} isDisabled={disabled}/>
+                {/**Si hay error muestra el mensaje, si no no muestra nada */}
+                {error != '' ? emessage : ''}
+            </div>
         </>
     );
 

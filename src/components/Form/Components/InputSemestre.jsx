@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useEffect } from 'react';
 import Select from 'react-select';
 
 import Label from './Label/Label';
@@ -9,17 +10,19 @@ export default function InputSemestre(props){
     let {name, label, description, initialValue, onChange} = props;
     const idinput = name+'-input';
     const [error, setError] = useState('');
-    //Separamos el año y el semestre en una variable
-    let semestre = initialValue?.split('-');
 
+    let semestre = initialValue ?  initialValue.split('-') : [''];
+    const [option, setOption] = useState(  initialValue && {value:semestre[1], label: semestre[1]});
+    
+    //Separamos el año y el semestre en una variable
+    
     const options = [
         {value: 'A', label: 'A'},
         {value: 'B', label: 'B'},
         {value: 'Anual', label: 'Anual'}
     ];
-    //Para manejar la opcion actual
-    if (semestre == undefined) semestre = ['', 'A']
-    const [option, setOption] = useState({value: semestre[1] , label: semestre[1]});
+    
+        
 
     const handleChange = (value) => {
         setOption(value);
