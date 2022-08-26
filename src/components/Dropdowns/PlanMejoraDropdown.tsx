@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 // @ts-ignore
 import Modal from "../modals/Modal.jsx";
+import { useHistory } from "react-router";
 import {SERVER_PATH} from "@/variables";
 import {useClickOutside} from "@/components/Dropdowns/utils";
 
@@ -27,6 +28,8 @@ export function PlanMejoraDropdown(props: {codigo: string, eliminar: () => void}
     // dropdown props
     const [isShown, setIsShown] = useState(false);
 
+    const history = useHistory();
+
     const [modalShow, setModalShow] = useState(false);
     const modalOnClose = async(result: "cancel" | "confirm") => {
         setModalShow(false);
@@ -40,6 +43,11 @@ export function PlanMejoraDropdown(props: {codigo: string, eliminar: () => void}
     };
 
     useClickOutside([ref], isShown, () => setIsShown(false));
+
+    const redirectToEdit = (id:string) => {
+        const path = `/editar/${id}`;
+        history.push(path);
+    };
 
     return (
         <>
@@ -66,7 +74,10 @@ export function PlanMejoraDropdown(props: {codigo: string, eliminar: () => void}
                     className={
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                     }
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        redirectToEdit(props.codigo);
+                    }}
                 >
                     <i className="fas fa-pen" /> Editar
                 </a>
