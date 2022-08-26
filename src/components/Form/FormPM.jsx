@@ -120,8 +120,6 @@ export default function FormPM(props){
         id_estandar: Yup.number().required("No se escogio un estandar").typeError("No es escogio el Estandar"),
         nombre: Yup.string().required("Debe especificar el nombre del plan"),
         codigo: Yup.string().required('El codigo es requerido').trim().matches(/^OM+\-+[0-9]{2}\-+20[2-9][0-9]$/, 'El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion'),
-        semestre: Yup.string().required("Se necesita establecer el semestre"),
-        estado: Yup.string().required("Debe elegir un estado para el plan de mejora")
     });
 
     //Creamos el formulario con formik
