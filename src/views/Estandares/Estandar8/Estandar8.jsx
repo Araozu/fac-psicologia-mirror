@@ -1,7 +1,7 @@
 import React from "react";
 
 // components
-import CardPlanesMejora from "../../components/Cards/CardPlanesMejora";
+import CardPlanesMejora from "../../../components/Cards/CardPlanesMejora";
 
 export default function Estandar8() {
     return (
