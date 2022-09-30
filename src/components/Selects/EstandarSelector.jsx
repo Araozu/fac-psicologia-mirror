@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import "../../views/Create/CrearPM.css";
+import "../../views/Estandares/Estandar8/Create/CrearPM.css";
 import axios from "axios";
 import Label from "../Labels/Label";
 

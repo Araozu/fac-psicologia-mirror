@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // components
-import CrearPM from "../views/Create/CrearPM";
+import CrearPM from "../views/Estandares/Estandar8/Create/CrearPM";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderCreate from "../components/Headers/HeaderCreate";
 import {useHistory} from "react-router";
@@ -15,7 +15,7 @@ export default function Crear() {
         history.replace("/auth/");
     }
     const estandarList = {
-        "8": {n: "Estandar 8", titulo: "Estadar para la gestion de calidad"},
+        "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},
         "9": {n: "Estandar 9", titulo: "Estadar para la gestion de calidad"},
         "10": {n: "Estandar 10", titulo: "Estadar para la gestion de calidad"},
     };
@@ -32,7 +32,7 @@ export default function Crear() {
         <>
             <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <HeaderCreate estandar={"Estandar 8"} tipo ={"Plan de Mejora"} />
+                <HeaderCreate estandar={"Estandar8"} tipo ={"Plan de Mejora"} />
                 <Switch>
                     <Route path="/crear/crearpm" exact component={CrearPM} />
                     <Redirect from="/crear" to="/admin" />

@@ -6,8 +6,8 @@ import { useHistory } from "react-router";
 
 
 //Importaciones componentes propios
-import FormPM from "../../components/Form/FormPM";
-import lgif from '../../assets/img/loading-2.gif';
+import FormPM from "../../../../components/Form/FormPM";
+import lgif from '../../../../assets/img/loading-2.gif';
 import "./EditarPM.css";
 
 export default function Editar(props) {
@@ -42,16 +42,16 @@ export default function Editar(props) {
         }
         getPM();
     }, [] );
-    
+
     //Si esta cargando mostramos el item de cargando
-    if(loading) 
+    if(loading)
         return (
             <>
                 <img src={lgif} alt="Loading data gif" className="loading-gif"/>
             </>
         );
-    
-    
+
+
     return (
         <>
             <div className="bg-content">

@@ -10,7 +10,7 @@ import FooterAdmin from "../components/Footers/FooterAdmin.jsx";
 import Maps from "../views/admin/Maps.jsx";
 import Settings from "../views/admin/Settings.jsx";
 import Tables from "../views/admin/Tables.jsx";
-import Estandar8 from "../views/Estandares/Estandar8.jsx";
+import Estandar8 from "../views/Estandares/Estandar8/Estandar8";
 import HeaderStandard from "../components/Headers/HeaderStandard";
 import {useHistory} from "react-router";
 
@@ -23,7 +23,7 @@ export default function Admin() {
     }
 
     const estandarList = {
-        "8": {n: "Estandar 8", titulo: "Estadar para la gestion de calidad"},
+        "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},
         "9": {n: "Estandar 9", titulo: "Estadar para la gestion de calidad"},
         "10": {n: "Estandar 10", titulo: "Estadar para la gestion de calidad"},
     };

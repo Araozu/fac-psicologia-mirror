@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 // components
-import EditarPM from "../views/Editar/EditarPM";
+import EditarPM from "../views/Estandares/Estandar8/Editar/EditarPM";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderEditar from "../components/Headers/HeaderEditar";
 import {useHistory} from "react-router";
@@ -18,7 +18,7 @@ export default function Detalle(props) {
     const {codigo} = useParams();
 
     const estandarList = {
-        "8": {n: "Estandar 8", titulo: "Estadar para la gestion de calidad"},
+        "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},
         "9": {n: "Estandar 9", titulo: "Estadar para la gestion de calidad"},
         "10": {n: "Estandar 10", titulo: "Estadar para la gestion de calidad"},
     };
