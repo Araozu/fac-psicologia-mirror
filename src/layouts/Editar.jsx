@@ -6,6 +6,7 @@ import EditarPM from "../views/Estandares/Estandar8/Editar/EditarPM";
 import Sidebar from "../components/Sidebar/Sidebar";
 import HeaderEditar from "../components/Headers/HeaderEditar";
 import {useHistory} from "react-router";
+import AdminNavbar from "@/components/Navbars/AdminNavbar";
 
 export default function Detalle(props) {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -28,13 +29,14 @@ export default function Detalle(props) {
         setEstandar(estandarList[estandarN]);
     };
     const containerClass = useMemo(
-        () => (isHidden ? "md:ml-24" : "md:ml-64"),
+        () => (isHidden ? "md:ml-12" : "md:ml-64"),
         [isHidden],
     );
     return (
         <>
             <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
+                <AdminNavbar />
                 <HeaderEditar />
                 <EditarPM id={codigo} />
             </div>

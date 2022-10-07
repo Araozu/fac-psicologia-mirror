@@ -10,7 +10,6 @@ import FooterAdmin from "../components/Footers/FooterAdmin.jsx";
 import Maps from "../views/admin/Maps.jsx";
 import Estandar8 from "../views/Estandares/Estandar8/Estandar8";
 import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
-import HeaderStandard from "../components/Headers/HeaderStandard";
 import {useHistory} from "react-router";
 
 export default function Admin() {
@@ -35,7 +34,7 @@ export default function Admin() {
     };
 
     const containerClass = useMemo(
-        () => (isHidden ? "md:ml-24" : "md:ml-64"),
+        () => (isHidden ? "md:ml-12" : "md:ml-64"),
         [isHidden],
     );
 

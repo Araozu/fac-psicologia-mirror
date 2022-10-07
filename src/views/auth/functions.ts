@@ -31,6 +31,7 @@ export interface GoogleResponseData {
     json: {
         message: string,
         access_token: string,
+        image: string,
         user: {
             id: number,
             name: string,

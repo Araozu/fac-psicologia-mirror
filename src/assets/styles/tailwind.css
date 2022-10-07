@@ -1659,11 +1659,6 @@ select {
   border-color: transparent;
 }
 
-.border-blueGray-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(100 116 139 / var(--tw-border-opacity));
-}
-
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -2197,10 +2192,6 @@ select {
   line-height: 1;
 }
 
-.leading-snug {
-  line-height: 1.375;
-}
-
 .tracking-wide {
   letter-spacing: 0.025em;
 }
@@ -2627,12 +2618,16 @@ select {
     bottom: 0px;
   }
 
-  .md\:ml-24 {
-    margin-left: 6rem;
+  .md\:ml-12 {
+    margin-left: 3rem;
   }
 
   .md\:ml-64 {
     margin-left: 16rem;
+  }
+
+  .md\:ml-24 {
+    margin-left: 6rem;
   }
 
   .md\:mt-40 {
