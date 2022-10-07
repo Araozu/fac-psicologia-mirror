@@ -11,6 +11,7 @@ import Maps from "../views/admin/Maps.jsx";
 import Settings from "../views/admin/Settings.jsx";
 import Tables from "../views/admin/Tables.jsx";
 import Estandar8 from "../views/Estandares/Estandar8/Estandar8";
+import Narrativa from "@/views/admin/Narrativa";
 import HeaderStandard from "../components/Headers/HeaderStandard";
 import {useHistory} from "react-router";
 
@@ -53,6 +54,7 @@ export default function Admin() {
                         <Route path="/admin/settings" exact component={Settings} />
                         <Route path="/admin/tables" exact component={Tables} />
                         <Route path="/admin/estandar8" exact component={Estandar8} />
+                        <Route path="/admin/narrativa" exact component={Narrativa} />
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />
