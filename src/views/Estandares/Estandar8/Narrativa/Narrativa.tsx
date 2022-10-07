@@ -1,5 +1,6 @@
 import React from "react";
 import {Editor} from "@/types/tinymce";
+import HeaderNarrativa from "./HeaderNarrativa";
 
 export default function() {
     const tinyEditorRef = React.useRef<Editor>();
@@ -21,7 +22,10 @@ export default function() {
 
     return (
         <div>
-            <textarea id="tiny-editor" rows={10} />
+            <HeaderNarrativa />
+            <div className="relative px-4" style={{top: "-6rem"}}>
+                <textarea id="tiny-editor" rows={10} />
+            </div>
         </div>
     );
 }

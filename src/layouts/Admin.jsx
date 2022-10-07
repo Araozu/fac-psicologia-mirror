@@ -9,7 +9,7 @@ import FooterAdmin from "../components/Footers/FooterAdmin.jsx";
 // views
 import Maps from "../views/admin/Maps.jsx";
 import Estandar8 from "../views/Estandares/Estandar8/Estandar8";
-import Narrativa from "@/views/admin/Narrativa";
+import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
 import HeaderStandard from "../components/Headers/HeaderStandard";
 import {useHistory} from "react-router";
 
