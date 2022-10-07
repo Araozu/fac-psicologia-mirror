@@ -113,7 +113,7 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     };
 }
 
-export default function HeaderStandard({estandar}: any) {
+export default function HeaderStandard(props: {titulo: string, descripcion: string}) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
 
     const {
@@ -158,8 +158,8 @@ export default function HeaderStandard({estandar}: any) {
             {/* Header */}
             <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12 flex justify-between">
                 <div className="px-4 md:pl-10 md:pr-4">
-                    <h1 className="text-4xl font-bold text-white">{estandar.n}</h1>
-                    <p className="text-lg text-white">{estandar.titulo}</p>
+                    <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
+                    <p className="text-lg text-white">{props.descripcion}</p>
                 </div>
                 <div>
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
