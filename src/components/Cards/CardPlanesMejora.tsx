@@ -78,26 +78,37 @@ function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
 
 function estadoPlanMejoraToString(estado: EstadoPlanMejora): string {
     switch (estado) {
-        case EstadoPlanMejora.Reprogramado: return "Reprogramado";
-        case EstadoPlanMejora.Programado: return "Programado";
-        case EstadoPlanMejora.Planificado: return "Planificado";
-        case EstadoPlanMejora.Concluido: return "Concluido";
-        case EstadoPlanMejora.EnProceso: return "En Proceso";
-        default: return "";
+        case EstadoPlanMejora.Reprogramado:
+            return "Reprogramado";
+        case EstadoPlanMejora.Programado:
+            return "Programado";
+        case EstadoPlanMejora.Planificado:
+            return "Planificado";
+        case EstadoPlanMejora.Concluido:
+            return "Concluido";
+        case EstadoPlanMejora.EnProceso:
+            return "En Proceso";
+        default:
+            return "";
     }
 }
 
 function estadoPlanMejoraToColor(estado: EstadoPlanMejora): [string, string] {
     switch (estado) {
-        case EstadoPlanMejora.EnProceso: return ["#ef4444", "#FECACA"];
-        case EstadoPlanMejora.Concluido: return ["#10B981", "#68d7b2"];
-        case EstadoPlanMejora.Programado: return ["#FF8F0C", "#F7C78E"];
-        case EstadoPlanMejora.Planificado: return ["#0f8dc4", "#25BAFA"];
-        case EstadoPlanMejora.Reprogramado: return ["#F3F80C", "#FCFDB7"];
-        default: return ["red", "blue"];
+        case EstadoPlanMejora.EnProceso:
+            return ["#ef4444", "#FECACA"];
+        case EstadoPlanMejora.Concluido:
+            return ["#10B981", "#68d7b2"];
+        case EstadoPlanMejora.Programado:
+            return ["#FF8F0C", "#F7C78E"];
+        case EstadoPlanMejora.Planificado:
+            return ["#0f8dc4", "#25BAFA"];
+        case EstadoPlanMejora.Reprogramado:
+            return ["#F3F80C", "#FCFDB7"];
+        default:
+            return ["red", "blue"];
     }
 }
-
 
 
 function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
@@ -105,16 +116,16 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
     const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
 
 
-    const redirectToDetail = (id:number) => {
+    const redirectToDetail = (id: number) => {
         const path = `/detalle/${id}`;
         history.push(path);
     };
 
     return (
-        <tr onClick={ (e) => {
+        <tr onClick={(e) => {
             e.preventDefault();
             redirectToDetail(props.plan.id);
-        } } className="table-row"
+        }} className="table-row"
         >
             <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
                 {props.plan.codigo}
@@ -131,9 +142,13 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
                     <span>{props.plan.avance}%</span>
 
                     <div className="relative w-full inline-block py-1">
-                        <div className="overflow-hidden h-2 text-xs flex rounded" style={{backgroundColor: colorFondo2}}>
+                        <div className="overflow-hidden h-2 text-xs flex rounded"
+                             style={{backgroundColor: colorFondo2}}>
                             <div
-                                style={{width: `${props.plan.avance}%`, backgroundColor: colorFondo1}}
+                                style={{
+                                    width: `${props.plan.avance}%`,
+                                    backgroundColor: colorFondo1,
+                                }}
                                 className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
                             />
                         </div>
@@ -142,12 +157,12 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle mr-4" style={{color: colorFondo1}} />
+                <i className="fas fa-circle mr-4" style={{color: colorFondo1}}/>
                 {estadoPlanMejoraToString(props.plan.estado)}
             </td>
 
-            <td onClick={ (e) => e.stopPropagation() } style={{position: "relative"}}>
-                <PlanMejoraDropdown codigo={props.plan.id.toString()} eliminar={props.eliminar} />
+            <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
+                <PlanMejoraDropdown codigo={props.plan.id.toString()} eliminar={props.eliminar}/>
                 {/*
                 <i className="fa-solid fa-ellipsis-vertical py-2 px-4 cursor-pointer" />
                 */}
@@ -178,7 +193,7 @@ export default function CardPlanesMejora() {
                 },
             })
                 .then((obj) => obj.json())
-                .then((objF: {data: Array<PlanMejoraServer>}) => {
+                .then((objF: { data: Array<PlanMejoraServer> }) => {
                     const planesMejora = objF.data.map((x) => planMejoraServerToData(x));
 
                     setPlanesMejora(planesMejora);
@@ -201,7 +216,7 @@ export default function CardPlanesMejora() {
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
+            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)}/>),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
     );
 
@@ -214,9 +229,9 @@ export default function CardPlanesMejora() {
                             <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
                                 Filtros
                             </h3>
-                            <FiltroInput onChange={setFiltroCodigo} />
-                            <FiltroAnio onChange={setFiltroAnio} />
-                            <FiltroEstado onChange={setFiltroEstado} />
+                            <FiltroInput onChange={setFiltroCodigo}/>
+                            <FiltroAnio onChange={setFiltroAnio}/>
+                            <FiltroEstado onChange={setFiltroEstado}/>
                         </div>
                         <div className="relative w-full px-4 max-w-full text-right">
                             <button
@@ -235,27 +250,27 @@ export default function CardPlanesMejora() {
                     {/* Projects table */}
                     <table className="w-full bg-transparent border-collapse table-auto">
                         <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                            <tr>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Codigo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Estándar
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Creador
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Avance (%)
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Estado
-                                </th>
-                                <td />
-                            </tr>
+                        <tr>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Codigo
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Estándar
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Creador
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Avance (%)
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Estado
+                            </th>
+                            <td/>
+                        </tr>
                         </thead>
                         <tbody>
-                            { planesMejoraEls }
+                        {planesMejoraEls}
                         </tbody>
                     </table>
                 </div>
@@ -264,7 +279,7 @@ export default function CardPlanesMejora() {
     );
 }
 
-function FiltroInput(props: {onChange: (_: string) => void}) {
+function FiltroInput(props: { onChange: (_: string) => void }) {
     const [value, setValue] = useState("OM-");
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (ev) => {
@@ -279,12 +294,13 @@ function FiltroInput(props: {onChange: (_: string) => void}) {
     return (
         <span className="relative px-2">
             <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Codigo</span>
-            <input value={value} onChange={handleChange} type="text" id="codigo-input" className="rounded-xl text-sm p-2 w-48" />
+            <input value={value} onChange={handleChange} type="text" id="codigo-input"
+                   className="rounded-xl text-sm p-2 w-48"/>
         </span>
     );
 }
 
-function FiltroEstado(props: {onChange: (_: number) => void}) {
+function FiltroEstado(props: { onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
@@ -296,7 +312,8 @@ function FiltroEstado(props: {onChange: (_: number) => void}) {
     return (
         <span className="relative">
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Estado</span>
-            <select value={selected} onChange={handleChange} name="estado" id="filtro-estado" className="rounded-xl text-sm p-2 w-48">
+            <select value={selected} onChange={handleChange} name="estado" id="filtro-estado"
+                    className="rounded-xl text-sm p-2 w-48">
                 <option value="-1">Todos</option>
                 <option value="0">En Proceso</option>
                 <option value="1">Concluido</option>
@@ -308,7 +325,7 @@ function FiltroEstado(props: {onChange: (_: number) => void}) {
     );
 }
 
-function FiltroAnio(props: {onChange: (_: number) => void}) {
+function FiltroAnio(props: { onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
@@ -320,7 +337,8 @@ function FiltroAnio(props: {onChange: (_: number) => void}) {
     return (
         <span className="relative">
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
-            <select value={selected} onChange={handleChange} name="anio" id="filtro-anio" className="rounded-xl text-sm p-2 w-48">
+            <select value={selected} onChange={handleChange} name="anio" id="filtro-anio"
+                    className="rounded-xl text-sm p-2 w-48">
                 <option value="-1">Todos</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
@@ -331,7 +349,7 @@ function FiltroAnio(props: {onChange: (_: number) => void}) {
     );
 }
 
-function FiltroEstandar(props: {onChange: (_: number) => void}) {
+function FiltroEstandar(props: { onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(8);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {

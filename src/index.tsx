@@ -15,13 +15,6 @@ import Detalle from "./layouts/Detalle";
 // @ts-ignore
 import Editar from "./layouts/Editar";
 
-
-// views without layouts
-// @ts-ignore
-import Landing from "./views/Landing";
-// @ts-ignore
-import Profile from "./views/Profile";
-
 function require(url: string) {
     try {
         return new URL(url, import.meta.url).href;

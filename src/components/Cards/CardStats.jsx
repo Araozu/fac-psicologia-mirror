@@ -40,7 +40,7 @@ export default function CardStats({
                                     statIconColor}`
                             }
                         >
-                            <i className={statIconName} />
+                            <i className={statIconName}/>
                         </div>
                     </div>
                     {porcentajeEl}

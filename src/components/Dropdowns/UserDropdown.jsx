@@ -1,6 +1,5 @@
 import React, {useEffect,useRef, useState} from "react";
 import {useHistory} from "react-router-dom";
-import imgTeam1Url from "../../assets/img/team-1-800x800.jpg";
 import Modal from "../modals/Modal";
 import {useClickOutside} from "./utils";
 

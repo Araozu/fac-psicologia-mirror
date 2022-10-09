@@ -4,16 +4,6 @@ import {useHistory} from "react-router-dom";
 // components
 import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
-// imagenes
-import imgBootstrap from "../../assets/img/bootstrap.jpg";
-import imgTeam1 from "../../assets/img/team-1-800x800.jpg";
-import imgTeam2 from "../../assets/img/team-2-800x800.jpg";
-import imgTeam3 from "../../assets/img/team-3-800x800.jpg";
-import imgTeam4 from "../../assets/img/team-4-470x470.png";
-import imgAngular from "../../assets/img/angular.jpg";
-import imgSketch from "../../assets/img/sketch.jpg";
-import imgReact from "../../assets/img/react.jpg";
-
 export default function CardTable({color}) {
 
     const history = useHistory();
@@ -48,7 +38,7 @@ export default function CardTable({color}) {
                                     redirect();
                                 }}
                             >
-                                <i className="fas fa-plus" /> Nuevo PM
+                                <i className="fas fa-plus"/> Nuevo PM
                             </button>
                         </div>
                     </div>
@@ -57,364 +47,364 @@ export default function CardTable({color}) {
                     {/* Projects table */}
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
-                            <tr>
-                                <th
-                                    className={
-                                        `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
-                                            color === "light"
-                                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
-                                    }
-                                >
-                                    Codigo
-                                </th>
+                        <tr>
+                            <th
+                                className={
+                                    `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
+                                        color === "light"
+                                            ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                            : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
+                                }
+                            >
+                                Codigo
+                            </th>
 
-                                <th
-                                    className={
-                                        `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
-                                            color === "light"
-                                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
-                                    }
-                                >
-                                    Estado
-                                </th>
-                                <th
-                                    className={
-                                        `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
-                                            color === "light"
-                                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
-                                    }
-                                >
-                                    Responsables
-                                </th>
-                                <th
-                                    className={
-                                        `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
-                                            color === "light"
-                                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
-                                    }
-                                >
-                                    Porcentaje
-                                </th>
-                                <th
-                                    className={
-                                        `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
-                                            color === "light"
-                                                ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
-                                    }
-                                />
-                            </tr>
+                            <th
+                                className={
+                                    `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
+                                        color === "light"
+                                            ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                            : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
+                                }
+                            >
+                                Estado
+                            </th>
+                            <th
+                                className={
+                                    `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
+                                        color === "light"
+                                            ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                            : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
+                                }
+                            >
+                                Responsables
+                            </th>
+                            <th
+                                className={
+                                    `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
+                                        color === "light"
+                                            ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                            : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
+                                }
+                            >
+                                Porcentaje
+                            </th>
+                            <th
+                                className={
+                                    `px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left ${
+                                        color === "light"
+                                            ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                            : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"}`
+                                }
+                            />
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                    <img
-                                        src={imgBootstrap}
-                                        className="h-12 w-12 bg-white rounded-full border"
-                                        alt="..."
-                                    />{" "}
-                                    <span
-                                        className={
-                                            `ml-3 font-bold ${
-                                                +(color === "light" ? "text-blueGray-600" : "text-white")}`
-                                        }
-                                    >
+                        <tr>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                    src={imgBootstrap}
+                                    className="h-12 w-12 bg-white rounded-full border"
+                                    alt="..."
+                                />{" "}
+                                <span
+                                    className={
+                                        `ml-3 font-bold ${
+                                            +(color === "light" ? "text-blueGray-600" : "text-white")}`
+                                    }
+                                >
                     Argon Design System
                                     </span>
-                                </th>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <i className="fas fa-circle text-orange-500 mr-2" /> pending
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex">
-                                        <img
-                                            src={imgTeam1}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                                        />
-                                        <img
-                                            src={imgTeam2}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam3}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam4}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                    </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex items-center">
-                                        <span className="mr-2">60%</span>
-                                        <div className="relative w-full">
-                                            <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                                                <div
-                                                    style={{width: "60%"}}
-                                                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                                                />
-                                            </div>
+                            </th>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <i className="fas fa-circle text-orange-500 mr-2"/> pending
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex">
+                                    <img
+                                        src={imgTeam1}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                                    />
+                                    <img
+                                        src={imgTeam2}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam3}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam4}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex items-center">
+                                    <span className="mr-2">60%</span>
+                                    <div className="relative w-full">
+                                        <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                                            <div
+                                                style={{width: "60%"}}
+                                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                                            />
                                         </div>
                                     </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <PlanMejoraDropdown />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                    <img
-                                        src={imgAngular}
-                                        className="h-12 w-12 bg-white rounded-full border"
-                                        alt="..."
-                                    />{" "}
-                                    <span
-                                        className={
-                                            `ml-3 font-bold ${
-                                                +(color === "light" ? "text-blueGray-600" : "text-white")}`
-                                        }
-                                    >
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <PlanMejoraDropdown/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                    src={imgAngular}
+                                    className="h-12 w-12 bg-white rounded-full border"
+                                    alt="..."
+                                />{" "}
+                                <span
+                                    className={
+                                        `ml-3 font-bold ${
+                                            +(color === "light" ? "text-blueGray-600" : "text-white")}`
+                                    }
+                                >
                     Angular Now UI Kit PRO
                                     </span>
-                                </th>
+                            </th>
 
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <i className="fas fa-circle text-emerald-500 mr-2" />{" "}
-                                    completed
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex">
-                                        <img
-                                            src={imgTeam1}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                                        />
-                                        <img
-                                            src={imgTeam2}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam3}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam4}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                    </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div className="relative w-full">
-                                            <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
-                                                <div
-                                                    style={{width: "100%"}}
-                                                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                                                />
-                                            </div>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <i className="fas fa-circle text-emerald-500 mr-2"/>{" "}
+                                completed
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex">
+                                    <img
+                                        src={imgTeam1}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                                    />
+                                    <img
+                                        src={imgTeam2}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam3}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam4}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex items-center">
+                                    <span className="mr-2">100%</span>
+                                    <div className="relative w-full">
+                                        <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
+                                            <div
+                                                style={{width: "100%"}}
+                                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                                            />
                                         </div>
                                     </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <PlanMejoraDropdown />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                    <img
-                                        src={imgSketch}
-                                        className="h-12 w-12 bg-white rounded-full border"
-                                        alt="..."
-                                    />{" "}
-                                    <span
-                                        className={
-                                            `ml-3 font-bold ${
-                                                +(color === "light" ? "text-blueGray-600" : "text-white")}`
-                                        }
-                                    >
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <PlanMejoraDropdown/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                    src={imgSketch}
+                                    className="h-12 w-12 bg-white rounded-full border"
+                                    alt="..."
+                                />{" "}
+                                <span
+                                    className={
+                                        `ml-3 font-bold ${
+                                            +(color === "light" ? "text-blueGray-600" : "text-white")}`
+                                    }
+                                >
                     Black Dashboard Sketch
                                     </span>
-                                </th>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <i className="fas fa-circle text-red-500 mr-2" /> delayed
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex">
-                                        <img
-                                            src={imgTeam1}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                                        />
-                                        <img
-                                            src={imgTeam2}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam3}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam4}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                    </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex items-center">
-                                        <span className="mr-2">73%</span>
-                                        <div className="relative w-full">
-                                            <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
-                                                <div
-                                                    style={{width: "73%"}}
-                                                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                                                />
-                                            </div>
+                            </th>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <i className="fas fa-circle text-red-500 mr-2"/> delayed
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex">
+                                    <img
+                                        src={imgTeam1}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                                    />
+                                    <img
+                                        src={imgTeam2}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam3}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam4}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex items-center">
+                                    <span className="mr-2">73%</span>
+                                    <div className="relative w-full">
+                                        <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
+                                            <div
+                                                style={{width: "73%"}}
+                                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                                            />
                                         </div>
                                     </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <PlanMejoraDropdown />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                    <img
-                                        src={imgReact}
-                                        className="h-12 w-12 bg-white rounded-full border"
-                                        alt="..."
-                                    />{" "}
-                                    <span
-                                        className={
-                                            `ml-3 font-bold ${
-                                                +(color === "light" ? "text-blueGray-600" : "text-white")}`
-                                        }
-                                    >
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <PlanMejoraDropdown/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                    src={imgReact}
+                                    className="h-12 w-12 bg-white rounded-full border"
+                                    alt="..."
+                                />{" "}
+                                <span
+                                    className={
+                                        `ml-3 font-bold ${
+                                            +(color === "light" ? "text-blueGray-600" : "text-white")}`
+                                    }
+                                >
                     React Material Dashboard
                                     </span>
-                                </th>
+                            </th>
 
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <i className="fas fa-circle text-teal-500 mr-2" /> on
-                                    schedule
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex">
-                                        <img
-                                            src={imgTeam1}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                                        />
-                                        <img
-                                            src={imgTeam2}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam3}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam4}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                    </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex items-center">
-                                        <span className="mr-2">90%</span>
-                                        <div className="relative w-full">
-                                            <div className="overflow-hidden h-2 text-xs flex rounded bg-teal-200">
-                                                <div
-                                                    style={{width: "90%"}}
-                                                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
-                                                />
-                                            </div>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <i className="fas fa-circle text-teal-500 mr-2"/> on
+                                schedule
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex">
+                                    <img
+                                        src={imgTeam1}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                                    />
+                                    <img
+                                        src={imgTeam2}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam3}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam4}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex items-center">
+                                    <span className="mr-2">90%</span>
+                                    <div className="relative w-full">
+                                        <div className="overflow-hidden h-2 text-xs flex rounded bg-teal-200">
+                                            <div
+                                                style={{width: "90%"}}
+                                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
+                                            />
                                         </div>
                                     </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <PlanMejoraDropdown codigo={""} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                    <img
-                                        src={require("../../assets/img/vue.jpg").default}
-                                        className="h-12 w-12 bg-white rounded-full border"
-                                        alt="..."
-                                    />{" "}
-                                    <span
-                                        className={
-                                            `ml-3 font-bold ${
-                                                +(color === "light" ? "text-blueGray-600" : "text-white")}`
-                                        }
-                                    >
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <PlanMejoraDropdown codigo={""}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <img
+                                    src={require("../../assets/img/vue.jpg").default}
+                                    className="h-12 w-12 bg-white rounded-full border"
+                                    alt="..."
+                                />{" "}
+                                <span
+                                    className={
+                                        `ml-3 font-bold ${
+                                            +(color === "light" ? "text-blueGray-600" : "text-white")}`
+                                    }
+                                >
                     React Material Dashboard
                                     </span>
-                                </th>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <i className="fas fa-circle text-emerald-500 mr-2" />{" "}
-                                    completed
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex">
-                                        <img
-                                            src={imgTeam1}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                                        />
-                                        <img
-                                            src={imgTeam2}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam3}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                        <img
-                                            src={imgTeam4}
-                                            alt="..."
-                                            className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                                        />
-                                    </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <div className="flex items-center">
-                                        <span className="mr-2">100%</span>
-                                        <div className="relative w-full">
-                                            <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
-                                                <div
-                                                    style={{width: "100%"}}
-                                                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                                                />
-                                            </div>
+                            </th>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <i className="fas fa-circle text-emerald-500 mr-2"/>{" "}
+                                completed
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex">
+                                    <img
+                                        src={imgTeam1}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                                    />
+                                    <img
+                                        src={imgTeam2}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam3}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                    <img
+                                        src={imgTeam4}
+                                        alt="..."
+                                        className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
+                                    />
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <div className="flex items-center">
+                                    <span className="mr-2">100%</span>
+                                    <div className="relative w-full">
+                                        <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
+                                            <div
+                                                style={{width: "100%"}}
+                                                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                                            />
                                         </div>
                                     </div>
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <PlanMejoraDropdown />
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <PlanMejoraDropdown/>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
