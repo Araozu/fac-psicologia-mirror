@@ -19,9 +19,18 @@ export default function Detalle(props) {
     const {codigo} = useParams();
 
     const estandarList = {
-        "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},
-        "9": {n: "Estandar 9", titulo: "Estadar para la gestion de calidad"},
-        "10": {n: "Estandar 10", titulo: "Estadar para la gestion de calidad"},
+        "8": {
+            n: "Estandar8",
+            titulo: "Estadar para la gestion de calidad",
+        },
+        "9": {
+            n: "Estandar 9",
+            titulo: "Estadar para la gestion de calidad",
+        },
+        "10": {
+            n: "Estandar 10",
+            titulo: "Estadar para la gestion de calidad",
+        },
     };
     const [estandar, setEstandar] = useState(estandarList["8"]);
     const [isHidden, setIsHidden] = useState(false);
@@ -34,11 +43,11 @@ export default function Detalle(props) {
     );
     return (
         <>
-            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
+            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden}/>
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <AdminNavbar />
-                <HeaderEditar />
-                <EditarPM id={codigo} />
+                <AdminNavbar/>
+                <HeaderEditar/>
+                <EditarPM id={codigo}/>
             </div>
 
         </>

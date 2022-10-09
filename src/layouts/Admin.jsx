@@ -16,9 +16,9 @@ export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
     const history = useHistory();
     const accessToken = localStorage.getItem("access_token");
-    if (accessToken === null) {
+    /*if (accessToken === null) {
         history.replace("/auth/");
-    }
+    }*/
 
     const estandarList = {
         "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},
