@@ -6,8 +6,6 @@ import CardLineChart from "../../components/Cards/CardLineChart";
 /// @ts-ignore
 import CardBarChart from "../../components/Cards/CardBarChart";
 /// @ts-ignore
-import CardTable from "../../components/Cards/CardTable.jsx";
-/// @ts-ignore
 import CardSocialTraffic from "../../components/Cards/CardSocialTraffic.jsx";
 /// @ts-ignore
 import CardPlanesMejora from "../../components/Cards/CardPageVisits";

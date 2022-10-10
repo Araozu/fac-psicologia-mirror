@@ -1,7 +1,7 @@
 import {useHistory} from "react-router";
 import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
-import "./CardPlanesMejora.css";
+import "../../assets/styles/CardPlanesMejora.css";
 import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
 enum EstadoPlanMejora {

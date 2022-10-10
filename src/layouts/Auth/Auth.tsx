@@ -3,13 +3,12 @@ import {Redirect, Route, Switch} from "react-router-dom";
 
 // views
 import {GoogleLogin} from "@/views/auth/GoogleLogin";
-import Register from "../views/auth/Register";
+import Register from "../../views/auth/Register";
 import {useHistory} from "react-router";
 
 export default function Auth() {
     const history = useHistory();
     const accessToken = localStorage.getItem("access_token");
-    console.log("Access token:", accessToken);
 
     if (accessToken !== null) {
         history.replace("/admin/dashboard");

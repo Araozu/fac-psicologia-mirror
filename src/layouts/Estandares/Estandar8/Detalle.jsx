@@ -1,29 +1,32 @@
 import React, {useMemo, useState} from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 // components
-import CrearPM from "../views/Estandares/Estandar8/Create/CrearPM";
-import Sidebar from "../components/Sidebar/Sidebar";
-import HeaderCreate from "../components/Headers/HeaderCreate";
+import DetallePM from "../../../views/Estandares/Estandar8/Detalle/DetallePM";
+import Sidebar from "../../../components/Sidebar/Sidebar";
+import HeaderDetail from "../../../components/Headers/HeaderDetail";
 import {useHistory} from "react-router";
 
-export default function Crear() {
+export default function Detalle(props) {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
     const history = useHistory();
     const accessToken = localStorage.getItem("access_token");
     if (accessToken === null) {
         history.replace("/auth/");
     }
+
+    const {codigo} = useParams();
+
     const estandarList = {
-        "8": {
+        8: {
             n: "Estandar8",
             titulo: "Estadar para la gestion de calidad",
         },
-        "9": {
+        9: {
             n: "Estandar 9",
             titulo: "Estadar para la gestion de calidad",
         },
-        "10": {
+        10: {
             n: "Estandar 10",
             titulo: "Estadar para la gestion de calidad",
         },
@@ -39,16 +42,14 @@ export default function Crear() {
     );
     return (
         <>
-            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden}/>
+            <Sidebar
+                handleViewChange={handleViewChange}
+                setIsHiddenParent={setIsHidden}
+            />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <HeaderCreate estandar={"Estandar8"} tipo={"Plan de Mejora"}/>
-                <Switch>
-                    <Route path="/crear/crearpm" exact component={CrearPM}/>
-                    <Redirect from="/crear" to="/admin"/>
-                </Switch>
+                <HeaderDetail/>
+                <DetallePM id={codigo}/>
             </div>
-
         </>
     );
-
 }

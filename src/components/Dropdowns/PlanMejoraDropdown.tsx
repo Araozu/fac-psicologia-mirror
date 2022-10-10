@@ -9,7 +9,6 @@ async function eliminarPM(codigo: string) {
     const userToken = localStorage.getItem("access_token");
     if (userToken === null) return;
 
-    console.log(`Eliminando codigo: ${codigo}`);
     const response = await fetch(`${SERVER_PATH}/api/plan/${codigo}`, {
         method: "DELETE",
         headers: {

@@ -2,13 +2,13 @@ import React, {useMemo, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // components
-import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
-import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import FooterAdmin from "../components/Footers/FooterAdmin.jsx";
+import AdminNavbar from "../../components/Navbars/AdminNavbar.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+import FooterAdmin from "../../components/Footers/FooterAdmin.jsx";
 
 // views
-import Maps from "../views/admin/Maps.jsx";
-import Estandar8 from "../views/Estandares/Estandar8/Estandar8";
+import Maps from "../../views/admin/Maps.jsx";
+import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
 import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
 import {useHistory} from "react-router";
 
@@ -16,9 +16,9 @@ export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
     const history = useHistory();
     const accessToken = localStorage.getItem("access_token");
-    /*if (accessToken === null) {
+    if (accessToken === null) {
         history.replace("/auth/");
-    }*/
+    }
 
     const estandarList = {
         "8": {n: "Estandar8", titulo: "Estadar para la gestion de calidad"},

@@ -6,14 +6,14 @@ import "./assets/styles/tailwind.css";
 
 // layouts
 // @ts-ignore
-import Admin from "./layouts/Admin";
-import Auth from "./layouts/Auth";
+import Admin from "./layouts/Admin/Admin";
+import Auth from "./layouts/Auth/Auth";
 // @ts-ignore
-import Crear from "./layouts/Crear";
+import Crear from "./layouts/Estandares/Estandar8/Crear";
 // @ts-ignore
-import Detalle from "./layouts/Detalle";
+import Detalle from "./layouts/Estandares/Estandar8/Detalle";
 // @ts-ignore
-import Editar from "./layouts/Editar";
+import Editar from "./layouts/Estandares/Estandar8/Editar";
 
 function require(url: string) {
     try {
