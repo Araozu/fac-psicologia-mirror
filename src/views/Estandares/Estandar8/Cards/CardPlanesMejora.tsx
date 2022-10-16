@@ -224,61 +224,57 @@ export default function CardPlanesMejora() {
     );
 
     return (
-        <>
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
-                <div className="rounded-t mb-0 px-4 py-3 border-0">
-                    <div className="grid grid-cols-2" style={{gridTemplateColumns: "auto 12rem"}}>
-                        <div className="relative w-full max-w-full">
-                            <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
+        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
+            <div className="rounded-t mb-0 px-4 py-3 border-0 grid grid-cols-2" style={{gridTemplateColumns: "auto 12rem"}}>
+                <div className="relative w-full max-w-full">
+                    <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
                                 Filtros
-                            </h3>
-                            <FiltroInput onChange={setFiltroCodigo} />
-                            <FiltroAnio onChange={setFiltroAnio} />
-                            <FiltroEstado onChange={setFiltroEstado} />
-                        </div>
-                        <div className="relative w-full px-4 max-w-full text-right">
-                            <button
-                                className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="button"
-                                onClick={() => {
-                                    h.push("/admin/estandar8/plan-mejora/crear");
-                                }}
-                            >
-                                + Nuevo PM
-                            </button>
-                        </div>
-                    </div>
+                    </h3>
+                    <FiltroInput onChange={setFiltroCodigo} />
+                    <FiltroAnio onChange={setFiltroAnio} />
+                    <FiltroEstado onChange={setFiltroEstado} />
                 </div>
-                <div className="block w-full">
-                    {/* Projects table */}
-                    <table className="w-full bg-transparent border-collapse table-auto">
-                        <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                            <tr>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Codigo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Estándar
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Creador
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Avance (%)
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Estado
-                                </th>
-                                <td />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {planesMejoraEls}
-                        </tbody>
-                    </table>
+                <div className="relative w-full px-4 max-w-full text-right">
+                    <button
+                        className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => {
+                            h.push("/admin/estandar8/plan-mejora/crear");
+                        }}
+                    >
+                        + Nuevo PM
+                    </button>
                 </div>
             </div>
-        </>
+            <div className="block w-full">
+                {/* Projects table */}
+                <table className="w-full bg-transparent border-collapse table-auto">
+                    <thead className="bg-blueGray-50 text-blueGray-500 text-left">
+                        <tr>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Codigo
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Estándar
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Creador
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Avance (%)
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                Estado
+                            </th>
+                            <td />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {planesMejoraEls}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
 

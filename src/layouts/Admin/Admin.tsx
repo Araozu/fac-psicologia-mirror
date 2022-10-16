@@ -2,8 +2,11 @@ import React, {useMemo, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // components
+// @ts-ignore
 import AdminNavbar from "../../components/Navbars/AdminNavbar.jsx";
+// @ts-ignore
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+// @ts-ignore
 import FooterAdmin from "../../components/Footers/FooterAdmin.jsx";
 
 // views
@@ -31,7 +34,8 @@ export default function Admin() {
     const [isHidden, setIsHidden] = useState(false);
 
     // Manejar el cambio de estandar para mostrarlo encima
-    const handleViewChange = (estandarN) => {
+    const handleViewChange = (estandarN: string) => {
+        // @ts-ignore
         setEstandar(estandarList[estandarN]);
     };
 
