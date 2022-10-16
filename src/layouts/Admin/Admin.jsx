@@ -12,6 +12,7 @@ import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
 import {useHistory} from "react-router";
 import Detalle from "@/views/Estandares/Estandar8/PlanMejora/Detalle";
 import Crear from "@/views/Estandares/Estandar8/PlanMejora/Crear";
+import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -55,6 +56,8 @@ export default function Admin() {
                         <Route path="/admin/estandar8/plan-mejora/crear" exact component={Crear} />
                         {/* Ver plan de mejora */}
                         <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
+                        {/* Editar plan de mejora */}
+                        <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />

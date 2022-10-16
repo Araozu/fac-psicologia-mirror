@@ -380,7 +380,7 @@ export default function FormPM(props) {
                 {/** Form footer buttons and etc */}
                 <hr />
                 <div className="form-footer">
-                    <button type="submit"> <i class="fa-solid fa-floppy-disk" /> Guardar</button>
+                    <button type="submit"> <i className="fa-solid fa-floppy-disk" /> Guardar</button>
                 </div>
 
             </form>

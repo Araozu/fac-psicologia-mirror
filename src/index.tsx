@@ -8,8 +8,6 @@ import "./assets/styles/tailwind.css";
 // @ts-ignore
 import Admin from "./layouts/Admin/Admin";
 import Auth from "./layouts/Auth/Auth";
-// @ts-ignore
-import Editar from "./layouts/Estandares/Estandar8/Editar";
 
 function require(url: string) {
     try {
@@ -29,7 +27,6 @@ const rootTree = (
         <Switch>
             <Route path="/admin" component={Admin} />
             <Route path="/auth" component={Auth} />
-            <Route path="/editar/:codigo" component={Editar} />
 
             {/* add routes without layouts*/}
             <Route path="/" exact component={Auth} />

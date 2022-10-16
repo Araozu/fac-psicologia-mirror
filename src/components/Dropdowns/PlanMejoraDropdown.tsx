@@ -44,7 +44,9 @@ export function PlanMejoraDropdown(props: { codigo: string, eliminar: () => void
     useClickOutside([ref], isShown, () => setIsShown(false));
 
     const redirectToEdit = (id: string) => {
-        const path = `/editar/${id}`;
+        // TODO: Colocar todas las rutas en un objeto global, y referenciarlas
+        //  para hacer redireccion
+        const path = `/admin/estandar8/plan-mejora/editar/${id}`;
         history.push(path);
     };
 
@@ -57,7 +59,7 @@ export function PlanMejoraDropdown(props: { codigo: string, eliminar: () => void
                     setIsShown((x) => !x);
                 }}
             >
-                <i className="fas fa-ellipsis-v"/>
+                <i className="fas fa-ellipsis-v" />
             </a>
             <div
                 className={
@@ -73,7 +75,6 @@ export function PlanMejoraDropdown(props: { codigo: string, eliminar: () => void
                 onFocusCapture={() => console.log("D:")}
             >
                 <a
-                    href="#pablo"
                     className={
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                     }
@@ -82,10 +83,9 @@ export function PlanMejoraDropdown(props: { codigo: string, eliminar: () => void
                         redirectToEdit(props.codigo);
                     }}
                 >
-                    <i className="fas fa-pen"/> Editar
+                    <i className="fas fa-pen" /> Editar
                 </a>
                 <a
-                    href="#pablo"
                     className={
                         "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
                     }
@@ -94,21 +94,25 @@ export function PlanMejoraDropdown(props: { codigo: string, eliminar: () => void
                         setModalShow((x) => !x);
                     }}
                 >
-                    <i className="fas fa-trash"/> Eliminar
+                    <i className="fas fa-trash" /> Eliminar
                 </a>
             </div>
+
             <Modal type="confirm" show={modalShow} title="" onClose={modalOnClose}>
                 <div style={{textAlign: "center"}}>
                     <i className="fas fa-solid fa-triangle-exclamation" style={{
                         fontSize: "4rem",
                         color: "#f24e1e",
-                    }}/>
-                    <br/>
-                    <br/>
+                    }}
+                    />
+                    <br />
+                    <br />
                     <div style={{
                         color: "#f24e1e",
                         fontWeight: "bold",
-                    }}>¿Esta seguro que desea eliminar?
+                    }}
+                    >
+                        ¿Esta seguro que desea eliminar?
                     </div>
                     <div>Esta acción no es reversible, confirme si está seguro</div>
                 </div>
