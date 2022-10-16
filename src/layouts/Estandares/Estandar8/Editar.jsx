@@ -43,11 +43,11 @@ export default function Detalle(props) {
     );
     return (
         <>
-            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden}/>
+            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <AdminNavbar/>
-                <HeaderEditar/>
-                <EditarPM id={codigo}/>
+                <AdminNavbar />
+                <HeaderEditar />
+                <EditarPM id={codigo} />
             </div>
 
         </>

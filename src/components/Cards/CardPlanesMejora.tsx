@@ -117,7 +117,9 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
 
 
     const redirectToDetail = (id: number) => {
-        const path = `/detalle/${id}`;
+        // TODO: Colocar todas las rutas en un objeto global, y referenciarlas
+        //  para hacer redireccion
+        const path = `/admin/estandar8/plan-mejora/detalle/${id}`;
         history.push(path);
     };
 

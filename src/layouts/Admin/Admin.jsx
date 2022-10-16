@@ -7,10 +7,10 @@ import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import FooterAdmin from "../../components/Footers/FooterAdmin.jsx";
 
 // views
-import Maps from "../../views/admin/Maps.jsx";
 import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
 import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
 import {useHistory} from "react-router";
+import Detalle from "@/views/Estandares/Estandar8/PlanMejora/Detalle";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -47,9 +47,10 @@ export default function Admin() {
 
                 <div className="mx-auto w-full -m-24">
                     <Switch>
-                        <Route path="/admin/maps" exact component={Maps} />
                         <Route path="/admin/estandar8" exact component={Estandar8} />
                         <Route path="/admin/narrativa" exact component={Narrativa} />
+
+                        <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />
