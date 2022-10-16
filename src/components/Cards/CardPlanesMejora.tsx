@@ -241,7 +241,7 @@ export default function CardPlanesMejora() {
                                 className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                 type="button"
                                 onClick={() => {
-                                    h.push("/crear/crearpm");
+                                    h.push("/admin/estandar8/plan-mejora/crear");
                                 }}
                             >
                                 + Nuevo PM
@@ -249,7 +249,7 @@ export default function CardPlanesMejora() {
                         </div>
                     </div>
                 </div>
-                <div className="block w-full overflow-x-auto">
+                <div className="block w-full">
                     {/* Projects table */}
                     <table className="w-full bg-transparent border-collapse table-auto">
                         <thead className="bg-blueGray-50 text-blueGray-500 text-left">
