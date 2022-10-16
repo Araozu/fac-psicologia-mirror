@@ -5,6 +5,8 @@ import React, {useEffect, useMemo, useState} from "react";
 import CardStats from "../Cards/CardStats.jsx";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/components/Cards/CardPlanesMejora";
+import {useLocation} from "react-router";
+import {useHistory} from "react-router-dom";
 
 /**
  * Devuelve que porcentaje de v2 es v1
@@ -115,6 +117,7 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
 export default function HeaderStandard(props: {titulo: string, descripcion: string}) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
+    const history = useHistory();
 
     const {
         porcentajeConcluidos,
@@ -144,10 +147,22 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                     "Authorization": `Bearer ${userToken}`,
                 },
             })
-                .then((obj) => obj.json())
+                .then((obj) => {
+                    // Si se tiene error 401 eliminar token de localStorage y reiniciar
+                    if (!obj.ok && obj.status === 401) {
+                        localStorage.removeItem("access_token");
+                        history.replace("/auth/");
+                    }
+
+                    return obj.json();
+                })
                 .then((objF: { data: Array<PlanMejoraServer> }) => {
                     const planesMejora = objF.data;
                     setPlanesMejora(planesMejora);
+                })
+                .catch((err) => {
+                    console.log("Error: HeaderStandard");
+                    console.log(err);
                 });
         },
         [],
