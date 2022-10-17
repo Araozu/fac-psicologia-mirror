@@ -1,38 +1,112 @@
 import {useHistory} from "react-router";
-import {ChangeEventHandler, useEffect, useState} from "react";
+import React, {ChangeEventHandler, useEffect, useState, useMemo} from "react";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
+import {DataNarrativaServer} from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import "./CardNarrativas.css";
 
 type Semestre = "Todos" | "A" | "B" | "C";
+
+function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}) {
+    const history = useHistory();
+    const iframeRef = React.createRef<HTMLIFrameElement>();
+
+    useEffect(() => {
+        iframeRef.current?.contentDocument?.write(props.narrativa.contenido);
+    }, []);
+
+    const redirigirEditarNarrativa = () => history.push(`/admin/estandar8/narrativa/editar/${props.narrativa.id}`);
+
+    const eliminar = () => {
+        const userToken = localStorage.getItem("access_token");
+        fetch(`${SERVER_PATH}/api/narrativa/${props.narrativa.id}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`,
+            },
+        })
+            .then((res) => {
+                if (res.ok) {
+                    props.eliminar();
+                }
+            });
+    };
+
+    return (
+        <div className="contenedor-card-narrativa">
+            <div className="card-narrativa_top">
+                <div>
+                    <span className="card-narrativa_titulo">NARRATIVA</span>
+                    <span className="card-narrativa_semestre">{props.narrativa.semestre}</span>
+                </div>
+
+                <div style={{textAlign: "right"}}>
+                    <button
+                        className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-4 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={redirigirEditarNarrativa}
+                    >
+                        Editar
+                    </button>
+                    <div
+                        className="text-white p-1 mx-2 text-center inline-flex items-center justify-center w-6 h-6 shadow-lg rounded-full bg-red-500"
+                        style={{cursor: "pointer"}}
+                        onClick={eliminar}
+                    >
+                        <i className="fas fa-trash" />
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <br />
+            <iframe style={{width: "100%"}} ref={iframeRef} />
+        </div>
+    );
+}
 
 export default function CardNarrativas() {
     const history = useHistory();
 
     const [filtroAnio, setFiltroAnio] = useState(-1);
     const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("Todos");
+    const [narrativas, setNarrativas] = useState<Array<DataNarrativaServer>>([]);
 
     const redirigirCrearNarrativa = () => history.push("/admin/estandar8/narrativa/crear");
 
-    useEffect(
-        () => {
-            const userToken = localStorage.getItem("access_token");
-            if (userToken === null) return;
+    useEffect(() => {
+        const userToken = localStorage.getItem("access_token");
+        if (userToken === null) return;
 
-            fetch(`${SERVER_PATH}/api/narrativa`, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${userToken}`,
-                },
-            })
-                .then((obj) => obj.json())
-                .then((data) => {
-                    console.log(data);
-                });
-        },
-        [],
-    );
+        fetch(`${SERVER_PATH}/api/narrativa`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`,
+            },
+        })
+            .then((obj) => obj.json())
+            .then((resp) => {
+                setNarrativas(resp.data);
+            });
+    }, []);
+
+    // Elimina narrativa del state
+    const eliminarNarrativa = (narrativaAEliminar: DataNarrativaServer) => {
+        setNarrativas((x) => x.filter((narrativa) => narrativa.id !== narrativaAEliminar.id));
+    };
+
+    const narrativasEls = narrativas
+        .filter((narrativa) => {
+            const contieneAnio = filtroAnio === -1 || narrativa.semestre.indexOf(filtroAnio.toString()) !== -1;
+            const contieneSemestre = filtroSemestre !== "Todos" || narrativa.semestre.indexOf(filtroSemestre) !== 1;
+
+            return contieneAnio && contieneSemestre;
+        })
+        .map((narrativa, i) => (
+            <Narrativa narrativa={narrativa} key={i} eliminar={() => eliminarNarrativa(narrativa)} />
+        ));
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
@@ -55,7 +129,7 @@ export default function CardNarrativas() {
                 </div>
             </div>
 
-            CardNarrativas
+            {narrativasEls}
         </div>
     );
 }

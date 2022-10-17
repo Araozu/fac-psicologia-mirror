@@ -1,0 +1,23 @@
+.contenedor-card-narrativa {
+    padding: 1rem;
+    margin: 1.25rem;
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+
+.card-narrativa_top {
+    display: grid;
+    grid-template-columns: auto 10rem;
+}
+
+.card-narrativa_titulo {
+    display: inline-block;
+    padding-right: 1rem;
+    color: rgb(2, 132, 199);
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.card-narrativa_semestre {
+    color: gray;
+}
