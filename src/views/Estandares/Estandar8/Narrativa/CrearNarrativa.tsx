@@ -58,6 +58,7 @@ export default function CrearNarrativa() {
         if (modalInfo.estado === "ok") history.push("/admin/estandar8");
     };
 
+    // TODO: Input sanitization
     const crearNarrativa = () => {
         const token = localStorage.getItem("access_token");
 
