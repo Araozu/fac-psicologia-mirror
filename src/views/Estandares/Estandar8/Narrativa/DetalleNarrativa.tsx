@@ -4,13 +4,11 @@ import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
 
 // Los datos que el servidor devuelve cuando se pide una narrativa
-type DataNarrativaServer = {
+export type DataNarrativaServer = {
     id: number, // Id de la narrativa
     id_estandar: number,
     semestre: string, // 2022-A
     contenido: string, // El HTML de la narrativa
-    created_at: string, // Date
-    updated_at: string, // Date
 }
 
 export default function DetalleNarrativa() {

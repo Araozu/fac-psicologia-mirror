@@ -11,7 +11,7 @@ import FooterAdmin from "../../components/Footers/FooterAdmin.jsx";
 
 // views
 import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
-import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
+import EditarNarrativa from "@/views/Estandares/Estandar8/Narrativa/EditarNarrativa";
 import {useHistory} from "react-router";
 import Detalle from "@/views/Estandares/Estandar8/PlanMejora/Detalle";
 import CrearPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/CrearPlanMejora";
@@ -68,8 +68,8 @@ export default function Admin() {
                         <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
                         {/* Ver narrativa */}
                         <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
-                        {/* Editar narrativa (?) */}
-                        <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={Narrativa} />
+                        {/* Editar narrativa */}
+                        <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />

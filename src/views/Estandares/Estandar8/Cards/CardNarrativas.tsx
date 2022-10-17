@@ -1,5 +1,7 @@
 import {useHistory} from "react-router";
-import {ChangeEventHandler, useState} from "react";
+import {ChangeEventHandler, useEffect, useState} from "react";
+import {SERVER_PATH} from "@/variables";
+import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
 
 type Semestre = "Todos" | "A" | "B" | "C";
 
@@ -10,6 +12,27 @@ export default function CardNarrativas() {
     const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("Todos");
 
     const redirigirCrearNarrativa = () => history.push("/admin/estandar8/narrativa/crear");
+
+    useEffect(
+        () => {
+            const userToken = localStorage.getItem("access_token");
+            if (userToken === null) return;
+
+            fetch(`${SERVER_PATH}/api/narrativa`, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`,
+                },
+            })
+                .then((obj) => obj.json())
+                .then((data) => {
+                    console.log(data);
+                });
+        },
+        [],
+    );
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
