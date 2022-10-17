@@ -1,4 +1,4 @@
-import HeaderPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/HeaderPlanMejora";
+import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
 // @ts-ignore
 import EditarPM from "@/views/Estandares/Estandar8/Editar/EditarPM";
 import {useParams} from "react-router-dom";
@@ -8,7 +8,7 @@ export function Editar() {
 
     return (
         <div>
-            <HeaderPlanMejora
+            <HeaderEstandar8
                 titulo="Editar Plan de Mejora"
                 descripcion="En esta seccion puedes editar los detalles del plan de mejora"
                 icono="fa-pen-to-square"

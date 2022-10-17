@@ -19,6 +19,7 @@ import Label from "./Components/Label/Label";
 //Modal
 import Modal from "../modals/Modal";
 import {useHistory} from "react-router";
+import {SERVER_PATH} from "@/variables";
 
 
 
@@ -48,7 +49,8 @@ export default function FormPM(props) {
             responsables: [],
             recursos: [],
         },
-        editing = false} = props;
+        editing = false,
+    } = props;
 
 
     //PARA MANEJAR EL MODAL
@@ -81,7 +83,7 @@ export default function FormPM(props) {
 
     const handleSubmit = (values) => {
         const token = localStorage.getItem("access_token");
-        const base_url = "https://gestion-calidad-rrii-api.herokuapp.com/api/plan";
+        const base_url = `${SERVER_PATH}/api/plan`;
         const url = base_url + (editing ? (`/${pm.id}`) : "");
 
         //Validamos si estamos editando un PM o no
@@ -129,7 +131,7 @@ export default function FormPM(props) {
         nombre: Yup.string().required("Debe especificar el nombre del plan"),
         codigo: Yup.string().required("El codigo es requerido")
             .trim()
-            .matches(/^OM+\-+[0-9]{2}\-+20[2-9][0-9]$/, "El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion"),
+            .matches(/^OM+-+[0-9]{2}-+20[2-9][0-9]$/, "El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion"),
     });
 
     //Creamos el formulario con formik
@@ -346,17 +348,21 @@ export default function FormPM(props) {
 
                     {/**EVIDENCIAS */}
                     { editing
-                        ? (<InputEvidencias
-                            name='pm-evidencias'
-                            label='EVIDENCIAS (14)'
-                            descripcion='Aca se gestionan las evidencias, estas se actualizan de manera inmendiata sin tener que dar en "Guardar"'
-                            initialValues={pm?.evidencias}
-                            idPM={pm?.id}
-                        />)
-                        : (<>
-                            <Label label={"EVIDENCIAS (14)"} descripcion='Las evidencias se gestionan en editar el PM' />
-                            <span>Las evidencias se gestionan en editar plan de mejora</span>
-                           </>)}
+                        ? (
+                            <InputEvidencias
+                                name='pm-evidencias'
+                                label='EVIDENCIAS (14)'
+                                descripcion='Aca se gestionan las evidencias, estas se actualizan de manera inmendiata sin tener que dar en "Guardar"'
+                                initialValues={pm?.evidencias}
+                                idPM={pm?.id}
+                            />
+                        )
+                        : (
+                            <>
+                                <Label label={"EVIDENCIAS (14)"} descripcion='Las evidencias se gestionan en editar el PM' />
+                                <span>Las evidencias se gestionan en editar plan de mejora</span>
+                            </>
+                        )}
 
                     {/**AVANCE */}
                     <InputAvance

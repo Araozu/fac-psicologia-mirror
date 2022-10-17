@@ -9,7 +9,7 @@ export default function CardNarrativas() {
     const [filtroAnio, setFiltroAnio] = useState(-1);
     const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("Todos");
 
-    const redirigirCrearNarrativa = () => history.push("/admin/estandar8/plan-mejora/crear");
+    const redirigirCrearNarrativa = () => history.push("/admin/estandar8/narrativa/crear");
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">

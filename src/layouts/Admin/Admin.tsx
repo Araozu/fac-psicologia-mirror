@@ -14,8 +14,9 @@ import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
 import Narrativa from "@/views/Estandares/Estandar8/Narrativa/Narrativa";
 import {useHistory} from "react-router";
 import Detalle from "@/views/Estandares/Estandar8/PlanMejora/Detalle";
-import Crear from "@/views/Estandares/Estandar8/PlanMejora/Crear";
+import CrearPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/CrearPlanMejora";
 import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
+import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -54,14 +55,18 @@ export default function Admin() {
                 <div className="mx-auto w-full -m-24">
                     <Switch>
                         <Route path="/admin/estandar8" exact component={Estandar8} />
-                        <Route path="/admin/narrativa" exact component={Narrativa} />
 
                         {/* Crear plan de mejora */}
-                        <Route path="/admin/estandar8/plan-mejora/crear" exact component={Crear} />
+                        <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
                         {/* Ver plan de mejora */}
                         <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
                         {/* Editar plan de mejora */}
                         <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
+
+                        {/* Crear narrativa */}
+                        <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
+                        {/* Editar narrativa (?) */}
+                        <Route path="/admin/estandar8/narrativa/editar" exact component={Narrativa} />
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />
