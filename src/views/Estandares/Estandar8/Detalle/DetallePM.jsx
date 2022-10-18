@@ -3,7 +3,7 @@ import axios from "axios";
 
 import "./DetallePM.css";
 import lgif from "../../../../assets/img/loading-2.gif";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+//import { PDFDownloadLink } from "@react-pdf/renderer";
 import DocEstandar from "../../../pdf-generator/DocEstandar";
 import { useParams } from "react-router";
 import { parseCommandLine } from "typescript";

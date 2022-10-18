@@ -5,7 +5,6 @@ import {useParams} from "react-router-dom";
 import DetallePM from "../../../views/Estandares/Estandar8/Detalle/DetallePM";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import HeaderDetail from "../../../components/Headers/HeaderDetail";
-import {useHistory} from "react-router";
 
 export default function Detalle(props) {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion

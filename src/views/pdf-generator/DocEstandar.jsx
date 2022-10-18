@@ -1,5 +1,5 @@
 import { placements } from "@popperjs/core";
-import {
+/*import {
   Document,
   Page,
   Text,
@@ -8,7 +8,7 @@ import {
   Font,
   Image,
   Link,
-} from "@react-pdf/renderer";
+} from "@react-pdf/renderer";*/
 import { Font_Calibri } from "./Fonts";
 import logo_unsa from "./logo_unsa.png";
 
