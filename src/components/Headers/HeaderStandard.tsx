@@ -4,7 +4,7 @@ import React, {useEffect, useMemo, useState} from "react";
 // @ts-ignore
 import CardStats from "../Cards/CardStats.jsx";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraServer} from "@/components/Cards/CardPlanesMejora";
+import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
 import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
 

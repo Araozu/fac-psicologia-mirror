@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Editor} from "@/types/tinymce";
+import type {Editor} from "@/types/tinymce";
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
 // @ts-ignore
 import InputText from "@/components/Form/Components/InputText";
@@ -28,18 +28,18 @@ export default function EditarNarrativa() {
         })
             .then((editors) => {
                 tinyEditorRef.current = editors[0];
-            });
 
-        // Recuperar narrativa del servidor
-        const token = localStorage.getItem("access_token");
-        fetch(`${SERVER_PATH}/api/narrativa/${codigo}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
+                // Recuperar narrativa del servidor
+                const token = localStorage.getItem("access_token");
+                return fetch(`${SERVER_PATH}/api/narrativa/${codigo}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            })
             .then((res) => res.json())
             .then((dataServer) => {
                 const d = dataServer.data as DataNarrativaServer;

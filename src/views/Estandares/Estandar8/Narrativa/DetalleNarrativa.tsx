@@ -47,8 +47,9 @@ export default function DetalleNarrativa() {
                     )}
                     <hr />
                     <div className="contenedor-narrativa">
-                        <iframe ref={iframeRef} />
+                        <iframe style={{width: "100%"}} ref={iframeRef} />
                     </div>
+                    <div>&nbsp;</div>
                 </div>
             </div>
         </div>

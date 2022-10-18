@@ -36,7 +36,7 @@ function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}
     return (
         <div className="contenedor-card-narrativa">
             <div className="card-narrativa_top">
-                <div>
+                <div onClick={() => history.push(`/admin/estandar8/narrativa/detalle/${props.narrativa.id}`)}>
                     <span className="card-narrativa_titulo">NARRATIVA</span>
                     <span className="card-narrativa_semestre">{props.narrativa.semestre}</span>
                 </div>
