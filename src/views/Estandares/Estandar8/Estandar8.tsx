@@ -1,8 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 // components
 import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
 import HeaderStandard from "@/components/Headers/HeaderStandard";
+import CardPlanesMejora from "@/components/Cards/CardPlanesMejora";
+import Tabs from "@/components/Tabs/Tabs";
 import CardNarrativas from "@/views/Estandares/Estandar8/Cards/CardNarrativas";
 import {SERVER_PATH} from "@/variables";
 
@@ -13,13 +15,15 @@ export default function Estandar8() {
             .then(console.log);
     }, []);
 
+
+    const listTabs = ["planes de mejora", "narrativa", "acciones de mejora"];
+    const comp = [<CardPlanesMejora/>, "Narrativas"];
+
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad" />
-                <div className="relative px-4" style={{top: "-6rem"}}>
-                    <CardNarrativas />
-                </div>
+                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad"/>
+                <Tabs headers={listTabs} components={comp}/>
             </div>
         </>
     );

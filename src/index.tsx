@@ -3,6 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 // layouts
 // @ts-ignore
