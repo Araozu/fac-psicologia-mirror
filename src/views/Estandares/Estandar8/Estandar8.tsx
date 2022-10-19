@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 // components
 import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
 import HeaderStandard from "@/components/Headers/HeaderStandard";
-import CardPlanesMejora from "@/components/Cards/CardPlanesMejora";
+
 import Tabs from "@/components/Tabs/Tabs";
 import CardNarrativas from "@/views/Estandares/Estandar8/Cards/CardNarrativas";
 import {SERVER_PATH} from "@/variables";
@@ -17,7 +17,7 @@ export default function Estandar8() {
 
 
     const listTabs = ["planes de mejora", "narrativa", "acciones de mejora"];
-    const comp = [<CardPlanesMejora/>, "Narrativas"];
+    const comp = [<CardPlanesMejora/>, <CardNarrativas/>];
 
     return (
         <>
