@@ -6,7 +6,7 @@ import NotificationDropdown from "../Dropdowns/NotificationDropdown.jsx";
 import UserDropdown from "../Dropdowns/UserDropdown.jsx";
 
 // Assets
-import unsaLogo from '../../assets/img/unsa.jpg'
+import unsaLogo from "../../assets/img/unsa.jpg";
 import {useLocation} from "react-router";
 
 /**
@@ -40,11 +40,14 @@ function useCurrentStandardPathIndicator(standard) {
  * @return {JSX.Element}
  * @constructor
  */
-function SidebarStandardLink({handleViewChange, standard}) {
+function SidebarStandardLink({
+    handleViewChange,
+    standard,
+}) {
     const isCurrentStandard = useCurrentStandardPathIndicator(8);
     const linkClasses = useMemo(() => {
         return isCurrentStandard ? "text-lightBlue-500 hover:text-lightBlue-600"
-            : "text-blueGray-700 hover:text-blueGray-500"
+            : "text-blueGray-700 hover:text-blueGray-500";
     }, [isCurrentStandard]);
     const iClasses = useMemo(() => {
         return isCurrentStandard ? "text-blueGray-300" : "opacity-75";
@@ -56,7 +59,7 @@ function SidebarStandardLink({handleViewChange, standard}) {
                 className={`text-xs uppercase py-3 font-bold block ${linkClasses}`}
                 to={`/admin/estandar${standard}`}
                 onClick={() => {
-                    handleViewChange(standard.toString())
+                    handleViewChange(standard.toString());
                 }}
             >
                 <i
@@ -67,8 +70,49 @@ function SidebarStandardLink({handleViewChange, standard}) {
                 Estandar {standard}
             </Link>
         </li>
-    )
+    );
 }
+
+function isUsersActive(){
+    const location = useLocation();
+    const pathName = '/admin/users'
+    return(location.pathname === pathName)
+}
+
+function SidebarUsersLink({
+    handleViewChange,
+    title,
+}) {
+    const isCurrentStandard = isUsersActive();
+    const linkClasses = useMemo(() => {
+        return isCurrentStandard ? "text-lightBlue-500 hover:text-lightBlue-600"
+            : "text-blueGray-700 hover:text-blueGray-500";
+    }, [isCurrentStandard]);
+    const iClasses = useMemo(() => {
+        return isCurrentStandard ? "text-blueGray-300" : "opacity-75";
+    }, [isCurrentStandard]);
+
+    return (
+        <li className="items-center">
+            <Link
+                className={`text-xs uppercase py-3 font-bold block ${linkClasses}`}
+                to={`/admin/users`}
+                onClick={() => {
+                    handleViewChange(title.toString());
+                }}
+            >
+                <i
+                    className={
+                        `fas fa-tv mr-2 text-sm ${iClasses}`
+                    }
+                ></i>{" "}
+                {title}
+            </Link>
+        </li>
+    );
+}
+
+
 
 /**
  * Renders the sidebar
@@ -77,17 +121,21 @@ function SidebarStandardLink({handleViewChange, standard}) {
  * @return {JSX.Element}
  * @constructor
  */
-export default function Sidebar({handleViewChange, setIsHiddenParent}) {
+export default function Sidebar({
+    handleViewChange,
+    setIsHiddenParent,
+}) {
     const [collapseShow, setCollapseShow] = useState("hidden");
     const [isHidden, setIsHidden] = useState(false);
+    const rol = localStorage.getItem("ROL");
     /** @type {string} */
     const hiddenButtonName = useMemo(
         () => isHidden ? "fa fa-bars" : "fa fa-times",
-        [isHidden]
+        [isHidden],
     );
     const navClasses = useMemo(
         () => isHidden ? "" : "md:w-64",
-        [isHidden]
+        [isHidden],
     );
 
     return (
@@ -170,12 +218,27 @@ export default function Sidebar({handleViewChange, setIsHiddenParent}) {
 
                             {/* Divider */}
                             <hr className="my-4 md:min-w-full"/>
-                            {/* Heading */}
+
+                            {rol === "Admin" ? (
+                                <>
+                                    {/* Heading Users to Admin*/}
+                                    <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+                                        Administrador
+                                    </h6>
+                                    {/* Navigation for Admin*/}
+                                    <ul className="md:flex-col md:min-w-full flex flex-col list-none">
+                                        <SidebarUsersLink handleViewChange={handleViewChange} title={"Usuarios"}/>
+                                    </ul>
+                                    {/* Divider */}
+                                    <hr className="my-4 md:min-w-full"/>
+                                </>
+                            ):""
+                            }
+                            {/* Heading Estandares*/}
                             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                                 Estandares
                             </h6>
                             {/* Navigation */}
-
                             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
                                 <SidebarStandardLink handleViewChange={handleViewChange} standard={8}/>
                             </ul>

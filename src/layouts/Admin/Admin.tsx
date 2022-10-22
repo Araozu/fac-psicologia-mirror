@@ -18,6 +18,7 @@ import CrearPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/CrearPlanMe
 import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
 import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
 import DetalleNarrativa from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import Users from "@/views/admin/Users/Users";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -70,6 +71,9 @@ export default function Admin() {
                         <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
                         {/* Editar narrativa */}
                         <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+
+                        {/*Administración de Usuarios*/}
+                        {<Route path={"/admin/users"} exact component={Users}/>}
 
                         <Redirect from="/admin" to="/admin/estandar8" />
                         <Redirect from="/admin/dashboard" to="/admin/estandar8" />
