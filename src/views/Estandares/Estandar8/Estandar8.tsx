@@ -17,12 +17,12 @@ export default function Estandar8() {
 
 
     const listTabs = ["planes de mejora", "narrativa", "acciones de mejora"];
-    const comp = [<CardPlanesMejora/>, <CardNarrativas/>];
+    const comp = [<CardPlanesMejora/>, <CardNarrativas/>, <></>];
 
     return (
         <>
-            <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad"/>
+            <div className="w-full mb-12 bg-blueGray-100">
+                <HeaderStandard titulo="Estandar 8" descripcion="Gestion de planes de mejora"/>
                 <Tabs headers={listTabs} components={comp}/>
             </div>
         </>
