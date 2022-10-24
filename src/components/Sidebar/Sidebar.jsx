@@ -11,100 +11,47 @@ import {useLocation} from "react-router";
 
 import "./Sidebar.css"
 
-/**
- *
- * @param standard number: The **number** of standard to check for.
- * @param location object: The location obtained from React Router
- * @return whether the current url matches the standard
- */
-function isCurrentStandardActive(standard, location) {
-    // Supposedly a string
-    const pathname = location.pathname;
-    const fullStandardPath = `/admin/estandar${standard}`;
 
-    return pathname === fullStandardPath;
-}
+function SidebarLink({text , path, prefixIcon, sufixIcon, isHidden, disabled = false }) {
 
-/**
- * Hook that calculates if the standard is highlighted
- * @param standard number: The **number** of the standard to check.
- */
-function useCurrentStandardPathIndicator(standard) {
-    const location = useLocation();
+    const location =  useLocation()
 
-    return isCurrentStandardActive(standard, location);
-}
+    const content = () => <>
+        
+        <div id="sidebar-link-content-prefix">
+                <i className={`${prefixIcon} fa-sm ${(isHidden ? "mr-0" : "mr-2")}`}></i>{" "}
+                {!isHidden && <>{text.toUpperCase()}</> }
+        </div>
 
-/**
- * Renders a standard link
- * @param handleViewChange ???
- * @param standard number: **Number** of the standard to create a link for
- * @return {JSX.Element}
- * @constructor
- */
-function SidebarStandardLink({handleViewChange, standard, isHidden, disabled = false}) {
-    const isCurrentStandard = useCurrentStandardPathIndicator(8);
-
-    const generateSufixIcon = () => {
-        let numberString = standard.toString()
-        return (
-            <>
-                {numberString.split("").map( (number) => <i key={"estandar"+number} className={`fa-solid fa-${number} fa-sm`}></i> )}
-            </>
-        )
-    }
-
-    const linkContent = <>
-            {isHidden ? <></> :
-                <div id="sidebar-link-content-prefix">
-                        <i
-                            className={
-                                "fas fa-tv fa-sm " + (isHidden ? "mr-0" : "mr-2")
-                            }
-                        ></i>{" "}
-                        Estandar {standard}
-                </div>}
-                <div style={ {display: "block", textAlign: "center" } } id="sidebar-link-content-suffix">
-                    <div style={ {display: "flex", flexWrap: "nowrap" , alignItems: "center", justifyContent: "center", height: "100%"} }>
-                        {generateSufixIcon()}{" "}
-                    </div>
-                </div>
-            </>
+        { !isHidden &&
+            <div style={ {display: "block", textAlign: "center"} } id="sidebar-link-content-suffix">
+                <i className={`${sufixIcon} fa-sm`}></i>       
+            </div>
+        }
+    </>
 
     return (
-        <li style={ {marginBottom: "0.5em"} }>
+        <li style={ {marginBottom: "0.3em"} }>
             {disabled ? 
-
-            <div className={"lista-item lista-item-disabled "+  + (isHidden ? "list-item-small ": " ")}>
-                    {linkContent}
-            </div>
-            
-            : <Link
-                className={"lista-item " + (isCurrentStandard ? "lista-item-selected " : " ") + (isHidden ? "list-item-small": "")}
-                to={`/admin/estandar${standard}`}
-                onClick={() => {
-                    handleViewChange(standard.toString())}}>
-                    {linkContent}
-            </Link>}
+                <div className={"lista-item lista-item-disabled "+  + (isHidden && "list-item-small ")}>
+                        {content()}
+                </div>
+              : <Link
+                    className={"lista-item " + (window.location.pathname.includes(path) && "lista-item-selected ") + (isHidden && "list-item-small")}
+                    to={path}>
+                        {content()}
+                </Link>
+            }
         </li>
     )
 }
 
 
-
-/**
- * Renders the sidebar
- * @param handleViewChange ???
- * @param setIsHiddenParent Function to update hidden status of the sidebar
- * @return {JSX.Element}
- * @constructor
- */
 export default function Sidebar({
-    handleViewChange,
-    setIsHiddenParent,
+    setIsHiddenParent
 }) {
-    const [collapseShow, setCollapseShow] = useState("hidden");
     const [isHidden, setIsHidden] = useState(false);
+    const rol = localStorage.getItem("ROL");
     
     // Use angle with animations
     const hiddenButtonName = useMemo(
@@ -151,17 +98,37 @@ export default function Sidebar({
 
                     </div>
 
-                    <hr className="mx-4 my-4"/>
+                    { rol === "admin" &&
+                        <>
+                        
+                            { !isHidden && <>
+                                    <hr className="mx-4 my-4"/>
+                                    <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
+                                                Administrador
+                                    </h6>
+                                </>
+                            }
 
-                    { isHidden ? <></> : 
-                    <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
-                                Estandares
-                    </h6>}
+                            <ul className="flex flex-col list-none mx-4">
+                                <SidebarLink  path='/admin/users/' text="Usuarios" prefixIcon='fa-solid fa-users' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false} />
+                            </ul>
+                        
+                        </>
+                    }
+                    
+
+                    { !isHidden && <>
+                            <hr className="mx-4 my-4"/>
+                            <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
+                                        Estandares
+                            </h6>
+                        </>
+                    }
 
                     <ul className="flex flex-col list-none mx-4">
-                        <SidebarStandardLink handleViewChange={handleViewChange} standard={8} isHidden={isHidden} disabled={false}/>
-                        <SidebarStandardLink handleViewChange={handleViewChange} standard={9} isHidden={isHidden} disabled={true}/>
-                        <SidebarStandardLink handleViewChange={handleViewChange} standard={10} isHidden={isHidden} disabled={true}/>
+                        <SidebarLink  path='/admin/estandar8' text="Estandar 8" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
+                        <SidebarLink  path='/admin/estandar9' text="Estandar 9" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
+                        <SidebarLink  path='/admin/estandar10' text="Estandar 10" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={true}/>
                     </ul>
                 </div>
             </nav>  
