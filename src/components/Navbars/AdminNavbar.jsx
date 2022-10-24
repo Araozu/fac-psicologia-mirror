@@ -9,7 +9,7 @@ export default function Navbar() {
 
     /**      <nav className="relative top-0 left-0 w-full z-10 bg-lightBlue-600 md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div className="w-full flex items-center  justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
-                    {/* Brand *//*} 
+                    {/* Brand *//*}
                     <Link
                         className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
                         to="/admin/estandar8"
@@ -17,7 +17,7 @@ export default function Navbar() {
                     <i class="fa-brands fa-ubuntu mr-2"></i>
                     Sistema Gestion de Calidad
                     </Link>
-                    {/* User Info *//*} 
+                    {/* User Info *//*}
                     <div className="flex flex-row justify-center items-center">
                         <span className="text-white inline-block mr-4 h6"> {`${nombre} ${apellido}`}</span>
 
@@ -28,24 +28,23 @@ export default function Navbar() {
                     </div>
                 </div>
             </nav> */
- 
 
     return (
         <>
             <nav className="fixed  z-10 bg-lightBlue-600 flex items-center justify-between py-4" style={ {width: "-webkit-fill-available"} }>
-                    <Link
-                        className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
-                        to="/admin/estandar8"
-                    >
-                        <i class="fa-brands fa-ubuntu mr-2"></i>
+                <Link
+                    className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
+                    to="/admin/estandar8"
+                >
+                    <i class="fa-brands fa-ubuntu mr-2" />
                         Sistema de gestion de calidad
-                    </Link>
-                    <div className="flex flex-row justify-center items-center px-4">
-                        <span className="text-white text-sm opacity-75 inline-block mr-2"> {`${nombre} ${apellido}`}</span>
-                        <ul className="flex-col md:flex-row list-none items-center hidden md:flex relative">
-                            <UserDropdown />
-                        </ul>
-                    </div>
+                </Link>
+                <div className="flex flex-row justify-center items-center px-4">
+                    <span className="text-white text-sm opacity-75 inline-block mr-2"> {`${nombre} ${apellido}`}</span>
+                    <ul className="flex-col md:flex-row list-none items-center hidden md:flex relative">
+                        <UserDropdown />
+                    </ul>
+                </div>
             </nav>
         </>
     );

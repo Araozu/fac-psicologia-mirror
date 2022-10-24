@@ -224,6 +224,7 @@ export default function DetallePM({ id }) {
           </tr>
         </tbody>
       </table>
+      {/*
       <PDFDownloadLink
         document={<DocEstandar plan={pm} />}
         fileName={pm.codigo + "-" + new Date().toLocaleString() + ".pdf"}
@@ -238,6 +239,7 @@ export default function DetallePM({ id }) {
           )
         }
       </PDFDownloadLink>
+      */}
     </>
   );
 }

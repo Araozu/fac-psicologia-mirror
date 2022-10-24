@@ -33,7 +33,7 @@ export default function InputText(props) {
                     disabled={disabled === true}
                     id={name}
                     name={name}
-                    value={value}
+                    defaultValue={value}
                     className={classes}
                     placeholder={placeholder}
                     onChange={onChange}

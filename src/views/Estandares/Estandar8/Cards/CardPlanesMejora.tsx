@@ -12,11 +12,11 @@ enum EstadoPlanMejora {
     Planificado,
 }
 
-interface PlanMejoraData {
+export interface PlanMejoraData {
     id: number,
     codigo: string,
     estandar: number,
-    responsable: string,
+    user_name: string,
     /** Se asume que siempre es un entero entre 0 y 100 */
     avance: number,
     estado: EstadoPlanMejora,
@@ -29,6 +29,8 @@ export interface PlanMejoraServer {
     estado: string,
     estandar_name: string,
     id: number,
+    id_user: number,
+    nombre: string
     user_name: string,
 }
 
@@ -69,7 +71,7 @@ function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
         id: plan.id,
         codigo: codigoPlan,
         estandar: 8,
-        responsable: plan.user_name,
+        user_name: plan.user_name,
         avance: plan.avance,
         estado: estadoPlan,
         estandar_name: plan.estandar_name,
@@ -136,7 +138,7 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
                 {props.plan.estandar_name}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {props.plan.responsable}
+                {props.plan.user_name}
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -174,7 +176,12 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
     );
 }
 
-export default function CardPlanesMejora() {
+
+type CardProps = {
+    // El nombre del usuario como filtro, ejm: "FERNANDO ENRIQUE"
+    filtroUsuario?: string,
+}
+export default function CardPlanesMejora(props: CardProps) {
     const h = useHistory();
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState(-1);
@@ -217,7 +224,9 @@ export default function CardPlanesMejora() {
                 const contieneAnio = filtroAnio === -1 || plan.codigo.indexOf(filtroAnio.toString()) !== -1;
                 const contieneEstado = filtroEstado === -1 || plan.estado === filtroEstado;
 
-                return contieneCodigoPlan && contieneAnio && contieneEstado;
+                const contieneUsuario = !props.filtroUsuario || plan.user_name === props.filtroUsuario;
+
+                return contieneCodigoPlan && contieneAnio && contieneEstado && contieneUsuario;
             })
             .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
