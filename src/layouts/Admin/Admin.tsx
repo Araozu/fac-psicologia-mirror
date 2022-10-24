@@ -67,6 +67,9 @@ export default function Admin() {
                 {/* Editar narrativa */}
                 <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
+                {/*Administración de Usuarios*/}
+                {<Route path={"/admin/users"} exact component={Users}/>}
+
                 <Redirect from="/admin" to="/admin/estandar8" />
                 <Redirect from="/admin/dashboard" to="/admin/estandar8" />
             </Switch>
