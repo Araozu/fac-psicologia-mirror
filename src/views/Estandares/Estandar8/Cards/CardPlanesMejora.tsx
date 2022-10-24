@@ -38,6 +38,14 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
         (props.producerFn ?? fetchTodosPlanMejora)().then(setPlanesMejora);
     }, []);
 
+    const listaAnios = useMemo<Array<string>>(() => {
+        const map: {[key: string]: boolean} = {};
+        planesMejora.forEach((plan) => {
+            map[plan.codigo.substring(6, 10)] = true;
+        });
+        return Object.keys(map);
+    }, [planesMejora]);
+
     // Elimina un plan de mejora del state
     const eliminarPlanMejora = (planEliminar: PlanMejoraData) => {
         setPlanesMejora((x) => x.filter((plan) => plan.id !== planEliminar.id));
@@ -64,7 +72,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                                 Filtros
                     </h3>
                     <FiltroInput onChange={setFiltroCodigo} />
-                    <FiltroAnio onChange={setFiltroAnio} />
+                    <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio} />
                     <FiltroEstado onChange={setFiltroEstado} />
                 </div>
                 <div className="relative w-full px-4 max-w-full text-right">
@@ -159,7 +167,7 @@ function FiltroEstado(props: { onChange: (_: number) => void }) {
     );
 }
 
-function FiltroAnio(props: { onChange: (_: number) => void }) {
+function FiltroAnio(props: { listaAnios: Array<string>, onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
@@ -168,6 +176,8 @@ function FiltroAnio(props: { onChange: (_: number) => void }) {
         setSelected(value);
     };
 
+    const opciones = props.listaAnios.map((x, i) => <option value={x} key={i}>{x}</option>);
+
     return (
         <span className="relative">
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
@@ -175,10 +185,7 @@ function FiltroAnio(props: { onChange: (_: number) => void }) {
                 className="rounded-xl text-sm p-2 w-48"
             >
                 <option value="-1">Todos</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
+                {opciones}
             </select>
         </span>
     );
