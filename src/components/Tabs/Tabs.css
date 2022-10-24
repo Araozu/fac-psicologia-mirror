@@ -1,0 +1,8 @@
+.border-top-rounded {
+    border-top-right-radius: 1em;
+    border-top-left-radius: 1em;
+}
+
+.tab{
+    cursor: pointer;
+}

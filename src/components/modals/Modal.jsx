@@ -15,7 +15,7 @@ export default function Modal(props) {
                         (e) => props.onClose("cancel")
                     }
                 >
-                    No aceptar
+                    Cancelar
                 </button>
             )}
             <button className="modal-button btn-accept" onClick={

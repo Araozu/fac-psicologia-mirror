@@ -46,35 +46,41 @@ export default function Admin() {
         [isHidden],
     );
 
+
+    const Routes = () => {
+        return (
+            <Switch>
+                <Route path="/admin/estandar8" exact component={Estandar8} />
+
+                {/* Crear plan de mejora */}
+                <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
+                {/* Ver plan de mejora */}
+                <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
+                {/* Editar plan de mejora */}
+                <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
+
+                {/* Crear narrativa */}
+                <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
+                {/* Ver narrativa */}
+                <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
+                {/* Editar narrativa */}
+                <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+
+                <Redirect from="/admin" to="/admin/estandar8" />
+                <Redirect from="/admin/dashboard" to="/admin/estandar8" />
+            </Switch>
+        )
+    }
+
     return (
         <>
-            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
-            <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <AdminNavbar />
-                {/* Header */}
-
-                <div className="mx-auto w-full -m-24">
-                    <Switch>
-                        <Route path="/admin/estandar8" exact component={Estandar8} />
-
-                        {/* Crear plan de mejora */}
-                        <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
-                        {/* Ver plan de mejora */}
-                        <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
-                        {/* Editar plan de mejora */}
-                        <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
-
-                        {/* Crear narrativa */}
-                        <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
-                        {/* Ver narrativa */}
-                        <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
-                        {/* Editar narrativa */}
-                        <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
-
-                        <Redirect from="/admin" to="/admin/estandar8" />
-                        <Redirect from="/admin/dashboard" to="/admin/estandar8" />
-                    </Switch>
-                    <FooterAdmin />
+            <div className="flex" style={ {minHeight: "100vh"} }>
+                <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
+                <div className="bg-blueGray-100 relative w-full">
+                    <AdminNavbar />
+                    <div className="w-full m-24">
+                        <Routes />
+                    </div>
                 </div>
             </div>
         </>

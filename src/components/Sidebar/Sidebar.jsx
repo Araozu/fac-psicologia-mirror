@@ -6,8 +6,10 @@ import NotificationDropdown from "../Dropdowns/NotificationDropdown.jsx";
 import UserDropdown from "../Dropdowns/UserDropdown.jsx";
 
 // Assets
-import unsaLogo from '../../assets/img/unsa.jpg'
+import unsaLogo from '../../assets/img/unsalogo.png'
 import {useLocation} from "react-router";
+
+import "./Sidebar.css"
 
 /**
  *
@@ -40,32 +42,50 @@ function useCurrentStandardPathIndicator(standard) {
  * @return {JSX.Element}
  * @constructor
  */
-function SidebarStandardLink({handleViewChange, standard}) {
+function SidebarStandardLink({handleViewChange, standard, isHidden, disabled = false}) {
     const isCurrentStandard = useCurrentStandardPathIndicator(8);
-    const linkClasses = useMemo(() => {
-        return isCurrentStandard ? "text-lightBlue-500 hover:text-lightBlue-600"
-            : "text-blueGray-700 hover:text-blueGray-500"
-    }, [isCurrentStandard]);
-    const iClasses = useMemo(() => {
-        return isCurrentStandard ? "text-blueGray-300" : "opacity-75";
-    }, [isCurrentStandard]);
+
+    const generateSufixIcon = () => {
+        let numberString = standard.toString()
+        return (
+            <>
+                {numberString.split("").map( (number) => <i key={"estandar"+number} className={`fa-solid fa-${number} fa-sm`}></i> )}
+            </>
+        )
+    }
+
+    const linkContent = <>
+            {isHidden ? <></> :
+                <div id="sidebar-link-content-prefix">
+                        <i
+                            className={
+                                "fas fa-tv fa-sm " + (isHidden ? "mr-0" : "mr-2")
+                            }
+                        ></i>{" "}
+                        Estandar {standard}
+                </div>}
+                <div style={ {display: "block", textAlign: "center" } } id="sidebar-link-content-suffix">
+                    <div style={ {display: "flex", flexWrap: "nowrap" , alignItems: "center", justifyContent: "center", height: "100%"} }>
+                        {generateSufixIcon()}{" "}
+                    </div>
+                </div>
+            </>
 
     return (
-        <li className="items-center">
-            <Link
-                className={`text-xs uppercase py-3 font-bold block ${linkClasses}`}
+        <li style={ {marginBottom: "0.5em"} }>
+            {disabled ? 
+
+            <div className={"lista-item lista-item-disabled "+  + (isHidden ? "list-item-small ": " ")}>
+                    {linkContent}
+            </div>
+            
+            : <Link
+                className={"lista-item " + (isCurrentStandard ? "lista-item-selected " : " ") + (isHidden ? "list-item-small": "")}
                 to={`/admin/estandar${standard}`}
                 onClick={() => {
-                    handleViewChange(standard.toString())
-                }}
-            >
-                <i
-                    className={
-                        `fas fa-tv mr-2 text-sm ${iClasses}`
-                    }
-                ></i>{" "}
-                Estandar {standard}
-            </Link>
+                    handleViewChange(standard.toString())}}>
+                    {linkContent}
+            </Link>}
         </li>
     )
 }
@@ -80,9 +100,10 @@ function SidebarStandardLink({handleViewChange, standard}) {
 export default function Sidebar({handleViewChange, setIsHiddenParent}) {
     const [collapseShow, setCollapseShow] = useState("hidden");
     const [isHidden, setIsHidden] = useState(false);
-    /** @type {string} */
+    
+    // Use angle with animations
     const hiddenButtonName = useMemo(
-        () => isHidden ? "fa fa-bars" : "fa fa-times",
+        () => isHidden ? "" : "fa-flip-horizontal",
         [isHidden]
     );
     const navClasses = useMemo(
@@ -90,100 +111,57 @@ export default function Sidebar({handleViewChange, setIsHiddenParent}) {
         [isHidden]
     );
 
+    const toggleCollapse = () => {
+        setIsHidden((x) => !x);
+        setIsHiddenParent((x) => !x);
+    }
+
     return (
         <>
-            <nav
-                className={`${navClasses} md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative z-10 py-4`}>
+            <nav className={`${navClasses} md:left-0 md:block md:top-0 md:bottom-0 md:overflow-y-auto md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative sidebar`}>
+                
 
-                {/* Toggle show/hide navbar */}
-                <button
-                    className="cursor-pointer hidden md:inline-block text-black opacity-50 px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                    type="button"
-                    onClick={() => {
-                        setIsHidden((x) => !x);
-                        setIsHiddenParent((x) => !x);
-                    }}
-                >
-                    <i className={hiddenButtonName}></i>
-                </button>
+                <div className="w-full flex flex-col justify-start content-start">
+                    <button
+                        className="cursor-pointer md:inline-block text-black opacity-50 px-4 py-6 text-xl leading-none bg-transparent"
+                        type="button"
+                        onClick={toggleCollapse}
+                        style={ {textAlign: (isHidden ? "center": "end")} }>
+                        <i className={`fa-solid fa-angles-right fa-lg ${hiddenButtonName}`} style={ {color: "#0284C7"} }></i>
+                    </button>
 
-                {isHidden ? <></> :
-                    <div
-                        className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap flex flex-wrap items-center justify-between w-full mx-auto px-6">
 
-                        {/* Toggler */}
-                        <button
-                            className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                            type="button"
-                            onClick={() => setCollapseShow("bg-white m-2 py-3 px-6")}
-                        >
-                            <i className="fas fa-bars"></i>
-                        </button>
-                        {/* Brand */}
-                        <Link
-                            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                            to="/"
-                        >
-                            <img src={unsaLogo} alt="Logo Unsa"/>
-                            <h3 className="mt-3">Escuela Profesional de <br/> Relaciones Industriales</h3>
-                        </Link>
+                    <div className="mt-10 mx-4">
 
-                        {/* User */}
-                        <ul className="md:hidden items-center flex flex-wrap list-none">
-                            <li className="inline-block relative">
-                                <NotificationDropdown/>
-                            </li>
-                            <li className="inline-block relative">
-                                <UserDropdown/>
-                            </li>
-                        </ul>
-                        {/* Collapse */}
-                        <div
-                            className={
-                                "md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
-                                collapseShow
-                            }
-                        >
-                            {/* Collapse header */}
-                            <div
-                                className="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-blueGray-200">
-                                <div className="flex flex-wrap">
-                                    <div className="w-6/12">
-                                        <Link
-                                            className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                                            to="/"
-                                        >
-                                            <img src={unsaLogo} alt="Logo Unsa"/>
-                                        </Link>
-                                    </div>
-                                    <div className="w-6/12 flex justify-end">
-                                        <button
-                                            type="button"
-                                            className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                                            onClick={() => setCollapseShow("hidden")}
-                                        >
-                                            <i className="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                        { isHidden ? <></> : 
+                        
+                            <Link
+                                className="flex flex-row logo-side justify-between items-center uppercase"
+                                to="/"
+                            >
+                                <img src={unsaLogo}  alt="Logo Unsa"
+                                style={ {width: "4.5em", height: "4.5em", marginRight:"0.5em"} }/>
+                                <h4 className="text-sm">  <span style={{fontSize: "0.6em"}}>Escuela Profesional de</span> <br/> <strong> Relaciones Industriales</strong></h4>
+                            </Link>}
 
-                            {/* Divider */}
-                            <hr className="my-4 md:min-w-full"/>
-                            {/* Heading */}
-                            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-                                Estandares
-                            </h6>
-                            {/* Navigation */}
-
-                            <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-                                <SidebarStandardLink handleViewChange={handleViewChange} standard={8}/>
-                            </ul>
-
-                        </div>
                     </div>
-                }
-            </nav>
+
+                    <hr className="mx-4 my-4"/>
+
+                    { isHidden ? <></> : 
+                    <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
+                                Estandares
+                    </h6>}
+
+                    <ul className="flex flex-col list-none mx-4">
+                        <SidebarStandardLink handleViewChange={handleViewChange} standard={8} isHidden={isHidden} disabled={false}/>
+                        <SidebarStandardLink handleViewChange={handleViewChange} standard={9} isHidden={isHidden} disabled={true}/>
+                        <SidebarStandardLink handleViewChange={handleViewChange} standard={10} isHidden={isHidden} disabled={true}/>
+                    </ul>
+                </div>
+            </nav>  
         </>
     );
+
+
 }

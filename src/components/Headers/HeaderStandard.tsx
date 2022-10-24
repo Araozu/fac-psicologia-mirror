@@ -115,7 +115,7 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     };
 }
 
-export default function HeaderStandard(props: {titulo: string, descripcion: string}) {
+export default function HeaderStandard(props: {titulo: string, descripcion: string, icono?: string}) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
     const history = useHistory();
 
@@ -171,10 +171,21 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
     return (
         <>
             {/* Header */}
-            <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12 flex justify-between">
+            <div className="relative bg-lightBlue-600 flex flex-wrap justify-between"
+                style={ {paddingBottom: "2em", paddingTop: "7em"} }>
+                
                 <div className="px-4 md:pl-10 md:pr-4">
+                    {props.icono
+                            ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />
+                            : <></>
+                    }
                     <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
                     <p className="text-lg text-white">{props.descripcion}</p>
+
+                    <button className="btn btn-primary btn-lg" disabled>
+                        Ver cabecera
+                    </button>
+
                 </div>
                 <div>
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
@@ -183,7 +194,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                                 statSubtitle="CONCLUIDOS"
                                 statTitle={cantidadConcluido === -1 ? "" : cantidadConcluido.toString()}
                                 statPercent={porcentajeConcluidos}
-                                statDescripiron="Planes"
+                                statDescripiron="de Planes"
                                 statIconName="fas fa-check"
                                 statIconColor="bg-emerald-500"
                             />
@@ -193,7 +204,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                                 statSubtitle="EN PROCESO"
                                 statTitle={cantidadEnProceso === -1 ? "" : cantidadEnProceso.toString()}
                                 statPercent={porcentajeEnProceso}
-                                statDescripiron="Planes"
+                                statDescripiron="de Planes"
                                 statIconName="fas fa-spinner"
                                 statIconColor="bg-cyan-500"
                             />
@@ -203,7 +214,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                                 statSubtitle="PROGRAMADO"
                                 statTitle={cantidadProgramado === -1 ? "" : cantidadProgramado.toString()}
                                 statPercent={porcentajeProgramado}
-                                statDescripiron="Planes"
+                                statDescripiron="de Planes"
                                 statIconName="fas fa-calendar-check"
                                 statIconColor="bg-indigo-500"
                             />
@@ -213,7 +224,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                                 statSubtitle="REPROGRAMADO"
                                 statTitle={cantidadReprogramado === -1 ? "" : cantidadReprogramado.toString()}
                                 statPercent={porcentajeReprogramado}
-                                statDescripiron="Planes"
+                                statDescripiron="de Planes"
                                 statIconName="fas fa-clock-rotate-left"
                                 statIconColor="bg-orange-500"
                             />
@@ -223,7 +234,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                                 statSubtitle="PLANIFICADO"
                                 statTitle={cantidadPlanificado === -1 ? "" : cantidadPlanificado.toString()}
                                 statPercent={porcentajePlanificado}
-                                statDescripiron="Planes"
+                                statDescripiron="de Planes"
                                 statIconName="fas fa-clock"
                                 statIconColor="bg-pink-500"
                             />

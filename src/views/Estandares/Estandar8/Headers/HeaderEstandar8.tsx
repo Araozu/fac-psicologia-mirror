@@ -3,7 +3,7 @@ import React from "react";
 export default function HeaderEstandar8(props: {titulo: string, descripcion?: string, icono?: string}) {
     return (
         <>
-            <div className="relative bg-lightBlue-600 md:pt-32 pb-32 pt-12 flex justify-between">
+            <div className="relative bg-lightBlue-600 pb-2 pt-12 flex justify-between">
                 <div className="px-4 my-4 md:px-10 flex">
                     {props.icono
                         ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />

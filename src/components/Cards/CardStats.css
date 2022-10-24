@@ -1,0 +1,16 @@
+.icon-card {
+    position: absolute;
+    bottom: -1em;
+    right: -1em;
+    
+}
+
+.icon-card > div {
+    width: 6em;
+    height: 6em;
+    opacity: 15%;
+}
+
+.icon-card > div > i {
+    font-size: 3em;
+}
