@@ -90,6 +90,8 @@ function SidebarStandardLink({handleViewChange, standard, isHidden, disabled = f
     )
 }
 
+
+
 /**
  * Renders the sidebar
  * @param handleViewChange ???
@@ -97,7 +99,10 @@ function SidebarStandardLink({handleViewChange, standard, isHidden, disabled = f
  * @return {JSX.Element}
  * @constructor
  */
-export default function Sidebar({handleViewChange, setIsHiddenParent}) {
+export default function Sidebar({
+    handleViewChange,
+    setIsHiddenParent,
+}) {
     const [collapseShow, setCollapseShow] = useState("hidden");
     const [isHidden, setIsHidden] = useState(false);
     
@@ -108,7 +113,7 @@ export default function Sidebar({handleViewChange, setIsHiddenParent}) {
     );
     const navClasses = useMemo(
         () => isHidden ? "" : "md:w-64",
-        [isHidden]
+        [isHidden],
     );
 
     const toggleCollapse = () => {

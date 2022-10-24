@@ -29,13 +29,15 @@ export function GoogleLogin() {
                             const foto = obj.image;
                             const nombre = obj.user.name;
                             const apellido = obj.user.lastname;
+                            const rol = obj.role;
 
                             if (token.length !== 0) {
-                                console.log("Token:", token);
+                                //console.log("Token:", token);
                                 localStorage.setItem("access_token", token);
                                 localStorage.setItem("nombre", nombre);
                                 localStorage.setItem("apellido",apellido);
                                 localStorage.setItem("FOTO", foto);
+                                localStorage.setItem("ROL", rol);
                             }
 
                             history.push("/admin/dashboard");

@@ -18,6 +18,7 @@ import CrearPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/CrearPlanMe
 import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
 import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
 import DetalleNarrativa from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import Users from "@/views/admin/Users/Users";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
