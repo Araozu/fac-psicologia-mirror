@@ -48,33 +48,31 @@ export default function Admin() {
     );
 
 
-    const Routes = () => {
-        return (
-            <Switch>
-                <Route path="/admin/estandar8" exact component={Estandar8} />
+    const Routes = () => (
+        <Switch>
+            <Route path="/admin/estandar8" exact component={Estandar8} />
 
-                {/* Crear plan de mejora */}
-                <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
-                {/* Ver plan de mejora */}
-                <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
-                {/* Editar plan de mejora */}
-                <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
+            {/* Crear plan de mejora */}
+            <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
+            {/* Ver plan de mejora */}
+            <Route path="/admin/estandar8/plan-mejora/detalle/:codigo" exact component={Detalle} />
+            {/* Editar plan de mejora */}
+            <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
 
-                {/* Crear narrativa */}
-                <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
-                {/* Ver narrativa */}
-                <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
-                {/* Editar narrativa */}
-                <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear narrativa */}
+            <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
+            {/* Ver narrativa */}
+            <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
+            {/* Editar narrativa */}
+            <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
-                {/*Administración de Usuarios*/}
-                {<Route path={"/admin/users"} exact component={Users}/>}
+            {/*Administración de Usuarios*/}
+            {<Route path={"/admin/users"} exact component={Users} />}
 
-                <Redirect from="/admin" to="/admin/estandar8" />
-                <Redirect from="/admin/dashboard" to="/admin/estandar8" />
-            </Switch>
-        )
-    }
+            <Redirect from="/admin" to="/admin/estandar8" />
+            <Redirect from="/admin/dashboard" to="/admin/estandar8" />
+        </Switch>
+    );
 
     return (
         <>

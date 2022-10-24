@@ -16,6 +16,7 @@ export default function HeaderDashboardPersonal(props: {titulo: string, descripc
                         <p className="text-white">{props.descripcion}</p>
                     </div>
 
+                    {/*
                     <CardStats
                         statSubtitle="CONCLUIDOS"
                         statTitle="10"
@@ -24,6 +25,7 @@ export default function HeaderDashboardPersonal(props: {titulo: string, descripc
                         statIconName="fas fa-check"
                         statIconColor="bg-emerald-500"
                     />
+                    */}
                 </div>
             </div>
         </>

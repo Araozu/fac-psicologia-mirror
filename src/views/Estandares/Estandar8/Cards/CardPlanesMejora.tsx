@@ -3,114 +3,14 @@ import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
 import "@/assets/styles/CardPlanesMejora.css";
 import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
-
-enum EstadoPlanMejora {
-    EnProceso,
-    Concluido,
-    Programado,
-    Reprogramado,
-    Planificado,
-}
-
-export interface PlanMejoraData {
-    id: number,
-    codigo: string,
-    estandar: number,
-    user_name: string,
-    /** Se asume que siempre es un entero entre 0 y 100 */
-    avance: number,
-    estado: EstadoPlanMejora,
-    estandar_name: string,
-}
-
-export interface PlanMejoraServer {
-    avance: number,
-    codigo: string,
-    estado: string,
-    estandar_name: string,
-    id: number,
-    id_user: number,
-    nombre: string
-    user_name: string,
-}
-
-function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
-    let estadoPlan: EstadoPlanMejora;
-    switch (plan.estado) {
-        case "Planificado": {
-            estadoPlan = EstadoPlanMejora.Planificado;
-            break;
-        }
-        case "Programado": {
-            estadoPlan = EstadoPlanMejora.Programado;
-            break;
-        }
-        case "Reprogramado": {
-            estadoPlan = EstadoPlanMejora.Reprogramado;
-            break;
-        }
-        case "En proceso": {
-            estadoPlan = EstadoPlanMejora.EnProceso;
-            break;
-        }
-        case "Concluido": {
-            estadoPlan = EstadoPlanMejora.Concluido;
-            break;
-        }
-        default: {
-            console.error("Error al convertir datos del servidor a enum PlanMejoraServer (CardPlanesMejora.tsx)");
-            console.error("Valor recibido:", plan.estado);
-            console.error(plan);
-            estadoPlan = EstadoPlanMejora.Programado;
-        }
-    }
-
-    const codigoPlan = plan.codigo.startsWith("OM-") ? plan.codigo : `OM-${plan.codigo}`;
-
-    return {
-        id: plan.id,
-        codigo: codigoPlan,
-        estandar: 8,
-        user_name: plan.user_name,
-        avance: plan.avance,
-        estado: estadoPlan,
-        estandar_name: plan.estandar_name,
-    };
-}
-
-function estadoPlanMejoraToString(estado: EstadoPlanMejora): string {
-    switch (estado) {
-        case EstadoPlanMejora.Reprogramado:
-            return "Reprogramado";
-        case EstadoPlanMejora.Programado:
-            return "Programado";
-        case EstadoPlanMejora.Planificado:
-            return "Planificado";
-        case EstadoPlanMejora.Concluido:
-            return "Concluido";
-        case EstadoPlanMejora.EnProceso:
-            return "En Proceso";
-        default:
-            return "";
-    }
-}
-
-function estadoPlanMejoraToColor(estado: EstadoPlanMejora): [string, string] {
-    switch (estado) {
-        case EstadoPlanMejora.EnProceso:
-            return ["#ef4444", "#FECACA"];
-        case EstadoPlanMejora.Concluido:
-            return ["#10B981", "#68d7b2"];
-        case EstadoPlanMejora.Programado:
-            return ["#FF8F0C", "#F7C78E"];
-        case EstadoPlanMejora.Planificado:
-            return ["#0f8dc4", "#25BAFA"];
-        case EstadoPlanMejora.Reprogramado:
-            return ["#F3F80C", "#FCFDB7"];
-        default:
-            return ["red", "blue"];
-    }
-}
+import {
+    estadoPlanMejoraToColor,
+    estadoPlanMejoraToString,
+    PlanMejoraData,
+    PlanMejoraServer,
+    planMejoraServerToData,
+} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {Card} from "react-bootstrap";
 
 
 function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
@@ -177,11 +77,27 @@ function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
 }
 
 
-type CardProps = {
-    // El nombre del usuario como filtro, ejm: "FERNANDO ENRIQUE"
-    filtroUsuario?: string,
+async function fetchTodosPlanMejora(): Promise<Array<PlanMejoraData>> {
+    const userToken = localStorage.getItem("access_token");
+    if (userToken === null) throw new Error("CardPlanesMejora: Se intento recuperar planes sin usuario logeado");
+
+    const raw = await fetch(`${SERVER_PATH}/api/plan`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${userToken}`,
+        },
+    });
+    const dataObj: { data: Array<PlanMejoraServer> } = await raw.json();
+    return dataObj.data.map(planMejoraServerToData);
 }
-export default function CardPlanesMejora(props: CardProps) {
+
+
+type CardPlanesMejoraProps = {
+    producerFn?: () => Promise<Array<PlanMejoraData>>
+}
+export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const h = useHistory();
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState(-1);
@@ -189,28 +105,9 @@ export default function CardPlanesMejora(props: CardProps) {
 
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
-    useEffect(
-        () => {
-            const userToken = localStorage.getItem("access_token");
-            if (userToken === null) return;
-
-            fetch(`${SERVER_PATH}/api/plan`, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${userToken}`,
-                },
-            })
-                .then((obj) => obj.json())
-                .then((objF: { data: Array<PlanMejoraServer> }) => {
-                    const planesMejora = objF.data.map((x) => planMejoraServerToData(x));
-
-                    setPlanesMejora(planesMejora);
-                });
-        },
-        [],
-    );
+    useEffect(() => {
+        (props.producerFn ?? fetchTodosPlanMejora)().then(setPlanesMejora);
+    }, []);
 
     // Elimina un plan de mejora del state
     const eliminarPlanMejora = (planEliminar: PlanMejoraData) => {
@@ -224,9 +121,7 @@ export default function CardPlanesMejora(props: CardProps) {
                 const contieneAnio = filtroAnio === -1 || plan.codigo.indexOf(filtroAnio.toString()) !== -1;
                 const contieneEstado = filtroEstado === -1 || plan.estado === filtroEstado;
 
-                const contieneUsuario = !props.filtroUsuario || plan.user_name === props.filtroUsuario;
-
-                return contieneCodigoPlan && contieneAnio && contieneEstado && contieneUsuario;
+                return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
             .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora],

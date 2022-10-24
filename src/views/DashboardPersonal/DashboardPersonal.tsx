@@ -8,6 +8,7 @@ import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejor
 // @ts-ignore
 import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
+import {PlanMejoraData, PlanMejoraServer, planMejoraServerToData} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 
 type PlanMejora = {
     avance: number,
@@ -26,49 +27,45 @@ type ServerData = {
     data?: Array<PlanMejora>,
 }
 
-export default function DashboardPersonal() {
-    const [isHidden, setIsHidden] = useState(false);
-    const nombre = localStorage.getItem("nombre");
+async function fetchPlanMejoraUsuario(): Promise<Array<PlanMejoraData>> {
+    const userToken = localStorage.getItem("access_token");
+    if (userToken === null) throw new Error("DashboardPersonal: Se intento recuperar planes sin usuario logeado");
 
+    const raw = await fetch(`${SERVER_PATH}/api/plans/user`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${userToken}`,
+        },
+    });
+    const dataObj: { data: Array<PlanMejoraServer> } = await raw.json();
+    return dataObj.data.map(planMejoraServerToData);
+}
+
+export default function DashboardPersonal() {
     // Manejar el cambio de estandar para mostrarlo encima
     const handleViewChange = (estandarN: string) => {
         // @ts-ignore
         setEstandar(estandarList[estandarN]);
     };
 
-    const containerClass = useMemo(
-        () => (isHidden ? "md:ml-12" : "md:ml-64"),
-        [isHidden],
-    );
-
-    useEffect(() => {
-        const userToken = localStorage.getItem("access_token");
-        if (userToken === null) return;
-
-        fetch(`${SERVER_PATH}/api/plans/user`, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${userToken}`,
-            },
-        })
-            .then((x) => x.json())
-            .then(console.log);
-    }, []);
-
     return (
-        <>
-            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={setIsHidden} />
-            <div className={`relative ${containerClass} bg-blueGray-100`}>
+        <div className="flex" style={ {minHeight: "100vh"} }>
+            <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={() => {}} />
+            <div className="bg-blueGray-100 relative w-full">
                 <AdminNavbar />
-                <div className="mx-auto w-full -m-24">
-                    <HeaderDashboardPersonal titulo="Dashboard personal" />
+                <div className="w-full m-24">
+                    <HeaderDashboardPersonal
+                        titulo="Dashboard personal"
+                        descripcion="Planes de mejora creados por mi"
+                    />
 
-                    <h2>Estandares asignados</h2>
-                    <CardPlanesMejora />
+                    <div className="relative px-4" style={{top: "-6rem"}}>
+                        <CardPlanesMejora producerFn={fetchPlanMejoraUsuario} />
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
