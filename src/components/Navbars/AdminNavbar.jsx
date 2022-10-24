@@ -36,7 +36,7 @@ export default function Navbar() {
                     className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
                     to="/admin/estandar8"
                 >
-                    <i class="fa-brands fa-ubuntu mr-2" />
+                    <i className="fa-brands fa-ubuntu mr-2" />
                         Sistema de gestion de calidad
                 </Link>
                 <div className="flex flex-row justify-center items-center px-4">
