@@ -31,7 +31,8 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="fixed  z-10 bg-lightBlue-600 flex items-center justify-between py-4" style={ {width: "-webkit-fill-available"} }>
+            <nav className="bg-lightBlue-600 flex items-center justify-between py-4" 
+                style={ {width: "-webkit-fill-available", position: "sticky", top:"0", left:"0", zIndex: "150"} }>
                 <Link
                     className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
                     to="/admin/estandar8"

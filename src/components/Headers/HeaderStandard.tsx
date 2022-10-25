@@ -172,7 +172,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         <>
             {/* Header */}
             <div className="relative bg-lightBlue-600 flex flex-wrap justify-between"
-                style={ {paddingBottom: "2em", paddingTop: "7em"} }
+                style={ {paddingBottom: "2em", paddingTop: "2em"} }
             >
 
                 <div className="px-4 md:pl-10 md:pr-4">
