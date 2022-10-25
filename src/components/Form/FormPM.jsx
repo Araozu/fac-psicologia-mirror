@@ -232,6 +232,7 @@ export default function FormPM(props) {
                         value={pm?.codigo?.substr(3, pm.codigo.length)}
                         onChange={handleChangeCodigo}
                         error={formik.errors.codigo}
+                        disabled={props.editing}
                     />
 
                     {/**FUENTES DEL PLAN DE MEJORA */}
