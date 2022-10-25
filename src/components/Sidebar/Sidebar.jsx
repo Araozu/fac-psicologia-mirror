@@ -1,20 +1,14 @@
 /*eslint-disable*/
 import React, {useMemo, useState} from "react";
 import {Link} from "react-router-dom";
-
-import NotificationDropdown from "../Dropdowns/NotificationDropdown.jsx";
-import UserDropdown from "../Dropdowns/UserDropdown.jsx";
-
 // Assets
 import unsaLogo from '../../assets/img/unsalogo.png'
-import {useLocation} from "react-router";
 
 import "./Sidebar.css"
 
 
 function SidebarLink({text , path, prefixIcon, sufixIcon, isHidden, disabled = false }) {
 
-    const location =  useLocation()
 
     const content = () => <>
         
@@ -79,7 +73,7 @@ export default function Sidebar({
                         type="button"
                         onClick={toggleCollapse}
                         style={ {textAlign: (isHidden ? "center": "end")} }>
-                        <i className={`fa-solid fa-angles-right fa-lg ${hiddenButtonName}`} style={ {color: "#0284C7"} }></i>
+                        <i className={`fa-solid fa-angle-right fa-lg ${hiddenButtonName}`} style={ {color: "#0284C7"} }></i>
                     </button>
 
 
