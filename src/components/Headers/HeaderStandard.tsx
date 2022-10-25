@@ -4,7 +4,7 @@ import React, {useEffect, useMemo, useState} from "react";
 // @ts-ignore
 import CardStats from "../Cards/CardStats.jsx";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
+import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
 
@@ -172,12 +172,13 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         <>
             {/* Header */}
             <div className="relative bg-lightBlue-600 flex flex-wrap justify-between"
-                style={ {paddingBottom: "2em", paddingTop: "7em"} }>
-                
+                style={ {paddingBottom: "2em", paddingTop: "7em"} }
+            >
+
                 <div className="px-4 md:pl-10 md:pr-4">
                     {props.icono
-                            ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />
-                            : <></>
+                        ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />
+                        : <></>
                     }
                     <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
                     <p className="text-lg text-white">{props.descripcion}</p>
