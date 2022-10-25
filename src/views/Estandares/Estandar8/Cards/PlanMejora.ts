@@ -15,6 +15,7 @@ export interface PlanMejoraData {
     avance: number,
     estado: EstadoPlanMejora,
     estandar_name: string,
+    isCreator: boolean,
 }
 
 export interface PlanMejoraServer {
@@ -26,6 +27,7 @@ export interface PlanMejoraServer {
     id_user: number,
     nombre: string
     user_name: string,
+    isCreator:boolean
 }
 
 export function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
@@ -69,6 +71,7 @@ export function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {
         avance: plan.avance,
         estado: estadoPlan,
         estandar_name: plan.estandar_name,
+        isCreator: plan.esCreador,
     };
 }
 

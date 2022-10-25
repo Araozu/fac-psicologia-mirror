@@ -39,7 +39,6 @@ export default function DetallePM({ id }) {
       }
     };
     getPM();
-    console.log("PM:",pm);
   }, []);
 
   //Si esta cargando retorna el item de carga
@@ -83,7 +82,7 @@ export default function DetallePM({ id }) {
 
           <tr>
             <td>Semestre</td>
-            <td> {pm.semestre_ejecucion.toUpperCase()}</td>
+            <td> {pm.semestre_ejecucion?.toUpperCase()}</td>
           </tr>
 
           <tr>
@@ -142,7 +141,7 @@ export default function DetallePM({ id }) {
 
           <tr>
             <td>Oportunidad de mejora</td>
-            <td> Estandar {pm.oportunidad_plan.toUpperCase()}</td>
+            <td> Estandar {pm.oportunidad_plan?.toUpperCase()}</td>
           </tr>
 
           <tr>

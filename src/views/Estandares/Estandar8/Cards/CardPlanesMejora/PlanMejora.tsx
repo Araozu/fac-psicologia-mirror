@@ -4,7 +4,6 @@ import {
     PlanMejoraData,
 } from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {useHistory} from "react-router";
-import {PlanMejoraDropdown} from "@/components/Dropdowns/PlanMejoraDropdown";
 
 export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
     const history = useHistory();
@@ -23,6 +22,7 @@ export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }
         const path = `/admin/estandar8/plan-mejora/editar/${id}`;
         history.push(path);
     };
+    const rol = localStorage.getItem("ROL");
 
     return (
         <tr onClick={(e) => {
@@ -46,7 +46,7 @@ export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }
 
                     <div className="relative w-full inline-block py-1">
                         <div className="overflow-hidden h-2 text-xs flex rounded"
-                            style={{backgroundColor: colorFondo2}}
+                             style={{backgroundColor: colorFondo2}}
                         >
                             <div
                                 style={{
@@ -61,17 +61,19 @@ export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }
             </td>
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                <i className="fas fa-circle mr-4" style={{color: colorFondo1}} />
+                <i className="fas fa-circle mr-4" style={{color: colorFondo1}}/>
                 {estadoPlanMejoraToString(props.plan.estado)}
             </td>
 
-            <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
-                <i
-                    className="fa-solid fa-pen py-2 px-4 cursor-pointer"
-                    style={{color: "green"}}
-                    onClick={() => redirectToEdit(props.plan.id.toString())}
-                />
-            </td>
+            {(props.plan.isCreator || rol?.toLowerCase()==="admin") && (
+                <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
+                    <i
+                        className="fa-solid fa-pen py-2 px-4 cursor-pointer"
+                        style={{color: "green"}}
+                        onClick={() => redirectToEdit(props.plan.id.toString())}
+                    />
+                </td>
+            )}
         </tr>
     );
 }

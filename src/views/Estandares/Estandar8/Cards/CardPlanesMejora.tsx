@@ -104,7 +104,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             Estándar
                         </th>
                         <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                            Creador
+                            Asignado a
                         </th>
                         <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Avance (%)

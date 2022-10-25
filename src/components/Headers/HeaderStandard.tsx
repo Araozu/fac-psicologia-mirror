@@ -21,7 +21,7 @@ const porcentaje = (v1: number, v2: number) => Math.round((v1 / v2) * 100);
  */
 const filtrarYContarEstado = (arr: PlanMejoraServer[], valor: string): number => {
     const valorLowercase = valor.toLowerCase();
-    return arr.filter((plan) => plan.estado.toLowerCase() === valorLowercase).length;
+    return arr.filter((plan) => plan.estado?.toLowerCase() === valorLowercase).length;
 };
 
 /**

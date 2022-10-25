@@ -310,3 +310,7 @@ body{
     color: rgb(110, 110, 255);
     text-decoration: underline;
   }
+
+  .input-select-container{
+      width: 300px;
+  }
