@@ -40,7 +40,7 @@ export function GoogleLogin() {
                                 localStorage.setItem("ROL", rol);
                             }
 
-                            history.push("/admin/dashboard");
+                            history.push("/dashboard");
                         } else {
                             setMsgError(response.json.message);
                             setLoginAlert({display: "block"});

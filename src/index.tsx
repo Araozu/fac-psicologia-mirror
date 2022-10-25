@@ -36,7 +36,7 @@ const rootTree = (
             {/* add routes without layouts*/}
             <Route path="/" exact component={Auth} />
             {/* add redirect for first page*/}
-            <Redirect from="*" to="/" />
+            <Redirect from="*" to="/dashboard" />
         </Switch>
     </BrowserRouter>
 );
