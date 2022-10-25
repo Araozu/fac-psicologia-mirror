@@ -92,7 +92,7 @@ export default function Sidebar({
 
                     </div>
 
-                    { rol?.toLowerCase() === "admin" &&
+                    { rol === "Admin" &&
                         <>
                         
                             { !isHidden && <>
