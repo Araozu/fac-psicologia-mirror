@@ -5,6 +5,8 @@ import InputTextEmail from "@/components/Form/Components/InputTextEmail";
 // @ts-ignore
 import Modal from "@/components/modals/Modal";
 
+import {useHistory} from "react-router";
+
 import "./Users.css"
 
 import axios from "axios";
@@ -16,6 +18,8 @@ export default function() {
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("2");
     const [modal, setModal] = useState(false);
+    const rol = localStorage.getItem("ROL");
+    const history = useHistory();
 
     const modalSuccess = {
         estado: "ok",
@@ -37,7 +41,6 @@ export default function() {
     const onCloseModalHandle = () => {
         setModal(false);
         setEmail("");
-        //if (modalInfo.estado === "ok") history.push("/admin/estandar8");
     };
 
     const handleAddUser = () => {
@@ -55,17 +58,21 @@ export default function() {
         })
             .then(() => {
                 setModalInfo(modalSuccess);
-                console.log("exito");
+
             })
             .catch((e) => {
                 setModalInfo(modalError);
-                console.log(e);
+
             })
             .finally(() => {
                 setModal(true);
             });
 
     };
+
+    if(rol?.toLowerCase() !== "admin"){
+        history.replace("/admin/estandar8");
+    }
 
     return (
         <div>
@@ -92,8 +99,6 @@ export default function() {
                     <hr/>
 
                     {user ? (
-
-
                         <div className="flex flex-row items-center">
                             <InputTextEmail
                                 name="correo"
@@ -145,9 +150,7 @@ export default function() {
 
                     <div className="form-footer">
 
-                        <Link to={"/"} className={""}>
-                            volver
-                        </Link>
+
 
                     </div>
                 </div>
