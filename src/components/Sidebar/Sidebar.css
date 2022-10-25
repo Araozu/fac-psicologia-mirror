@@ -23,6 +23,7 @@
 
 .lista-item-small{
     justify-content: center;
+    align-items: center;
 }
 
 #sidebar-link-content-suffix > div > i::before {
