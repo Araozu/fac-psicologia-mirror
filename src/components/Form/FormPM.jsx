@@ -387,6 +387,11 @@ export default function FormPM(props) {
                 {/** Form footer buttons and etc */}
                 <hr />
                 <div className="form-footer">
+                    <button style={{backgroundColor: "rgb(239 68 68)"}} onClick={history.goBack}>
+                        <i className="fa-solid fa-arrow-left" />
+                        Cancelar
+                    </button>
+                    &nbsp;&nbsp;
                     <button type="submit"> <i className="fa-solid fa-floppy-disk" /> Guardar</button>
                 </div>
 
