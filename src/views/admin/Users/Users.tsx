@@ -71,7 +71,7 @@ export default function() {
     };
 
     if(rol?.toLowerCase() !== "admin"){
-        history.replace("/admin/dashboard");
+        history.replace("/dashboard");
     }
 
     return (
