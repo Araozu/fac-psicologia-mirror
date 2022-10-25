@@ -58,7 +58,7 @@ export default function DashboardPersonal() {
                 <div className="w-full m-24">
                     <HeaderDashboardPersonal
                         titulo="Dashboard personal"
-                        descripcion="Planes de mejora creados por mi"
+                        descripcion="Planes de mejora asignados para mi"
                     />
 
                     <div className="relative px-4" style={{top: "-6rem"}}>

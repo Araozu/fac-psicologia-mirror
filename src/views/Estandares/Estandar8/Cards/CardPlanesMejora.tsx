@@ -35,11 +35,12 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
     useEffect(() => {
-        (props.producerFn ?? fetchTodosPlanMejora)().then(setPlanesMejora);
+        (props.producerFn ?? fetchTodosPlanMejora)()
+            .then(setPlanesMejora);
     }, []);
 
     const listaAnios = useMemo<Array<string>>(() => {
-        const map: {[key: string]: boolean} = {};
+        const map: { [key: string]: boolean } = {};
         planesMejora.forEach((plan) => {
             map[plan.codigo.substring(6, 10)] = true;
         });
@@ -60,57 +61,62 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
+            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)}/>),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
     );
 
+    const rol = localStorage.getItem("ROL");
+
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
-            <div className="rounded-t mb-0 px-4 py-3 border-0 grid grid-cols-2" style={{gridTemplateColumns: "auto 12rem"}}>
+            <div className="rounded-t mb-0 px-4 py-3 border-0 grid grid-cols-2"
+                 style={{gridTemplateColumns: "auto 12rem"}}>
                 <div className="relative w-full max-w-full">
                     <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
-                                Filtros
+                        Filtros
                     </h3>
-                    <FiltroInput onChange={setFiltroCodigo} />
-                    <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio} />
-                    <FiltroEstado onChange={setFiltroEstado} />
+                    <FiltroInput onChange={setFiltroCodigo}/>
+                    <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio}/>
+                    <FiltroEstado onChange={setFiltroEstado}/>
                 </div>
-                <div className="relative w-full px-4 max-w-full text-right">
-                    <button
-                        className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                        onClick={() => {
-                            h.push("/admin/estandar8/plan-mejora/crear");
-                        }}>
-                        <i className="fa-solid fa-plus"></i> Nuevo PM
-                    </button>
-                </div>
+                {
+                    rol?.toLowerCase() === "admin" && (<div className="relative w-full px-4 max-w-full text-right">
+                        <button
+                            className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            type="button"
+                            onClick={() => {
+                                h.push("/admin/estandar8/plan-mejora/crear");
+                            }}>
+                            <i className="fa-solid fa-plus"></i> Asignar PM
+                        </button>
+                    </div>)
+                }
             </div>
             <div className="block w-full">
                 {/* Projects table */}
                 <table className="w-full bg-transparent border-collapse table-auto">
                     <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                        <tr>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Codigo
-                            </th>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Estándar
-                            </th>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Creador
-                            </th>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Avance (%)
-                            </th>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                Estado
-                            </th>
-                            <td />
-                        </tr>
+                    <tr>
+                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            Codigo
+                        </th>
+                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            Estándar
+                        </th>
+                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            Creador
+                        </th>
+                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            Avance (%)
+                        </th>
+                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            Estado
+                        </th>
+                        <td/>
+                    </tr>
                     </thead>
                     <tbody>
-                        {planesMejoraEls}
+                    {planesMejoraEls}
                     </tbody>
                 </table>
             </div>
@@ -134,7 +140,7 @@ function FiltroInput(props: { onChange: (_: string) => void }) {
         <span className="relative px-2">
             <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Codigo</span>
             <input value={value} onChange={handleChange} type="text" id="codigo-input"
-                className="rounded-xl text-sm p-2 w-48"
+                   className="rounded-xl text-sm p-2 w-48"
             />
         </span>
     );
@@ -153,7 +159,7 @@ function FiltroEstado(props: { onChange: (_: number) => void }) {
         <span className="relative">
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Estado</span>
             <select value={selected} onChange={handleChange} name="estado" id="filtro-estado"
-                className="rounded-xl text-sm p-2 w-48"
+                    className="rounded-xl text-sm p-2 w-48"
             >
                 <option value="-1">Todos</option>
                 <option value="0">En Proceso</option>
@@ -181,7 +187,7 @@ function FiltroAnio(props: { listaAnios: Array<string>, onChange: (_: number) =>
         <span className="relative">
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
             <select value={selected} onChange={handleChange} name="anio" id="filtro-anio"
-                className="rounded-xl text-sm p-2 w-48"
+                    className="rounded-xl text-sm p-2 w-48"
             >
                 <option value="-1">Todos</option>
                 {opciones}
