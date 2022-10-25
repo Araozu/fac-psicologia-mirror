@@ -81,9 +81,8 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                         type="button"
                         onClick={() => {
                             h.push("/admin/estandar8/plan-mejora/crear");
-                        }}
-                    >
-                        + Nuevo PM
+                        }}>
+                        <i className="fa-solid fa-plus"></i> Nuevo PM
                     </button>
                 </div>
             </div>

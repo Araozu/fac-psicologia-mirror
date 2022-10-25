@@ -23,7 +23,7 @@ const Tabs: React.FC<Props> = ({ headers, components}) => {
                                     <a
                                         className={
                                             "text-xs font-bold uppercase px-6 py-3 block leading-normal tab" + (openTab === index
-                                                ? " bg-white text-lightBlue-600 border-top-rounded"
+                                                ? " bg-blueGray-100 text-lightBlue-600 border-top-rounded"
                                                 : " bg-lightBlue-600 text-white")
                                         }
                                         onClick={e => {
@@ -40,13 +40,13 @@ const Tabs: React.FC<Props> = ({ headers, components}) => {
                         })}
                     </ul>
                     <div
-                        className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
+                        className="relative flex flex-col min-w-0 break-words bg-blueGray-100 w-full mb-6 rounded">
                         <div className="px-4 py-5 flex-auto">
                             <div className="tab-content tab-space">
 
                                 {components.map((value,index)=>{
                                     return(
-                                        <div className={openTab === index ? "block" : "hidden"} >
+                                        <div className={"bg-blueGray-100 "+ (openTab === index ? "block" : "hidden")} >
                                             {value}
                                         </div>
                                     )
