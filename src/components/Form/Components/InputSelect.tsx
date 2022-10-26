@@ -6,7 +6,7 @@ import Select from "react-select";
 import Label from "./Label/Label";
 
 
-export default function InputSelect(props) {
+export default function InputSelect(props:any) {
     //INITIAL VALUE RECIBE EL ID
     let {
         name,
@@ -20,35 +20,36 @@ export default function InputSelect(props) {
     } = props;
 
     const [options, setOptions] = useState([]);
-    const [value, setValue] = useState();
+    const [value, setValue] = useState({});
 
     useEffect(() => {
         axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/" + optionsRute)
             .then(function(response) {
                 if (options.length > 0) return;
-                let optionsResponse = [];
+                let optionsResponse:any = [];
 
-                response.data.data.forEach((item, index) => optionsResponse.push(
+                response.data.data.forEach((item:any, index:number) => optionsResponse.push(
                     {
                         //TODO: CAMBIAR INDEX POR EL ID DEL ESTANDAR CUANNDO LO DEVUELVA LA RUTA
-                        value: optionsRute === "estandares" ? item["id"] : item["valor"],
-                        label: optionsRute === "estandares" ? item["name"] : item["valor"],
+                        value: optionsRute === "estandares" || optionsRute === "user"? item["id"] : item["valor"],
+                        label: optionsRute === "estandares" || optionsRute === "user"? item["name"] : item["valor"],
                     },
                 ));
                 setOptions(optionsResponse);
 
-                if (initialValue) {
-                    let labelInitialValue = optionsResponse.find(item => item.value == initialValue)?.label;
-                    setValue({
-                        value: initialValue,
-                        label: labelInitialValue,
-                    });
+                if (props.initialValue) {
+                    let labelInitialValue = optionsResponse.find((item:any) => item.value == props.initialValue)?.label;
+                    let newValue = { 
+                        value : props.initialValue,
+                        label : labelInitialValue,
+                    } 
+                    setValue(newValue);
                 }
             });
     }, []);
 
 
-    const handleChange = (value) => {
+    const handleChange = (value: any) => {
         setValue(value);
         onChange(value.value);
     };
@@ -78,7 +79,7 @@ export default function InputSelect(props) {
 
 }
 const customStyles = {
-    option: (provided, state) => ({
+    option: (provided:any, state:any) => ({
         ...provided,
         borderBottom: "1px dotted pink",
         //color: state.isSelected ? "red" : "blue",

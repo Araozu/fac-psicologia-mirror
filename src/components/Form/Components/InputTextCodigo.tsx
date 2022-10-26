@@ -9,7 +9,7 @@ import Label from "./Label/Label";
 //IMPORTACIONES ASSETS
 
 
-export default function InputTextCodigo(props) {
+function InputTextCodigo(props:any) {
     /**
     Name: Se utiliza para el id y el name del componente input
     Label: Se utiliza para manejar la descripcion del componente
@@ -46,3 +46,5 @@ export default function InputTextCodigo(props) {
         </>
     );
 }
+
+export default InputTextCodigo;

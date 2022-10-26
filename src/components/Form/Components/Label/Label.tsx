@@ -3,7 +3,7 @@ import {AiFillQuestionCircle as Info} from "react-icons/ai";
 
 import "./Label.css";
 
-export default function Label(props) {
+function Label(props: any) {
     const {
         label,
         description,
@@ -24,3 +24,4 @@ export default function Label(props) {
     );
 
 }
+export default Label;

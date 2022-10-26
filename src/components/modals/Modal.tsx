@@ -4,8 +4,9 @@ import ReactDOM from "react-dom";
 import "./modal.css";
 
 
-export default function Modal(props) {
-
+function Modal(props: any) {
+    const access_token = localStorage.getItem("access_token");
+    const root:HTMLElement = document.getElementById("root")!;
 
     const Buttons = () => (
         <>
@@ -22,7 +23,7 @@ export default function Modal(props) {
                 (e) => props.onClose("confirm")
             }
             >
-                Aceptar
+                { props.type === "cancel" ? <>Cancelar</> : <>Aceptar</>}
             </button>
         </>
     );
@@ -45,5 +46,7 @@ export default function Modal(props) {
             </div>
         </div>);
 
-    return ReactDOM.createPortal(modalHTML, document.getElementById("root"));
+    return ReactDOM.createPortal(modalHTML, root);
 }
+
+export default Modal;

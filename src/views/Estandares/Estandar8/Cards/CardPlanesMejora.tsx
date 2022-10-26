@@ -4,6 +4,9 @@ import {SERVER_PATH} from "@/variables";
 import "@/assets/styles/CardPlanesMejora.css";
 import {PlanMejoraData, PlanMejoraServer, planMejoraServerToData} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {PlanMejora} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora/PlanMejora";
+import Modal from "../../../../components/modals/Modal";
+import CrearPM from "../Create/CrearPM";
+import axios from "axios";
 
 
 async function fetchTodosPlanMejora(): Promise<Array<PlanMejoraData>> {
@@ -26,11 +29,35 @@ async function fetchTodosPlanMejora(): Promise<Array<PlanMejoraData>> {
 type CardPlanesMejoraProps = {
     producerFn?: () => Promise<Array<PlanMejoraData>>
 }
+
+
 export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const h = useHistory();
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState(-1);
     const [filtroAnio, setFiltroAnio] = useState(-1);
+
+    /**Modal configuration Asignar PM */
+    const [showModalAsignar, setShowModalAsignar] = useState(false);
+    const [isLoadingModal, setIsLoadingModal] = useState(false);
+
+    const token = localStorage.getItem("access_token");
+
+    const handleSumitForm = (value: any) => {
+    
+            setIsLoadingModal(true);
+            axios.post(`https://gestion-calidad-rrii-api.herokuapp.com/api/plan/asignar`, value, 
+            {
+                headers: {
+                    'Authorization': 'Bearer '+token,
+                }
+            }). then( res => {
+                setShowModalAsignar(false);
+                setIsLoadingModal(false);
+            })
+    }
+
+    /**FIN CONFIGURATION MODAL*/
 
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
@@ -62,7 +89,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
             .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)}/>),
-        [filtroCodigo, filtroAnio, filtroEstado, planesMejora],
+        [filtroCodigo, filtroAnio, filtroEstado, planesMejora, planesMejora],
     );
 
     const rol = localStorage.getItem("ROL");
@@ -72,9 +99,9 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
             <div className="rounded-t mb-0 px-4 py-3 border-0 grid grid-cols-2"
                  style={{gridTemplateColumns: "auto 12rem"}}>
                 <div className="relative w-full max-w-full">
-                    <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
+                    <h5 className="font-semibold text-sm text-blueGray-700 inline-block px-2">
                         Filtros
-                    </h3>
+                    </h5>
                     <FiltroInput onChange={setFiltroCodigo}/>
                     <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio}/>
                     <FiltroEstado onChange={setFiltroEstado}/>
@@ -85,7 +112,9 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
                             onClick={() => {
-                                h.push("/admin/estandar8/plan-mejora/crear");
+                               // h.push("/admin/estandar8/plan-mejora/crear");
+                               setShowModalAsignar(true);
+                               setIsLoadingModal(false);
                             }}>
                             <i className="fa-solid fa-plus"></i> Asignar PM
                         </button>
@@ -120,6 +149,12 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     </tbody>
                 </table>
             </div>
+            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string)=>{ setShowModalAsignar(false) }}>
+                {isLoadingModal ?
+                    <>Cargando...</>
+                    : <CrearPM handleSubmit={handleSumitForm}/>
+                }
+            </Modal>
         </div>
     );
 }
@@ -137,7 +172,7 @@ function FiltroInput(props: { onChange: (_: string) => void }) {
     };
 
     return (
-        <span className="relative px-2">
+        <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Codigo</span>
             <input value={value} onChange={handleChange} type="text" id="codigo-input"
                    className="rounded-xl text-sm p-2 w-48"
@@ -156,7 +191,7 @@ function FiltroEstado(props: { onChange: (_: number) => void }) {
     };
 
     return (
-        <span className="relative">
+        <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Estado</span>
             <select value={selected} onChange={handleChange} name="estado" id="filtro-estado"
                     className="rounded-xl text-sm p-2 w-48"
@@ -184,7 +219,7 @@ function FiltroAnio(props: { listaAnios: Array<string>, onChange: (_: number) =>
     const opciones = props.listaAnios.map((x, i) => <option value={x} key={i}>{x}</option>);
 
     return (
-        <span className="relative">
+        <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
             <select value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                     className="rounded-xl text-sm p-2 w-48"
@@ -206,7 +241,7 @@ function FiltroEstandar(props: { onChange: (_: number) => void }) {
     };
 
     return (
-        <span className="relative px-2">
+        <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Estandar</span>
             <select
                 value={selected}

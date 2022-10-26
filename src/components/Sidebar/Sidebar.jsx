@@ -121,7 +121,7 @@ export default function Sidebar({
 
                     <ul className="flex flex-col list-none mx-4">
                         <SidebarLink  path='/admin/estandar8' text="Estandar 8" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
-                        <SidebarLink  path='/admin/estandar9' text="Estandar 9" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
+                        <SidebarLink  path='/dashboard' text="Dashboard" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
                         <SidebarLink  path='/admin/estandar10' text="Estandar 10" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={true}/>
                     </ul>
                 </div>
