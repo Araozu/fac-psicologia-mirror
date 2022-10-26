@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import { AiFillPlusCircle as Add, AiFillMinusCircle as Delete } from "react-icons/ai";
+import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/ai";
 import Label from "../Labels/Label";
 
 export default function IDinamics(props) {
-    let {
+    const {
         title,
         name,
         type,
         setDt,
-        detalle
+        detalle,
     } = props;
     const [data, setData] = useState([{descripcion: ""}]);
     const handleAdd = () => {
@@ -35,19 +35,19 @@ export default function IDinamics(props) {
 
 
     return (<div>
-        <Label title={title} detalle={detalle}/>
+        <Label title={title} detalle={detalle} />
         <div className="div-dinamico">
             {data.map((singleData, index) => (
                 <div key={index}>
                     <div>
-                        <input  className="input-dinamico" id={name} name={"descripcion"} type={type} value={singleData.descripcion}
-                               onChange={(e) => handleChange(e, index)}
+                        <input className="input-dinamico" id={name} name={"descripcion"} type={type} value={singleData.descripcion}
+                            onChange={(e) => handleChange(e, index)}
                         />
                         {data.length - 1 === index && data.length < 4 && (
-                            <button type={"button"} onClick={handleAdd}><Add className="icon"/></button>
+                            <button type={"button"} onClick={handleAdd}><Add className="icon" /></button>
                         )}
                         {data.length > 1 && (
-                            <button type={"button"} onClick={() => handleRemove(index)}><Delete className="icon"/></button>
+                            <button type={"button"} onClick={() => handleRemove(index)}><Delete className="icon" /></button>
                         )}
                     </div>
                 </div>

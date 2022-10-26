@@ -46,8 +46,8 @@ export default function Detalle(props) {
                 setIsHiddenParent={setIsHidden}
             />
             <div className={`relative ${containerClass} bg-blueGray-100`}>
-                <HeaderDetail/>
-                <DetallePM id={codigo}/>
+                <HeaderDetail />
+                <DetallePM id={codigo} />
             </div>
         </>
     );

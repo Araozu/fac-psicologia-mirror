@@ -15,17 +15,15 @@ export default function SelectoreResponsables(props) {
     const [valueNewOption, setValueNewOption] = useState("");
 
     //const list = ["Dirección EP RR.II.", "Comisión de desarrollo docente", "Otros"];
-    let list = [];
+    const list = [];
 
     axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/responsables")
         .then(function(response) {
-            response.data.data.forEach((element, index) => list.push(
-                {
-                    value: index,
-                    label: element["valor"],
-                },
-            ));
-        })
+            response.data.data.forEach((element, index) => list.push({
+                value: index,
+                label: element.valor,
+            }));
+        });
 
 
     const addSelect = (e) => {
@@ -36,7 +34,7 @@ export default function SelectoreResponsables(props) {
             return;
         }
         const valores = [];
-        selecteds.forEach(element => valores.push(element["nombre"]));
+        selecteds.forEach((element) => valores.push(element.nombre));
 
         if (!valores.includes(label)) {
             setSelecteds([...selecteds, {nombre: label}]);
@@ -56,7 +54,7 @@ export default function SelectoreResponsables(props) {
     return (
         <div>
             <div className={"titulo"}>
-                <Label className={"etiqueta"} title={title} detalle={detalle}/>
+                <Label className={"etiqueta"} title={title} detalle={detalle} />
             </div>
 
             <div className={"titulo"}>
@@ -67,12 +65,14 @@ export default function SelectoreResponsables(props) {
                         </h1>
                         <button className={"buton-fuente"} onClick={() => removeSelect(item)}>
                             <Delete
-                                className={"icon-fuente"}/></button>
+                                className={"icon-fuente"}
+                            />
+                        </button>
                     </div>
 
                 ))}
 
-                <Select className="estandarS" options={list} onChange={addSelect}/>
+                <Select className="estandarS" options={list} onChange={addSelect} />
                 <div>
                     {addNewOption && (
                         <>
@@ -83,9 +83,9 @@ export default function SelectoreResponsables(props) {
                                 onChange={(e) => setValueNewOption(e.target.value)}
                             />
                             <button
-                                onClick={() => addSelect( {label: valueNewOption})}
+                                onClick={() => addSelect({label: valueNewOption})}
                             >
-                                <Add className={"icon"}/>
+                                <Add className={"icon"} />
                             </button>
                             <button
                                 onClick={() => {
@@ -93,7 +93,7 @@ export default function SelectoreResponsables(props) {
                                     setValueNewOption("");
                                 }}
                             >
-                                <Delete className={"icon"}/>
+                                <Delete className={"icon"} />
                             </button>
                         </>
                     )}

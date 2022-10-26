@@ -3,7 +3,7 @@ import Chart from "chart.js";
 
 export default function CardLineChart() {
     React.useEffect(() => {
-        var config = {
+        const config = {
             type: "line",
             data: {
                 labels: [
@@ -103,7 +103,7 @@ export default function CardLineChart() {
                 },
             },
         };
-        var ctx = document.getElementById("line-chart")
+        const ctx = document.getElementById("line-chart")
             .getContext("2d");
         window.myLine = new Chart(ctx, config);
     }, []);
@@ -123,7 +123,7 @@ export default function CardLineChart() {
                 <div className="p-4 flex-auto">
                     {/* Chart */}
                     <div className="relative h-350-px">
-                        <canvas id="line-chart"></canvas>
+                        <canvas id="line-chart" />
                     </div>
                 </div>
             </div>

@@ -27,13 +27,13 @@ const NotificationDropdown = () => {
                     dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
                 }}
             >
-                <i className="fas fa-bell"></i>
+                <i className="fas fa-bell" />
             </a>
             <div
                 ref={popoverDropdownRef}
                 className={
-                    (dropdownPopoverShow ? "block " : "hidden ") +
-                    "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48"
+                    `${dropdownPopoverShow ? "block " : "hidden "
+                    }bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1 min-w-48`
                 }
             >
                 <a
@@ -63,7 +63,7 @@ const NotificationDropdown = () => {
                 >
                     Something else here
                 </a>
-                <div className="h-0 my-2 border border-solid border-blueGray-100"/>
+                <div className="h-0 my-2 border border-solid border-blueGray-100" />
                 <a
                     href="#pablo"
                     className={

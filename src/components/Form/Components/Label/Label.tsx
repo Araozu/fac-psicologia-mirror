@@ -15,7 +15,7 @@ function Label(props: any) {
             <div className="label-container">
                 <label className="form-input-label">{label.toUpperCase()}</label>
                 {/* <p>{description}</p>*/}
-                <div className="tooltip"><Info/>
+                <div className="tooltip"><Info />
                     <span className="tooltiptext">{description}</span>
                 </div>
             </div>

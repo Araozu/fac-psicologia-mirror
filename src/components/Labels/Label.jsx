@@ -15,7 +15,7 @@ export default function Label(props) {
         <>
             <label className={"etiqueta"}>{title}
             </label>
-            <div className="tooltip"><Info/>
+            <div className="tooltip"><Info />
                 <span className="tooltiptext">{detalle}</span>
             </div>
         </>

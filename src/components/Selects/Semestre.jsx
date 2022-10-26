@@ -7,7 +7,7 @@ export default function Semestre(props) {
     const {
         title,
         setData,
-        detalle
+        detalle,
     } = props;
     const [year, setYear] = useState(new Date().getFullYear());
     const [semestre, setSemestre] = useState("");
@@ -29,7 +29,7 @@ export default function Semestre(props) {
 
     const handleChangeYear = (event) => {
         setYear(event.target.value);
-    }
+    };
 
     const handleChangeSemestre = (event) => {
         setSemestre(event.value);
@@ -41,10 +41,11 @@ export default function Semestre(props) {
 
     return (
         <div>
-            <Label title={title} detalle={detalle}/>
+            <Label title={title} detalle={detalle} />
             <input className={"semestre"} type={"number"} value={year} onChange={handleChangeYear}
-                   onWheel={(e) => e.target.blur()}/>
-            <Select className={"estandarS"} options={data} onChange={handleChangeSemestre}/>
+                onWheel={(e) => e.target.blur()}
+            />
+            <Select className={"estandarS"} options={data} onChange={handleChangeSemestre} />
         </div>
     );
 }

@@ -3,7 +3,7 @@ import Chart from "chart.js";
 
 export default function CardBarChart() {
     React.useEffect(() => {
-        let config = {
+        const config = {
             type: "bar",
             data: {
                 labels: [
@@ -95,7 +95,7 @@ export default function CardBarChart() {
                 },
             },
         };
-        let ctx = document.getElementById("bar-chart")
+        const ctx = document.getElementById("bar-chart")
             .getContext("2d");
         window.myBar = new Chart(ctx, config);
     }, []);
@@ -117,7 +117,7 @@ export default function CardBarChart() {
                 <div className="p-4 flex-auto">
                     {/* Chart */}
                     <div className="relative h-350-px">
-                        <canvas id="bar-chart"></canvas>
+                        <canvas id="bar-chart" />
                     </div>
                 </div>
             </div>

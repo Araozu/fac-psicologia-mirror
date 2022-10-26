@@ -23,9 +23,9 @@ export default function Auth() {
                         style={{}}
                     />
                     <Switch>
-                        <Route path="/auth/login" exact component={GoogleLogin}/>
-                        <Route path="/auth/register" exact component={Register}/>
-                        <Redirect from="/" to="/auth/login"/>
+                        <Route path="/auth/login" exact component={GoogleLogin} />
+                        <Route path="/auth/register" exact component={Register} />
+                        <Redirect from="/" to="/auth/login" />
                     </Switch>
 
                 </section>

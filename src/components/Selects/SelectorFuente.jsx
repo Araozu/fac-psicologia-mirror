@@ -15,17 +15,15 @@ export default function SelectorFuente(props) {
     const [valueNewOption, setValueNewOption] = useState("");
 
     //const list = ["Solicitudes de acción correctiva ", "Servicios no conformes", "Quejas ", "Evaluación de competencias", "Evaluación de los objetivos Educacionales", "Actividades diarias", "Lineamientos institucionales.", "Acuerdos de Consejo de Facultad y Asamblea Docente.", "Buenas prácticas de otras organizaciones", "Otros"];
-    let list = [];
+    const list = [];
     //recuperando info
     axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/fuentes")
         .then(function(response) {
-            response.data.data.forEach((element, index) => list.push(
-                {
-                    value: index,
-                    label: element["valor"],
-                },
-            ));
-        })
+            response.data.data.forEach((element, index) => list.push({
+                value: index,
+                label: element.valor,
+            }));
+        });
 
 
     const addSelect = (e) => {
@@ -36,7 +34,7 @@ export default function SelectorFuente(props) {
             return;
         }
         const valores = [];
-        selecteds.forEach(element => valores.push(element["descripcion"]));
+        selecteds.forEach((element) => valores.push(element.descripcion));
 
         if (!valores.includes(label)) {
             setSelecteds([...selecteds, {descripcion: label}]);
@@ -56,7 +54,7 @@ export default function SelectorFuente(props) {
     return (
         <div>
             <div className={"titulo"}>
-                <Label className={"etiqueta"} title={title} detalle={detalle}/>
+                <Label className={"etiqueta"} title={title} detalle={detalle} />
             </div>
 
             <div className={"titulo"}>
@@ -67,12 +65,14 @@ export default function SelectorFuente(props) {
                         </h1>
                         <button className={"buton-fuente"} onClick={() => removeSelect(item)}>
                             <Delete
-                                className={"icon-fuente"}/></button>
+                                className={"icon-fuente"}
+                            />
+                        </button>
                     </div>
 
                 ))}
 
-                <Select className="estandarS" options={list} onChange={addSelect}/>
+                <Select className="estandarS" options={list} onChange={addSelect} />
                 <div>
                     {addNewOption && (
                         <>
@@ -86,7 +86,7 @@ export default function SelectorFuente(props) {
                             <button
                                 onClick={() => addSelect({label: valueNewOption})}
                             >
-                                <Add className={"icon"}/>
+                                <Add className={"icon"} />
                             </button>
                             <button
                                 onClick={() => {
@@ -94,7 +94,7 @@ export default function SelectorFuente(props) {
                                     setValueNewOption("");
                                 }}
                             >
-                                <Delete className={"icon"}/>
+                                <Delete className={"icon"} />
                             </button>
                         </>
                     )}

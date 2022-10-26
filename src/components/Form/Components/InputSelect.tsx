@@ -8,7 +8,7 @@ import Label from "./Label/Label";
 
 export default function InputSelect(props:any) {
     //INITIAL VALUE RECIBE EL ID
-    let {
+    const {
         name,
         label,
         description,
@@ -23,26 +23,24 @@ export default function InputSelect(props:any) {
     const [value, setValue] = useState({});
 
     useEffect(() => {
-        axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/" + optionsRute)
+        axios.get(`https://gestion-calidad-rrii-api.herokuapp.com/api/${optionsRute}`)
             .then(function(response) {
                 if (options.length > 0) return;
-                let optionsResponse:any = [];
+                const optionsResponse:any = [];
 
-                response.data.data.forEach((item:any, index:number) => optionsResponse.push(
-                    {
-                        //TODO: CAMBIAR INDEX POR EL ID DEL ESTANDAR CUANNDO LO DEVUELVA LA RUTA
-                        value: optionsRute === "estandares" || optionsRute === "user"? item["id"] : item["valor"],
-                        label: optionsRute === "estandares" || optionsRute === "user"? item["name"] : item["valor"],
-                    },
-                ));
+                response.data.data.forEach((item:any, index:number) => optionsResponse.push({
+                    //TODO: CAMBIAR INDEX POR EL ID DEL ESTANDAR CUANNDO LO DEVUELVA LA RUTA
+                    value: optionsRute === "estandares" || optionsRute === "user" ? item.id : item.valor,
+                    label: optionsRute === "estandares" || optionsRute === "user" ? item.name : item.valor,
+                }));
                 setOptions(optionsResponse);
 
                 if (props.initialValue) {
-                    let labelInitialValue = optionsResponse.find((item:any) => item.value == props.initialValue)?.label;
-                    let newValue = { 
-                        value : props.initialValue,
-                        label : labelInitialValue,
-                    } 
+                    const labelInitialValue = optionsResponse.find((item:any) => item.value == props.initialValue)?.label;
+                    const newValue = {
+                        value: props.initialValue,
+                        label: labelInitialValue,
+                    };
                     setValue(newValue);
                 }
             });
@@ -54,20 +52,20 @@ export default function InputSelect(props:any) {
         onChange(value.value);
     };
 
-    let emessage = <p className="form-input-error-description">{error}</p>;
+    const emessage = <p className="form-input-error-description">{error}</p>;
 
     return (
         <>
-            <Label label={label} description={description}/>
+            <Label label={label} description={description} />
             <div>
-                <Select name={name + "-select"} options={options} value={value} onChange={handleChange}
-                        isDisabled={disabled}
-                        theme={(theme) => ({
-                            ...theme,
-                            borderRadius: 10,
-                        })}
-                        className={"input-select-container"}
-                        //styles={}
+                <Select name={`${name}-select`} options={options} value={value} onChange={handleChange}
+                    isDisabled={disabled}
+                    theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 10,
+                    })}
+                    className={"input-select-container"}
+                    //styles={}
 
                 />
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
@@ -89,8 +87,8 @@ const customStyles = {
         // none of react-select's styles are passed to <Control />
         width: 300,
     }),
-    container:()=>({
-        width:300
-    })
+    container: () => ({
+        width: 300,
+    }),
 };
 

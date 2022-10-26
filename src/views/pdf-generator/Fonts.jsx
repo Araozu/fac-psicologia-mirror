@@ -6,38 +6,38 @@ import fontCalibriLight from "./fonts/calibril.ttf";
 import fontCalibriLightItalic from "./fonts/calibrili.ttf";
 
 export const Font_Calibri = {
-  family: "Calibri",
-  fonts: [
-    {
-      src: fontCalibri,
-      fontWeight: "normal",
-      fontStyle: "normal",
-    },
+    family: "Calibri",
+    fonts: [
+        {
+            src: fontCalibri,
+            fontWeight: "normal",
+            fontStyle: "normal",
+        },
 
-    {
-      src: fontCalibriBold,
-      fontWeight: "bold",
-      fontStyle: "normal",
-    },
-    {
-      src: fontCalibriItalic,
-      fontWeight: "normal",
-      fontStyle: "italic",
-    },
-    {
-      src: fontCalibriBoldItalic,
-      fontWeight: "bold",
-      fontStyle: "italic",
-    },
-    {
-      src: fontCalibriLight,
-      fontWeight: "light",
-      fontStyle: "normal",
-    },
-    {
-      src: fontCalibriLightItalic,
-      fontWeight: "light",
-      fontStyle: "italic",
-    },
-  ],
+        {
+            src: fontCalibriBold,
+            fontWeight: "bold",
+            fontStyle: "normal",
+        },
+        {
+            src: fontCalibriItalic,
+            fontWeight: "normal",
+            fontStyle: "italic",
+        },
+        {
+            src: fontCalibriBoldItalic,
+            fontWeight: "bold",
+            fontStyle: "italic",
+        },
+        {
+            src: fontCalibriLight,
+            fontWeight: "light",
+            fontStyle: "normal",
+        },
+        {
+            src: fontCalibriLightItalic,
+            fontWeight: "light",
+            fontStyle: "italic",
+        },
+    ],
 };

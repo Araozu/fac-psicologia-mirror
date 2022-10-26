@@ -8,7 +8,7 @@ export default function Duracion(props) {
     const {
         title,
         setData,
-        detalle
+        detalle,
     } = props;
 
     const data = [
@@ -37,7 +37,7 @@ export default function Duracion(props) {
             setValor(event.value);
         }
     };
-    const handleChangeInput = event => {
+    const handleChangeInput = (event) => {
         setValor(event.target.value);
     };
 
@@ -45,10 +45,11 @@ export default function Duracion(props) {
 
     return (
         <>
-            <Label title={title} detalle={detalle}/>
-            <Select className={"estandarS"} options={data} onChange={handleChange}/>
+            <Label title={title} detalle={detalle} />
+            <Select className={"estandarS"} options={data} onChange={handleChange} />
             <input className="otros" disabled={editable} onChange={handleChangeInput} onWheel={(e) => e.target.blur()}
-                   type={"number"} value={valor} min="1" pattern="^[0-9]+"/>
+                type={"number"} value={valor} min="1" pattern="^[0-9]+"
+            />
             <label className={"sup"}>Meses</label>
         </>
     );

@@ -14,13 +14,13 @@ function CrearPM(props: any) {
 
     const handleSubmit = (values: any) => {
         props.handleSubmit(values);
-    }
+    };
 
-    let pm: any = {
+    const pm: any = {
         id_estandar: null,
         id_user: null,
-        codigo: ""
-    }
+        codigo: "",
+    };
 
     const validationSchema = Yup.object().shape({
         id_estandar: Yup.number().required("No se escogio un estandar")
@@ -62,24 +62,24 @@ function CrearPM(props: any) {
             <div className="bg-content">
                 <form className="form-container" onSubmit={formik.handleSubmit}>
                     <InputSelect
-                            name="user"
-                            label='USUARIO ENCARGADO'
-                            description='Selecciona al usuario encargado'
-                            optionsRute='user'
-                            initialValue={ {} }
-                            disabled={false}
-                            error={formik.errors.id_user}
-                            onChange={handleChangeUsuario}
-                        />
+                        name="user"
+                        label='USUARIO ENCARGADO'
+                        description='Selecciona al usuario encargado'
+                        optionsRute='user'
+                        initialValue={ {} }
+                        disabled={false}
+                        error={formik.errors.id_user}
+                        onChange={handleChangeUsuario}
+                    />
                     <InputSelect
-                            name="estandar"
-                            label='ESTANDAR'
-                            description='El estandar al que esta asociado el plan de mejora'
-                            optionsRute='estandares'
-                            initialValue={ {} }
-                            disabled={false}
-                            error={formik.errors.id_estandar}
-                            onChange={handleChangeEstandar}
+                        name="estandar"
+                        label='ESTANDAR'
+                        description='El estandar al que esta asociado el plan de mejora'
+                        optionsRute='estandares'
+                        initialValue={ {} }
+                        disabled={false}
+                        error={formik.errors.id_estandar}
+                        onChange={handleChangeEstandar}
                     />
                     <InputTextCodigo
                         name="codigo"
@@ -92,7 +92,7 @@ function CrearPM(props: any) {
                         disabled={false}
                     />
 
-                    <button type="submit" style={{padding: "10px 20px", backgroundColor:"#0284C7", color: "white", borderRadius: "20px", marginTop: "20px", width: "100%"}}> <i className="fa-solid fa-floppy-disk" /> Guardar</button>
+                    <button type="submit" style={{padding: "10px 20px", backgroundColor: "#0284C7", color: "white", borderRadius: "20px", marginTop: "20px", width: "100%"}}> <i className="fa-solid fa-floppy-disk" /> Guardar</button>
                 </form>
             </div>
         </>

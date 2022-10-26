@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 import AdminNavbar from "../Navbars/AdminNavbar";
 
-export default function HeaderCreate(props){
+export default function HeaderCreate(props) {
     const {estandar, tipo} = props;
-    return(
+    return (
         <>
             <div className="relative bg-lightBlue-600 md:pt-16 pb-16 pt-12 flex justify-between">
                 <AdminNavbar />
@@ -12,5 +12,5 @@ export default function HeaderCreate(props){
                 </div>
             </div>
         </>
-    )
+    );
 }

@@ -20,21 +20,21 @@ export default function CardProfile() {
                         <div className="w-full px-4 text-center mt-20">
                             <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                 <div className="mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                     22
-                  </span>
+                                    </span>
                                     <span className="text-sm text-blueGray-400">Friends</span>
                                 </div>
                                 <div className="mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                     10
-                  </span>
+                                    </span>
                                     <span className="text-sm text-blueGray-400">Photos</span>
                                 </div>
                                 <div className="lg:mr-4 p-3 text-center">
-                  <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                    <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                     89
-                  </span>
+                                    </span>
                                     <span className="text-sm text-blueGray-400">Comments</span>
                                 </div>
                             </div>
@@ -45,15 +45,15 @@ export default function CardProfile() {
                             Jenna Stones
                         </h3>
                         <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                            <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
+                            <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400" />{" "}
                             Los Angeles, California
                         </div>
                         <div className="mb-2 text-blueGray-600 mt-10">
-                            <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+                            <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400" />
                             Solution Manager - Creative Tim Officer
                         </div>
                         <div className="mb-2 text-blueGray-600">
-                            <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+                            <i className="fas fa-university mr-2 text-lg text-blueGray-400" />
                             University of Computer Science
                         </div>
                     </div>

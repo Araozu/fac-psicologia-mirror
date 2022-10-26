@@ -11,20 +11,18 @@ export default function EstandarSelector(props) {
         onChange,
         detalle,
     } = props;
-    let estandares = [];
+    const estandares = [];
 
     axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/estandares")
         .then(function(response) {
-            response.data.data.forEach((element, index) => estandares.push(
-                {
-                    value: index,
-                    label: element["name"],
-                },
-            ));
+            response.data.data.forEach((element, index) => estandares.push({
+                value: index,
+                label: element.name,
+            }));
         })
         .catch(function(error) {
             console.log(error);
-            aux()
+            aux();
         });
 
 
@@ -37,7 +35,7 @@ export default function EstandarSelector(props) {
         }
     };
     return (<>
-        <Label title={title} detalle={detalle}/>
-        <Select className="estandarS" options={estandares} onChange={onChange}/>
+        <Label title={title} detalle={detalle} />
+        <Select className="estandarS" options={estandares} onChange={onChange} />
     </>);
 }

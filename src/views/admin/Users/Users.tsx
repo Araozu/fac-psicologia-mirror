@@ -7,7 +7,7 @@ import Modal from "@/components/modals/Modal";
 
 import {useHistory} from "react-router";
 
-import "./Users.css"
+import "./Users.css";
 
 import axios from "axios";
 import {Link} from "react-router-dom";
@@ -70,13 +70,13 @@ export default function() {
 
     };
 
-    if(rol?.toLowerCase() !== "admin"){
+    if (rol?.toLowerCase() !== "admin") {
         history.replace("/dashboard");
     }
 
     return (
         <div>
-            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"}/>
+            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
             <div className="relative px-4" style={{top: "-6rem"}}>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 
@@ -96,7 +96,7 @@ export default function() {
                     </div>
 
 
-                    <hr/>
+                    <hr />
 
                     {user ? (
                         <div className="flex flex-row items-center">
@@ -117,49 +117,49 @@ export default function() {
 
 
                             <a className="form-icon-button form-add-button" onClick={handleAddUser}> <i
-                                className="fa-solid fa-floppy-disk"/> Añadir </a>
+                                className="fa-solid fa-floppy-disk"
+                                                                                                     /> Añadir
+                            </a>
                             <a className="form-icon-button form-delete-button" onClick={() => {
                                 setUser(false);
-                            }}><i className="fa-solid fa-trash"/> Cancelar </a>
+                            }}
+                            ><i className="fa-solid fa-trash" /> Cancelar
+                            </a>
                         </div>
-                    ) : (<div/>)}
+                    ) : (<div />)}
 
 
                     <div className="block w-full">
                         <table className="w-full bg-transparent border-collapse table-auto">
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                            <tr>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                <tr>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Nombres y Apellidos
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Rol
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Acciones
-                                </th>
-                                <td/>
-                            </tr>
+                                    </th>
+                                    <td />
+                                </tr>
                             </thead>
                             <tbody>
-                            {/*planesMejoraEls*/}
+                                {/*planesMejoraEls*/}
                             </tbody>
                         </table>
                     </div>
 
-                    <div className="form-footer">
-
-
-
-                    </div>
+                    <div className="form-footer" />
                 </div>
             </div>
             <Modal show={modal} type="info" onClose={onCloseModalHandle} title={modalInfo.title}>
                 <div className="flex flex-col justify-center items-center">
-                    <i className={modalInfo.icon}/>
+                    <i className={modalInfo.icon} />
                     {modalInfo.body}
                 </div>
             </Modal>

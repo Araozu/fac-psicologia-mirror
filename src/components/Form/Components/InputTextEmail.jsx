@@ -37,7 +37,7 @@ export default function InputTextEmail(props) {
                     className={classes}
                     placeholder={placeholder}
                     onChange={onChange}
-                    style={{width:300, marginLeft:20, marginRight:20}}
+                    style={{width: 300, marginLeft: 20, marginRight: 20}}
                 />
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
                 {error !== "" ? emessage : ""}

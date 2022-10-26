@@ -44,18 +44,20 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const token = localStorage.getItem("access_token");
 
     const handleSumitForm = (value: any) => {
-    
-            setIsLoadingModal(true);
-            axios.post(`https://gestion-calidad-rrii-api.herokuapp.com/api/plan/asignar`, value, 
+
+        setIsLoadingModal(true);
+        axios.post(
+            "https://gestion-calidad-rrii-api.herokuapp.com/api/plan/asignar", value,
             {
                 headers: {
-                    'Authorization': 'Bearer '+token,
-                }
-            }). then( res => {
-                setShowModalAsignar(false);
-                setIsLoadingModal(false);
-            })
-    }
+                    "Authorization": `Bearer ${token}`,
+                },
+            },
+        ).then((res) => {
+            setShowModalAsignar(false);
+            setIsLoadingModal(false);
+        });
+    };
 
     /**FIN CONFIGURATION MODAL*/
 
@@ -88,7 +90,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)}/>),
+            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora, planesMejora],
     );
 
@@ -97,14 +99,15 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
             <div className="rounded-t mb-0 px-4 py-3 border-0 grid grid-cols-2"
-                 style={{gridTemplateColumns: "auto 12rem"}}>
+                style={{gridTemplateColumns: "auto 12rem"}}
+            >
                 <div className="relative w-full max-w-full">
                     <h5 className="font-semibold text-sm text-blueGray-700 inline-block px-2">
                         Filtros
                     </h5>
-                    <FiltroInput onChange={setFiltroCodigo}/>
-                    <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio}/>
-                    <FiltroEstado onChange={setFiltroEstado}/>
+                    <FiltroInput onChange={setFiltroCodigo} />
+                    <FiltroAnio listaAnios={listaAnios} onChange={setFiltroAnio} />
+                    <FiltroEstado onChange={setFiltroEstado} />
                 </div>
                 {
                     rol?.toLowerCase() === "admin" && (<div className="relative w-full px-4 max-w-full text-right">
@@ -112,11 +115,12 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
                             onClick={() => {
-                               // h.push("/admin/estandar8/plan-mejora/crear");
-                               setShowModalAsignar(true);
-                               setIsLoadingModal(false);
-                            }}>
-                            <i className="fa-solid fa-plus"></i> Asignar PM
+                                // h.push("/admin/estandar8/plan-mejora/crear");
+                                setShowModalAsignar(true);
+                                setIsLoadingModal(false);
+                            }}
+                        >
+                            <i className="fa-solid fa-plus" /> Asignar PM
                         </button>
                     </div>)
                 }
@@ -125,34 +129,37 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 {/* Projects table */}
                 <table className="w-full bg-transparent border-collapse table-auto">
                     <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                    <tr>
-                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                        <tr>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Codigo
-                        </th>
-                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Estándar
-                        </th>
-                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Asignado a
-                        </th>
-                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Avance (%)
-                        </th>
-                        <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            </th>
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Estado
-                        </th>
-                        <td/>
-                    </tr>
+                            </th>
+                            <td />
+                        </tr>
                     </thead>
                     <tbody>
-                    {planesMejoraEls}
+                        {planesMejoraEls}
                     </tbody>
                 </table>
             </div>
-            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string)=>{ setShowModalAsignar(false) }}>
-                {isLoadingModal ?
-                    <>Cargando...</>
-                    : <CrearPM handleSubmit={handleSumitForm}/>
+            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
+                setShowModalAsignar(false);
+            }}
+            >
+                {isLoadingModal
+                    ? <>Cargando...</>
+                    : <CrearPM handleSubmit={handleSumitForm} />
                 }
             </Modal>
         </div>
@@ -175,7 +182,7 @@ function FiltroInput(props: { onChange: (_: string) => void }) {
         <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-4 text-xs opacity-75 font-medium">Codigo</span>
             <input value={value} onChange={handleChange} type="text" id="codigo-input"
-                   className="rounded-xl text-sm p-2 w-48"
+                className="rounded-xl text-sm p-2 w-48"
             />
         </span>
     );
@@ -194,7 +201,7 @@ function FiltroEstado(props: { onChange: (_: number) => void }) {
         <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Estado</span>
             <select value={selected} onChange={handleChange} name="estado" id="filtro-estado"
-                    className="rounded-xl text-sm p-2 w-48"
+                className="rounded-xl text-sm p-2 w-48"
             >
                 <option value="-1">Todos</option>
                 <option value="0">En Proceso</option>
@@ -222,7 +229,7 @@ function FiltroAnio(props: { listaAnios: Array<string>, onChange: (_: number) =>
         <span className="relative" style={ {paddingRight: "0.3em"} }>
             <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
             <select value={selected} onChange={handleChange} name="anio" id="filtro-anio"
-                    className="rounded-xl text-sm p-2 w-48"
+                className="rounded-xl text-sm p-2 w-48"
             >
                 <option value="-1">Todos</option>
                 {opciones}

@@ -5,15 +5,15 @@ import {useClickOutside} from "./utils";
 
 
 const UserDropdown = () => {
-    const [foto, setFoto] = useState('')
+    const [foto, setFoto] = useState("");
 
-    useEffect(()=>{
-        const getFotoUser = async ()=>{
-            const x = await localStorage.getItem("FOTO")
-            setFoto(x)
-        }
+    useEffect(() => {
+        const getFotoUser = async() => {
+            const x = await localStorage.getItem("FOTO");
+            setFoto(x);
+        };
         getFotoUser();
-    },[0])
+    },[0]);
 
 
     const ref = useRef(null);
@@ -56,7 +56,8 @@ const UserDropdown = () => {
             >
                 <div className="items-center flex">
                     <span className="text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
-                        style={ {width: "2.5em", height: "2.5em"} }>
+                        style={ {width: "2.5em", height: "2.5em"} }
+                    >
                         <img
                             alt="..."
                             className="w-full rounded-full align-middle border-none shadow-lg"

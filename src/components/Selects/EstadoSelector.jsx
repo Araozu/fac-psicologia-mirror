@@ -7,23 +7,21 @@ export default function EstadoSelector(props) {
     const {
         title,
         onChange,
-        detalle
+        detalle,
     } = props;
-    let estados = [];
+    const estados = [];
 
     axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/estados")
         .then(function(response) {
-            response.data.data.forEach((element, index) => estados.push(
-                {
-                    value: index,
-                    label: element["valor"],
-                },
-            ));
-        })
+            response.data.data.forEach((element, index) => estados.push({
+                value: index,
+                label: element.valor,
+            }));
+        });
 
     return (<div>
-        <Label title={title} detalle={detalle}/>
+        <Label title={title} detalle={detalle} />
 
-        <Select className="estandarS" options={estados} onChange={onChange}/>
+        <Select className="estandarS" options={estados} onChange={onChange} />
     </div>);
 }

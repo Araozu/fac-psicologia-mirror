@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './CardStats.css'
+import "./CardStats.css";
 
 export default function CardStats({
     statSubtitle,
@@ -10,18 +10,18 @@ export default function CardStats({
     statIconName,
     statIconColor,
 }) {
-    const porcentajeEl = statPercent === "" ? 
-        <p className="text-sm text-blueGray-400 mt-4">
-             <span className="whitespace-nowrap">Cargando...</span>
-        </p>
-    : (
-        <p className="text-sm text-blueGray-400 mt-4">
-            <span className={"text-emerald-500 mr-2"}>
-                {statPercent}%
-            </span>
-            <span className="whitespace-nowrap">{statDescripiron}</span>
-        </p>
-    );
+    const porcentajeEl = statPercent === ""
+        ? (<p className="text-sm text-blueGray-400 mt-4">
+            <span className="whitespace-nowrap">Cargando...</span>
+        </p>)
+        : (
+            <p className="text-sm text-blueGray-400 mt-4">
+                <span className={"text-emerald-500 mr-2"}>
+                    {statPercent}%
+                </span>
+                <span className="whitespace-nowrap">{statDescripiron}</span>
+            </p>
+        );
 
     return (
         <>
@@ -45,7 +45,7 @@ export default function CardStats({
                                     statIconColor}`
                             }
                         >
-                            <i className={statIconName}/>
+                            <i className={statIconName} />
                         </div>
                     </div>
                     {porcentajeEl}
