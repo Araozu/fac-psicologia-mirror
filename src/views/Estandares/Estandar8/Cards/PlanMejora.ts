@@ -27,7 +27,7 @@ export interface PlanMejoraServer {
     id_user: number,
     nombre: string
     user_name: string,
-    isCreator:boolean
+    esCreador: boolean
 }
 
 export function planMejoraServerToData(plan: PlanMejoraServer): PlanMejoraData {

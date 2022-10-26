@@ -109,10 +109,12 @@ export default function() {
                                 onChange={(ev: any) => setEmail(ev.target?.value)}
                             />
 
-                            <select onChange={(ev:any) => setRole(ev.target?.value)} value={role}>
+                            <select onChange={(ev:any) => setRole(ev.target?.value)} value={role} className="rounded-xl text-sm p-2 w-48">
                                 <option value="1">Admin</option>
                                 <option value="2">Docente</option>
                             </select>
+
+
 
                             <a className="form-icon-button form-add-button" onClick={handleAddUser}> <i
                                 className="fa-solid fa-floppy-disk"/> Añadir </a>
