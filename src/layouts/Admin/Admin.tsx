@@ -28,17 +28,6 @@ export default function Admin() {
         history.replace("/auth/");
     }
 
-
-    const [isHidden, setIsHidden] = useState(false);
-
-
-
-    const containerClass = useMemo(
-        () => (isHidden ? "md:ml-12" : "md:ml-64"),
-        [isHidden],
-    );
-
-
     const Routes = () => (
         <Switch>
             <Route path="/admin/estandar8" exact component={Estandar8} />
@@ -68,10 +57,10 @@ export default function Admin() {
     return (
         <>
             <div className="flex" style={ {minHeight: "100vh"} }>
-                <Sidebar setIsHiddenParent={setIsHidden} />
+                <Sidebar setIsHiddenParent={() => {}} />
                 <div className="bg-blueGray-100 relative w-full">
                     <AdminNavbar />
-                    <div className="w-full m-24">
+                    <div className="w-full">
                         <Routes />
                     </div>
                 </div>

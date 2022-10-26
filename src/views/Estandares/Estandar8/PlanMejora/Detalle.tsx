@@ -2,6 +2,7 @@ import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar
 // @ts-ignore
 import DetallePM from "@/views/Estandares/Estandar8/Detalle/DetallePM";
 import {useParams} from "react-router-dom";
+import ContentWrapper from "@/components/ContentWrapper";
 
 export default function() {
     const {codigo} = useParams<{codigo: string}>();
@@ -9,9 +10,9 @@ export default function() {
     return (
         <div>
             <HeaderEstandar8 titulo="Detalle del Plan de Mejora" />
-            <div className="relative px-4" style={{top: "-6rem"}}>
+            <ContentWrapper>
                 <DetallePM id={codigo} />
-            </div>
+            </ContentWrapper>
         </div>
     );
 }

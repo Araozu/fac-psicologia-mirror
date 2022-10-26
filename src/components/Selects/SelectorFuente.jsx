@@ -17,7 +17,7 @@ export default function SelectorFuente(props) {
     //const list = ["Solicitudes de acción correctiva ", "Servicios no conformes", "Quejas ", "Evaluación de competencias", "Evaluación de los objetivos Educacionales", "Actividades diarias", "Lineamientos institucionales.", "Acuerdos de Consejo de Facultad y Asamblea Docente.", "Buenas prácticas de otras organizaciones", "Otros"];
     const list = [];
     //recuperando info
-    axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/fuentes")
+    axios.get(`${SERVER_PATH}/api/fuentes`)
         .then(function(response) {
             response.data.data.forEach((element, index) => list.push({
                 value: index,

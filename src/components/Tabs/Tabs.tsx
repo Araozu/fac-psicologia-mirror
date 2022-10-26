@@ -3,7 +3,7 @@ import "./Tabs.css";
 
 interface Props{
     headers: string[],
-    components: any[],
+    components: JSX.Element[],
 }
 
 
@@ -18,7 +18,7 @@ const Tabs: React.FC<Props> = ({headers, components}) => {
                         role="tablist"
                     >
                         {headers.map((value,index) => (
-                            <li className="last:mr-0 text-center">
+                            <li className="last:mr-0 text-center" key={index}>
                                 <a
                                     className={
                                         `text-xs font-bold uppercase px-6 py-3 block leading-normal tab${openTab === index
@@ -43,8 +43,8 @@ const Tabs: React.FC<Props> = ({headers, components}) => {
                         <div className="px-4 py-5 flex-auto">
                             <div className="tab-content tab-space">
 
-                                {components.map((value,index) => (
-                                    <div className={`bg-blueGray-100 ${openTab === index ? "block" : "hidden"}`} >
+                                {components.map((value, index) => (
+                                    <div key={index} className={`bg-blueGray-100 ${openTab === index ? "block" : "hidden"}`} >
                                         {value}
                                     </div>
                                 ))}

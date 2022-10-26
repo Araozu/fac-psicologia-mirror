@@ -3,6 +3,7 @@ import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/
 import Label from "../Labels/Label";
 import axios from "axios";
 import Select from "react-select";
+import {SERVER_PATH} from "@/variables";
 
 export default function SelectoreResponsables(props) {
     const {
@@ -17,7 +18,7 @@ export default function SelectoreResponsables(props) {
     //const list = ["Dirección EP RR.II.", "Comisión de desarrollo docente", "Otros"];
     const list = [];
 
-    axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/responsables")
+    axios.get(`${SERVER_PATH}/api/responsables`)
         .then(function(response) {
             response.data.data.forEach((element, index) => list.push({
                 value: index,

@@ -11,6 +11,8 @@ import "./Users.css";
 
 import axios from "axios";
 import {Link} from "react-router-dom";
+import ContentWrapper from "@/components/ContentWrapper";
+import {SERVER_PATH} from "@/variables";
 
 
 export default function() {
@@ -46,7 +48,7 @@ export default function() {
     const handleAddUser = () => {
         const token = localStorage.getItem("access_token");
 
-        axios.post("https://gestion-calidad-rrii-api.herokuapp.com/api/register", {
+        axios.post(`${SERVER_PATH}/api/register`, {
             email,
             rol: role,
         }, {
@@ -77,7 +79,7 @@ export default function() {
     return (
         <div>
             <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
-            <div className="relative px-4" style={{top: "-6rem"}}>
+            <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 
                     <div className="flex flex-row items-center">
@@ -155,7 +157,7 @@ export default function() {
 
                     <div className="form-footer" />
                 </div>
-            </div>
+            </ContentWrapper>
             <Modal show={modal} type="info" onClose={onCloseModalHandle} title={modalInfo.title}>
                 <div className="flex flex-col justify-center items-center">
                     <i className={modalInfo.icon} />

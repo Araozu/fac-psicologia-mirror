@@ -9,6 +9,7 @@ import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejor
 import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraData, PlanMejoraServer, planMejoraServerToData} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import ContentWrapper from "@/components/ContentWrapper";
 
 type PlanMejora = {
     avance: number,
@@ -55,15 +56,15 @@ export default function DashboardPersonal() {
             <Sidebar handleViewChange={handleViewChange} setIsHiddenParent={() => {}} />
             <div className="bg-blueGray-100 relative w-full">
                 <AdminNavbar />
-                <div className="w-full m-24">
+                <div className="w-full">
                     <HeaderDashboardPersonal
                         titulo="Dashboard personal"
                         descripcion="Planes de mejora asignados para mi"
                     />
 
-                    <div className="relative px-4" style={{top: "-6rem"}}>
+                    <ContentWrapper>
                         <CardPlanesMejora producerFn={fetchPlanMejoraUsuario} />
-                    </div>
+                    </ContentWrapper>
                 </div>
             </div>
         </div>

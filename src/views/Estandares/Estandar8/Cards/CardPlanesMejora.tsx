@@ -47,7 +47,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
         setIsLoadingModal(true);
         axios.post(
-            "https://gestion-calidad-rrii-api.herokuapp.com/api/plan/asignar", value,
+            `${SERVER_PATH}/api/plan/asignar`, value,
             {
                 headers: {
                     "Authorization": `Bearer ${token}`,

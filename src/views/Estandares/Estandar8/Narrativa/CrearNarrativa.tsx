@@ -9,6 +9,7 @@ import {SERVER_PATH} from "@/variables";
 // @ts-ignore
 import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
+import ContentWrapper from "@/components/ContentWrapper";
 
 export default function CrearNarrativa() {
     const tinyEditorRef = React.useRef<Editor>();
@@ -99,7 +100,7 @@ export default function CrearNarrativa() {
                 titulo="Crear Narrativa Estandar 8"
                 descripcion="Crear una nueva narrativa del Estandar 8"
             />
-            <div className="relative px-4" style={{top: "-6rem"}}>
+            <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
                     <h2 className="titulo-formulario">Formulario de creación de Narrativa</h2>
 
@@ -125,7 +126,7 @@ export default function CrearNarrativa() {
                         </button>
                     </div>
                 </div>
-            </div>
+            </ContentWrapper>
 
             <Modal show={modal} type='info' onClose={onCloseModalHandle} title={modalInfo.title}>
                 <div className='flex flex-col justify-center items-center'>

@@ -2,6 +2,7 @@ import React from "react";
 import Select from "react-select";
 import Label from "../Labels/Label";
 import axios from "axios";
+import {SERVER_PATH} from "@/variables";
 
 export default function EstadoSelector(props) {
     const {
@@ -11,7 +12,7 @@ export default function EstadoSelector(props) {
     } = props;
     const estados = [];
 
-    axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/estados")
+    axios.get(`${SERVER_PATH}/api/estados`)
         .then(function(response) {
             response.data.data.forEach((element, index) => estados.push({
                 value: index,

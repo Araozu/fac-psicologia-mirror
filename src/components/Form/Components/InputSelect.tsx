@@ -4,6 +4,7 @@ import axios from "axios";
 import Select from "react-select";
 
 import Label from "./Label/Label";
+import {SERVER_PATH} from "@/variables";
 
 
 export default function InputSelect(props:any) {
@@ -23,7 +24,7 @@ export default function InputSelect(props:any) {
     const [value, setValue] = useState({});
 
     useEffect(() => {
-        axios.get(`https://gestion-calidad-rrii-api.herokuapp.com/api/${optionsRute}`)
+        axios.get(`${SERVER_PATH}/api/${optionsRute}`)
             .then(function(response) {
                 if (options.length > 0) return;
                 const optionsResponse:any = [];

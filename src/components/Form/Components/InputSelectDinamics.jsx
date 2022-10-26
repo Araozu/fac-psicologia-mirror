@@ -5,6 +5,7 @@ import axios from "axios";
 //Importaciones propias
 import Label from "./Label/Label";
 import ItemList from "./ItemList";
+import {SERVER_PATH} from "@/variables";
 
 
 export default function InputSelectDinamics(props) {
@@ -25,7 +26,7 @@ export default function InputSelectDinamics(props) {
     //TODO: Configurar apariencia de cargando
     useEffect(() => {
         if (options.length > 0) return;
-        axios.get(`https://gestion-calidad-rrii-api.herokuapp.com/api/${optionsRute}`)
+        axios.get(`${SERVER_PATH}/api/${optionsRute}`)
             .then(function(response) {
                 response.data.data.forEach((element, index) => options.push({
                     value: element.id,

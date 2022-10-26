@@ -3,6 +3,7 @@ import Select from "react-select";
 import "../../views/Estandares/Estandar8/Create/CrearPM.css";
 import axios from "axios";
 import Label from "../Labels/Label";
+import {SERVER_PATH} from "@/variables";
 
 export default function EstandarSelector(props) {
     const {
@@ -13,7 +14,7 @@ export default function EstandarSelector(props) {
     } = props;
     const estandares = [];
 
-    axios.get("https://gestion-calidad-rrii-api.herokuapp.com/api/estandares")
+    axios.get(`${SERVER_PATH}/api/estandares`)
         .then(function(response) {
             response.data.data.forEach((element, index) => estandares.push({
                 value: index,
