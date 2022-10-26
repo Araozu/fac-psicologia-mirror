@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Linting with eslint..."
+eslint src/**/*.{j,t}s[x] --fix
+

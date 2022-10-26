@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 // layouts
 // @ts-ignore
 import Admin from "./layouts/Admin/Admin";
