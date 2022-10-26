@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Select from "react-select";
 
 import Label from "./Label/Label";
@@ -33,7 +32,7 @@ export default function InputSemestre(props) {
         onChange(`${e.target.value}-${option.value}`);
     };
 
-    const classes = `form-input-text form-input-text-semestre${error != "" ? "form-input-error" : ""}`;
+    const classes = `form-input-text form-input-text-semestre${error !== "" ? "form-input-error" : ""}`;
     const emessage = <p className='form-input-error-description'>{error}</p>;
 
     return (
@@ -50,7 +49,7 @@ export default function InputSemestre(props) {
                     />
                 </div>
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
-                {error != "" ? emessage : ""}
+                {error !== "" ? emessage : ""}
             </div>
         </>
     );

@@ -19,9 +19,11 @@ export default function EstadoSelector(props) {
             }));
         });
 
-    return (<div>
-        <Label title={title} detalle={detalle} />
+    return (
+        <div>
+            <Label title={title} detalle={detalle} />
 
-        <Select className="estandarS" options={estados} onChange={onChange} />
-    </div>);
+            <Select className="estandarS" options={estados} onChange={onChange} />
+        </div>
+    );
 }

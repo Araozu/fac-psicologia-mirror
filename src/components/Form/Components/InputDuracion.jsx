@@ -1,5 +1,4 @@
-import React from "react";
-import {useState} from "react";
+import React, {useState} from "react";
 
 import Label from "./Label/Label";
 import Select from "react-select";
@@ -11,7 +10,7 @@ export default function InputDuracion(props) {
 
     const [error, setError] = useState("");
 
-    const classes = `form-input-text form-input-text-semestre${error != "" ? "form-input-error" : ""}`;
+    const classes = `form-input-text form-input-text-semestre${error !== "" ? "form-input-error" : ""}`;
     const emessage = <p className='form-input-error-description'>{error}</p>;
 
     return (
@@ -23,7 +22,7 @@ export default function InputDuracion(props) {
                     <span>Mes(es)</span>
                 </div>
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
-                {error != "" ? emessage : ""}
+                {error !== "" ? emessage : ""}
             </div>
         </>
     );

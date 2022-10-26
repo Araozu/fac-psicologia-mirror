@@ -24,12 +24,14 @@ export default function Eficacia(props) {
     useEffect(() => {
         setDt(eficacia);
     },[eficacia]);
-    return (<div>
-        <Label title={title} detalle={detalle} />
-        <select className="eficacia" onChange={(e) => selectEficacia(e)}>
-            {efis.map((option, index) => (
-                <option key={index} value={option.value}>{option.text}</option>
-            ))}
-        </select>
-    </div>);
+    return (
+        <div>
+            <Label title={title} detalle={detalle} />
+            <select className="eficacia" onChange={(e) => selectEficacia(e)}>
+                {efis.map((option, index) => (
+                    <option key={index} value={option.value}>{option.text}</option>
+                ))}
+            </select>
+        </div>
+    );
 }

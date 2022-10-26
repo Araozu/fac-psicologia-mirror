@@ -116,9 +116,8 @@ export default function() {
 
 
 
-                            <a className="form-icon-button form-add-button" onClick={handleAddUser}> <i
-                                className="fa-solid fa-floppy-disk"
-                                                                                                     /> Añadir
+                            <a className="form-icon-button form-add-button" onClick={handleAddUser}>
+                                <i className="fa-solid fa-floppy-disk" /> Añadir
                             </a>
                             <a className="form-icon-button form-delete-button" onClick={() => {
                                 setUser(false);

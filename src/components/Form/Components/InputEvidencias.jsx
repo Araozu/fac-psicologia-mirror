@@ -18,7 +18,7 @@ export default function InputEvidencias(props) {
         const inputFile = document.getElementById(`${name}-file`);
 
         //Validamos que estan correctos los campos para mandar la peticion a axios
-        if (inputFile.files[0] != undefined || inputDenominacion.value.trim() !== "") {
+        if (inputFile.files[0] !== undefined || inputDenominacion.value.trim() !== "") {
             const token = localStorage.getItem("access_token");
             setLoading(true);
             const formData = new FormData();

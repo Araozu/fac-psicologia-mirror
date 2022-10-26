@@ -27,15 +27,17 @@ export default function EstandarSelector(props) {
 
 
     const aux = () => {
-        for (let i = 1; i <= total; i++) {
+        for (let i = 1; i <= total; i += 1) {
             estandares.push({
                 value: i,
                 label: (i),
             });
         }
     };
-    return (<>
-        <Label title={title} detalle={detalle} />
-        <Select className="estandarS" options={estandares} onChange={onChange} />
-    </>);
+    return (
+        <>
+            <Label title={title} detalle={detalle} />
+            <Select className="estandarS" options={estandares} onChange={onChange} />
+        </>
+    );
 }

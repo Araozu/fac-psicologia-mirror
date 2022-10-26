@@ -25,21 +25,22 @@ export default function ItemList(props) {
         }
     };
 
+    let linkEdicion;
+    if (canEdit && editing) {
+        linkEdicion = <a className="form-icon-button form-save-button" onClick={handleSave}> <i className="fa-solid fa-floppy-disk" /></a>;
+    } else {
+        linkEdicion = <a className="form-icon-button form-edit-button" onClick={handleEdit}> <i className="fa-solid fa-pen" /></a>;
+    }
+
     return (
         <>
             <div className="form-input-buttons-group secondary">
                 <input key={id} id={id} disabled={!editing} defaultValue={value} type="text" className={`form-input-text${error ? " form-input-error" : ""}`} />
-                {
-                    canEdit
-                        ? (editing
-                            ? <a className="form-icon-button form-save-button" onClick={handleSave}> <i class="fa-solid fa-floppy-disk" /></a>
-                            : <a className="form-icon-button form-edit-button" onClick={handleEdit}> <i class="fa-solid fa-pen" /></a>)
-                        : ""
-                }
+                {linkEdicion}
                 <a className="form-icon-button form-delete-button" onClick={(e) => {
                     onDelete(indexOnList);
                 }}
-                > <i class="fa-solid fa-trash" />
+                > <i className="fa-solid fa-trash" />
                 </a>
             </div>
         </>

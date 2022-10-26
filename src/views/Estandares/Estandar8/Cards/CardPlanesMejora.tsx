@@ -110,19 +110,21 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     <FiltroEstado onChange={setFiltroEstado} />
                 </div>
                 {
-                    rol?.toLowerCase() === "admin" && (<div className="relative w-full px-4 max-w-full text-right">
-                        <button
-                            className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={() => {
+                    rol?.toLowerCase() === "admin" && (
+                        <div className="relative w-full px-4 max-w-full text-right">
+                            <button
+                                className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                type="button"
+                                onClick={() => {
                                 // h.push("/admin/estandar8/plan-mejora/crear");
-                                setShowModalAsignar(true);
-                                setIsLoadingModal(false);
-                            }}
-                        >
-                            <i className="fa-solid fa-plus" /> Asignar PM
-                        </button>
-                    </div>)
+                                    setShowModalAsignar(true);
+                                    setIsLoadingModal(false);
+                                }}
+                            >
+                                <i className="fa-solid fa-plus" /> Asignar PM
+                            </button>
+                        </div>
+                    )
                 }
             </div>
             <div className="block w-full">

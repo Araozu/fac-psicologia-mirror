@@ -36,7 +36,7 @@ export default function InputSelect(props:any) {
                 setOptions(optionsResponse);
 
                 if (props.initialValue) {
-                    const labelInitialValue = optionsResponse.find((item:any) => item.value == props.initialValue)?.label;
+                    const labelInitialValue = optionsResponse.find((item:any) => item.value === props.initialValue)?.label;
                     const newValue = {
                         value: props.initialValue,
                         label: labelInitialValue,
@@ -69,7 +69,7 @@ export default function InputSelect(props:any) {
 
                 />
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
-                {error != "" ? emessage : ""}
+                {error !== "" ? emessage : ""}
             </div>
         </>
     );

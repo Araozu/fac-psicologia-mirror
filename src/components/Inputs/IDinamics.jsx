@@ -34,24 +34,26 @@ export default function IDinamics(props) {
     }, [data]);
 
 
-    return (<div>
-        <Label title={title} detalle={detalle} />
-        <div className="div-dinamico">
-            {data.map((singleData, index) => (
-                <div key={index}>
-                    <div>
-                        <input className="input-dinamico" id={name} name={"descripcion"} type={type} value={singleData.descripcion}
-                            onChange={(e) => handleChange(e, index)}
-                        />
-                        {data.length - 1 === index && data.length < 4 && (
-                            <button type={"button"} onClick={handleAdd}><Add className="icon" /></button>
-                        )}
-                        {data.length > 1 && (
-                            <button type={"button"} onClick={() => handleRemove(index)}><Delete className="icon" /></button>
-                        )}
+    return (
+        <div>
+            <Label title={title} detalle={detalle} />
+            <div className="div-dinamico">
+                {data.map((singleData, index) => (
+                    <div key={index}>
+                        <div>
+                            <input className="input-dinamico" id={name} name={"descripcion"} type={type} value={singleData.descripcion}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                            {data.length - 1 === index && data.length < 4 && (
+                                <button type={"button"} onClick={handleAdd}><Add className="icon" /></button>
+                            )}
+                            {data.length > 1 && (
+                                <button type={"button"} onClick={() => handleRemove(index)}><Delete className="icon" /></button>
+                            )}
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
-    </div>);
+    );
 }

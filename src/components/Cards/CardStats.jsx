@@ -11,9 +11,11 @@ export default function CardStats({
     statIconColor,
 }) {
     const porcentajeEl = statPercent === ""
-        ? (<p className="text-sm text-blueGray-400 mt-4">
-            <span className="whitespace-nowrap">Cargando...</span>
-        </p>)
+        ? (
+            <p className="text-sm text-blueGray-400 mt-4">
+                <span className="whitespace-nowrap">Cargando...</span>
+            </p>
+        )
         : (
             <p className="text-sm text-blueGray-400 mt-4">
                 <span className={"text-emerald-500 mr-2"}>
