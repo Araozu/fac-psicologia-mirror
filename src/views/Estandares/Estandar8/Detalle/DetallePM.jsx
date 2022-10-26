@@ -62,37 +62,37 @@ export default function DetallePM({ id }) {
 
           <tr>
             <td>Codigo </td>
-            <td> {pm.codigo.toUpperCase()} </td>
+            <td> {pm?.codigo?.toUpperCase() ?? "NO DEFINIDO"} </td>
           </tr>
 
           <tr>
             <td> Nombre del plan </td>
-            <td> {pm.nombre.toUpperCase()} </td>
+            <td> {pm?.nombre?.toUpperCase() ?? "NO DEFINIDO"} </td>
           </tr>
 
           <tr>
             <td>Estado</td>
-            <td> {pm.estado.toUpperCase()} </td>
+            <td> {pm?.estado?.toUpperCase() ?? "NO DEFINIDO"} </td>
           </tr>
 
           <tr>
             <td>Estandar</td>
-            <td> ESTANDAR {pm.id_estandar}</td>
+            <td> ESTANDAR {pm.id_estandar ?? "NO DEFINIDO"}</td>
           </tr>
 
           <tr>
             <td>Semestre</td>
-            <td> {pm.semestre_ejecucion?.toUpperCase()}</td>
+            <td> {pm.semestre_ejecucion?.toUpperCase() ?? "NO DEFINIDO"}</td>
           </tr>
 
           <tr>
             <td>Duracion</td>
-            <td> {pm.duracion} MES(ES)</td>
+            <td> {pm.duracion ?? "NO DEFINIDO"} MES(ES)</td>
           </tr>
 
           <tr>
             <td>Avance</td>
-            <td> {pm.avance} %</td>
+            <td> {pm.avance ?? "NO DEFINIDO"} %</td>
           </tr>
 
           <tr>
@@ -106,7 +106,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.fuentes.map((fu, index) => (
                   <li key={index} className="pm-list-item">
-                    {fu.value.toUpperCase()}
+                    {fu.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -119,7 +119,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.problemas_oportunidades.map((po, index) => (
                   <li key={index} className="pm-list-item">
-                    {po.value.toUpperCase()}
+                    {po.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -132,7 +132,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.causas_raices.map((cr, index) => (
                   <li key={index} className="pm-list-item">
-                    {cr.value.toUpperCase()}
+                    {cr.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -141,7 +141,7 @@ export default function DetallePM({ id }) {
 
           <tr>
             <td>Oportunidad de mejora</td>
-            <td> Estandar {pm.oportunidad_plan?.toUpperCase()}</td>
+            <td> Estandar {pm.oportunidad_plan?.toUpperCase() ?? "NO DEFINIDO"}</td>
           </tr>
 
           <tr>
@@ -150,7 +150,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.acciones_mejoras.map((am, index) => (
                   <li key={index} className="pm-list-item">
-                    {am.value.toUpperCase()}
+                    {am.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -163,7 +163,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.recursos.map((re, index) => (
                   <li key={index} className="pm-list-item">
-                    {re.value.toUpperCase()}
+                    {re.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -176,7 +176,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.metas.map((me, index) => (
                   <li key={index} className="pm-list-item">
-                    {me.value.toUpperCase()}
+                    {me.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -189,7 +189,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.responsables.map((ob, index) => (
                   <li key={index} className="pm-list-item">
-                    {ob.value.toUpperCase()}
+                    {ob.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -202,7 +202,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.observaciones.map((ob, index) => (
                   <li key={index} className="pm-list-item">
-                    {ob.value.toUpperCase()}
+                    {ob.value?.toUpperCase() ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
@@ -215,7 +215,7 @@ export default function DetallePM({ id }) {
               <ul className="pm-list">
                 {pm.evidencias.map((ob, index) => (
                   <li key={index} className="pm-list-item">
-                    {ob.denominacion}
+                    {ob.denominacion ?? "NO DEFINIDO"}
                   </li>
                 ))}
               </ul>
