@@ -29,7 +29,7 @@ function CrearPM(props: any) {
             .typeError("No es escogio el Estandar"),
         codigo: Yup.string().required("El codigo es requerido")
             .trim()
-            .matches(/^OM+-+[0-9]{2}-+20[2-9][0-9]$/, "El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion"),
+            .matches(/^OM+-+[0-9]{2}-+20[0-9]{2}$/, "El codigo debe tener el formato OM-XX-XXXX coloque solo los numeros con el guion"),
     });
 
     const formik = useFormik({
