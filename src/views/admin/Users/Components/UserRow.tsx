@@ -12,7 +12,6 @@ export function UserRow(props:{user:UserData}){
     }else{
         names = props.user.name+" "+props.user.lastName;
     }
-    console.log(names);
 
 const prueba:string="prueba";
     return(
@@ -26,7 +25,7 @@ const prueba:string="prueba";
                 {props.user.email}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {prueba}
+                {props.user.rol}
             </td>
             {/*
              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
