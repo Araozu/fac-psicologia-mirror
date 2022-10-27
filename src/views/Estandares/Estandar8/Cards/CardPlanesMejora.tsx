@@ -7,6 +7,7 @@ import {PlanMejora} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora/Pl
 import Modal from "../../../../components/modals/Modal";
 import CrearPM from "../Create/CrearPM";
 import axios from "axios";
+import lgif from '@/assets/img/loading-2.gif';
 
 
 async function fetchTodosPlanMejora(): Promise<Array<PlanMejoraData>> {
@@ -61,11 +62,19 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     /**FIN CONFIGURATION MODAL*/
 
+    /** CONFIGURACION LOADING */
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    /** FIN CONFIGURACION LOADING */
+
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraData>>([]);
 
     useEffect(() => {
+        setIsLoading(true);
         (props.producerFn ?? fetchTodosPlanMejora)()
-            .then(setPlanesMejora);
+            .then((planesMejora: Array<PlanMejoraData>) => {
+                setPlanesMejora(planesMejora);
+                setIsLoading(false);
+            });
     }, []);
 
     const listaAnios = useMemo<Array<string>>(() => {
@@ -95,6 +104,34 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     );
 
     const rol = localStorage.getItem("ROL");
+
+    //SI esta cargando devuelve el icono de carga
+    if(isLoading) return(
+    <div className="relative flex flex-col justify-center items-center min-h-10 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5"> 
+        <img src={lgif} alt="Loading data gif" className="loading-gif" />
+    </div>);
+
+    //SI NO HAY NINGUN PLAN DE MEJORA
+    if(planesMejora.length == 0) return(
+    <div className="relative flex flex-col justify-center items-center min-h-10 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-10"
+        style={{color: "#AEAEAE", fontSize:"24px"}}> 
+        <i className="fa-brands fa-codepen my-2" style={ {fontSize: "5em"} }></i>
+        {window.location.pathname.includes('estandar8') ? <h2>No hay planes de mejora creados</h2>: <h2>No tienes ningun plan de mejora asignado</h2>}
+        {(rol?.toLowerCase() === "admin" && window.location.pathname.includes('estandar8')) && <>
+            <p>Puedes empezar asignando un plan de mejora</p>
+            <button
+                className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => {
+                // h.push("/admin/estandar8/plan-mejora/crear");
+                    setShowModalAsignar(true);
+                    setIsLoadingModal(false);
+                }}
+            >
+                <i className="fa-solid fa-plus" /> Asignar PM
+            </button>
+        </>}
+    </div>)
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
