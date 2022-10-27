@@ -1,21 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
 // @ts-ignore
 import InputTextEmail from "@/components/Form/Components/InputTextEmail";
 // @ts-ignore
 import Modal from "@/components/modals/Modal";
 
+import {UserData, UserServer, userServerToData} from "@/views/admin/Users/Interfaces/User";
+
 import {useHistory} from "react-router";
 
 import "./Users.css";
 
 import axios from "axios";
-import {Link} from "react-router-dom";
 import ContentWrapper from "@/components/ContentWrapper";
 import {SERVER_PATH} from "@/variables";
+import {UserRow} from "@/views/admin/Users/Components/UserRow";
 
 
-export default function() {
+async function fetchTodosUsers(): Promise<Array<UserData>> {
+    const userToken = localStorage.getItem("access_token");
+
+    const raw = await fetch(`${SERVER_PATH}/api/user`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${userToken}`,
+        },
+    });
+    const dataObj: { data: Array<UserServer> } = await raw.json();
+    return dataObj.data.map(userServerToData);
+}
+
+type UsersProps = {
+    producerFn?: () => Promise<Array<UserData>>
+}
+
+export default function(props: UsersProps) {
     const [user, setUser] = useState(false);
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("2");
@@ -76,9 +97,25 @@ export default function() {
         history.replace("/dashboard");
     }
 
+    //sección de tabla
+
+    const [users, setUsers] = useState<Array<UserData>>([]);
+
+    useEffect(() => {
+        (props.producerFn ?? fetchTodosUsers)()
+            .then(setUsers);
+    }, []);
+
+
+    const usersEls = useMemo(
+        () => users.map((user, id) => <UserRow user={user} key={id}/>),
+        [users],
+    );
+    console.log(users);
+
     return (
         <div>
-            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
+            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"}/>
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 
@@ -98,7 +135,7 @@ export default function() {
                     </div>
 
 
-                    <hr />
+                    <hr/>
 
                     {user ? (
                         <div className="flex flex-row items-center">
@@ -111,56 +148,58 @@ export default function() {
                                 onChange={(ev: any) => setEmail(ev.target?.value)}
                             />
 
-                            <select onChange={(ev:any) => setRole(ev.target?.value)} value={role} className="rounded-xl text-sm p-2 w-48">
+                            <select onChange={(ev: any) => setRole(ev.target?.value)} value={role}
+                                    className="rounded-xl text-sm p-2 w-48">
                                 <option value="1">Admin</option>
                                 <option value="2">Docente</option>
                             </select>
 
 
-
                             <a className="form-icon-button form-add-button" onClick={handleAddUser}>
-                                <i className="fa-solid fa-floppy-disk" /> Añadir
+                                <i className="fa-solid fa-floppy-disk"/> Añadir
                             </a>
                             <a className="form-icon-button form-delete-button" onClick={() => {
                                 setUser(false);
                             }}
-                            ><i className="fa-solid fa-trash" /> Cancelar
+                            ><i className="fa-solid fa-trash"/> Cancelar
                             </a>
                         </div>
-                    ) : (<div />)}
+                    ) : (<div/>)}
 
 
                     <div className="block w-full">
                         <table className="w-full bg-transparent border-collapse table-auto">
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                                <tr>
-                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            <tr>
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Nombres y Apellidos
-                                    </th>
-                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                </th>
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                    </th>
-                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                </th>
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Rol
-                                    </th>
-                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                </th>
+                                {/*
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Acciones
-                                    </th>
-                                    <td />
-                                </tr>
+                                </th>
+                                */}
+                                <td/>
+                            </tr>
                             </thead>
                             <tbody>
-                                {/*planesMejoraEls*/}
+                            {usersEls}
                             </tbody>
                         </table>
                     </div>
 
-                    <div className="form-footer" />
+                    <div className="form-footer"/>
                 </div>
             </ContentWrapper>
             <Modal show={modal} type="info" onClose={onCloseModalHandle} title={modalInfo.title}>
                 <div className="flex flex-col justify-center items-center">
-                    <i className={modalInfo.icon} />
+                    <i className={modalInfo.icon}/>
                     {modalInfo.body}
                 </div>
             </Modal>
