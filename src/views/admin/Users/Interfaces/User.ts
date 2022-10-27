@@ -3,6 +3,7 @@ export interface UserData {
     name: string,
     lastName: string,
     email: string,
+    rol:string
     //estado: boolean
 }
 
@@ -10,7 +11,8 @@ export interface UserServer {
     id: number,
     name: string,
     lastname: string,
-    email: string
+    email: string,
+    rol:string
 }
 
 export function userServerToData (user:UserServer):UserData{
@@ -18,6 +20,7 @@ export function userServerToData (user:UserServer):UserData{
         id:user.id,
         name:user.name,
         lastName:user.lastname,
-        email:user.email
+        email:user.email,
+        rol:user.rol
     }
 }

@@ -111,7 +111,6 @@ export default function(props: UsersProps) {
         () => users.map((user, id) => <UserRow user={user} key={id}/>),
         [users],
     );
-    console.log(users);
 
     return (
         <div>
