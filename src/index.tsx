@@ -42,6 +42,7 @@ const rootTree = (
     </BrowserRouter>
 );
 
+
 ReactDOM
     .createRoot(document.getElementById("root")!)
     .render(rootTree);

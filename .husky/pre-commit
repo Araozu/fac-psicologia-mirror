@@ -2,5 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "Linting with eslint..."
-npx eslint src/**/*.ts[x] --fix
-npx eslint src/**/*.js[x] --fix --rule 'no-undef: 0'
+npx eslint src/**/*.{j,t}s[x] --fix || true
