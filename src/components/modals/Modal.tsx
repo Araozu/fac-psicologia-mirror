@@ -33,7 +33,7 @@ function Modal(props: any) {
             props.onClose("cancel");
         }}
         >
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()} style={ {overflow: "visible"} }>
                 <div className="modal-header">
                     <h3 className="modal-title modal-info">{props.title.toUpperCase()}</h3>
                 </div>
