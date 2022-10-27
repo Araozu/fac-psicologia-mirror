@@ -110,7 +110,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     <FiltroEstado onChange={setFiltroEstado} />
                 </div>
                 {
-                    rol?.toLowerCase() === "admin" && (
+                    (rol?.toLowerCase() === "admin" && window.location.pathname.includes('estandar8')) && (
                         <div className="relative w-full px-4 max-w-full text-right">
                             <button
                                 className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -160,7 +160,9 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
             }}
             >
                 {isLoadingModal
-                    ? <>Cargando...</>
+                    ? <div className="w-full h-full flex justify-content-center align-items-center">
+                        <i className="fa-solid fa-spinner fa-spin-pulse fa-xl"></i>
+                    </div>
                     : <CrearPM handleSubmit={handleSumitForm} />
                 }
             </Modal>

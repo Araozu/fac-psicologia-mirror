@@ -64,7 +64,7 @@ function CrearPM(props: any) {
                     <InputSelect
                         name="user"
                         label='USUARIO ENCARGADO'
-                        description='Selecciona al usuario encargado'
+                        description='SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA'
                         optionsRute='user'
                         initialValue={ {} }
                         disabled={false}
@@ -74,7 +74,7 @@ function CrearPM(props: any) {
                     <InputSelect
                         name="estandar"
                         label='ESTANDAR'
-                        description='El estandar al que esta asociado el plan de mejora'
+                        description='SELECCIONA A QUE ESTANDAR ESTA ASOCIADO EL PLAN DE'
                         optionsRute='estandares'
                         initialValue={ {} }
                         disabled={false}
@@ -86,7 +86,7 @@ function CrearPM(props: any) {
                         label="CODIGO"
                         description="EN ESTA SECCION INTRODUCE EL CODIGO EN EL FORMATO OM-XX-XXXX"
                         prefix="OM-"
-                        value={pm?.codigo?.substr(3, pm.codigo.length)}
+                        value={''}
                         onChange={handleChangeCodigo}
                         error={formik.errors.codigo}
                         disabled={false}

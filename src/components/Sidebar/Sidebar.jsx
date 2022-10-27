@@ -92,6 +92,19 @@ export default function Sidebar({
 
                     </div>
 
+
+                    { !isHidden && <>
+                            <hr className="mx-4 my-4"/>
+                            <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
+                                        Area personal
+                            </h6>
+                        </>
+                    }
+                    <ul className="flex flex-col list-none mx-4">
+                        <SidebarLink  path='/dashboard' text="Mis planes" prefixIcon='fa-solid fa-bookmark' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
+                    </ul>
+
+
                     { rol === "Admin" &&
                         <>
                         
@@ -121,8 +134,7 @@ export default function Sidebar({
 
                     <ul className="flex flex-col list-none mx-4">
                         <SidebarLink  path='/admin/estandar8' text="Estandar 8" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
-                        <SidebarLink  path='/dashboard' text="Dashboard" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false}/>
-                        <SidebarLink  path='/admin/estandar10' text="Estandar 10" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={true}/>
+                        <SidebarLink  path='/admin/estandar10' text="Pronto mas" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={true}/>
                     </ul>
                 </div>
             </nav>  

@@ -58,8 +58,9 @@ export default function DashboardPersonal() {
                 <AdminNavbar />
                 <div className="w-full">
                     <HeaderDashboardPersonal
-                        titulo="Dashboard personal"
-                        descripcion="Planes de mejora asignados para mi"
+                        titulo="Mis planes de mejora"
+                        descripcion="Aqui se muestra los planes de mejora que te asignaron"
+                        icono="fa-bookmark"
                     />
 
                     <ContentWrapper>

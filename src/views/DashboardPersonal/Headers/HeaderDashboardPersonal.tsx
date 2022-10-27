@@ -7,7 +7,7 @@ export default function HeaderDashboardPersonal(props: {titulo: string, descripc
         <div className="relative bg-lightBlue-600 md:pt-16 pb-32 pt-12 flex justify-between">
             <div className="px-4 my-4 md:px-10 flex">
                 {props.icono
-                    ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />
+                    ? <i className={`fa-regular ${props.icono} mr-4 text-5xl text-white`} />
                     : <></>
                 }
                 <div>
