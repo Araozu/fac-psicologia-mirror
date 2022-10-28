@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./modal.css";
 
 type Props = {
-    type: "confirm" | "cancel",
+    type: "confirm" | "cancel" | "info",
     onClose: (value: "confirm" | "cancel") => void,
     show: boolean,
     title: string,
