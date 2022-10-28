@@ -64,9 +64,19 @@ export function PlanMejora(props: { plan: PlanMejoraServer, eliminar: () => void
             {(props.plan.esCreador || rol?.toLowerCase() === "admin") && (
                 <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
                     <i
-                        className="fa-solid fa-pen py-2 px-4 cursor-pointer"
-                        style={{color: "green"}}
+                        className="fa-solid fa-pen py-2 px-1 cursor-pointer"
+                        style={{color: "#009688"}}
                         onClick={() => redirectToEdit(props.plan.id.toString())}
+                    />
+                </td>
+            )}
+
+            {(rol?.toLowerCase() === "admin") && (
+                <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
+                    <i
+                        className="fa-solid fa-trash py-2 px-1 cursor-pointer"
+                        style={{color: "#F44336"}}
+                        onClick={props.eliminar}
                     />
                 </td>
             )}

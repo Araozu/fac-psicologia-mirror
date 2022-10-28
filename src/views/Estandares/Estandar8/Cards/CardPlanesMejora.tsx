@@ -1,5 +1,4 @@
-import {useHistory} from "react-router";
-import {ChangeEventHandler, useEffect, useMemo, useState} from "react";
+import React, {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
 import "@/assets/styles/CardPlanesMejora.css";
 import {EstadoPlanMejora,PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
@@ -9,6 +8,21 @@ import CrearPM from "../Create/CrearPM";
 import axios from "axios";
 import lgif from "@/assets/img/loading-2.gif";
 
+
+async function eliminarPlanMejoraDelServidor(codigo: number) {
+    const userToken = localStorage.getItem("access_token");
+    if (userToken === null) return;
+
+    const response = await fetch(`${SERVER_PATH}/api/plan/${codigo}`, {
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${userToken}`,
+        },
+    });
+    return response.ok;
+}
 
 /**
  * Recupera todos los planes de mejora del servidor
@@ -39,8 +53,6 @@ type CardPlanesMejoraProps = {
      */
     producerFn?: () => Promise<Array<PlanMejoraServer>>
 }
-
-
 export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState<EstadoPlanMejora | "Todos">("Todos");
@@ -93,9 +105,24 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
         return Object.keys(map);
     }, [planesMejora]);
 
+
+    // Almacena el id de un PM que se desea eliminar. Si es null, no se quiere eliminar ningun PM.
+    const [planAEliminar, setPlanAEliminar] = useState<number | null>(null);
     // Elimina un plan de mejora del state
     const eliminarPlanMejora = (planEliminar: PlanMejoraServer) => {
-        setPlanesMejora((x) => x.filter((plan) => plan.id !== planEliminar.id));
+        setPlanAEliminar(planEliminar.id);
+    };
+    // Maneja el resultado del modal de eliminar
+    const handleModalEliminar = async(result: "cancel" | "confirm") => {
+        if (result === "cancel") {
+            setPlanAEliminar(null);
+        } else {
+            const planEliminado = await eliminarPlanMejoraDelServidor(planAEliminar!);
+            if (planEliminado) {
+                setPlanesMejora((x) => x.filter((plan) => plan.id !== planAEliminar));
+            }
+            setPlanAEliminar(null);
+        }
     };
 
     const planesMejoraEls = useMemo(
@@ -182,7 +209,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 <table className="w-full bg-transparent border-collapse table-auto">
                     <thead className="bg-blueGray-50 text-blueGray-500 text-left">
                         <tr>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold" style={{width: "6rem"}}>
                             Codigo
                             </th>
                             <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
@@ -194,9 +221,10 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                             Avance (%)
                             </th>
-                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                            <th className="px-6 align-middle py-3 text-xs uppercase font-semibold" style={{width: "10rem"}}>
                             Estado
                             </th>
+                            <td />
                             <td />
                         </tr>
                     </thead>
@@ -205,6 +233,8 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     </tbody>
                 </table>
             </div>
+
+            {/* Modal de asignacion de PM */}
             <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
                 setShowModalAsignar(false);
             }}
@@ -217,6 +247,27 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     )
                     : <CrearPM handleSubmit={handleSumitForm} />
                 }
+            </Modal>
+
+            {/* Modal de confirmar eliminacion */}
+            <Modal type="confirm" show={planAEliminar !== null} title="" onClose={handleModalEliminar}>
+                <div style={{textAlign: "center"}}>
+                    <i className="fas fa-solid fa-triangle-exclamation" style={{
+                        fontSize: "4rem",
+                        color: "#f24e1e",
+                    }}
+                    />
+                    <br />
+                    <br />
+                    <div style={{
+                        color: "#f24e1e",
+                        fontWeight: "bold",
+                    }}
+                    >
+                        ¿Esta seguro que desea eliminar?
+                    </div>
+                    <div>Esta acción no es reversible, confirme si está seguro</div>
+                </div>
             </Modal>
         </div>
     );
