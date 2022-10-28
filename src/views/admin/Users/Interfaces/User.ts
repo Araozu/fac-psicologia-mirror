@@ -15,12 +15,12 @@ export interface UserServer {
     rol:string
 }
 
-export function userServerToData (user:UserServer):UserData{
+export function userServerToData(user:UserServer):UserData {
     return {
-        id:user.id,
-        name:user.name,
-        lastName:user.lastname,
-        email:user.email,
-        rol:user.rol
-    }
+        id: user.id,
+        name: user.name,
+        lastName: user.lastname,
+        email: user.email,
+        rol: user.rol,
+    };
 }

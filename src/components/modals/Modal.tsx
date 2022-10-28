@@ -3,10 +3,16 @@ import ReactDOM from "react-dom";
 
 import "./modal.css";
 
-
-function Modal(props: any) {
+type Props = {
+    type: "confirm" | "cancel",
+    onClose: (value: "confirm" | "cancel") => void,
+    show: boolean,
+    title: string,
+    children: JSX.Element | Array<JSX.Element>
+}
+function Modal(props: Props) {
     const access_token = localStorage.getItem("access_token");
-    const root:HTMLElement = document.getElementById("root")!;
+    const root: HTMLElement = document.getElementById("root")!;
 
     const Buttons = () => (
         <>
@@ -44,7 +50,8 @@ function Modal(props: any) {
                     <Buttons />
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 
     return ReactDOM.createPortal(modalHTML, root);
 }

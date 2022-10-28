@@ -82,6 +82,9 @@ export default function(props: UsersProps) {
             .then(() => {
                 setModalInfo(modalSuccess);
 
+                // Si la creacion es exitosa actualizar la lista de usuarios
+                setUsers([]);
+                (props.producerFn ?? fetchTodosUsers)().then(setUsers);
             })
             .catch((e) => {
                 setModalInfo(modalError);
@@ -102,19 +105,18 @@ export default function(props: UsersProps) {
     const [users, setUsers] = useState<Array<UserData>>([]);
 
     useEffect(() => {
-        (props.producerFn ?? fetchTodosUsers)()
-            .then(setUsers);
+        (props.producerFn ?? fetchTodosUsers)().then(setUsers);
     }, []);
 
 
     const usersEls = useMemo(
-        () => users.map((user, id) => <UserRow user={user} key={id}/>),
+        () => users.map((user, id) => <UserRow user={user} key={id} />),
         [users],
     );
 
     return (
         <div>
-            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"}/>
+            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 
@@ -134,7 +136,7 @@ export default function(props: UsersProps) {
                     </div>
 
 
-                    <hr/>
+                    <hr />
 
                     {user ? (
                         <div className="flex flex-row items-center">
@@ -148,57 +150,58 @@ export default function(props: UsersProps) {
                             />
 
                             <select onChange={(ev: any) => setRole(ev.target?.value)} value={role}
-                                    className="rounded-xl text-sm p-2 w-48">
+                                className="rounded-xl text-sm p-2 w-48"
+                            >
                                 <option value="1">Admin</option>
                                 <option value="2">Docente</option>
                             </select>
 
 
                             <a className="form-icon-button form-add-button" onClick={handleAddUser}>
-                                <i className="fa-solid fa-floppy-disk"/> Añadir
+                                <i className="fa-solid fa-floppy-disk" /> Añadir
                             </a>
                             <a className="form-icon-button form-delete-button" onClick={() => {
                                 setUser(false);
                             }}
-                            ><i className="fa-solid fa-trash"/> Cancelar
+                            ><i className="fa-solid fa-trash" /> Cancelar
                             </a>
                         </div>
-                    ) : (<div/>)}
+                    ) : (<div />)}
 
 
                     <div className="block w-full">
                         <table className="w-full bg-transparent border-collapse table-auto">
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                            <tr>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                <tr>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Nombres y Apellidos
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Rol
-                                </th>
-                                {/*
+                                    </th>
+                                    {/*
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Acciones
                                 </th>
                                 */}
-                                <td/>
-                            </tr>
+                                    <td />
+                                </tr>
                             </thead>
                             <tbody>
-                            {usersEls}
+                                {usersEls}
                             </tbody>
                         </table>
                     </div>
 
-                    <div className="form-footer"/>
+                    <div className="form-footer" />
                 </div>
             </ContentWrapper>
             <Modal show={modal} type="info" onClose={onCloseModalHandle} title={modalInfo.title}>
                 <div className="flex flex-col justify-center items-center">
-                    <i className={modalInfo.icon}/>
+                    <i className={modalInfo.icon} />
                     {modalInfo.body}
                 </div>
             </Modal>
