@@ -64,7 +64,17 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const token = localStorage.getItem("access_token");
 
-    const handleSumitForm = (value: any) => {
+    const cargarPlanesMejora = () => {
+        setIsLoading(true);
+        (props.producerFn ?? fetchTodosPlanMejora)()
+            .then((planesMejora: Array<PlanMejoraServer>) => {
+                setPlanesMejora(planesMejora);
+                setIsLoading(false);
+            });
+    };
+
+    const handleSumitForm = (value: {id_estandar: number, id_user: number, codigo: string}) => {
+        console.log(value);
 
         setIsLoadingModal(true);
         axios.post(
@@ -77,6 +87,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
         ).then((res) => {
             setShowModalAsignar(false);
             setIsLoadingModal(false);
+            cargarPlanesMejora();
         });
     };
 
@@ -88,14 +99,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const [planesMejora, setPlanesMejora] = useState<Array<PlanMejoraServer>>([]);
 
-    useEffect(() => {
-        setIsLoading(true);
-        (props.producerFn ?? fetchTodosPlanMejora)()
-            .then((planesMejora: Array<PlanMejoraServer>) => {
-                setPlanesMejora(planesMejora);
-                setIsLoading(false);
-            });
-    }, []);
+    useEffect(cargarPlanesMejora, []);
 
     const listaAnios = useMemo<Array<string>>(() => {
         const map: { [key: string]: boolean } = {};
