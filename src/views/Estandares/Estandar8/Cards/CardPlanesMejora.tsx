@@ -162,7 +162,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 <>
                     <p>Puedes empezar asignando un plan de mejora</p>
                     <button
-                        className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        className="bg-lightBlue-600 text-white active:bg-indigo-600 text-xs font-bold uppercase px-8 py-3 rounded outline-none focus:outline-none mr-1 mb-1 mt-4 ease-linear transition-all duration-150"
                         type="button"
                         onClick={() => {
                         // h.push("/admin/estandar8/plan-mejora/crear");
@@ -174,6 +174,20 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                     </button>
                 </>
             }
+
+            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
+                setShowModalAsignar(false);
+            }}
+            >
+                {isLoadingModal
+                    ? (
+                        <div className="w-full h-full flex justify-content-center align-items-center">
+                            <i className="fa-solid fa-spinner fa-spin-pulse fa-xl" />
+                        </div>
+                    )
+                    : <CrearPM handleSubmit={handleSumitForm} />
+                }
+            </Modal>
         </div>
     );
 
