@@ -35,12 +35,20 @@ export default function ItemList(props) {
     return (
         <>
             <div className="form-input-buttons-group secondary">
-                <input key={id} id={id} disabled={!editing} defaultValue={value} type="text" className={`form-input-text${error ? " form-input-error" : ""}`} />
+                <input
+                    key={id}
+                    id={id}
+                    disabled={!editing}
+                    defaultValue={value}
+                    type="text"
+                    className={`form-input-text${error ? " form-input-error" : ""}`}
+                />
                 {linkEdicion}
                 <a className="form-icon-button form-delete-button" onClick={(e) => {
                     onDelete(indexOnList);
                 }}
-                > <i className="fa-solid fa-trash" />
+                >
+                    <i className="fa-solid fa-trash" />
                 </a>
             </div>
         </>

@@ -83,7 +83,7 @@ export default function InputSelectDinamics(props) {
     };
 
     const handleEdit = (item, index) => {
-        newValues = [...values];
+        const newValues = [...values];
         newValues[index] = item;
         setValues(newValues);
         onChange(newValues);
@@ -100,7 +100,18 @@ export default function InputSelectDinamics(props) {
                 </div>
                 <hr />
                 <div className="input-list-container">
-                    {values?.map((item, i) => <ItemList key={`${item.name}-${i}`} onChange={handleEdit} canEdit={false} idItem={item.id} value={item.value} id={`${name}-${item.id}`} indexOnList={i} onDelete={handleDelete} />)}
+                    {values?.map((item, i) => (
+                        <ItemList
+                            key={`${item.name}-${i}`}
+                            onChange={handleEdit}
+                            canEdit
+                            idItem={item.id}
+                            value={item.value}
+                            id={`${name}-${item.id}`}
+                            indexOnList={i}
+                            onDelete={handleDelete}
+                        />
+                    ))}
                 </div>
             </div>
         </>
