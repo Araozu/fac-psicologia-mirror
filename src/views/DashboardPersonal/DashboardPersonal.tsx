@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React from "react";
 /// @ts-ignore
 import Sidebar from "@/components/Sidebar/Sidebar";
 /// @ts-ignore
@@ -8,27 +8,14 @@ import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejor
 // @ts-ignore
 import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraData, PlanMejoraServer, planMejoraServerToData} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import ContentWrapper from "@/components/ContentWrapper";
 
-type PlanMejora = {
-    avance: number,
-    codigo: string,
-    estado: string,
-    estandar_name: string,
-    id: number,
-    id_user: number,
-    nombre: string,
-    user_name: string,
-}
 
-type ServerData = {
-    status: number,
-    message: string,
-    data?: Array<PlanMejora>,
-}
-
-async function fetchPlanMejoraUsuario(): Promise<Array<PlanMejoraData>> {
+/**
+ * Recupera los planes del mejora solo del usuario actualmente logeado
+ */
+async function fetchPlanMejoraUsuario(): Promise<Array<PlanMejoraServer>> {
     const userToken = localStorage.getItem("access_token");
     if (userToken === null) throw new Error("DashboardPersonal: Se intento recuperar planes sin usuario logeado");
 
@@ -41,7 +28,7 @@ async function fetchPlanMejoraUsuario(): Promise<Array<PlanMejoraData>> {
         },
     });
     const dataObj: { data: Array<PlanMejoraServer> } = await raw.json();
-    return dataObj.data.map(planMejoraServerToData);
+    return dataObj.data;
 }
 
 export default function DashboardPersonal() {

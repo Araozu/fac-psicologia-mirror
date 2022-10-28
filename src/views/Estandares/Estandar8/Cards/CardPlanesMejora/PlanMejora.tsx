@@ -1,11 +1,7 @@
-import {
-    estadoPlanMejoraToColor,
-    estadoPlanMejoraToString,
-    PlanMejoraData,
-} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {estadoPlanMejoraToColor, PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {useHistory} from "react-router";
 
-export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }) {
+export function PlanMejora(props: { plan: PlanMejoraServer, eliminar: () => void }) {
     const history = useHistory();
     const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
 
@@ -62,10 +58,10 @@ export function PlanMejora(props: { plan: PlanMejoraData, eliminar: () => void }
 
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 <i className="fas fa-circle mr-4" style={{color: colorFondo1}} />
-                {estadoPlanMejoraToString(props.plan.estado)}
+                {props.plan.estado}
             </td>
 
-            {(props.plan.isCreator || rol?.toLowerCase() === "admin") && (
+            {(props.plan.esCreador || rol?.toLowerCase() === "admin") && (
                 <td onClick={(e) => e.stopPropagation()} style={{position: "relative"}}>
                     <i
                         className="fa-solid fa-pen py-2 px-4 cursor-pointer"
