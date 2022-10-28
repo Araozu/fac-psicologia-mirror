@@ -89,7 +89,13 @@ export default function FormPM(props) {
         //Validamos si estamos editando un PM o no
         if (editing) {
             console.log(JSON.stringify(values,null,1));
-            axios.put(url, values, {
+            // TODO: Especificar que se debe enviar al backend
+            // Fix temporal
+            axios.put(url, {
+                ...values,
+                problemas: values.problemas_oportunidades,
+                acciones: values.acciones_mejoras,
+            }, {
                 headers: {
                     "Content-type": "application/json",
                     Accept: "application/json",
