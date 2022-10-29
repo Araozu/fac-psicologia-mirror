@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import UserDropdown from "../Dropdowns/UserDropdown.jsx";
 import {Link} from "react-router-dom";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 
 export default function Navbar() {
     const nombre = localStorage.getItem("nombre");
@@ -37,8 +37,11 @@ export default function Navbar() {
                 style={ {width: "-webkit-fill-available", position: "sticky", top: "0", left: "0", zIndex: "150"} }
             >
                 <div>
-                    <button className="p-2 ml-4 mr-2" onClick={() => {history.goBack()}}>
-                        <i class="fa-solid fa-arrow-left fa-lg text-white"></i>
+                    <button className="p-2 ml-4 mr-2" onClick={() => {
+                        history.goBack();
+                    }}
+                    >
+                        <i class="fa-solid fa-arrow-left fa-lg text-white" />
                     </button>
                     <Link
                         className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"

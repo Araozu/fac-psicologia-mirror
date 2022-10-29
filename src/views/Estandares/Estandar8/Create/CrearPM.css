@@ -152,3 +152,7 @@
 .cuerpo{
     display: flex;
 }
+
+.form-asignar-pm > div > .input-select-container{
+    width: 100% !important;
+}

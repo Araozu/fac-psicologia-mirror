@@ -12,15 +12,36 @@ import "./CrearPM.css";
 
 function CrearPM(props: any) {
 
-    const handleSubmit = (values: any) => {
-        props.handleSubmit(values);
-    };
-
-    const pm: any = {
+    const pmInitialValues: any = {
         id_estandar: null,
         id_user: null,
         codigo: "",
     };
+    const [pm, setPM] = useState(pmInitialValues)
+
+    const handleSubmit = (values: any) => {
+        
+        formik.setFieldValue("id_estandar", '');
+        formik.setFieldValue("id_user", '');
+        formik.setFieldValue("codigo", '');
+        formik.setTouched({}, false);
+        setPM(pmInitialValues);
+        props.handleSubmit(values);
+        
+    };
+    
+    const handleCancel = () => {
+        
+        formik.setFieldValue("id_estandar", '');
+        formik.setFieldValue("id_user", '');
+        formik.setFieldValue("codigo", '');
+        formik.setTouched({}, false);
+        setPM(pmInitialValues);
+        props.handleCancel();
+        
+    }
+
+    
 
     const validationSchema = Yup.object().shape({
         id_estandar: Yup.number().required("No se escogio un estandar")
@@ -60,7 +81,17 @@ function CrearPM(props: any) {
     return (
         <>
             <div className="bg-content">
-                <form className="form-container" onSubmit={formik.handleSubmit}>
+                <form className="form-container form-asignar-pm" onSubmit={formik.handleSubmit}>
+                    <InputTextCodigo
+                        name="codigo"
+                        label="CODIGO"
+                        description="EN ESTA SECCION INTRODUCE EL CODIGO EN EL FORMATO OM-XX-XXXX"
+                        prefix="OM-"
+                        value={''}
+                        onChange={handleChangeCodigo}
+                        error={formik.errors.codigo}
+                        disabled={false}
+                    />
                     <InputSelect
                         name="user"
                         label='USUARIO ENCARGADO'
@@ -81,18 +112,12 @@ function CrearPM(props: any) {
                         error={formik.errors.id_estandar}
                         onChange={handleChangeEstandar}
                     />
-                    <InputTextCodigo
-                        name="codigo"
-                        label="CODIGO"
-                        description="EN ESTA SECCION INTRODUCE EL CODIGO EN EL FORMATO OM-XX-XXXX"
-                        prefix="OM-"
-                        value={''}
-                        onChange={handleChangeCodigo}
-                        error={formik.errors.codigo}
-                        disabled={false}
-                    />
+                    
 
-                    <button type="submit" style={{padding: "10px 20px", backgroundColor: "#0284C7", color: "white", borderRadius: "20px", marginTop: "20px", width: "100%"}}> <i className="fa-solid fa-floppy-disk" /> Guardar</button>
+                    <div style={{display: "flex",  marginTop: "3em", justifyContent: "space-around"}}>
+                        <button type="button" style={{padding: "10px 20px", backgroundColor: "#FF4A4A", color: "white", borderRadius: "20px", width: "35%"}} onClick={handleCancel}> <i className="fa-solid fa-floppy-disk" /> CANCELAR</button>
+                        <button type="submit" style={{padding: "10px 20px", backgroundColor: "#0284C7", color: "white", borderRadius: "20px", width: "60%"}}> <i className="fa-solid fa-floppy-disk" /> ASIGNAR PM</button>
+                    </div>
                 </form>
             </div>
         </>

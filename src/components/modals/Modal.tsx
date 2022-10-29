@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./modal.css";
 
 type Props = {
-    type: "confirm" | "cancel" | "info",
+    type: "confirm" | "cancel" | "info" | "none",
     onClose: (value: "confirm" | "cancel") => void,
     show: boolean,
     title: string,
@@ -14,25 +14,29 @@ function Modal(props: Props) {
     const access_token = localStorage.getItem("access_token");
     const root: HTMLElement = document.getElementById("root")!;
 
-    const Buttons = () => (
-        <>
-            {props.type === "confirm" && (
-                <button className="modal-button btn-decline"
-                    onClick={
-                        (e) => props.onClose("cancel")
-                    }
+    const Buttons = () => {
+
+        if(props.type === "none") return <></>;
+        return (
+            <>
+                {props.type === "confirm" && (
+                    <button className="modal-button btn-decline"
+                        onClick={
+                            (e) => props.onClose("cancel")
+                        }
+                    >
+                        Cancelar
+                    </button>
+                )}
+                <button className="modal-button btn-accept" onClick={
+                    (e) => props.onClose("confirm")
+                }
                 >
-                    Cancelar
+                    { props.type === "cancel" ? <>Cancelar</> : <>Aceptar</>}
                 </button>
-            )}
-            <button className="modal-button btn-accept" onClick={
-                (e) => props.onClose("confirm")
-            }
-            >
-                { props.type === "cancel" ? <>Cancelar</> : <>Aceptar</>}
-            </button>
-        </>
-    );
+            </>
+        );
+    }
 
     const modalHTML = (
         <div className={`modal ${props.show ? "show" : ""}`} onClick={(e) => {

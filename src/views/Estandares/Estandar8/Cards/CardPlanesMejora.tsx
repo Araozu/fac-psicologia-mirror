@@ -129,6 +129,10 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
         }
     };
 
+    const handleAsignarCancel = () => {
+        setShowModalAsignar(false);
+    }
+
     const planesMejoraEls = useMemo(
         () => planesMejora
             .filter((plan) => {
@@ -175,7 +179,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 </>
             }
 
-            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
+            <Modal type='none' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
                 setShowModalAsignar(false);
             }}
             >
@@ -253,17 +257,18 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
             </div>
 
             {/* Modal de asignacion de PM */}
-            <Modal type='cancel' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
+            <Modal type='none' show={showModalAsignar} title="Asignar Plan de Mejora" onClose={(val:string) => {
                 setShowModalAsignar(false);
             }}
             >
                 {isLoadingModal
                     ? (
-                        <div className="w-full h-full flex justify-content-center align-items-center">
-                            <i className="fa-solid fa-spinner fa-spin-pulse fa-xl" />
+                        <div style={ {width: "100%", height:"3em", display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center", padding:"4em"} }>
+                            <i className="fa-solid fa-spinner fa-spin-pulse mb-4" style={{fontSize: "3em", color: "#0284C7"}} />
+                            <small>Procesando peticion</small>
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} />
+                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel}/>
                 }
             </Modal>
 
