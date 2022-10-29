@@ -41,7 +41,7 @@ export default function Navbar() {
                         history.goBack();
                     }}
                     >
-                        <i class="fa-solid fa-arrow-left fa-lg text-white" />
+                        <i className="fa-solid fa-arrow-left fa-lg text-white" />
                     </button>
                     <Link
                         className="text-white text-sm uppercase hidden lg:inline-block font-semibold px-4"
