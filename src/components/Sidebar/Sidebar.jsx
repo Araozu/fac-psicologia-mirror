@@ -73,7 +73,7 @@ export default function Sidebar({
                         type="button"
                         onClick={toggleCollapse}
                         style={ {textAlign: (isHidden ? "center": "end")} }>
-                        <i className={`fa-solid fa-angle-right fa-lg ${hiddenButtonName}`} style={ {color: "#0284C7"} }></i>
+                        <i className={`fa-solid fa-angles-right fa-lg ${hiddenButtonName}`} style={ {color: "#0284C7"} }></i>
                     </button>
 
 

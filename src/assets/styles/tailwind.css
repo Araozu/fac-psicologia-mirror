@@ -1070,8 +1070,8 @@ select {
   margin-left: 0.25rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
+.ml-4 {
+  margin-left: 1rem;
 }
 
 .block {
@@ -2043,6 +2043,11 @@ select {
 
 .last\:mr-0:last-child {
   margin-right: 0px;
+}
+
+.hover\:text-2xl:hover {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .hover\:text-blueGray-500:hover {
