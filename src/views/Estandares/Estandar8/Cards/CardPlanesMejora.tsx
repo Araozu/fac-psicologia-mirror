@@ -131,7 +131,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const handleAsignarCancel = () => {
         setShowModalAsignar(false);
-    }
+    };
 
     const planesMejoraEls = useMemo(
         () => planesMejora
@@ -263,12 +263,12 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
             >
                 {isLoadingModal
                     ? (
-                        <div style={ {width: "100%", height:"3em", display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center", padding:"4em"} }>
+                        <div style={ {width: "100%", height: "3em", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "4em"} }>
                             <i className="fa-solid fa-spinner fa-spin-pulse mb-4" style={{fontSize: "3em", color: "#0284C7"}} />
                             <small>Procesando peticion</small>
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel}/>
+                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel} />
                 }
             </Modal>
 
