@@ -29,6 +29,7 @@ async function fetchTodosUsers(): Promise<Array<UserData>> {
         },
     });
     const dataObj: { data: Array<UserServer> } = await raw.json();
+
     return dataObj.data.map(userServerToData);
 }
 
@@ -114,6 +115,7 @@ export default function(props: UsersProps) {
         [users],
     );
 
+    console.log("u",users);
     return (
         <div>
             <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
@@ -182,11 +184,14 @@ export default function(props: UsersProps) {
                                     <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Rol
                                     </th>
-                                    {/*
+
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Acciones
+                                    Estado
                                 </th>
-                                */}
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                        Acciones
+                                    </th>
+
                                     <td />
                                 </tr>
                             </thead>

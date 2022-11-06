@@ -7,10 +7,18 @@ import {useHistory} from "react-router";
 export function UserRow(props:{user:UserData}){
     const history = useHistory();
     let names = "";
+    let status="";
     if(props.user.name==="null" && props.user.lastName==="null"){
         names= "Invitación con respuesta pendiente"
     }else{
         names = props.user.name+" "+props.user.lastName;
+    }
+    if(props.user.estado === true){
+        console.log("activo");
+        status = "activo";
+    }else{
+        console.log("inactivo");
+        status = "inactivo";
     }
 
 const prueba:string="prueba";
@@ -27,11 +35,11 @@ const prueba:string="prueba";
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {props.user.rol.toUpperCase()}
             </td>
-            {/*
+
              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {prueba}
+                {status.toUpperCase()}
             </td>
-            */}
+
         </tr>
     )
 
