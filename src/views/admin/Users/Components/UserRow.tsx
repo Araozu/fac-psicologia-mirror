@@ -27,11 +27,32 @@ export function UserRow(props: { user: UserData }) {
         setRole(props.user.rol);
         setId(props.user.id);
     }, [0]);
+    const modalSuccess = {
+        estado: "ok",
+        icon: "fa-solid fa-circle-check icon-large success",
+        title: "Operacion exitosa",
+        body: "Se actualizó el usuario con éxito",
+        type: "info",
+    };
+
+    const modalError = {
+        estado: "false",
+        icon: "fa-solid fa-circle-exclamation icon-large error-icon",
+        title: "Operacion fallida",
+        body: "No se pudo actualizar el usuario.Intentelo más tarde o contacte al área de soporte",
+        type: "info",
+    };
     const [modalEdit, setModalEdit] = useState(false);
+    const [modalInfo, setModalInfo] = useState(modalSuccess);
+    const [modal, setModal] = useState(false);
 
 
     const onCloseModalHandle = () => {
         setModalEdit(!modalEdit);
+
+    };
+    const onCloseModalAnswerHandle = () => {
+        setModal(false);
 
     };
 
@@ -63,13 +84,17 @@ export function UserRow(props: { user: UserData }) {
 
         })
             .then(function(response) {
-                console.log(response);
+                setModalInfo(modalSuccess);
+
             })
             .catch(function(error) {
-                console.log(error);
+                setModalInfo(modalError);
+
             })
             .then(function() {
                 // always executed
+                setModal(true);
+
             });
     };
 
@@ -90,6 +115,10 @@ export function UserRow(props: { user: UserData }) {
     };
     const efis = [
         {
+            value: "",
+            text: "",
+        },
+        {
             value: true,
             text: "Activo",
         },
@@ -100,6 +129,10 @@ export function UserRow(props: { user: UserData }) {
     ];
 
     const roles = [
+        {
+            value: "",
+            text: "",
+        },
         {
             value: 1,
             text: "Admin",
@@ -180,6 +213,13 @@ export function UserRow(props: { user: UserData }) {
 
                     </div>
 
+                </div>
+            </Modal>
+
+            <Modal show={modal} type="info" onClose={onCloseModalAnswerHandle} title={modalInfo.title}>
+                <div className="flex flex-col justify-center items-center">
+                    <i className={modalInfo.icon}/>
+                    {modalInfo.body}
                 </div>
             </Modal>
         </>
