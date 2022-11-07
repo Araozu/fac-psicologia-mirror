@@ -63,6 +63,30 @@ export default function DetallePM({id}: Props) {
 
     const token = localStorage.getItem("access_token");
 
+    const descargarPM = () => {
+        const token = localStorage.getItem("access_token");
+
+        const download_url = `${SERVER_PATH}/api/plan/export/${id}`;
+
+        axios({
+            url: download_url,
+            method: "GET",
+            headers: {"Authorization": `Bearer ${token}`},
+            responseType: "blob",
+        })
+            .then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", `${pm?.nombre}.docx`);
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     useEffect(() => {
         const getPM = async() => {
             setLoading(true);
@@ -109,8 +133,15 @@ export default function DetallePM({id}: Props) {
                     <span className="titulo-detalle text-lightBlue-600">DATOS DEL PLAN DE MEJORA</span>
                 </div>
                 <div>
-                    <button className="boton-accion text-lightBlue-600 border-2 border-lightBlue-600">Descargar</button>
+                    <button
+                        className="boton-accion text-lightBlue-600 border-2 border-lightBlue-600"
+                        onClick={descargarPM}
+                    >
+                        Descargar
+                    </button>
+                    {/* TODO: que backend envie un campo esCreador
                     <button className="boton-accion bg-lightBlue-600 text-white border-2 border-lightBlue-600">Editar</button>
+                    */}
                 </div>
             </div>
             <hr />

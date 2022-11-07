@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
+import {SERVER_PATH} from "@/variables";
 
 export default function ItemEvidencia(props) {
     const {id, denominacion, indexOnList, onDelete} = props;
 
-    const download_url = `https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia/download/${id}`;
+    const download_url = `${SERVER_PATH}/api/evidencia/download/${id}`;
 
     const handleDownload = () => {
         const token = localStorage.getItem("access_token");
