@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {UserData} from "@/views/admin/Users/Interfaces/User";
 import Modal from "@/components/modals/Modal";
 import axios from "axios";
+import {SERVER_PATH} from "@/variables";
 
 
 export function UserRow(props: { user: UserData }) {
@@ -68,7 +69,7 @@ export function UserRow(props: { user: UserData }) {
             role === "User" && (rol = 2);
         }
 
-        axios.put("http://gestion-calidad-rrii-api.herokuapp.com/api/update", {
+        axios.put(`${SERVER_PATH}/api/update`, {
             id,
             role: rol,
             estado: status,
