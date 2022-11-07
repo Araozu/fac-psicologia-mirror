@@ -1,46 +1,189 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import {UserData} from "@/views/admin/Users/Interfaces/User";
+import Modal from "@/components/modals/Modal";
+import axios from "axios";
 
-import {useHistory} from "react-router";
 
-export function UserRow(props:{user:UserData}){
-    const history = useHistory();
-    let names = "";
-    let status="";
-    if(props.user.name==="null" && props.user.lastName==="null"){
-        names= "Invitación con respuesta pendiente"
-    }else{
-        names = props.user.name+" "+props.user.lastName;
-    }
-    if(props.user.estado === true){
-        console.log("activo");
-        status = "activo";
-    }else{
-        console.log("inactivo");
-        status = "inactivo";
-    }
+export function UserRow(props: { user: UserData }) {
 
-const prueba:string="prueba";
-    return(
-        <tr
-            className={"table-row"}
-        >
-            <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
-                {names.toUpperCase()}
-            </th>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {props.user.email}
-            </td>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {props.user.rol.toUpperCase()}
-            </td>
 
-             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {status.toUpperCase()}
-            </td>
+    const [status, setStatus] = useState(false);
+    const [names, setNames] = useState("");
+    const [role, setRole] = useState("");
+    const [id, setId] = useState(0);
+    const [newRole, setNewRole] = useState(0);
 
-        </tr>
-    )
+    const token = localStorage.getItem("access_token");
+
+
+    useEffect(() => {
+        if (props.user.name === "null" && props.user.lastName === "null") {
+            setNames("Invitación con respuesta pendiente");
+        } else {
+            setNames(props.user.name + " " + props.user.lastName);
+        }
+        setStatus(props.user.estado);
+        setRole(props.user.rol);
+        setId(props.user.id);
+    }, [0]);
+    const [modalEdit, setModalEdit] = useState(false);
+
+
+    const onCloseModalHandle = () => {
+        setModalEdit(!modalEdit);
+
+    };
+
+    const onConfirmHanlde = () => {
+        setModalEdit(!modalEdit);
+        callChange();
+    };
+
+    const callChange = () => {
+        let rol = newRole;
+        console.log("id", id);
+        console.log("status", status);
+        console.log(typeof (status));
+        if (rol === 0) {
+            role === "Admin" && (rol = 1);
+            role === "User" && (rol = 2);
+        }
+
+        axios.put("http://gestion-calidad-rrii-api.herokuapp.com/api/update", {
+            id,
+            role: rol,
+            estado: status,
+        }, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+
+        })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+            .then(function() {
+                // always executed
+            });
+    };
+
+
+    const selectStatus = (e: any) => {
+
+        if (e.target.value === "true") {
+            setStatus(true);
+        } else if (e.target.value === "false") {
+            setStatus(false);
+
+        }
+
+
+    };
+    const selectRole = (e: any) => {
+        setNewRole(e.target.value);
+    };
+    const efis = [
+        {
+            value: true,
+            text: "Activo",
+        },
+        {
+            value: false,
+            text: "Inactivo",
+        },
+    ];
+
+    const roles = [
+        {
+            value: 1,
+            text: "Admin",
+        },
+        {
+            value: 2,
+            text: "Docente",
+        },
+    ];
+
+    return (
+        <>
+            <tr
+                className={"table-row"}
+            >
+                <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
+                    {names.toUpperCase()}
+                </th>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {props.user.email}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {role.toUpperCase()}
+                </td>
+
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {status ? ("ACTIVO") : ("INACTIVO")}
+                </td>
+                <td>
+                    {<i
+                        className="fa-solid fa-pen py-2 px-1 cursor-pointer"
+                        style={{color: "#009688"}}
+                        onClick={() => setModalEdit(!modalEdit)}
+                    />}
+                </td>
+
+            </tr>
+            <Modal show={modalEdit} type="none" title={"Editar acciones de usuario"}>
+                <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center">
+                        Estado: {status ? ("ACTIVO") : ("INACTIVO")}
+                        <select className="eficacia" onChange={(e) => selectStatus(e)}>
+                            {efis.map((option, index) => (
+                                <option key={index} value={option.value}>{option.text}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-col justify-center items-center">
+                        Rol:{role.toUpperCase()}
+
+                        <select className="eficacia" onChange={(e) => selectRole(e)}>
+                            {roles.map((option, index) => (
+                                <option key={index} value={option.value}>{option.text}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="flex flex-row justify-center items-center">
+                        <button type="button" style={{
+                            padding: "10px 20px",
+                            marginRight: "10px",
+                            marginTop: "10px",
+                            backgroundColor: "#FF4A4A",
+                            color: "white",
+                            borderRadius: "20px",
+                            width: "50%",
+                        }} onClick={onCloseModalHandle}> Cancelar
+                        </button>
+                        <button onClick={onConfirmHanlde} style={{
+                            padding: "10px 20px",
+                            marginTop: "10px",
+                            backgroundColor: "#0284C7",
+                            color: "white",
+                            borderRadius: "20px",
+                            width: "50%",
+                        }}> Confirmar
+                        </button>
+
+                    </div>
+
+                </div>
+            </Modal>
+        </>
+
+    );
 
 }
