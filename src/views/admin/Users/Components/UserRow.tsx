@@ -85,10 +85,12 @@ export function UserRow(props: { user: UserData }) {
         })
             .then(function(response) {
                 setModalInfo(modalSuccess);
+                console.log(response);
 
             })
             .catch(function(error) {
                 setModalInfo(modalError);
+                console.log(error);
 
             })
             .then(function() {
