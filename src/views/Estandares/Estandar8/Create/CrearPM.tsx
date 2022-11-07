@@ -115,8 +115,8 @@ function CrearPM(props: any) {
                     
 
                     <div style={{display: "flex",  marginTop: "3em", justifyContent: "space-around"}}>
-                        <button type="button" style={{padding: "10px 20px", backgroundColor: "#FF4A4A", color: "white", borderRadius: "20px", width: "35%"}} onClick={handleCancel}> <i className="fa-solid fa-floppy-disk" /> CANCELAR</button>
-                        <button type="submit" style={{padding: "10px 20px", backgroundColor: "#0284C7", color: "white", borderRadius: "20px", width: "60%"}}> <i className="fa-solid fa-floppy-disk" /> ASIGNAR PM</button>
+                        <button type="button" style={{padding: "10px 20px", backgroundColor: "#FF4A4A", color: "white", borderRadius: "20px", width: "35%"}} onClick={handleCancel}>  CANCELAR</button>
+                        <button type="submit" style={{padding: "10px 20px", backgroundColor: "#0284C7", color: "white", borderRadius: "20px", width: "60%"}}>  ASIGNAR PM</button>
                     </div>
                 </form>
             </div>

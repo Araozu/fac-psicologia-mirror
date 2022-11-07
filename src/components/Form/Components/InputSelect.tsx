@@ -20,11 +20,13 @@ export default function InputSelect(props:any) {
         error,
     } = props;
 
+    const access_token = localStorage.getItem("access_token");
+
     const [options, setOptions] = useState([]);
     const [value, setValue] = useState({});
 
     useEffect(() => {
-        axios.get(`${SERVER_PATH}/api/${optionsRute}`)
+        axios.get(`${SERVER_PATH}/api/${optionsRute}`, {headers: { 'Authorization': `Bearer ${access_token}` }})
             .then(function(response) {
                 if (options.length > 0) return;
                 const optionsResponse:any = [];
