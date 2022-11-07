@@ -170,7 +170,7 @@ export function UserRow(props: { user: UserData }) {
                 </td>
 
             </tr>
-            <Modal show={modalEdit} type="none" title={"Editar acciones de usuario"}>
+            <Modal show={modalEdit} type="none" title={"Editar acciones de usuario"} onClose={onCloseModalHandle} >
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
                         Estado: {status ? ("ACTIVO") : ("INACTIVO")}
