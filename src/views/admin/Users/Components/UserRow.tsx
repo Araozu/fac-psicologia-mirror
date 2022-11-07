@@ -119,11 +119,11 @@ export function UserRow(props: { user: UserData }) {
             text: "",
         },
         {
-            value: true,
+            value: "true",
             text: "Activo",
         },
         {
-            value: false,
+            value: "false",
             text: "Inactivo",
         },
     ];
