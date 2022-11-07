@@ -87,7 +87,7 @@ export function UserRow(props: { user: UserData }) {
             })
             .catch(function(error) {
                 setModalInfo(modalError);
-                console.log(error);
+                console.log("error",error);
 
             })
             .then(function() {
