@@ -63,9 +63,6 @@ export function UserRow(props: { user: UserData }) {
 
     const callChange = () => {
         let rol = newRole;
-        console.log("id", id);
-        console.log("status", status);
-        console.log(typeof (status));
         if (rol === 0) {
             role === "Admin" && (rol = 1);
             role === "User" && (rol = 2);
