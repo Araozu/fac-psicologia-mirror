@@ -114,6 +114,11 @@ function CrearPM(props: any) {
                         onChange={handleChangeEstandar}
                     />
                     
+                    { props.error !== '' && 
+                        <div style={{display: "block",  marginTop: "0.2em", textAlign:"center", color: "red"}}>
+                            {props.error}
+                        </div>
+                    }
 
                     <div style={{display: "flex",  marginTop: "3em", justifyContent: "space-around"}}>
                         <button type="button" style={{padding: "10px 20px", backgroundColor: "#FF4A4A", color: "white", borderRadius: "20px", width: "35%"}} onClick={handleCancel}>  CANCELAR</button>
