@@ -7,6 +7,7 @@ import InputTextCodigo from "../../../../components/Form/Components/InputTextCod
 import InputSelect from "../../../../components/Form/Components/InputSelect";
 
 import "./CrearPM.css";
+import InputSelectUsers from "@/components/Form/Components/InputSelectUsers";
 
 
 
@@ -92,7 +93,7 @@ function CrearPM(props: any) {
                         error={formik.errors.codigo}
                         disabled={false}
                     />
-                    <InputSelect
+                    <InputSelectUsers
                         name="user"
                         label='USUARIO ENCARGADO'
                         description='SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA'
