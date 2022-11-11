@@ -8,7 +8,7 @@ import Tabs from "@/components/Tabs/Tabs";
 import CardNarrativas from "@/views/Estandares/Estandar8/Cards/CardNarrativas";
 
 export default function Estandar8() {
-    const listTabs = ["planes de mejora", "narrativa", "acciones de mejora"];
+    const listTabs = ["planes de mejora", "narrativa"];
     const comp = [<CardPlanesMejora />, <CardNarrativas />];
 
     return (
