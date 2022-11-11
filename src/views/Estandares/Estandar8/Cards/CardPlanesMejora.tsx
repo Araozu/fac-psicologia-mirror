@@ -61,6 +61,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     /**Modal configuration Asignar PM */
     const [showModalAsignar, setShowModalAsignar] = useState(false);
     const [isLoadingModal, setIsLoadingModal] = useState(false);
+    const [errorModal, setErrorModal] = useState("");
 
     const token = localStorage.getItem("access_token");
 
@@ -85,10 +86,23 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 },
             },
         ).then((res) => {
-            setShowModalAsignar(false);
+            console.log(res)
+            if(res.data.status === 1) {
+                setShowModalAsignar(false);
+                cargarPlanesMejora();
+            }else{
+                //Si hay error mandamos el mensaje de error para que se muestre
+                setErrorModal(res.data.message);
+            }
             setIsLoadingModal(false);
-            cargarPlanesMejora();
-        });
+        }).catch( (err) => {
+            setIsLoadingModal(false);
+            if(err.response.status === 422)
+                setErrorModal("El codigo ingresado ya le pertenece a un Plan de Mejora");
+            else
+                setErrorModal("Ocurrio un error en el servidor intentalo despues")
+            
+        } );
     };
 
     /**FIN CONFIGURATION MODAL*/
@@ -170,6 +184,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                         type="button"
                         onClick={() => {
                         // h.push("/admin/estandar8/plan-mejora/crear");
+                            setErrorModal("");
                             setShowModalAsignar(true);
                             setIsLoadingModal(false);
                         }}
@@ -189,7 +204,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             <i className="fa-solid fa-spinner fa-spin-pulse fa-xl" />
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} />
+                    : <CrearPM handleSubmit={handleSumitForm} error={errorModal}/>
                 }
             </Modal>
         </div>
@@ -216,6 +231,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                                 type="button"
                                 onClick={() => {
                                 // h.push("/admin/estandar8/plan-mejora/crear");
+                                    setErrorModal("");
                                     setShowModalAsignar(true);
                                     setIsLoadingModal(false);
                                 }}
@@ -268,7 +284,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             <small>Procesando peticion</small>
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel} />
+                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel}  error={errorModal}/>
                 }
             </Modal>
 

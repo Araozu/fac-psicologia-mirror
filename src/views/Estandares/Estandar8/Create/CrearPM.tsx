@@ -7,6 +7,7 @@ import InputTextCodigo from "../../../../components/Form/Components/InputTextCod
 import InputSelect from "../../../../components/Form/Components/InputSelect";
 
 import "./CrearPM.css";
+import InputSelectUsers from "@/components/Form/Components/InputSelectUsers";
 
 
 
@@ -92,7 +93,7 @@ function CrearPM(props: any) {
                         error={formik.errors.codigo}
                         disabled={false}
                     />
-                    <InputSelect
+                    <InputSelectUsers
                         name="user"
                         label='USUARIO ENCARGADO'
                         description='SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA'
@@ -113,6 +114,11 @@ function CrearPM(props: any) {
                         onChange={handleChangeEstandar}
                     />
                     
+                    { props.error !== '' && 
+                        <div style={{display: "block",  marginTop: "0.2em", textAlign:"center", color: "red"}}>
+                            {props.error}
+                        </div>
+                    }
 
                     <div style={{display: "flex",  marginTop: "3em", justifyContent: "space-around"}}>
                         <button type="button" style={{padding: "10px 20px", backgroundColor: "#FF4A4A", color: "white", borderRadius: "20px", width: "35%"}} onClick={handleCancel}>  CANCELAR</button>
