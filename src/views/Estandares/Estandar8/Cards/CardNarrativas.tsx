@@ -4,15 +4,10 @@ import {SERVER_PATH} from "@/variables";
 import {DataNarrativaServer} from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
 import "./CardNarrativas.css";
 
-type Semestre = "Todos" | "A" | "B" | "C";
+type Semestre = "A" | "B";
 
 function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}) {
     const history = useHistory();
-    const iframeRef = React.createRef<HTMLIFrameElement>();
-
-    useEffect(() => {
-        iframeRef.current?.contentDocument?.write(props.narrativa.contenido);
-    }, []);
 
     const redirigirEditarNarrativa = () => history.push(`/admin/estandar8/narrativa/editar/${props.narrativa.id}`);
 
@@ -60,17 +55,28 @@ function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}
             </div>
             <hr />
             <br />
-            <iframe style={{width: "100%"}} ref={iframeRef} />
+            <div dangerouslySetInnerHTML={{__html: props.narrativa.contenido}} />
         </div>
     );
+}
+
+type AlmacenNarrativas = Map<number, Map<string, DataNarrativaServer>>;
+
+function revisarSemestre(narrativas: AlmacenNarrativas, nuevoAnio: number, semestreActual: Semestre): Semestre {
+    const mapAnio = narrativas.get(nuevoAnio)!;
+    if (mapAnio.has(semestreActual)) {
+        return semestreActual;
+    } else {
+        return [...mapAnio.keys()][0] as Semestre;
+    }
 }
 
 export default function CardNarrativas() {
     const history = useHistory();
 
     const [filtroAnio, setFiltroAnio] = useState(-1);
-    const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("Todos");
-    const [narrativas, setNarrativas] = useState<Array<DataNarrativaServer>>([]);
+    const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("A");
+    const [narrativas, setNarrativas] = useState<AlmacenNarrativas>(new Map());
 
     const redirigirCrearNarrativa = () => history.push("/admin/estandar8/narrativa/crear");
 
@@ -88,25 +94,61 @@ export default function CardNarrativas() {
         })
             .then((obj) => obj.json())
             .then((resp) => {
-                setNarrativas(resp.data);
+                const narrativas: Array<DataNarrativaServer> = resp.data;
+                const almacenNarrativas: AlmacenNarrativas = new Map();
+
+                narrativas.forEach((narrativa) => {
+                    const result = /(20\d\d)-([AB])/.exec(narrativa.semestre);
+                    if (result === null) {
+                        console.error(`Error extrayendo valores de narrativa, semestre: ${narrativa.semestre}`);
+                        return;
+                    }
+                    const numAnio = parseInt(result[1], 10);
+                    const letraSemestre = result[2];
+
+                    if (!almacenNarrativas.has(numAnio)) {
+                        almacenNarrativas.set(numAnio, new Map());
+                    }
+
+                    const narrativasAnio = almacenNarrativas.get(numAnio)!;
+
+                    // Solo deberia existir 1 narrativa por semestre, asi que esto es seguro
+                    narrativasAnio.set(letraSemestre, narrativa);
+                });
+
+                // Obtener los valores iniciales
+                const anioMayor = [0, ...almacenNarrativas.keys()]
+                    .reduce((previous, current) => (previous < current ? current : previous));
+                setFiltroAnio(anioMayor);
+                const semestreMayor = [...almacenNarrativas.get(anioMayor)!.keys()]
+                    .sort()
+                    .pop()! as "A" | "B";
+                setFiltroSemestre(semestreMayor);
+
+                setNarrativas(almacenNarrativas);
             });
     }, []);
 
     // Elimina narrativa del state
     const eliminarNarrativa = (narrativaAEliminar: DataNarrativaServer) => {
-        setNarrativas((x) => x.filter((narrativa) => narrativa.id !== narrativaAEliminar.id));
+        const nuevoMap = new Map(narrativas);
+        const [, anioStr, semestre] = /(20\d\d)-([AB])/.exec(narrativaAEliminar.semestre)!;
+        const anio = parseInt(anioStr, 10);
+
+        const mapaAnio = nuevoMap.get(anio)!;
+        if (mapaAnio.size === 1) {
+            nuevoMap.delete(anio);
+        } else {
+            mapaAnio.delete(semestre);
+        }
+
+        setNarrativas(nuevoMap);
     };
 
-    const narrativasEls = narrativas
-        .filter((narrativa) => {
-            const contieneAnio = filtroAnio === -1 || narrativa.semestre.indexOf(filtroAnio.toString()) !== -1;
-            const contieneSemestre = filtroSemestre !== "Todos" || narrativa.semestre.indexOf(filtroSemestre) !== 1;
-
-            return contieneAnio && contieneSemestre;
-        })
-        .map((narrativa, i) => (
-            <Narrativa narrativa={narrativa} key={i} eliminar={() => eliminarNarrativa(narrativa)} />
-        ));
+    const narrativaActual = [...narrativas]
+        .find(([anio, narrativasAnio]) => anio === filtroAnio && narrativasAnio.has(filtroSemestre))
+        ?.[1]
+        ?.get(filtroSemestre);
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
@@ -115,8 +157,20 @@ export default function CardNarrativas() {
                     <h3 className="font-semibold text-base text-blueGray-700 inline-block px-2">
                             Filtros
                     </h3>
-                    <FiltroAnio onChange={setFiltroAnio} />
-                    <FiltroSemestre onChange={setFiltroSemestre} />
+                    <FiltroAnio
+                        values={[...narrativas.keys()]}
+                        onChange={(nuevoAnio) => {
+                            const nuevoSemestre = revisarSemestre(narrativas, nuevoAnio, filtroSemestre);
+                            setFiltroAnio(nuevoAnio);
+                            setFiltroSemestre(nuevoSemestre);
+                        }}
+                    />
+                    <FiltroSemestre
+                        initial={filtroSemestre}
+                        narrativas={narrativas}
+                        anioActual={filtroAnio}
+                        onChange={setFiltroSemestre}
+                    />
                 </div>
                 <div className="relative w-full px-4 max-w-full text-right">
                     <button
@@ -129,12 +183,12 @@ export default function CardNarrativas() {
                 </div>
             </div>
 
-            {narrativasEls}
+            {narrativaActual && <Narrativa narrativa={narrativaActual} eliminar={() => eliminarNarrativa(narrativaActual)} />}
         </div>
     );
 }
 
-function FiltroAnio(props: { onChange: (_: number) => void }) {
+function FiltroAnio(props: { values: Array<number>, onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
@@ -150,18 +204,16 @@ function FiltroAnio(props: { onChange: (_: number) => void }) {
                 value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                 className="rounded-xl text-sm p-2 w-48"
             >
-                <option value="-1">Todos</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
+                {props.values.map((v) => <option value={v}>{v}</option>)}
             </select>
         </span>
     );
 }
 
-function FiltroSemestre(props: { onChange: (_: Semestre) => void }) {
-    const [selected, setSelected] = useState<Semestre>("Todos");
+function FiltroSemestre(props: { initial: Semestre, anioActual: number, narrativas: AlmacenNarrativas, onChange: (_: Semestre) => void }) {
+    const [selected, setSelected] = useState<Semestre>(props.initial);
+
+    const semestresValidos = [...(props.narrativas.get(props.anioActual)?.keys() ?? [])];
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
         const value = ev.target.value as Semestre;
@@ -176,10 +228,7 @@ function FiltroSemestre(props: { onChange: (_: Semestre) => void }) {
                 value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                 className="rounded-xl text-sm p-2 w-48"
             >
-                <option value="Todos">Todos</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
+                {semestresValidos.map((x) => <option value={x}>{x}</option>)}
             </select>
         </span>
     );

@@ -9,6 +9,8 @@ export type DataNarrativaServer = {
     id_estandar: number,
     semestre: string, // 2022-A
     contenido: string, // El HTML de la narrativa
+    created_at: string,
+    updated_at: string,
 }
 
 export default function DetalleNarrativa() {

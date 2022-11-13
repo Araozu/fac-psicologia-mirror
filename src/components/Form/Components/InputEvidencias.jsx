@@ -3,6 +3,7 @@ import ItemEvidencia from "./ItemEvidencia";
 import axios from "axios";
 
 import Label from "./Label/Label";
+import {SERVER_PATH} from "../../../variables";
 
 export default function InputEvidencias(props) {
     const {name, label, description, initialValues, idPM} = props;
@@ -33,7 +34,7 @@ export default function InputEvidencias(props) {
             }
 
             axios.post(
-                "https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia",
+                `${SERVER_PATH}/api/evidencia`,
                 formData, {
                     headers: {
                         //"Content-Type": 'multipart/form-data',
