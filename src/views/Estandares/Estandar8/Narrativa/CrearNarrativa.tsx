@@ -10,6 +10,18 @@ import {SERVER_PATH} from "@/variables";
 import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import ContentWrapper from "@/components/ContentWrapper";
+import InputSelect from "@/components/Form/Components/InputSelect";
+import Label from "@/components/Form/Components/Label/Label";
+import Select from "react-select";
+
+function arrayAnios(initial: number): Array<number> {
+    const current = new Date().getFullYear();
+    const arr = [];
+    for (let i = initial; i <= current + 1; i += 1) {
+        arr.push(i);
+    }
+    return arr;
+}
 
 export default function CrearNarrativa() {
     const tinyEditorRef = React.useRef<Editor>();
@@ -30,8 +42,8 @@ export default function CrearNarrativa() {
         [],
     );
 
-    const [semestre, setSemestre] = React.useState("");
-    const [errorSemestre, setErrorSemestre] = React.useState("");
+    const [anio, setAnio] = React.useState({value: "2022", label: "2022"});
+    const [semestre, setSemestre] = React.useState({value: "A", label: "A"});
 
     const history = useHistory();
     const [modal, setModal] = useState(false);
@@ -59,20 +71,13 @@ export default function CrearNarrativa() {
         if (modalInfo.estado === "ok") history.push("/admin/estandar8");
     };
 
-    // TODO: Input sanitization
     const crearNarrativa = () => {
         const token = localStorage.getItem("access_token");
-
-        // Validar semestre
-        // TODO: Usar Yup y formik?
-        if (!/\d{4}-[ABC]$/.test(semestre.trim())) {
-            setErrorSemestre("El semestre debe tener el formato 20XX-X.");
-        }
 
         const values = {
             // TODO: Usar el ID del estandar en vez de un valor fijo
             id_estandar: 8,
-            semestre,
+            semestre: `${anio.value}-${semestre.value}`,
             contenido: tinyEditorRef.current?.getContent(),
         };
         console.log(values);
@@ -106,14 +111,45 @@ export default function CrearNarrativa() {
 
                     <hr />
 
-                    <div className="contenedor-form">
-                        <InputText
-                            name="semestre"
-                            label="Semestre"
-                            description="El semestre del plan de mejora. Ejm: 2022-B"
+                    <div className="contenedor-form" style={{position: "relative", zIndex: 10}}>
+                        <Label label={"Año"} description={"El año del plan de mejora."} />
+                        <Select
+                            name={"anio-select"}
+                            options={
+                                /* @ts-ignore */
+                                arrayAnios(2018).map((x) => ({label: x.toString(), value: x.toString()}))
+                            }
+                            value={anio}
+                            onChange={(v) => {
+                                // @ts-ignore
+                                setAnio(v);
+                            }}
+                            isDisabled={false}
+                            theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 10,
+                            })}
+                            className={"input-select-container"}
+                        />
+
+                        <Label label={"Semestre"} description={"El semestre del plan de mejora."} />
+                        <Select
+                            name={"semestre-select"}
+                            options={
+                                /* @ts-ignore */
+                                [{value: "A", label: "A"}, {value: "B", label: "B"}]
+                            }
                             value={semestre}
-                            error={errorSemestre}
-                            onChange={(ev: any) => setSemestre(ev.target?.value)}
+                            onChange={(v) => {
+                                // @ts-ignore
+                                setSemestre(v);
+                            }}
+                            isDisabled={false}
+                            theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 10,
+                            })}
+                            className={"input-select-container"}
                         />
                     </div>
 
