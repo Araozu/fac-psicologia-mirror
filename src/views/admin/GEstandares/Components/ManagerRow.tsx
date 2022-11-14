@@ -4,6 +4,7 @@ import {EstandarData} from "@/views/admin/GEstandares/Interfaces/Estandar";
 import Modal from "@/components/modals/Modal";
 import axios from "axios";
 import {SERVER_PATH} from "@/variables";
+import InputSelectUsers from "@/components/Form/Components/InputSelectUsers";
 
 
 export function ManagerRow(props: { estandar: EstandarData }) {
@@ -38,6 +39,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
     const [modalEdit, setModalEdit] = useState(false);
     const [modalInfo, setModalInfo] = useState(modalSuccess);
     const [modal, setModal] = useState(false);
+    const [email,setEmail] = useState("");
 
 
     const onCloseModalHandle = () => {
@@ -48,10 +50,14 @@ export function ManagerRow(props: { estandar: EstandarData }) {
         setModal(false);
 
     };
+    const handleChangeUsuario = (value:any)=> {
+        setEmail(value)
+    }
 
    const onConfirmHandle = () => {
         setModalEdit(!modalEdit);
       //  callChange();
+       console.log("nuevo encargado", email);
     };
 
    /* const callChange = () => {
@@ -117,12 +123,16 @@ export function ManagerRow(props: { estandar: EstandarData }) {
             <Modal show={modalEdit} type="none" title={`Editar encargado de Estándar ${props.estandar.id}`} onClose={onCloseModalHandle}>
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
-                        Estado: {status ? ("ACTIVO") : ("INACTIVO")}
 
-                    </div>
-                    <div className="flex flex-col justify-center items-center">
-
-
+                        <InputSelectUsers
+                            name="user"
+                            label='NUEVO USUARIO ENCARGADO'
+                            description='SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA'
+                            optionsRute='user'
+                            initialValue={ {} }
+                            disabled={false}
+                            onChange={handleChangeUsuario}
+                        />
                     </div>
 
                     <div className="flex flex-row justify-center items-center">
