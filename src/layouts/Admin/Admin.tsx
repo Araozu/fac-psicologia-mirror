@@ -19,6 +19,7 @@ import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
 import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
 import DetalleNarrativa from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
 import Users from "@/views/admin/Users/Users";
+import GEstandares from  "@/views/admin/GEstandares/Estandares"
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -48,6 +49,9 @@ export default function Admin() {
 
             {/*Administración de Usuarios*/}
             {<Route path={"/admin/users"} exact component={Users} />}
+
+            {/*Adminitración de Estándares*/}
+            <Route path={"/admin/estandares"} exact component={GEstandares}/>
 
             <Redirect from="/admin" to="/dashboard" />
             <Redirect from="/admin/dashboard" to="/admin/estandar8" />

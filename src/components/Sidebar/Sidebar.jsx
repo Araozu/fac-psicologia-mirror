@@ -11,7 +11,7 @@ function SidebarLink({text , path, prefixIcon, sufixIcon, isHidden, disabled = f
 
 
     const content = () => <>
-        
+
         <div id="sidebar-link-content-prefix">
                 <i className={`${prefixIcon} fa-sm ${(isHidden ? "mr-0" : "mr-2")}`}></i>{" "}
                 {!isHidden && <>{text.toUpperCase()}</> }
@@ -19,14 +19,14 @@ function SidebarLink({text , path, prefixIcon, sufixIcon, isHidden, disabled = f
 
         { !isHidden &&
             <div style={ {display: "block", textAlign: "center"} } id="sidebar-link-content-suffix">
-                <i className={`${sufixIcon} fa-sm`}></i>       
+                <i className={`${sufixIcon} fa-sm`}></i>
             </div>
         }
     </>
 
     return (
         <li style={ {marginBottom: "0.3em"} }>
-            {disabled ? 
+            {disabled ?
                 <div className={"lista-item lista-item-disabled "+  + (isHidden && "list-item-small ")}>
                         {content()}
                 </div>
@@ -46,7 +46,7 @@ export default function Sidebar({
 }) {
     const [isHidden, setIsHidden] = useState(false);
     const rol = localStorage.getItem("ROL");
-    
+
     // Use angle with animations
     const hiddenButtonName = useMemo(
         () => isHidden ? "" : "fa-flip-horizontal",
@@ -65,7 +65,7 @@ export default function Sidebar({
     return (
         <>
             <nav className={`${navClasses} md:left-0 md:block md:top-0 md:bottom-0 md:overflow-y-auto md:overflow-hidden shadow bg-white flex flex-wrap items-center justify-between relative sidebar`}>
-                
+
 
                 <div className="w-full flex flex-col justify-start content-start">
                     <button
@@ -79,8 +79,8 @@ export default function Sidebar({
 
                     <div className="mt-10 mx-4">
 
-                        { isHidden ? <></> : 
-                        
+                        { isHidden ? <></> :
+
                             <Link
                                 className="flex flex-row logo-side justify-between items-center uppercase"
                                 to="/"
@@ -107,7 +107,7 @@ export default function Sidebar({
 
                     { rol === "Admin" &&
                         <>
-                        
+
                             { !isHidden && <>
                                     <hr className="mx-4 my-4"/>
                                     <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
@@ -119,10 +119,28 @@ export default function Sidebar({
                             <ul className="flex flex-col list-none mx-4">
                                 <SidebarLink  path='/admin/users/' text="Usuarios" prefixIcon='fa-solid fa-users' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false} />
                             </ul>
-                        
+
                         </>
                     }
-                    
+
+                    { rol === "Admin" &&
+                        <>
+
+                            { !isHidden && <>
+                                <hr className="mx-4 my-4"/>
+                                <h6 className="text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 pl-1 no-underline mx-4">
+                                    Gestión de Estándares
+                                </h6>
+                            </>
+                            }
+
+                            <ul className="flex flex-col list-none mx-4">
+                                <SidebarLink  path='/admin/estandares' text="Estándares" prefixIcon='fa-solid fa-users' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={false} />
+                            </ul>
+
+                        </>
+                    }
+
 
                     { !isHidden && <>
                             <hr className="mx-4 my-4"/>
@@ -137,7 +155,7 @@ export default function Sidebar({
                         <SidebarLink  path='/admin/estandar10' text="Pronto mas" prefixIcon='fa-solid fa-tv' sufixIcon='fa-solid fa-angle-right' isHidden={isHidden} disabled={true}/>
                     </ul>
                 </div>
-            </nav>  
+            </nav>
         </>
     );
 
