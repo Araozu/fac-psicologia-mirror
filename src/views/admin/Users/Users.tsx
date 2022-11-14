@@ -29,7 +29,6 @@ async function fetchTodosUsers(): Promise<Array<UserData>> {
         },
     });
     const dataObj: { data: Array<UserServer> } = await raw.json();
-
     return dataObj.data.map(userServerToData);
 }
 
