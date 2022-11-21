@@ -58,7 +58,6 @@ export function ManagerRow(props: { estandar: EstandarData }) {
 
     const onConfirmHandle = () => {
         setModalEdit(!modalEdit);
-        console.log(email);
         callChange();
     };
 
@@ -79,7 +78,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
 
             })
             .catch(function(error) {
-                console.log(error);
+                //console.log(error);
                 setModalInfo(modalError);
 
             })
