@@ -3,10 +3,11 @@ import React, {useEffect, useState} from "react";
 import {EstandarData} from "@/views/admin/GEstandares/Interfaces/Estandar";
 import Modal from "@/components/modals/Modal";
 import InputSelectUsers from "@/components/Form/Components/InputSelectUsers";
+import axios from "axios";
+import {SERVER_PATH} from "@/variables";
 
 
 export function ManagerRow(props: { estandar: EstandarData }) {
-
 
 
     const [names, setNames] = useState("");
@@ -15,6 +16,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
 
 
     const token = localStorage.getItem("access_token");
+
     useEffect(() => {
         setNames(props.estandar.name);
         setNamesU(props.estandar.user_name + " " + props.estandar.user_lastname);
@@ -25,7 +27,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
         estado: "ok",
         icon: "fa-solid fa-circle-check icon-large success",
         title: "Operacion exitosa",
-        body: "Se actualizó el usuario con éxito",
+        body: "Se actualizó el encargado con éxito",
         type: "info",
     };
 
@@ -33,7 +35,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
         estado: "false",
         icon: "fa-solid fa-circle-exclamation icon-large error-icon",
         title: "Operacion fallida",
-        body: "No se pudo actualizar el usuario.Intentelo más tarde o contacte al área de soporte",
+        body: "No se pudo actualizar el encargado.",
         type: "info",
     };
     const [modalEdit, setModalEdit] = useState(false);
@@ -56,44 +58,37 @@ export function ManagerRow(props: { estandar: EstandarData }) {
 
     const onConfirmHandle = () => {
         setModalEdit(!modalEdit);
-        //  callChange();
-        console.log("nuevo encargado", email);
+        console.log(email);
+        callChange();
     };
 
-    /* const callChange = () => {
-         //cambiar encargado
-         let rol = newRole;
-         if (rol === 0) {
-             role === "Admin" && (rol = 1);
-             role === "User" && (rol = 2);
-         }
+    const callChange = () => {
+        //cambiar encargado
+        axios.put(`${SERVER_PATH}/api/estandar/${props.estandar.id}`, {
+            id_user: email,
+        }, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
 
-         axios.put(`${SERVER_PATH}/api/update`, {
-             id,
-             role: rol,
-             estado: status,
-         }, {
-             headers: {
-                 "Accept": "application/json",
-                 "Content-Type": "application/json",
-                 "Authorization": `Bearer ${token}`,
-             },
+        })
+            .then(function(response) {
+                setModalInfo(modalSuccess);
 
-         })
-             .then(function(response) {
-                 setModalInfo(modalSuccess);
+            })
+            .catch(function(error) {
+                console.log(error);
+                setModalInfo(modalError);
 
-             })
-             .catch(function(error) {
-                 setModalInfo(modalError);
+            })
+            .then(function() {
+                // always executed
+                setModal(true);
 
-             })
-             .then(function() {
-                 // always executed
-                 setModal(true);
-
-             });
-     };*/
+            });
+    };
 
 
     return (
