@@ -126,6 +126,10 @@ export default function CardNarrativas() {
                 setFiltroSemestre(semestreMayor);
 
                 setNarrativas(almacenNarrativas);
+
+                // Workaround para error de endpoint /api/narrativa/ultimo/{id}
+                const ultimaNarrativa = almacenNarrativas.get(anioMayor)!.get(semestreMayor)!.contenido;
+                localStorage.setItem("ultima-narrativa-contenido", ultimaNarrativa);
             });
     }, []);
 

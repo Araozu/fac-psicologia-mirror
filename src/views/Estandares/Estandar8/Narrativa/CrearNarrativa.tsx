@@ -40,18 +40,21 @@ export default function CrearNarrativa() {
             });
 
             // Cargar datos de la última narrativa
-            // TODO: Usar ID del estandar en vez de '8'
-            const promesaUltimaNarrativa = axios.get(`${SERVER_PATH}/api/narrativa/ultima/8`, {
+            /* TODO: Usar ID del estandar en vez de '8'
+            const promesaUltimaNarrativa = axios.get(`${SERVER_PATH}/api/narrativa/ultima/9`, {
                 headers: {
                     "Content-type": "application/json",
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
                 },
             });
+             */
 
             Promise.all([promesaTiny])
                 .then(([editors]) => {
                     tinyEditorRef.current = editors[0];
+                    const contenido = localStorage.getItem("ultima-narrativa-contenido") ?? "";
+                    editors[0].setContent(contenido);
                 });
         },
         [],
