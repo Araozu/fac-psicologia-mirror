@@ -59,7 +59,8 @@ export default function CardIndicadores() {
     );
 
     return (
-        <div>
+        <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <h2 className="font-medium text-xl m-4">Planes de mejora</h2>
             <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
                 <div className="w-full px-2">
                     <CardStats
