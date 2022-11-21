@@ -7,6 +7,8 @@ import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
+import './HeaderStandard.css';
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider.js";
 
 /**
  * Devuelve que porcentaje de v2 es v1
@@ -118,7 +120,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 export default function HeaderStandard(props: {titulo: string, descripcion: string, icono?: string}) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
     const history = useHistory();
-
+    const [cabecera, setCabecera] = useState<string>("Cargando cabecera...");
+    const [isEditingCabecera, setIdEditingCabecera] = useState<boolean>(false);
     const {
         porcentajeConcluidos,
         porcentajeEnProceso,
@@ -168,10 +171,33 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         [],
     );
 
+    useEffect(
+        () => {
+            const userToken = localStorage.getItem("access_token");
+            if (userToken === null) return;
+            fetch(`${SERVER_PATH}/api/estandar/8`, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`,
+                },
+            }).then( (res: any) => {
+                return res.json();
+            } ).then(
+                (res: {data: {cabecera: string}}) => {
+                    
+                    console.log(res.data.cabecera);
+                    setCabecera(res.data.cabecera);
+                }
+            ).catch( (err) => {console.log(err)} )
+        }, []
+    );
+
     return (
         <>
             {/* Header */}
-            <div className="relative bg-lightBlue-600 flex flex-wrap justify-between"
+            <div className="relative bg-lightBlue-600 flex flex-wrap justify-start"
                 style={ {paddingBottom: "2em", paddingTop: "2em"} }
             >
 
@@ -189,6 +215,14 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
 
                 </div>
                 <div>
+                    <div className="w-full p-2" style={{textAlign: "left", backgroundColor: "white", marginLeft: "5em", borderRadius: "0.5em"}}>
+                        <div className="flex justify-start mb-2">
+                            <h2 className="text-xl font-bold mr-2">CABECERA</h2>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
+                            onClick={() => {setIdEditingCabecera(!isEditingCabecera)}}> {isEditingCabecera? 'Guardar':'Editar cabecera'} </button>
+                        </div>
+                        <input type="text" disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? 'header editable-header':'header'}/>
+                    </div>
                     {/*
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
                         <div className="w-full px-2">
