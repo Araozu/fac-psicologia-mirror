@@ -29,13 +29,28 @@ export default function CrearNarrativa() {
     // Configurar tinymce al cargar el componente
     React.useEffect(
         () => {
-            tinymce.init({
+            const token = localStorage.getItem("access_token");
+
+            // Inicializar editor Tiny
+            const promesaTiny = tinymce.init({
                 selector: "#tiny-editor",
                 plugins: "anchor link image lists table",
                 language: "es_MX",
                 toolbar: "undo redo | fontfamily fontsize | bold italic underline forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent removeformat",
-            })
-                .then((editors) => {
+            });
+
+            // Cargar datos de la última narrativa
+            // TODO: Usar ID del estandar en vez de '8'
+            const promesaUltimaNarrativa = axios.get(`${SERVER_PATH}/api/narrativa/ultima/8`, {
+                headers: {
+                    "Content-type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            Promise.all([promesaTiny])
+                .then(([editors]) => {
                     tinyEditorRef.current = editors[0];
                 });
         },

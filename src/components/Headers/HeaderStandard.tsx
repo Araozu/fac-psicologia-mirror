@@ -189,6 +189,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
 
                 </div>
                 <div>
+                    {/*
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
                         <div className="w-full px-2">
                             <CardStats
@@ -241,6 +242,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                             />
                         </div>
                     </div>
+                    */}
                 </div>
             </div>
         </>
