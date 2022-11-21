@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 
 import {EstandarData} from "@/views/admin/GEstandares/Interfaces/Estandar";
 import Modal from "@/components/modals/Modal";
-import axios from "axios";
-import {SERVER_PATH} from "@/variables";
 import InputSelectUsers from "@/components/Form/Components/InputSelectUsers";
 
 
@@ -12,14 +10,16 @@ export function ManagerRow(props: { estandar: EstandarData }) {
 
 
     const [names, setNames] = useState("");
+    const [namesU, setNamesU] = useState("");
+    const [emailU, setEmailU] = useState("");
 
 
     const token = localStorage.getItem("access_token");
-
-
     useEffect(() => {
-
         setNames(props.estandar.name);
+        setNamesU(props.estandar.user_name + " " + props.estandar.user_lastname);
+        setEmailU(props.estandar.user_email);
+
     }, [0]);
     const modalSuccess = {
         estado: "ok",
@@ -39,7 +39,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
     const [modalEdit, setModalEdit] = useState(false);
     const [modalInfo, setModalInfo] = useState(modalSuccess);
     const [modal, setModal] = useState(false);
-    const [email,setEmail] = useState("");
+    const [email, setEmail] = useState("");
 
 
     const onCloseModalHandle = () => {
@@ -50,50 +50,50 @@ export function ManagerRow(props: { estandar: EstandarData }) {
         setModal(false);
 
     };
-    const handleChangeUsuario = (value:any)=> {
-        setEmail(value)
-    }
-
-   const onConfirmHandle = () => {
-        setModalEdit(!modalEdit);
-      //  callChange();
-       console.log("nuevo encargado", email);
+    const handleChangeUsuario = (value: any) => {
+        setEmail(value);
     };
 
-   /* const callChange = () => {
-        //cambiar encargado
-        let rol = newRole;
-        if (rol === 0) {
-            role === "Admin" && (rol = 1);
-            role === "User" && (rol = 2);
-        }
+    const onConfirmHandle = () => {
+        setModalEdit(!modalEdit);
+        //  callChange();
+        console.log("nuevo encargado", email);
+    };
 
-        axios.put(`${SERVER_PATH}/api/update`, {
-            id,
-            role: rol,
-            estado: status,
-        }, {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
+    /* const callChange = () => {
+         //cambiar encargado
+         let rol = newRole;
+         if (rol === 0) {
+             role === "Admin" && (rol = 1);
+             role === "User" && (rol = 2);
+         }
 
-        })
-            .then(function(response) {
-                setModalInfo(modalSuccess);
+         axios.put(`${SERVER_PATH}/api/update`, {
+             id,
+             role: rol,
+             estado: status,
+         }, {
+             headers: {
+                 "Accept": "application/json",
+                 "Content-Type": "application/json",
+                 "Authorization": `Bearer ${token}`,
+             },
 
-            })
-            .catch(function(error) {
-                setModalInfo(modalError);
+         })
+             .then(function(response) {
+                 setModalInfo(modalSuccess);
 
-            })
-            .then(function() {
-                // always executed
-                setModal(true);
+             })
+             .catch(function(error) {
+                 setModalInfo(modalError);
 
-            });
-    };*/
+             })
+             .then(function() {
+                 // always executed
+                 setModal(true);
+
+             });
+     };*/
 
 
     return (
@@ -102,10 +102,10 @@ export function ManagerRow(props: { estandar: EstandarData }) {
                 className={"table-row"}
             >
                 <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
-                    {names.toUpperCase()}
+                    {namesU.toUpperCase()}
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    {"prueba"}
+                    {emailU}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
                     {names.toUpperCase()}
@@ -120,16 +120,17 @@ export function ManagerRow(props: { estandar: EstandarData }) {
                 </td>
 
             </tr>
-            <Modal show={modalEdit} type="none" title={`Editar encargado de Estándar ${props.estandar.id}`} onClose={onCloseModalHandle}>
+            <Modal show={modalEdit} type="none" title={`Editar encargado de Estándar ${props.estandar.id}`}
+                   onClose={onCloseModalHandle}>
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
 
                         <InputSelectUsers
                             name="user"
-                            label='NUEVO USUARIO ENCARGADO'
-                            description='SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA'
-                            optionsRute='user'
-                            initialValue={ {} }
+                            label="NUEVO USUARIO ENCARGADO"
+                            description="SELECCIONA AL USUARIO QUE SE LE ASIGNARA EL PLAN DE MEJORA"
+                            optionsRute="user"
+                            initialValue={{}}
                             disabled={false}
                             onChange={handleChangeUsuario}
                         />

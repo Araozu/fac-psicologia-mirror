@@ -11,7 +11,7 @@ import {ManagerRow} from "@/views/admin/GEstandares/Components/ManagerRow";
 async function fetchTodoEstandares(): Promise<Array<EstandarData>> {
     const userToken = localStorage.getItem("access_token");
 
-    const raw = await fetch(`${SERVER_PATH}/api/estandar`, {
+    const raw = await fetch(`${SERVER_PATH}/api/estandar-valores`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
