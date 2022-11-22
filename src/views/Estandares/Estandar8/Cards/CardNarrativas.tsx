@@ -3,6 +3,8 @@ import React, {ChangeEventHandler, useEffect, useState, useMemo} from "react";
 import {SERVER_PATH} from "@/variables";
 import {DataNarrativaServer} from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
 import "./CardNarrativas.css";
+import Modal from "@/components/modals/Modal";
+import CrearPM from "@/views/Estandares/Estandar8/Create/CrearPM";
 
 type Semestre = "A" | "B";
 
@@ -163,6 +165,7 @@ export default function CardNarrativas() {
                     </h3>
                     <FiltroAnio
                         values={[...narrativas.keys()]}
+                        initial={filtroAnio}
                         onChange={(nuevoAnio) => {
                             const nuevoSemestre = revisarSemestre(narrativas, nuevoAnio, filtroSemestre);
                             setFiltroAnio(nuevoAnio);
@@ -171,7 +174,6 @@ export default function CardNarrativas() {
                     />
                     <FiltroSemestre
                         initial={filtroSemestre}
-                        narrativas={narrativas}
                         anioActual={filtroAnio}
                         onChange={setFiltroSemestre}
                     />
@@ -187,13 +189,27 @@ export default function CardNarrativas() {
                 </div>
             </div>
 
-            {narrativaActual && <Narrativa narrativa={narrativaActual} eliminar={() => eliminarNarrativa(narrativaActual)} />}
+            {/* Mostrar narrativa si existe */}
+            {narrativaActual ? (
+                <Narrativa narrativa={narrativaActual} eliminar={() => eliminarNarrativa(narrativaActual)} />
+            ) : (
+                <div className="relative flex flex-col justify-center items-center min-h-10 min-w-0 break-words bg-white w-full mb-6 rounded py-10"
+                    style={{color: "#AEAEAE", fontSize: "24px"}}
+                >
+                    <i className="fa-brands fa-codepen my-2" style={ {fontSize: "5em"} } />
+                    <h2>No existe narrativa para {filtroAnio}-{filtroSemestre}</h2>
+                </div>
+            )}
         </div>
     );
 }
 
-function FiltroAnio(props: { values: Array<number>, onChange: (_: number) => void }) {
+function FiltroAnio(props: { initial: number, values: Array<number>, onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
+
+    useEffect(() => {
+        setSelected(props.initial);
+    }, [props.initial]);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
         const value = parseInt(ev.target.value, 10);
@@ -208,16 +224,18 @@ function FiltroAnio(props: { values: Array<number>, onChange: (_: number) => voi
                 value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                 className="rounded-xl text-sm p-2 w-48"
             >
-                {props.values.map((v) => <option value={v}>{v}</option>)}
+                {props.values.sort().map((v) => <option value={v}>{v}</option>)}
             </select>
         </span>
     );
 }
 
-function FiltroSemestre(props: { initial: Semestre, anioActual: number, narrativas: AlmacenNarrativas, onChange: (_: Semestre) => void }) {
+function FiltroSemestre(props: { initial: Semestre, anioActual: number, onChange: (_: Semestre) => void }) {
     const [selected, setSelected] = useState<Semestre>(props.initial);
 
-    const semestresValidos = [...(props.narrativas.get(props.anioActual)?.keys() ?? [])];
+    useEffect(() => {
+        setSelected(props.initial);
+    }, [props.initial]);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
         const value = ev.target.value as Semestre;
@@ -232,7 +250,8 @@ function FiltroSemestre(props: { initial: Semestre, anioActual: number, narrativ
                 value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                 className="rounded-xl text-sm p-2 w-48"
             >
-                {semestresValidos.map((x) => <option value={x}>{x}</option>)}
+                <option value="A">A</option>
+                <option value="B">B</option>
             </select>
         </span>
     );

@@ -113,10 +113,10 @@ export default function CardIndicadores() {
                     />
                 </div>
             </div>
+            <div className="">&nbsp;</div>
         </div>
     );
 }
-
 
 
 /**
