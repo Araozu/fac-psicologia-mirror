@@ -168,7 +168,7 @@ export function UserRow(props: { user: UserData, reload:any }) {
                 </td>
 
             </tr>
-            <Modal show={modalEdit} type="none" title={"Editar acciones de usuario"} onClose={onCloseModalHandle} >
+            <Modal show={modalEdit} type="none" title={`Editar acciones de ${names}`} onClose={onCloseModalHandle} >
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
                         Estado Actual: {props.user.estado ? ("ACTIVO"): ("INACTIVO")}
