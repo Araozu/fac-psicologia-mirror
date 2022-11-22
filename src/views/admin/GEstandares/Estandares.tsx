@@ -33,13 +33,24 @@ export default function(props: EstandarProps) {
 
     //seccion de tabla
     const [managers, setManagers] = useState<Array<EstandarData>>([]);
-    useEffect(() => {
+    const [reload, setReload] = useState(false);
+
+    const loadManagers = () =>{
+        setReload(true);
         (props.producerFn ?? fetchTodoEstandares)()
-            .then(setManagers);
+            .then((manager: Array<EstandarServer>)=>{
+                setManagers(manager);
+                setReload(false);
+            });
+    }
+    useEffect(() => {
+        loadManagers();
     }, []);
     const estandaresEls = useMemo(
-        () => managers.map((user, id) => < ManagerRow estandar={user} key={id}/>), [managers],
+        () => !reload && (managers.map((user, id) => < ManagerRow estandar={user} key={id}  reload={setReload} data={loadManagers}/>)), [managers],
     );
+    console.log(reload);
+
 
     return (
         <div>
@@ -75,9 +86,11 @@ export default function(props: EstandarProps) {
                                 <td/>
                             </tr>
                             </thead>
-                            <tbody>
-                            {estandaresEls}
-                            </tbody>
+                            {!reload && (
+                                <tbody>
+                                {estandaresEls}
+                                </tbody>
+                            )}
                         </table>
                     </div>
                 </div>
