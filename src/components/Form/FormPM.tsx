@@ -23,7 +23,7 @@ import {SERVER_PATH} from "@/variables";
 
 
 
-export default function FormPM(props) {
+export default function FormPM(props: any) {
 
     //TODO: Agregar el modal de exito o fallo
     //TODO: Manejar estado de Loading
@@ -75,13 +75,13 @@ export default function FormPM(props) {
 
     const [modalInfo, setModalInfo] = useState(modalSuccess);
 
-    const onCloseModalHandle = (res) => {
+    const onCloseModalHandle = (res: any) => {
         setModal(false);
         if (modalInfo.estado === "ok") history.push("/admin/estandar8");
     };
 
 
-    const handleSubmit = (values) => {
+    const handleSubmit = (values: any) => {
         const token = localStorage.getItem("access_token");
         const base_url = `${SERVER_PATH}/api/plan`;
         const url = base_url + (editing ? (`/${pm.id}`) : "");
@@ -157,40 +157,40 @@ export default function FormPM(props) {
 
 
     //Personalizamos el change en componentes propios
-    const handleChangeEstandar = (value) => {
+    const handleChangeEstandar = (value: any) => {
         formik.setFieldValue("id_estandar", value);
     };
-    const handleChangeCodigo = (value) => {
+    const handleChangeCodigo = (value: any) => {
         formik.setFieldValue("codigo", `OM-${value}`);
     };
-    const handleChangeFuentes = (values) => {
+    const handleChangeFuentes = (values: any) => {
         formik.setFieldValue("fuentes", values);
     };
-    const handleChangePo = (values) => {
+    const handleChangePo = (values: any) => {
         formik.setFieldValue("problemas_oportunidades", values);
     };
-    const handleChangeCr = (values) => {
+    const handleChangeCr = (values: any) => {
         formik.setFieldValue("causas_raices", values);
     };
-    const handleChangeAmr = (values) => {
+    const handleChangeAmr = (values: any) => {
         formik.setFieldValue("acciones_mejoras", values);
     };
-    const handleChangeSemestre = (value) => {
+    const handleChangeSemestre = (value: any) => {
         formik.setFieldValue("semestre_ejecucion", value);
     };
-    const handleChangeRecursos = (values) => {
+    const handleChangeRecursos = (values: any) => {
         formik.setFieldValue("recursos", values);
     };
-    const handleChangeMetas = (values) => {
+    const handleChangeMetas = (values: any) => {
         formik.setFieldValue("metas", values);
     };
-    const handleChangeResponsables = (values) => {
+    const handleChangeResponsables = (values: any) => {
         formik.setFieldValue("responsables", values);
     };
-    const handleChangeObservaciones = (values) => {
+    const handleChangeObservaciones = (values: any) => {
         formik.setFieldValue("observaciones", values);
     };
-    const handleChangeEstado = (value) => {
+    const handleChangeEstado = (value: any) => {
         formik.setFieldValue("estado", value);
     };
 

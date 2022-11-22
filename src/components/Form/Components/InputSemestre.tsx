@@ -4,7 +4,7 @@ import Select from "react-select";
 import Label from "./Label/Label";
 
 
-export default function InputSemestre(props) {
+export default function InputSemestre(props: any) {
 
     const {name, label, description, initialValue, onChange} = props;
     const idinput = `${name}-input`;
@@ -23,12 +23,13 @@ export default function InputSemestre(props) {
 
 
 
-    const handleChange = (value) => {
+    const handleChange = (value: any) => {
         setOption(value);
-        onChange(`${document.getElementById(idinput).value}-${value.value}`);
+        const el = document.getElementById(idinput) as HTMLInputElement;
+        onChange(`${el.value}-${value.value}`);
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         onChange(`${e.target.value}-${option.value}`);
     };
 

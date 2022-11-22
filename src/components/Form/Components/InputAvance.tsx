@@ -2,12 +2,12 @@ import React, {useState} from "react";
 
 import Label from "./Label/Label";
 
-export default function InputAvance(props) {
+export default function InputAvance(props: any) {
     const {name, label, description, initialValue, onChange} = props;
 
     const [value, setValue] = useState(initialValue ? initialValue : 0);
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         setValue(e.target.value);
         onChange(e);
     };

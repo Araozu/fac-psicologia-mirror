@@ -7,7 +7,6 @@ import "./assets/styles/tailwind.css";
 
 
 // layouts
-// @ts-ignore
 import Admin from "./layouts/Admin/Admin";
 import Auth from "./layouts/Auth/Auth";
 import DashboardPersonal from "@/views/DashboardPersonal/DashboardPersonal";

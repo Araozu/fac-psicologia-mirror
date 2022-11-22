@@ -8,7 +8,7 @@ type Props = {
     onClose: (value: "confirm" | "cancel") => void,
     show: boolean,
     title: string,
-    children: JSX.Element | Array<JSX.Element>
+    children: JSX.Element | Array<JSX.Element> | string
 }
 function Modal(props: Props) {
     const access_token = localStorage.getItem("access_token");
@@ -16,7 +16,7 @@ function Modal(props: Props) {
 
     const Buttons = () => {
 
-        if(props.type === "none") return <></>;
+        if (props.type === "none") return <></>;
         return (
             <>
                 {props.type === "confirm" && (
@@ -36,7 +36,7 @@ function Modal(props: Props) {
                 </button>
             </>
         );
-    }
+    };
 
     const modalHTML = (
         <div className={`modal ${props.show ? "show" : ""}`} onClick={(e) => {

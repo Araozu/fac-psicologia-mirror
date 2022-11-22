@@ -2,6 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./CardStats.css";
 
+type CardStatsProps = {
+    statSubtitle: string,
+    statTitle: string,
+    statPercent: string,
+    statDescripiron: string,
+    statIconName: string,
+    statIconColor: string,
+}
 export default function CardStats({
     statSubtitle,
     statTitle,
@@ -9,7 +17,7 @@ export default function CardStats({
     statDescripiron,
     statIconName,
     statIconColor,
-}) {
+}: CardStatsProps) {
     const porcentajeEl = statPercent === ""
         ? (
             <p className="text-sm text-blueGray-400 mt-4">

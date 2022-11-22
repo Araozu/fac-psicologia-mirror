@@ -1,14 +1,13 @@
 import React, {useEffect, useMemo, useState} from "react";
 
 // components
-// @ts-ignore
-import CardStats from "../Cards/CardStats.jsx";
+import CardStats from "../Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
 import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
-import './HeaderStandard.css';
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider.js";
+import "./HeaderStandard.css";
+import {ThemeConsumer} from "react-bootstrap/esm/ThemeProvider.js";
 
 /**
  * Devuelve que porcentaje de v2 es v1
@@ -171,28 +170,26 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         [],
     );
 
-    useEffect(
-        () => {
-            const userToken = localStorage.getItem("access_token");
-            if (userToken === null) return;
-            fetch(`${SERVER_PATH}/api/estandar/8`, {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${userToken}`,
-                },
-            }).then( (res: any) => {
-                return res.json();
-            } ).then(
-                (res: {data: {cabecera: string}}) => {
-                    
-                    console.log(res.data.cabecera);
-                    setCabecera(res.data.cabecera);
-                }
-            ).catch( (err) => {console.log(err)} )
-        }, []
-    );
+    useEffect(() => {
+        const userToken = localStorage.getItem("access_token");
+        if (userToken === null) return;
+        fetch(`${SERVER_PATH}/api/estandar/8`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`,
+            },
+        }).then((res: any) => res.json())
+            .then((res: {data: {cabecera: string}}) => {
+
+                console.log(res.data.cabecera);
+                setCabecera(res.data.cabecera);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     return (
         <>
@@ -219,9 +216,13 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                         <div className="flex justify-start mb-2">
                             <h2 className="text-xl font-bold mr-2">CABECERA</h2>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
-                            onClick={() => {setIdEditingCabecera(!isEditingCabecera)}}> {isEditingCabecera? 'Guardar':'Editar cabecera'} </button>
+                                onClick={() => {
+                                    setIdEditingCabecera(!isEditingCabecera);
+                                }}
+                            > {isEditingCabecera ? "Guardar" : "Editar cabecera"}
+                            </button>
                         </div>
-                        <input type="text" disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? 'header editable-header':'header'}/>
+                        <input type="text" disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? "header editable-header" : "header"} />
                     </div>
                     {/*
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>

@@ -1,12 +1,12 @@
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
-// @ts-ignore
+
 import InputText from "@/components/Form/Components/InputText";
 import type {Editor} from "@/types/tinymce";
 import React, {useState} from "react";
 import "./CrearNarrativa.css";
 import axios from "axios";
 import {SERVER_PATH} from "@/variables";
-// @ts-ignore
+
 import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import ContentWrapper from "@/components/ContentWrapper";

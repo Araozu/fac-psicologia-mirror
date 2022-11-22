@@ -1,8 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
-// @ts-ignore
+
 import InputTextEmail from "@/components/Form/Components/InputTextEmail";
-// @ts-ignore
 import Modal from "@/components/modals/Modal";
 
 import {UserData, UserServer, userServerToData} from "@/views/admin/Users/Interfaces/User";
@@ -182,9 +181,9 @@ export default function(props: UsersProps) {
                                     Rol
                                     </th>
 
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Estado
-                                </th>
+                                    </th>
                                     <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                         Acciones
                                     </th>

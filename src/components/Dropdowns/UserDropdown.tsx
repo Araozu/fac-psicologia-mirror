@@ -8,11 +8,8 @@ const UserDropdown = () => {
     const [foto, setFoto] = useState("");
 
     useEffect(() => {
-        const getFotoUser = async() => {
-            const x = await localStorage.getItem("FOTO");
-            setFoto(x);
-        };
-        getFotoUser();
+        const x = localStorage.getItem("FOTO")!;
+        setFoto(x);
     },[0]);
 
 
@@ -31,7 +28,7 @@ const UserDropdown = () => {
 
     const [show, setShow] = useState(false);
 
-    const handleOnCloseModal = (response) => {
+    const handleOnCloseModal = (response: "confirm" | "cancel") => {
 
         setShow(false);
         if (response === "confirm") {
@@ -102,7 +99,7 @@ const UserDropdown = () => {
                 </a>
             </div>
             <Modal type='confirm' show={show} title="Cerrar sesión" onClose={handleOnCloseModal}>
-                    ¿Esta seguro de cerrar sesión?
+                ¿Esta seguro de cerrar sesión?
             </Modal>
         </>
     );

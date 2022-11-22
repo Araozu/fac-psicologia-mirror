@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export default function ItemList(props) {
+export default function ItemList(props: any) {
 
     const {canEdit, id ,idItem,value, onDelete,indexOnList, onChange} = props;
 
@@ -8,13 +8,13 @@ export default function ItemList(props) {
     const [error, setError] = useState(false);
 
     const handleEdit = () => {
-        const input = document.getElementById(id);
+        const input = document.getElementById(id) as HTMLInputElement;
         setEditing(true);
         input.focus();
     };
 
     const handleSave = () => {
-        const input = document.getElementById(id);
+        const input = document.getElementById(id) as HTMLInputElement;
         if (input.value.trim() === "") {
             input.focus();
             setError(true);

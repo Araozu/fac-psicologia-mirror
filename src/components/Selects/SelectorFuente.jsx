@@ -3,6 +3,7 @@ import {AiFillPlusCircle as Add, AiFillMinusCircle as Delete} from "react-icons/
 import Label from "../Labels/Label";
 import axios from "axios";
 import Select from "react-select";
+import {SERVER_PATH} from "../../variables";
 
 export default function SelectorFuente(props) {
     const {

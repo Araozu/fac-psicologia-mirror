@@ -2,12 +2,9 @@ import React, {useMemo, useState} from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // components
-// @ts-ignore
-import AdminNavbar from "../../components/Navbars/AdminNavbar.jsx";
-// @ts-ignore
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
-// @ts-ignore
-import FooterAdmin from "../../components/Footers/FooterAdmin.jsx";
+import AdminNavbar from "../../components/Navbars/AdminNavbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import FooterAdmin from "../../components/Footers/FooterAdmin";
 
 // views
 import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
@@ -19,7 +16,7 @@ import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
 import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
 import DetalleNarrativa from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
 import Users from "@/views/admin/Users/Users";
-import GEstandares from  "@/views/admin/GEstandares/Estandares"
+import GEstandares from "@/views/admin/GEstandares/Estandares";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -51,7 +48,7 @@ export default function Admin() {
             {<Route path={"/admin/users"} exact component={Users} />}
 
             {/*Adminitración de Estándares*/}
-            <Route path={"/admin/estandares"} exact component={GEstandares}/>
+            <Route path={"/admin/estandares"} exact component={GEstandares} />
 
             <Redirect from="/admin" to="/dashboard" />
             <Redirect from="/admin/dashboard" to="/admin/estandar8" />
