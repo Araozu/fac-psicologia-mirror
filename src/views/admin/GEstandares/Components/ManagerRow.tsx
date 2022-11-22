@@ -7,7 +7,7 @@ import axios from "axios";
 import {SERVER_PATH} from "@/variables";
 
 
-export function ManagerRow(props: { estandar: EstandarData , data:any,reload : any}) {
+export function ManagerRow(props: { estandar: EstandarData , reload:any}) {
 
 
     const [names, setNames] = useState("");
@@ -75,7 +75,7 @@ export function ManagerRow(props: { estandar: EstandarData , data:any,reload : a
         })
             .then(function(response) {
                 setModalInfo(modalSuccess);
-                props.data();
+                props.reload();
 
             })
             .catch(function(error) {

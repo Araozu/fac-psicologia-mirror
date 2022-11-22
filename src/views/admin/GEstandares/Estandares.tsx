@@ -47,10 +47,8 @@ export default function(props: EstandarProps) {
         loadManagers();
     }, []);
     const estandaresEls = useMemo(
-        () => !reload && (managers.map((user, id) => < ManagerRow estandar={user} key={id}  reload={setReload} data={loadManagers}/>)), [managers],
+        () => !reload && (managers.map((user, id) => < ManagerRow estandar={user} key={id}  reload={loadManagers}/>)), [managers],
     );
-    console.log(reload);
-
 
     return (
         <div>
