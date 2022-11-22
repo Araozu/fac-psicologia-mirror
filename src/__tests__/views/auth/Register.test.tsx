@@ -1,11 +1,11 @@
 import {cleanup, fireEvent, render, RenderResult, waitFor} from "@testing-library/react";
-import "@testing-library/jest-dom";
 import Register from "@/views/auth/Register";
 import {ResponseData} from "@/views/auth/functions";
 import {BrowserRouter, Route} from "react-router-dom";
+import {describe, beforeEach, afterEach, vi, it, expect} from "vitest";
 
 let body: RenderResult;
-let mockRegisterFn = jest.fn();
+let mockRegisterFn = vi.fn();
 
 function fillInput(input: HTMLElement, value: string) {
     fireEvent.change(input, {target: {value}});
@@ -13,7 +13,7 @@ function fillInput(input: HTMLElement, value: string) {
 
 describe("Register", () => {
     beforeEach(() => {
-        mockRegisterFn = jest.fn();
+        mockRegisterFn = vi.fn();
         body = render(<Register registerFn={mockRegisterFn} />);
     });
 
@@ -22,7 +22,7 @@ describe("Register", () => {
     });
 
     it("Must display a title", () => {
-        expect(body.getByText("Sign up with credentials")).toBeInTheDocument();
+        body.getByText("Registrarse con credenciales");
     });
 
     it("Must display a form with name, email, password", () => {
@@ -178,7 +178,7 @@ describe("Registration", () => {
     });
 
     it("Should display an error message on registration error", () => {
-        const errorMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
+        const errorMock = vi.fn(() => new Promise<ResponseData>((resolve) => {
             resolve({
                 ok: false,
                 json: {message: ""},
@@ -204,7 +204,7 @@ describe("Registration", () => {
     });
 
     it("Should redirect to dashboard after success", () => {
-        const successMock = jest.fn(() => new Promise<ResponseData>((resolve) => {
+        const successMock = vi.fn(() => new Promise<ResponseData>((resolve) => {
             resolve({
                 ok: true,
                 json: {message: ""},
