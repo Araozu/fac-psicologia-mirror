@@ -59,13 +59,13 @@ export default function(props: EstandarProps) {
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
                             <tr>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Nombres y Apellidos
+                                    Estándar
+                                </th>
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    Encargado
                                 </th>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Estándar
                                 </th>
 
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
