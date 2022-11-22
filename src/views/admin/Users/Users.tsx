@@ -80,6 +80,7 @@ export default function(props: UsersProps) {
         })
             .then(() => {
                 setModalInfo(modalSuccess);
+                loadUsers();
 
                 // Si la creacion es exitosa actualizar la lista de usuarios
                 setUsers([]);
@@ -102,14 +103,23 @@ export default function(props: UsersProps) {
     //sección de tabla
 
     const [users, setUsers] = useState<Array<UserData>>([]);
+    const [reload, setReload] = useState(false);
+
+    const loadUsers = () => {
+        setReload(true);
+        (props.producerFn ?? fetchTodosUsers)().then((listUsers:Array<UserServer>)=>{
+            setUsers(listUsers);
+            setReload(false);
+        });
+    }
 
     useEffect(() => {
-        (props.producerFn ?? fetchTodosUsers)().then(setUsers);
+        loadUsers();
     }, []);
 
 
     const usersEls = useMemo(
-        () => users.map((user, id) => <UserRow user={user} key={id} />),
+        () => !reload && (users.map((user, id) => <UserRow user={user} key={id} reload={loadUsers}/>)),
         [users],
     );
     return (
@@ -191,9 +201,11 @@ export default function(props: UsersProps) {
                                     <td />
                                 </tr>
                             </thead>
-                            <tbody>
+                            {!reload && (
+                                <tbody>
                                 {usersEls}
-                            </tbody>
+                                </tbody>
+                            )}
                         </table>
                     </div>
 
