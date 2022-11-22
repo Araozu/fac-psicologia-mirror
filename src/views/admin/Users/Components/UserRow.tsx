@@ -140,6 +140,7 @@ export function UserRow(props: { user: UserData }) {
             text: "Docente",
         },
     ];
+    console.log(props.user);
 
     return (
         <>
@@ -157,7 +158,7 @@ export function UserRow(props: { user: UserData }) {
                 </td>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {status ? ("ACTIVO") : ("INACTIVO")}
+                    {props.user.estado ? ("ACTIVO"): ("INACTIVO")}
                 </td>
                 <td>
                     {<i
