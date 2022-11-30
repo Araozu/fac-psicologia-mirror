@@ -196,7 +196,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         const userToken = localStorage.getItem("access_token");
         if(isEditingCabecera) {
 
-            let data = { "name": "Estandar 8", "cabecera": cabecera , "id_user": 5 }
+            let data = { "name": "E-8 PLANES DE MEJORA", "cabecera": cabecera , "id_user": 5 }
             console.log(JSON.stringify(data))   
             fetch(`${SERVER_PATH}/api/estandar/8`, {
                 method: "PUT",
