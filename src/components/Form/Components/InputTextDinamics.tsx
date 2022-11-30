@@ -5,7 +5,7 @@ import Label from "./Label/Label";
 
 
 
-export default function InputTextDinamics(props) {
+export default function InputTextDinamics(props: any) {
     /**
      * Name: Se utiliza para el id y el name de algunos componentes
      * Label: Se utiliza para manejar la descripcion del componente
@@ -22,7 +22,7 @@ export default function InputTextDinamics(props) {
     const [values, setValues] = useState(initialValues);
 
     const handleAdd = () => {
-        const input = document.getElementById(inputid);
+        const input = document.getElementById(inputid) as HTMLInputElement;
 
         if (input.value.trim() === "") {
             setError(true);
@@ -35,14 +35,14 @@ export default function InputTextDinamics(props) {
         }
     };
 
-    const handleDelete = (index) => {
+    const handleDelete = (index: any) => {
         const newValues = [...values];
         newValues.splice(index, 1);
         setValues(newValues);
         onChange(newValues);
     };
 
-    const handleEdit = (item, index) => {
+    const handleEdit = (item: any, index: any) => {
         const newValues = [...values];
         newValues[index] = item;
         setValues(newValues);
@@ -60,7 +60,7 @@ export default function InputTextDinamics(props) {
                 </div>
                 <hr />
                 <div className="input-list-container">
-                    {values?.map((item, i) => (
+                    {values?.map((item: any, i: any) => (
                         <ItemList
                             key={`${item.name}-${i}`}
                             onChange={handleEdit}

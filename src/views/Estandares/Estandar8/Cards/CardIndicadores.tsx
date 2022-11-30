@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import CardStats from "@/components/Cards/CardStats";
 import React, {useEffect, useMemo, useState} from "react";
 import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
@@ -113,10 +113,10 @@ export default function CardIndicadores() {
                     />
                 </div>
             </div>
+            <div className="">&nbsp;</div>
         </div>
     );
 }
-
 
 
 /**

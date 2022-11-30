@@ -7,7 +7,7 @@ import axios from "axios";
 import {SERVER_PATH} from "@/variables";
 
 
-export function ManagerRow(props: { estandar: EstandarData }) {
+export function ManagerRow(props: { estandar: EstandarData , reload:any}) {
 
 
     const [names, setNames] = useState("");
@@ -75,6 +75,7 @@ export function ManagerRow(props: { estandar: EstandarData }) {
         })
             .then(function(response) {
                 setModalInfo(modalSuccess);
+                props.reload();
 
             })
             .catch(function(error) {
@@ -96,13 +97,13 @@ export function ManagerRow(props: { estandar: EstandarData }) {
                 className={"table-row"}
             >
                 <th className="px-6 text-xs whitespace-nowrap p-4 text-left">
-                    {namesU.toUpperCase()}
+                    {names.toUpperCase()}
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    {emailU}
+                    {namesU.toUpperCase()}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                    {names.toUpperCase()}
+                    {emailU}
                 </td>
 
                 <td>

@@ -9,7 +9,7 @@ import Label from "./Label/Label";
 //IMPORTACIONES ASSETS
 
 
-export default function InputTextEmail(props) {
+export default function InputText(props: any) {
     /**
     Name: Se utiliza para el id y el name del componente input
     Label: Se utiliza para manejar la descripcion del componente
@@ -33,11 +33,10 @@ export default function InputTextEmail(props) {
                     disabled={disabled === true}
                     id={name}
                     name={name}
-                    value={value}
+                    defaultValue={value}
                     className={classes}
                     placeholder={placeholder}
                     onChange={onChange}
-                    style={{width: 300, marginLeft: 20, marginRight: 20}}
                 />
                 {/**Si hay error muestra el mensaje, si no no muestra nada */}
                 {error !== "" ? emessage : ""}

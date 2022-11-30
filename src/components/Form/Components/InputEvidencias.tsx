@@ -3,10 +3,16 @@ import ItemEvidencia from "./ItemEvidencia";
 import axios from "axios";
 
 import Label from "./Label/Label";
-import {SERVER_PATH} from "../../../variables";
+import {SERVER_PATH} from "@/variables";
 
-export default function InputEvidencias(props) {
-    const {name, label, description, initialValues, idPM} = props;
+export default function InputEvidencias(props: any) {
+    const {
+        name,
+        label,
+        description,
+        initialValues,
+        idPM,
+    } = props;
     //TODO: Usar el initialValues
     const [values, setValues] = useState(initialValues);
 
@@ -15,8 +21,8 @@ export default function InputEvidencias(props) {
     //TODO: HANDLE ADD
     //TODO: MANEJAR ESTADO DE LOADING
     const handleAdd = () => {
-        const inputDenominacion = document.getElementById(`${name}-deno`);
-        const inputFile = document.getElementById(`${name}-file`);
+        const inputDenominacion: any = document.getElementById(`${name}-deno`);
+        const inputFile: any = document.getElementById(`${name}-file`);
 
         //Validamos que estan correctos los campos para mandar la peticion a axios
         if (inputFile.files[0] !== undefined || inputDenominacion.value.trim() !== "") {
@@ -43,14 +49,18 @@ export default function InputEvidencias(props) {
                         Authorization: `Bearer ${token}`,
                     },
                 },
-            ).then(function(response) {
+            )
+                .then(function(response) {
 
-                const evidencia = response.data.evidencia;
-                setValues([...values, {id: evidencia?.id, denominacion: evidencia?.denominacion}]);
+                    const evidencia = response.data.evidencia;
+                    setValues([...values, {
+                        id: evidencia?.id,
+                        denominacion: evidencia?.denominacion,
+                    }]);
 
-                setLoading(false);
+                    setLoading(false);
 
-            })
+                })
                 .catch(function(error) {
 
                     setLoading(false);
@@ -59,7 +69,7 @@ export default function InputEvidencias(props) {
         }
     };
 
-    const handleDelete = (id, index) => {
+    const handleDelete = (id: any, index: any) => {
         //TODO: MANEJAR ESTADO DE LOADING MIENTRAS REALIZA CONSULTA A LA API
         setLoading(true);
         const token = localStorage.getItem("access_token");
@@ -68,7 +78,7 @@ export default function InputEvidencias(props) {
             `https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia/${id}`,
             {
                 headers: {
-                //"Content-Type": 'multipart/form-data',
+                    //"Content-Type": 'multipart/form-data',
                     "Content-Type": "application/json",
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
@@ -90,9 +100,12 @@ export default function InputEvidencias(props) {
             <Label label={label} description={description} />
             <div>
                 <div className="form-input-buttons-group">
-                    <input type="text" id={`${name}-deno`} className='form-input-text' placeholder='Ingresa una denominacion' disabled={loading} />
+                    <input type="text" id={`${name}-deno`} className="form-input-text"
+                        placeholder="Ingresa una denominacion" disabled={loading}
+                    />
                     {/**<input className="inline-block ml-1 w-full text-s text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" id="small_size" type="file"/>*/}
-                    <input className="block
+                    <input
+                        className="block
                                     w-full
                                     px-3
                                     py-1.5
@@ -105,14 +118,23 @@ export default function InputEvidencias(props) {
                                     transition
                                     ease-in-out
                                     m-0
-                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id={`${name}-file`} type="file"
-                    accept=".pdf,.doc,.docx,.xls,.xlsx" disabled={loading}
+                                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        id={`${name}-file`} type="file"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx" disabled={loading}
                     />
-                    <a className="form-icon-button form-add-button" onClick={handleAdd} disabled={loading}> <i className="fa-solid fa-plus" /> </a>
+                    {/* @ts-ignore */}
+                    <a className="form-icon-button form-add-button" onClick={handleAdd} disabled={loading}>
+                        <i
+                            className="fa-solid fa-plus"
+                        />
+                    </a>
                 </div>
                 <hr />
                 <div className="input-list-container">
-                    { values?.map((item,i) => <ItemEvidencia key={item.id} id={item.id} denominacion={item.denominacion} indexOnList={i} onDelete={handleDelete} />) }
+                    {values?.map((item: any, i: any) => (<ItemEvidencia key={item.id} id={item.id}
+                        denominacion={item.denominacion} indexOnList={i}
+                        onDelete={handleDelete}
+                    />))}
                 </div>
             </div>
         </>

@@ -1,5 +1,4 @@
 import React from "react";
-/// @ts-ignore
 import CardStats from "@/components/Cards/CardStats";
 
 export default function HeaderDashboardPersonal(props: {titulo: string, descripcion?: string, icono?: string}) {

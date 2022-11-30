@@ -1,5 +1,4 @@
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
-// @ts-ignore
 import FormPM from "@/components/Form/FormPM";
 
 export default function CrearPlanMejora() {

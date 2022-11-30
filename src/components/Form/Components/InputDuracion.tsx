@@ -5,7 +5,7 @@ import Select from "react-select";
 
 
 
-export default function InputDuracion(props) {
+export default function InputDuracion(props: any) {
     const {name, label, description, initialValue, onChange} = props;
 
     const [error, setError] = useState("");

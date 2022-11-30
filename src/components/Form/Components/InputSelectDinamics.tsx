@@ -8,18 +8,18 @@ import ItemList from "./ItemList";
 import {SERVER_PATH} from "@/variables";
 
 
-export default function InputSelectDinamics(props) {
+export default function InputSelectDinamics(props: any) {
 
     const {name, label, description, optionsRute,initialValues, onChange} = props;
-    let currentItem = undefined;
+    let currentItem: any = undefined;
     const inputid = `${name}-input`;
 
     //TODO: Trabajar con initialValues
     //TODO: Manejar el onChange
-    const [values, setValues] = useState(initialValues);
-    const [options, setOptions] = useState([]);
-    const [otros, setOtros] = useState(false);
-    const [error, setError] = useState(false);
+    const [values, setValues] = useState<any>(initialValues);
+    const [options, setOptions] = useState<any>([]);
+    const [otros, setOtros] = useState<any>(false);
+    const [error, setError] = useState<any>(false);
 
     //Cargando las opciones del select
     //TODO: Volver dinamico los datos a cargar
@@ -28,7 +28,7 @@ export default function InputSelectDinamics(props) {
         if (options.length > 0) return;
         axios.get(`${SERVER_PATH}/api/${optionsRute}`)
             .then(function(response) {
-                response.data.data.forEach((element, index) => options.push({
+                response.data.data.forEach((element: any, index: any) => options.push({
                     value: element.id,
                     label: element.valor,
                 }));
@@ -37,7 +37,7 @@ export default function InputSelectDinamics(props) {
 
 
 
-    const handleSelect = (e) => {
+    const handleSelect = (e: any) => {
         const {label, value} = e;
         if (label === "Otros") setOtros(true);
         else {
@@ -54,7 +54,7 @@ export default function InputSelectDinamics(props) {
         let newValues;
 
         if (otros) {
-            const input = document.getElementById(inputid);
+            const input = document.getElementById(inputid) as HTMLInputElement;
             if (input.value.trim() === "") {
                 setError(true);
                 return;
@@ -75,14 +75,14 @@ export default function InputSelectDinamics(props) {
         onChange(newValues);
     };
 
-    const handleDelete = (index) => {
+    const handleDelete = (index: any) => {
         const newValues = [...values];
         newValues.splice(index, 1);
         setValues(newValues);
         onChange(newValues);
     };
 
-    const handleEdit = (item, index) => {
+    const handleEdit = (item: any, index: any) => {
         const newValues = [...values];
         newValues[index] = item;
         setValues(newValues);
@@ -100,7 +100,7 @@ export default function InputSelectDinamics(props) {
                 </div>
                 <hr />
                 <div className="input-list-container">
-                    {values?.map((item, i) => (
+                    {values?.map((item: any, i: any) => (
                         <ItemList
                             key={`${item.name}-${i}`}
                             onChange={handleEdit}

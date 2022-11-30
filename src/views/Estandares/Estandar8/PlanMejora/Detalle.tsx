@@ -1,5 +1,5 @@
 import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
-// @ts-ignore
+
 import DetallePM from "@/views/Estandares/Estandar8/Detalle/DetallePM";
 import {useParams} from "react-router-dom";
 import ContentWrapper from "@/components/ContentWrapper";

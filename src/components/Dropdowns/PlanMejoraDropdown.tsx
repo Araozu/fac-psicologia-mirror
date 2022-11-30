@@ -1,5 +1,4 @@
 import React, {useRef, useState} from "react";
-// @ts-ignore
 import Modal from "../modals/Modal.jsx";
 import {useHistory} from "react-router";
 import {SERVER_PATH} from "@/variables";

@@ -6,7 +6,7 @@ import axios from "axios";
 import {SERVER_PATH} from "@/variables";
 
 
-export function UserRow(props: { user: UserData }) {
+export function UserRow(props: { user: UserData, reload:any }) {
 
 
     const [status, setStatus] = useState(false);
@@ -19,10 +19,10 @@ export function UserRow(props: { user: UserData }) {
 
 
     useEffect(() => {
-        if (props.user.name === "null" && props.user.lastName === "null") {
+        if (props.user.name === "null" && props.user.lastname === "null") {
             setNames("Invitación con respuesta pendiente");
         } else {
-            setNames(props.user.name + " " + props.user.lastName);
+            setNames(props.user.name + " " + props.user.lastname);
         }
         setStatus(props.user.estado);
         setRole(props.user.rol);
@@ -58,6 +58,7 @@ export function UserRow(props: { user: UserData }) {
     };
 
     const onConfirmHanlde = () => {
+
         setModalEdit(!modalEdit);
         callChange();
     };
@@ -83,6 +84,7 @@ export function UserRow(props: { user: UserData }) {
         })
             .then(function(response) {
                 setModalInfo(modalSuccess);
+                props.reload();
 
             })
             .catch(function(error) {
@@ -103,9 +105,7 @@ export function UserRow(props: { user: UserData }) {
             setStatus(true);
         } else if (e.target.value === "false") {
             setStatus(false);
-
         }
-
 
     };
     const selectRole = (e: any) => {
@@ -157,7 +157,7 @@ export function UserRow(props: { user: UserData }) {
                 </td>
 
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {status ? ("ACTIVO") : ("INACTIVO")}
+                    {props.user.estado ? ("ACTIVO"): ("INACTIVO")}
                 </td>
                 <td>
                     {<i
@@ -168,10 +168,10 @@ export function UserRow(props: { user: UserData }) {
                 </td>
 
             </tr>
-            <Modal show={modalEdit} type="none" title={"Editar acciones de usuario"} onClose={onCloseModalHandle} >
+            <Modal show={modalEdit} type="none" title={`Editar acciones de ${names}`} onClose={onCloseModalHandle} >
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
-                        Estado: {status ? ("ACTIVO") : ("INACTIVO")}
+                        Estado Actual: {props.user.estado ? ("ACTIVO"): ("INACTIVO")}
                         <select className="eficacia" onChange={(e) => selectStatus(e)}>
                             {efis.map((option, index) => (
                                 <option key={index} value={option.value}>{option.text}</option>
@@ -179,7 +179,7 @@ export function UserRow(props: { user: UserData }) {
                         </select>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        Rol:{role.toUpperCase()}
+                        Rol Actual:{role.toUpperCase()}
 
                         <select className="eficacia" onChange={(e) => selectRole(e)}>
                             {roles.map((option, index) => (

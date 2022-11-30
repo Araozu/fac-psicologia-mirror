@@ -2,13 +2,13 @@ import React, {useState} from "react";
 
 import Label from "./Label/Label";
 
-export default function InputEficacia(props) {
+export default function InputEficacia(props: any) {
     const {name, label, description, initialValue, onChange} = props;
 
     const [value, setValue] = useState(initialValue);
 
-    const handleChange = (e) => {
-        setValue(document.getElementById(name).checked);
+    const handleChange = (e: any) => {
+        setValue((document.getElementById(name) as HTMLInputElement).checked);
         onChange(e);
     };
 

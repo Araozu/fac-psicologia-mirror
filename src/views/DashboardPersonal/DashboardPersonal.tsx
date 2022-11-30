@@ -1,11 +1,8 @@
 import React from "react";
-/// @ts-ignore
 import Sidebar from "@/components/Sidebar/Sidebar";
-/// @ts-ignore
 import AdminNavbar from "@/components/Navbars/AdminNavbar";
 import HeaderDashboardPersonal from "@/views/DashboardPersonal/Headers/HeaderDashboardPersonal";
 import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
-// @ts-ignore
 import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";

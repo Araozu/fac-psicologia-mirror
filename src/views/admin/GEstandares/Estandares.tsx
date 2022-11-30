@@ -33,12 +33,21 @@ export default function(props: EstandarProps) {
 
     //seccion de tabla
     const [managers, setManagers] = useState<Array<EstandarData>>([]);
-    useEffect(() => {
+    const [reload, setReload] = useState(false);
+
+    const loadManagers = () =>{
+        setReload(true);
         (props.producerFn ?? fetchTodoEstandares)()
-            .then(setManagers);
+            .then((manager: Array<EstandarServer>)=>{
+                setManagers(manager);
+                setReload(false);
+            });
+    }
+    useEffect(() => {
+        loadManagers();
     }, []);
     const estandaresEls = useMemo(
-        () => managers.map((user, id) => < ManagerRow estandar={user} key={id}/>), [managers],
+        () => !reload && (managers.map((user, id) => < ManagerRow estandar={user} key={id}  reload={loadManagers}/>)), [managers],
     );
 
     return (
@@ -59,13 +68,13 @@ export default function(props: EstandarProps) {
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
                             <tr>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Nombres y Apellidos
+                                    Estándar
+                                </th>
+                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    Encargado
                                 </th>
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
-                                    Estándar
                                 </th>
 
                                 <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
@@ -75,9 +84,11 @@ export default function(props: EstandarProps) {
                                 <td/>
                             </tr>
                             </thead>
-                            <tbody>
-                            {estandaresEls}
-                            </tbody>
+                            {!reload && (
+                                <tbody>
+                                {estandaresEls}
+                                </tbody>
+                            )}
                         </table>
                     </div>
                 </div>
