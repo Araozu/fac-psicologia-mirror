@@ -186,8 +186,6 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                 return res.json();
             } ).then(
                 (res: {data: {cabecera: string}}) => {
-                    
-                    console.log(res.data.cabecera);
                     setCabecera(res.data.cabecera);
                 }
             ).catch( (err) => {console.log(err)} )
