@@ -191,6 +191,41 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
             });
     }, []);
 
+    const updateCabecera = () => {
+        let cabeceraText = document.getElementById("cabecera-input");
+        const userToken = localStorage.getItem("access_token");
+        if(isEditingCabecera) {
+
+            let data = { "name": "Estandar 8", "cabecera": cabecera , "id_user": 5 }
+            console.log(JSON.stringify(data))   
+            fetch(`${SERVER_PATH}/api/estandar/8`, {
+                method: "PUT",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${userToken}`,
+                },
+                body: JSON.stringify(data)
+            }).then((res: any) => res.json())
+                .then((res: {data: {cabecera: string}}) => {
+                    console.log(res)
+                    console.log(res.data.cabecera);
+                    setCabecera(res.data.cabecera);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }
+
+    const [message, setMessage] = useState('');
+
+    const handleMessageChange = event => {
+      // 👇️ access textarea value
+      setMessage(event.target.value);
+      setCabecera(event.target.value);
+    };
+
     return (
         <>
             {/* Header */}
@@ -217,12 +252,13 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                             <h2 className="text-xl font-bold mr-2">CABECERA</h2>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
                                 onClick={() => {
+                                    updateCabecera()
                                     setIdEditingCabecera(!isEditingCabecera);
                                 }}
                             > {isEditingCabecera ? "Guardar" : "Editar cabecera"}
                             </button>
                         </div>
-                        <input type="text" disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? "header editable-header" : "header"} />
+                        <textarea onChange={handleMessageChange} id="cabecera-input" style={ {width: '100%'} } disabled={!isEditingCabecera} value={cabecera}  className={isEditingCabecera ? "header editable-header" : "header"} />
                     </div>
                     {/*
                     <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
