@@ -86,23 +86,22 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 },
             },
         ).then((res) => {
-            console.log(res)
-            if(res.data.status === 1) {
+            console.log(res);
+            if (res.data.status === 1) {
                 setShowModalAsignar(false);
                 cargarPlanesMejora();
-            }else{
+            } else {
                 //Si hay error mandamos el mensaje de error para que se muestre
                 setErrorModal(res.data.message);
             }
             setIsLoadingModal(false);
-        }).catch( (err) => {
-            setIsLoadingModal(false);
-            if(err.response.status === 422)
-                setErrorModal("El codigo ingresado ya le pertenece a un Plan de Mejora");
-            else
-                setErrorModal("Ocurrio un error en el servidor intentalo despues")
-            
-        } );
+        })
+            .catch((err) => {
+                setIsLoadingModal(false);
+                if (err.response.status === 422) setErrorModal("El codigo ingresado ya le pertenece a un Plan de Mejora");
+                else setErrorModal("Ocurrio un error en el servidor intentalo despues");
+
+            });
     };
 
     /**FIN CONFIGURATION MODAL*/
@@ -204,7 +203,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             <i className="fa-solid fa-spinner fa-spin-pulse fa-xl" />
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} error={errorModal}/>
+                    : <CrearPM handleSubmit={handleSumitForm} error={errorModal} />
                 }
             </Modal>
         </div>
@@ -284,7 +283,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                             <small>Procesando peticion</small>
                         </div>
                     )
-                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel}  error={errorModal}/>
+                    : <CrearPM handleSubmit={handleSumitForm} handleCancel={handleAsignarCancel} error={errorModal} />
                 }
             </Modal>
 

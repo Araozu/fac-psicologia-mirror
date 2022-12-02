@@ -107,11 +107,11 @@ export default function(props: UsersProps) {
 
     const loadUsers = () => {
         setReload(true);
-        (props.producerFn ?? fetchTodosUsers)().then((listUsers:Array<UserServer>)=>{
+        (props.producerFn ?? fetchTodosUsers)().then((listUsers:Array<UserServer>) => {
             setUsers(listUsers);
             setReload(false);
         });
-    }
+    };
 
     useEffect(() => {
         loadUsers();
@@ -119,7 +119,7 @@ export default function(props: UsersProps) {
 
 
     const usersEls = useMemo(
-        () => !reload && (users.map((user, id) => <UserRow user={user} key={id} reload={loadUsers}/>)),
+        () => !reload && (users.map((user, id) => <UserRow user={user} key={id} reload={loadUsers} />)),
         [users],
     );
     return (
@@ -203,7 +203,7 @@ export default function(props: UsersProps) {
                             </thead>
                             {!reload && (
                                 <tbody>
-                                {usersEls}
+                                    {usersEls}
                                 </tbody>
                             )}
                         </table>
