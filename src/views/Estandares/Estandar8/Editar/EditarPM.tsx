@@ -27,7 +27,7 @@ export default function EditarPM(props: {id: string}) {
         const getPM = async() => {
             setLoading(true);
             const instance = axios.create({
-                baseURL: "https://gestion-calidad-rrii-api.herokuapp.com/api/",
+                baseURL: "https://pis-project-api.up.railway.app/api/",
                 timeout: 10000,
                 headers: {"Authorization": `Bearer ${token}`},
             });
