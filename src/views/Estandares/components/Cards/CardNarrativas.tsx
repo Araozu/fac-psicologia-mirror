@@ -4,7 +4,7 @@ import {SERVER_PATH} from "@/variables";
 import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import "./CardNarrativas.css";
 import Modal from "@/components/modals/Modal";
-import CrearPM from "@/views/Estandares/Estandar8/Create/CrearPM";
+import CrearPM from "@/views/Estandares/components/PlanMejora/components/CrearPM";
 
 type Semestre = "A" | "B";
 

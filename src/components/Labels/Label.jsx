@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../views/Estandares/Estandar8/Create/CrearPM.css";
+import "../../views/Estandares/components/PlanMejora/components/CrearPM.css";
 import "./Label.css";
 import {AiFillQuestionCircle as Info} from "react-icons/ai";
 

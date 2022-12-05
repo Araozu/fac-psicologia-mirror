@@ -1,4 +1,4 @@
-import {estadoPlanMejoraToColor, PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {estadoPlanMejoraToColor, PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import {useHistory} from "react-router";
 
 export function PlanMejora(props: { plan: PlanMejoraServer, eliminar: () => void }) {

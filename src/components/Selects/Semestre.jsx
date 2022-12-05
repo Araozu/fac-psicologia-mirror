@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
-import "../../views/Estandares/Estandar8/Create/CrearPM.css";
+import "../../views/Estandares/components/PlanMejora/components/CrearPM.css";
 import Label from "../Labels/Label";
 
 export default function Semestre(props) {

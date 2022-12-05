@@ -2,10 +2,10 @@ import React from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import AdminNavbar from "@/components/Navbars/AdminNavbar";
 import HeaderDashboardPersonal from "@/views/DashboardPersonal/Headers/HeaderDashboardPersonal";
-import CardPlanesMejora from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora";
+import CardPlanesMejora from "@/views/Estandares/components/Cards/CardPlanesMejora";
 import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import ContentWrapper from "@/components/ContentWrapper";
 
 

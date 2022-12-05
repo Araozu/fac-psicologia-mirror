@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 
 // components
-import DetallePM from "../../../views/Estandares/Estandar8/Detalle/DetallePM";
+import DetallePM from "../../../views/Estandares/components/PlanMejora/components/DetallePM";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import HeaderDetail from "../../../components/Headers/HeaderDetail";
 

@@ -1,4 +1,4 @@
-import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
+import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar";
 import React from "react";
 import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";

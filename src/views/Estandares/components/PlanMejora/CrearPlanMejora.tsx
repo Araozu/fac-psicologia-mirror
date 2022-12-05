@@ -1,6 +1,9 @@
-import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
+import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar";
 import FormPM from "@/components/Form/FormPM";
 
+// Usar CrearPM.tsx
+
+// TODO: Este componente ya no se usa, eliminar?
 export default function CrearPlanMejora() {
     return (
         <div>

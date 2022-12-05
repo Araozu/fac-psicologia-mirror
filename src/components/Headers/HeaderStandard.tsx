@@ -3,7 +3,7 @@ import React, {useEffect, useMemo, useState} from "react";
 // components
 import CardStats from "../Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
-import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
 import "./HeaderStandard.css";

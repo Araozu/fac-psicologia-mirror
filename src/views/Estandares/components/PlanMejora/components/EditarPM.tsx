@@ -5,8 +5,8 @@ import axios from "axios";
 import {useHistory} from "react-router";
 
 //Importaciones componentes propios
-import FormPM from "../../../../components/Form/FormPM";
-import lgif from "../../../../assets/img/loading-2.gif";
+import FormPM from "../../../../../components/Form/FormPM";
+import lgif from "../../../../../assets/img/loading-2.gif";
 import "./EditarPM.css";
 import {SERVER_PATH} from "@/variables";
 

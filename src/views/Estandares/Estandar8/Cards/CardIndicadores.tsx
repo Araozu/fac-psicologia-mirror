@@ -1,7 +1,7 @@
 
 import CardStats from "@/components/Cards/CardStats";
 import React, {useEffect, useMemo, useState} from "react";
-import {PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
+import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import {SERVER_PATH} from "@/variables";
 import {useHistory} from "react-router-dom";
 

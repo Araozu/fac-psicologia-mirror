@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
+import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar";
 
 import InputTextEmail from "@/components/Form/Components/InputTextEmail";
 import Modal from "@/components/modals/Modal";

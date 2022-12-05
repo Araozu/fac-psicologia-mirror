@@ -1,10 +1,10 @@
 import React, {ChangeEventHandler, useEffect, useMemo, useState} from "react";
 import {SERVER_PATH} from "@/variables";
 import "@/assets/styles/CardPlanesMejora.css";
-import {EstadoPlanMejora,PlanMejoraServer} from "@/views/Estandares/Estandar8/Cards/PlanMejora";
-import {PlanMejora} from "@/views/Estandares/Estandar8/Cards/CardPlanesMejora/PlanMejora";
+import {EstadoPlanMejora,PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
+import {PlanMejora} from "@/views/Estandares/components/Cards/CardPlanesMejora/PlanMejora";
 import Modal from "../../../../components/modals/Modal";
-import CrearPM from "../Create/CrearPM";
+import CrearPM from "../PlanMejora/components/CrearPM";
 import axios from "axios";
 import lgif from "@/assets/img/loading-2.gif";
 
@@ -51,9 +51,17 @@ type CardPlanesMejoraProps = {
      * Si no se pasa ninguna, la funcion por defecto recupera
      * todos los planes de mejora del servidor.
      */
-    producerFn?: () => Promise<Array<PlanMejoraServer>>
+    producerFn?: () => Promise<Array<PlanMejoraServer>>,
+    /**
+     * Iniciales del estandar por el cual filtrar.
+     *
+     * Ejm: "E-1"
+     */
+    nombreEstandar: string,
 }
 export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
+    const {producerFn = fetchTodosPlanMejora, nombreEstandar} = props;
+
     const [filtroCodigo, setFiltroCodigo] = useState("OM-");
     const [filtroEstado, setFiltroEstado] = useState<EstadoPlanMejora | "Todos">("Todos");
     const [filtroAnio, setFiltroAnio] = useState(-1);
@@ -67,9 +75,15 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const cargarPlanesMejora = () => {
         setIsLoading(true);
-        (props.producerFn ?? fetchTodosPlanMejora)()
+        producerFn()
             .then((planesMejora: Array<PlanMejoraServer>) => {
-                setPlanesMejora(planesMejora);
+                // La pag de estandar 8 siempre muestra todos los estandares
+                if (nombreEstandar === "E-8") {
+                    setPlanesMejora(planesMejora);
+                } else {
+                    // Filtrar en las otras paginas
+                    setPlanesMejora(planesMejora.filter((x) => x.estandar_name.startsWith(nombreEstandar)));
+                }
                 setIsLoading(false);
             })
             .catch(() => {

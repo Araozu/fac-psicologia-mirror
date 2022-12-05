@@ -1,4 +1,4 @@
-import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
+import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar";
 
 import InputText from "@/components/Form/Components/InputText";
 import type {Editor} from "@/types/tinymce";
