@@ -186,6 +186,20 @@ export default function Sidebar(props: SidebarProps) {
                     }
 
                     <ul className="flex flex-col list-none mx-4">
+                        <SidebarLink path="/admin/estandar1" text="Estandar 1" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar2" text="Estandar 2" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar3" text="Estandar 3" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar4" text="Estandar 4" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar5" text="Estandar 5" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar6" text="Estandar 6" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
+                        <SidebarLink path="/admin/estandar7" text="Estandar 7" prefixIcon="fa-solid fa-tv"
+                                     sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
                         <SidebarLink path="/admin/estandar8" text="Estandar 8" prefixIcon="fa-solid fa-tv"
                                      sufixIcon="fa-solid fa-angle-right" isHidden={isHidden} disabled={false}/>
                         <SidebarLink path="/admin/estandar10" text="Pronto mas" prefixIcon="fa-solid fa-tv"

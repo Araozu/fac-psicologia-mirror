@@ -241,10 +241,6 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                     <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
                     <p className="text-lg text-white">{props.descripcion}</p>
 
-                    <button className="btn btn-primary btn-lg" disabled>
-                        Ver cabecera
-                    </button>
-
                 </div>
                 <div>
                     <div className="w-full p-2" style={{textAlign: "left", backgroundColor: "white", marginLeft: "5em", borderRadius: "0.5em"}}>
@@ -260,60 +256,6 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                         </div>
                         <textarea onChange={handleMessageChange} id="cabecera-input" style={ {width: "100%"} } disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? "header editable-header" : "header"} />
                     </div>
-                    {/*
-                    <div className="grid" style={{gridTemplateColumns: "repeat(5, 1fr)"}}>
-                        <div className="w-full px-2">
-                            <CardStats
-                                statSubtitle="CONCLUIDOS"
-                                statTitle={cantidadConcluido === -1 ? "" : cantidadConcluido.toString()}
-                                statPercent={porcentajeConcluidos}
-                                statDescripiron="de Planes"
-                                statIconName="fas fa-check"
-                                statIconColor="bg-emerald-500"
-                            />
-                        </div>
-                        <div className="w-full px-2">
-                            <CardStats
-                                statSubtitle="EN PROCESO"
-                                statTitle={cantidadEnProceso === -1 ? "" : cantidadEnProceso.toString()}
-                                statPercent={porcentajeEnProceso}
-                                statDescripiron="de Planes"
-                                statIconName="fas fa-spinner"
-                                statIconColor="bg-cyan-500"
-                            />
-                        </div>
-                        <div className="w-full px-2">
-                            <CardStats
-                                statSubtitle="PROGRAMADO"
-                                statTitle={cantidadProgramado === -1 ? "" : cantidadProgramado.toString()}
-                                statPercent={porcentajeProgramado}
-                                statDescripiron="de Planes"
-                                statIconName="fas fa-calendar-check"
-                                statIconColor="bg-indigo-500"
-                            />
-                        </div>
-                        <div className="w-full px-2">
-                            <CardStats
-                                statSubtitle="REPROGRAMADO"
-                                statTitle={cantidadReprogramado === -1 ? "" : cantidadReprogramado.toString()}
-                                statPercent={porcentajeReprogramado}
-                                statDescripiron="de Planes"
-                                statIconName="fas fa-clock-rotate-left"
-                                statIconColor="bg-orange-500"
-                            />
-                        </div>
-                        <div className="w-full pl-2 pr-4">
-                            <CardStats
-                                statSubtitle="PLANIFICADO"
-                                statTitle={cantidadPlanificado === -1 ? "" : cantidadPlanificado.toString()}
-                                statPercent={porcentajePlanificado}
-                                statDescripiron="de Planes"
-                                statIconName="fas fa-clock"
-                                statIconColor="bg-pink-500"
-                            />
-                        </div>
-                    </div>
-                    */}
                 </div>
             </div>
         </>

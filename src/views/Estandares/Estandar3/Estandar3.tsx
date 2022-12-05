@@ -8,19 +8,19 @@ import Tabs from "@/components/Tabs/Tabs";
 import CardNarrativas from "@/views/Estandares/components/Cards/CardNarrativas";
 import CardIndicadores from "@/views/Estandares/components/Cards/CardIndicadores";
 
-export default function Estandar8() {
+export default function Estandar3() {
     const listTabs = ["narrativa", "planes de mejora", "indicadores"];
     const comp = [
-        <CardNarrativas pathNarrativa="estandar8" idEstandar={8} />,
-        <CardPlanesMejora nombreEstandar="E-8" />,
-        <CardIndicadores nombreEstandar="E-8" />,
+        <CardNarrativas pathNarrativa="estandar3" idEstandar={3} />,
+        <CardPlanesMejora nombreEstandar="E-3" />,
+        <CardIndicadores nombreEstandar="E-3" />,
     ];
 
-    // Los componentes del estandar 8 estan definidos en /src/layouts/Admin/Admin.tsx
+    // Los componentes del estandar estan definidos en /src/layouts/Admin/Admin.tsx
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad" />
+                <HeaderStandard titulo="Estandar 3" descripcion="Revisión Periodica de las Políticas y Objetivos" />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

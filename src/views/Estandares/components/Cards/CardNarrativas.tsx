@@ -205,7 +205,7 @@ export default function CardNarrativas(props: Props) {
                     style={{color: "#AEAEAE", fontSize: "24px"}}
                 >
                     <i className="fa-brands fa-codepen my-2" style={ {fontSize: "5em"} } />
-                    <h2>No existe narrativa para {filtroAnio}-{filtroSemestre}</h2>
+                    <h2>No se ha creado ninguna narrativa.</h2>
                 </div>
             )}
         </div>

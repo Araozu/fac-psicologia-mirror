@@ -187,7 +187,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
     const porcentajeConcluidos = useMemo(
         () => {
-            if (cantidadPlanesMejora <= 0 || cantidadConcluido === -1) return "";
+            if (cantidadPlanesMejora === 0) return "0";
+            else if (cantidadPlanesMejora === -1 || cantidadConcluido === -1) return "";
             return porcentaje(cantidadConcluido, cantidadPlanesMejora).toString();
         },
         [cantidadConcluido, cantidadPlanesMejora],
@@ -195,7 +196,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
     const porcentajeEnProceso = useMemo(
         () => {
-            if (cantidadPlanesMejora <= 0 || cantidadEnProceso === -1) return "";
+            if (cantidadPlanesMejora === 0) return "0";
+            else if (cantidadPlanesMejora <= 0 || cantidadEnProceso === -1) return "";
             return porcentaje(cantidadEnProceso, cantidadPlanesMejora).toString();
         },
         [cantidadEnProceso, cantidadPlanesMejora],
@@ -203,7 +205,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
     const porcentajeProgramado = useMemo(
         () => {
-            if (cantidadPlanesMejora <= 0 || cantidadProgramado === -1) return "";
+            if (cantidadPlanesMejora === 0) return "0";
+            else if (cantidadPlanesMejora <= 0 || cantidadProgramado === -1) return "";
             return porcentaje(cantidadProgramado, cantidadPlanesMejora).toString();
         },
         [cantidadPlanesMejora, cantidadProgramado],
@@ -211,7 +214,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
     const porcentajeReprogramado = useMemo(
         () => {
-            if (cantidadPlanesMejora <= 0 || cantidadReprogramado === -1) return "";
+            if (cantidadPlanesMejora === 0) return "0";
+            else if (cantidadPlanesMejora <= 0 || cantidadReprogramado === -1) return "";
             return porcentaje(cantidadReprogramado, cantidadPlanesMejora).toString();
         },
         [cantidadPlanesMejora, cantidadReprogramado],
@@ -219,7 +223,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
 
     const porcentajePlanificado = useMemo(
         () => {
-            if (cantidadPlanesMejora <= 0 || cantidadPlanificado === -1) return "";
+            if (cantidadPlanesMejora === 0) return "0";
+            else if (cantidadPlanesMejora <= 0 || cantidadPlanificado === -1) return "";
             return porcentaje(cantidadPlanificado, cantidadPlanesMejora).toString();
         },
         [cantidadPlanesMejora, cantidadPlanificado],
