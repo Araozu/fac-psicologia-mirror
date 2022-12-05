@@ -8,6 +8,7 @@ import {useHistory} from "react-router";
 import FormPM from "../../../../components/Form/FormPM";
 import lgif from "../../../../assets/img/loading-2.gif";
 import "./EditarPM.css";
+import {SERVER_PATH} from "@/variables";
 
 export default function EditarPM(props: {id: string}) {
 
@@ -27,7 +28,7 @@ export default function EditarPM(props: {id: string}) {
         const getPM = async() => {
             setLoading(true);
             const instance = axios.create({
-                baseURL: "https://pis-project-api.up.railway.app/api/",
+                baseURL: `${SERVER_PATH}/api/`,
                 timeout: 10000,
                 headers: {"Authorization": `Bearer ${token}`},
             });

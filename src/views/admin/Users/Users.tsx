@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 
 import InputTextEmail from "@/components/Form/Components/InputTextEmail";
 import Modal from "@/components/modals/Modal";
@@ -124,7 +124,7 @@ export default function(props: UsersProps) {
     );
     return (
         <div>
-            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
+            <HeaderEstandar titulo={"ADMINISTRACIÓN DE USUARIOS"} descripcion={"Sección de usuarios del sistema"} />
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 

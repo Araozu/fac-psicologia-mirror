@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HeaderEstandar8(props: {titulo: string, descripcion?: string, icono?: string}) {
+export default function HeaderEstandar(props: {titulo: string, descripcion?: string, icono?: string}) {
     return (
         <>
             <div className="relative bg-lightBlue-600 pb-32 pt-12 flex justify-between">

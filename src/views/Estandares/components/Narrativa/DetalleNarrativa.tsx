@@ -1,4 +1,4 @@
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 import React from "react";
 import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
@@ -13,7 +13,13 @@ export type DataNarrativaServer = {
     updated_at: string,
 }
 
-export default function DetalleNarrativa() {
+type Props = {
+    // Nombre del estandar, por defecto "Estandar 8"
+    nombreEstandar?: string,
+}
+export default function DetalleNarrativa(props: Props) {
+    const {nombreEstandar = "Estandar 8"} = props;
+
     const {codigo} = useParams<{codigo: string}>();
     const [data, setData] = React.useState<DataNarrativaServer | null>(null);
     const iframeRef = React.createRef<HTMLIFrameElement>();
@@ -38,8 +44,8 @@ export default function DetalleNarrativa() {
 
     return (
         <div>
-            <HeaderEstandar8
-                titulo="Detalle de Narrativa del Estandar 8"
+            <HeaderEstandar
+                titulo={`Detalle de Narrativa del ${nombreEstandar}`}
             />
 
             <div className="relative px-4" style={{top: "-6rem"}}>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import type {Editor} from "@/types/tinymce";
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 
 import InputText from "@/components/Form/Components/InputText";
 
@@ -8,7 +8,7 @@ import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
-import {DataNarrativaServer} from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import axios from "axios";
 
 export default function EditarNarrativa() {
@@ -105,7 +105,7 @@ export default function EditarNarrativa() {
 
     const onCloseModalHandle = () => {
         setModal(false);
-        if (modalInfo.estado === "ok") history.push("/admin/estandar8");
+        if (modalInfo.estado === "ok") history.go(-1);
     };
 
     const editarNarrativa = () => {
@@ -135,7 +135,7 @@ export default function EditarNarrativa() {
 
     return (
         <div>
-            <HeaderEstandar8 titulo="Editar Narrativa" />
+            <HeaderEstandar titulo="Editar Narrativa" />
             <div className="relative px-4" style={{top: "-6rem"}}>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
                     <h2 className="titulo-formulario">Formulario de edición de Narrativa</h2>

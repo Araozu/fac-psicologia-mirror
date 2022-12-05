@@ -1,7 +1,7 @@
 import {useHistory} from "react-router";
 import React, {ChangeEventHandler, useEffect, useState, useMemo} from "react";
 import {SERVER_PATH} from "@/variables";
-import {DataNarrativaServer} from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import "./CardNarrativas.css";
 import Modal from "@/components/modals/Modal";
 import CrearPM from "@/views/Estandares/Estandar8/Create/CrearPM";
@@ -73,19 +73,26 @@ function revisarSemestre(narrativas: AlmacenNarrativas, nuevoAnio: number, semes
     }
 }
 
-export default function CardNarrativas() {
+type Props = {
+    // Ruta configurada en el router. Ejm. "estandar8"
+    pathNarrativa: string,
+    // Id del estandar, como este en la base de datos.
+    idEstandar: number,
+}
+export default function CardNarrativas(props: Props) {
     const history = useHistory();
 
     const [filtroAnio, setFiltroAnio] = useState(-1);
     const [filtroSemestre, setFiltroSemestre] = useState<Semestre>("A");
     const [narrativas, setNarrativas] = useState<AlmacenNarrativas>(new Map());
 
-    const redirigirCrearNarrativa = () => history.push("/admin/estandar8/narrativa/crear");
+    const redirigirCrearNarrativa = () => history.push(`/admin/${props.pathNarrativa}/narrativa/crear`);
 
     useEffect(() => {
         const userToken = localStorage.getItem("access_token");
         if (userToken === null) return;
 
+        // TODO: Deberia haber un endpoint que haga el filtrado, en vez de hacerse aqui
         fetch(`${SERVER_PATH}/api/narrativa`, {
             method: "GET",
             headers: {
@@ -96,7 +103,8 @@ export default function CardNarrativas() {
         })
             .then((obj) => obj.json())
             .then((resp) => {
-                const narrativas: Array<DataNarrativaServer> = resp.data;
+                const narrativas: Array<DataNarrativaServer> = resp.data
+                    .filter((x: DataNarrativaServer) => x.id_estandar === props.idEstandar);
                 const almacenNarrativas: AlmacenNarrativas = new Map();
 
                 narrativas.forEach((narrativa) => {
@@ -122,7 +130,7 @@ export default function CardNarrativas() {
                 const anioMayor = [0, ...almacenNarrativas.keys()]
                     .reduce((previous, current) => (previous < current ? current : previous));
                 setFiltroAnio(anioMayor);
-                const semestreMayor = [...almacenNarrativas.get(anioMayor)!.keys()]
+                const semestreMayor = [...(almacenNarrativas?.get(anioMayor)?.keys() ?? [])]
                     .sort()
                     .pop()! as "A" | "B";
                 setFiltroSemestre(semestreMayor);
@@ -130,7 +138,7 @@ export default function CardNarrativas() {
                 setNarrativas(almacenNarrativas);
 
                 // Workaround para error de endpoint /api/narrativa/ultimo/{id}
-                const ultimaNarrativa = almacenNarrativas.get(anioMayor)!.get(semestreMayor)!.contenido;
+                const ultimaNarrativa = almacenNarrativas?.get(anioMayor)?.get(semestreMayor)?.contenido ?? "";
                 localStorage.setItem("ultima-narrativa-contenido", ultimaNarrativa);
             });
     }, []);

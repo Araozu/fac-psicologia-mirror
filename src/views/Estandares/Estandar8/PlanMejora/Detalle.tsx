@@ -1,4 +1,4 @@
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 
 import DetallePM from "@/views/Estandares/Estandar8/Detalle/DetallePM";
 import {useParams} from "react-router-dom";
@@ -9,7 +9,7 @@ export default function() {
 
     return (
         <div>
-            <HeaderEstandar8
+            <HeaderEstandar
                 titulo="Detalles del Plan de Mejora"
                 descripcion="Aqui puedes observar los detalles del plan de mejora y sus evidencias"
             />

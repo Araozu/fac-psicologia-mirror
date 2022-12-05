@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import ContentWrapper from "@/components/ContentWrapper";
 
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 
 import {EstandarData, EstandarServer, estandarServerToData} from "@/views/admin/GEstandares/Interfaces/Estandar";
 import {SERVER_PATH} from "@/variables";
@@ -50,7 +50,7 @@ export default function(props: EstandarProps) {
 
     return (
         <div>
-            <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE ESTÁNDARES"}
+            <HeaderEstandar titulo={"ADMINISTRACIÓN DE ESTÁNDARES"}
                 descripcion={"Sección de asignación de responsables de los estándares"}
             />
             <ContentWrapper>

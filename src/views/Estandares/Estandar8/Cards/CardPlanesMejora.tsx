@@ -71,6 +71,9 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
             .then((planesMejora: Array<PlanMejoraServer>) => {
                 setPlanesMejora(planesMejora);
                 setIsLoading(false);
+            })
+            .catch(() => {
+                setPlanesMejora([]);
             });
     };
 

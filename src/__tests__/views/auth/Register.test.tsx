@@ -26,14 +26,12 @@ describe("Register", () => {
     });
 
     it("Must display a form with name, email, password", () => {
-        expect(body.getByLabelText("Name")).toBeInTheDocument();
-        expect(body.getByPlaceholderText("Name")).toBeInTheDocument();
-
-        expect(body.getByLabelText("Email")).toBeInTheDocument();
-        expect(body.getByPlaceholderText("Email")).toBeInTheDocument();
-
-        expect(body.getByLabelText("Password")).toBeInTheDocument();
-        expect(body.getByPlaceholderText("Password")).toBeInTheDocument();
+        body.getByLabelText("Nombres");
+        body.getByPlaceholderText("Nombres");
+        body.getByLabelText("Email");
+        body.getByPlaceholderText("Email");
+        body.getByLabelText("Contraseña");
+        body.getByPlaceholderText("Contraseña");
     });
 
     it("Must display an error message if Name is empty", () => {

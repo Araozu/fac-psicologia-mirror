@@ -1,4 +1,4 @@
-import HeaderEstandar8 from "@/views/Estandares/Estandar8/Headers/HeaderEstandar8";
+import HeaderEstandar from "@/views/Estandares/Estandar8/Headers/HeaderEstandar";
 
 import InputText from "@/components/Form/Components/InputText";
 import type {Editor} from "@/types/tinymce";
@@ -10,7 +10,6 @@ import {SERVER_PATH} from "@/variables";
 import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import ContentWrapper from "@/components/ContentWrapper";
-import InputSelect from "@/components/Form/Components/InputSelect";
 import Label from "@/components/Form/Components/Label/Label";
 import Select from "react-select";
 
@@ -23,7 +22,20 @@ function arrayAnios(initial: number): Array<number> {
     return arr;
 }
 
-export default function CrearNarrativa() {
+
+type Props = {
+    // Id del estandar del cual crear narrativas, por defecto `8`
+    idEstandar?: number,
+    // Nombre del estandar, por defecto "Estandar 8"
+    nombreEstandar?: string,
+}
+
+/**
+ * Componente generico para crear una narrativa. Se configura mediante los props.
+ */
+export default function CrearNarrativa(props: Props) {
+    const {idEstandar = 8, nombreEstandar = "Estandar 8"} = props;
+
     const tinyEditorRef = React.useRef<Editor>();
     const textareaRef = React.createRef<HTMLTextAreaElement>();
 
@@ -122,7 +134,7 @@ export default function CrearNarrativa() {
 
     const onCloseModalHandle = () => {
         setModal(false);
-        if (modalInfo.estado === "ok") history.push("/admin/estandar8");
+        if (modalInfo.estado === "ok") history.go(-1);
     };
 
     const crearNarrativa = () => {
@@ -130,7 +142,7 @@ export default function CrearNarrativa() {
 
         const values = {
             // TODO: Usar el ID del estandar en vez de un valor fijo
-            id_estandar: 8,
+            id_estandar: idEstandar,
             semestre: `${anio.value}-${semestre.value}`,
             contenido: tinyEditorRef.current?.getContent(),
         };
@@ -155,9 +167,9 @@ export default function CrearNarrativa() {
 
     return (
         <div>
-            <HeaderEstandar8
-                titulo="Crear Narrativa Estandar 8"
-                descripcion="Crear una nueva narrativa del Estandar 8"
+            <HeaderEstandar
+                titulo={`Crear Narrativa ${nombreEstandar}`}
+                descripcion={`Crear una nueva narrativa del ${nombreEstandar}`}
             />
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">

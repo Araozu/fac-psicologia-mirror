@@ -8,13 +8,13 @@ import FooterAdmin from "../../components/Footers/FooterAdmin";
 
 // views
 import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
-import EditarNarrativa from "@/views/Estandares/Estandar8/Narrativa/EditarNarrativa";
+import EditarNarrativa from "@/views/Estandares/components/Narrativa/EditarNarrativa";
 import {useHistory} from "react-router";
 import Detalle from "@/views/Estandares/Estandar8/PlanMejora/Detalle";
 import CrearPlanMejora from "@/views/Estandares/Estandar8/PlanMejora/CrearPlanMejora";
 import {Editar} from "@/views/Estandares/Estandar8/PlanMejora/Editar";
-import CrearNarrativa from "@/views/Estandares/Estandar8/Narrativa/CrearNarrativa";
-import DetalleNarrativa from "@/views/Estandares/Estandar8/Narrativa/DetalleNarrativa";
+import CrearNarrativa from "@/views/Estandares/components/Narrativa/CrearNarrativa";
+import DetalleNarrativa from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import Users from "@/views/admin/Users/Users";
 import GEstandares from "@/views/admin/GEstandares/Estandares";
 
@@ -37,11 +37,11 @@ export default function Admin() {
             {/* Editar plan de mejora */}
             <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
 
-            {/* Crear narrativa */}
+            {/* Crear narrativa. */}
             <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
-            {/* Ver narrativa */}
+            {/* Ver narrativa. */}
             <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
-            {/* Editar narrativa */}
+            {/* Editar narrativa. */}
             <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
             {/*Administración de Usuarios*/}
