@@ -48,7 +48,9 @@ export default function DashboardPersonal() {
                     />
 
                     <ContentWrapper>
-                        <CardPlanesMejora producerFn={fetchPlanMejoraUsuario} />
+                        {/* Usar E-8 como nombre de estandar para que se muestren
+                            todos los planes en el dashboard personal */}
+                        <CardPlanesMejora producerFn={fetchPlanMejoraUsuario} nombreEstandar="E-8" />
                     </ContentWrapper>
                 </div>
             </div>
