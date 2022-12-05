@@ -61,15 +61,18 @@ export function GoogleLogin() {
         <>
             <div className="container mx-auto px-4 h-full">
                 <div className="flex content-center items-center justify-center h-full">
-                    <div className="w-full lg:w-4/12 px-4">
+                    <div className="flex justify-start w-full lg:w-6/12 px-4">
                         <div
-                            className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+                            className="relative flex flex-column min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+                            style={ {borderRadius: "10em !important"} } 
                         >
 
-                            <div className="rounded-t mb-0 px-6 py-6">
-                                <div className="text-blueGray-400 text-center mb-3 font-bold">
-                                    <small>Inicia sesión con tus cuenta institucional</small>
+                            <div className="rounded-t mb-0 px-6 py-6" style={ {backgroundColor: "#2793FF"} }>
+                                <div className="mb-4">
+                                    <h1 className="text-white text-4xl font-bold" >Bienvenido!</h1>
+                                    <p className="text-white">Ingresa al sistema de gestion de estandares de calidad ingresando con tu correo instucional</p>
                                 </div>
+                                <div className="py-4"></div>
                                 <div className="text-center mb-3">
                                     <h6 className="text-blueGray-500 text-sm font-bold" />
                                 </div>
@@ -83,16 +86,20 @@ export function GoogleLogin() {
                                     >
                                         <img
                                             alt="..."
-                                            className="w-5 mr-1"
+                                            className="w-5 mx-1"
                                             src={logoUnsa}
                                         />
-                                        Acceder con cuenta institucional
+                                        <strong className="mx-2">Acceder con correo UNSA</strong>
                                     </button>
                                 </div>
                                 <hr className="mt-6 border-b-1 border-blueGray-300" />
                                 <div className="text-red-500 font-bold" style={loginAlert}>
                                     Error al iniciar sesión con Google. {msgError}
                                 </div>
+                            </div>
+
+                            <div className="bg-white" style={{width: "300px"}}>
+
                             </div>
                         </div>
                     </div>
