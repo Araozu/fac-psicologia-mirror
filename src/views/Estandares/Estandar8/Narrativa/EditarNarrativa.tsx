@@ -47,6 +47,40 @@ export default function EditarNarrativa() {
                 setSemestre(d.semestre);
                 tinyEditorRef.current?.setContent(d.contenido);
             });
+
+        return () => {
+            try {
+                // Esto deberia eliminar el editor, pero por alguna razon a veces no funciona
+                tinymce.remove(tinyEditorRef.current!);
+            } catch (e) {
+                //
+            } finally {
+                // Eliminar script de Tiny y volver a cargarlo,
+                // para "solucionar" error del editor al salir y volver a entrar
+                /*
+                const tinyel = document.querySelector(".tox-tinymce-aux")!;
+                tinyel.parentElement!.removeChild(tinyel);
+
+                // @ts-ignore
+                if (window.tinyElRef === undefined) {
+                    const el = document.getElementById("tiny-script-ref")!;
+                    el.parentElement!.removeChild(el);
+                } else {
+                    // @ts-ignore
+                    const el = window.tinyElRef;
+                    el.parentElement!.removeChild(el);
+                }
+
+                const scriptEl = document.createElement("script");
+                scriptEl.src = "/tinymce.min.js";
+                scriptEl.id = "tiny-script-ref";
+
+                document.body.appendChild(scriptEl);
+                // @ts-ignore
+                window.tinyElRef = scriptEl;
+                 */
+            }
+        };
     },[]);
 
     const [modal, setModal] = useState(false);

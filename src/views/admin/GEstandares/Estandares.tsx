@@ -35,58 +35,55 @@ export default function(props: EstandarProps) {
     const [managers, setManagers] = useState<Array<EstandarData>>([]);
     const [reload, setReload] = useState(false);
 
-    const loadManagers = () =>{
+    const loadManagers = () => {
         setReload(true);
         (props.producerFn ?? fetchTodoEstandares)()
-            .then((manager: Array<EstandarServer>)=>{
+            .then((manager: Array<EstandarServer>) => {
                 setManagers(manager);
                 setReload(false);
             });
-    }
+    };
     useEffect(() => {
         loadManagers();
     }, []);
-    const estandaresEls = useMemo(
-        () => !reload && (managers.map((user, id) => < ManagerRow estandar={user} key={id}  reload={loadManagers}/>)), [managers],
-    );
+    const estandaresEls = useMemo(() => !reload && (managers.map((user, id) => <ManagerRow estandar={user} key={id} reload={loadManagers} />)), [managers]);
 
     return (
         <div>
             <HeaderEstandar8 titulo={"ADMINISTRACIÓN DE ESTÁNDARES"}
-                             descripcion={"Sección de asignación de responsables de los estándares"}/>
+                descripcion={"Sección de asignación de responsables de los estándares"}
+            />
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
 
                     <div className="flex flex-row items-center">
                         <h2 className="title_users">Encargados de estándares del sistema</h2>
-                        <div className="relative w-full px-4 max-w-full text-right">
-
-                        </div>
+                        <div className="relative w-full px-4 max-w-full text-right" />
                     </div>
                     <div className="block w-full">
                         <table className="w-full bg-transparent border-collapse table-auto">
                             <thead className="bg-blueGray-50 text-blueGray-500 text-left">
-                            <tr>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                <tr>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Estándar
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Encargado
-                                </th>
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    </th>
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Correo
-                                </th>
+                                    </th>
 
-                                <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
+                                    <th className="px-6 align-middle py-3 text-xs uppercase font-semibold">
                                     Acciones
-                                </th>
+                                    </th>
 
-                                <td/>
-                            </tr>
+                                    <td />
+                                </tr>
                             </thead>
                             {!reload && (
                                 <tbody>
-                                {estandaresEls}
+                                    {estandaresEls}
                                 </tbody>
                             )}
                         </table>

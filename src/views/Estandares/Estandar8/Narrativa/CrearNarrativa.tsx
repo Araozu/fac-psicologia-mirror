@@ -25,6 +25,7 @@ function arrayAnios(initial: number): Array<number> {
 
 export default function CrearNarrativa() {
     const tinyEditorRef = React.useRef<Editor>();
+    const textareaRef = React.createRef<HTMLTextAreaElement>();
 
     // Configurar tinymce al cargar el componente
     React.useEffect(
@@ -33,7 +34,7 @@ export default function CrearNarrativa() {
 
             // Inicializar editor Tiny
             const promesaTiny = tinymce.init({
-                selector: "#tiny-editor",
+                target: textareaRef.current!,
                 plugins: "anchor link image lists table",
                 language: "es_MX",
                 toolbar: "undo redo | fontfamily fontsize | bold italic underline forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent removeformat",
@@ -56,6 +57,41 @@ export default function CrearNarrativa() {
                     const contenido = localStorage.getItem("ultima-narrativa-contenido") ?? "";
                     editors[0].setContent(contenido);
                 });
+
+            return () => {
+                try {
+                    // Esto deberia eliminar el editor, pero por alguna razon a veces no funciona
+                    tinymce.remove(tinyEditorRef.current!);
+                } catch (e) {
+                    //
+                } finally {
+                    // Eliminar script de Tiny y volver a cargarlo,
+                    // para "solucionar" error del editor al salir y volver a entrar
+                    /*
+                    const tinyel = document.querySelector(".tox-tinymce-aux")!;
+                    tinyel.parentElement!.removeChild(tinyel);
+
+                    // @ts-ignore
+                    if (window.tinyElRef === undefined) {
+                        const el = document.getElementById("tiny-script-ref")!;
+                        el.parentElement!.removeChild(el);
+                    } else {
+                        // @ts-ignore
+                        const el = window.tinyElRef;
+                        el.parentElement!.removeChild(el);
+                    }
+
+                    const scriptEl = document.createElement("script");
+                    scriptEl.src = "/tinymce.min.js";
+                    scriptEl.id = "tiny-script-ref";
+
+                    document.body.appendChild(scriptEl);
+                    // @ts-ignore
+                    window.tinyElRef = scriptEl;
+
+                     */
+                }
+            };
         },
         [],
     );
@@ -172,7 +208,7 @@ export default function CrearNarrativa() {
                     </div>
 
 
-                    <textarea id="tiny-editor" rows={20} />
+                    <textarea ref={textareaRef} rows={20} />
 
                     <div className="form-footer">
                         <button type="submit" onClick={crearNarrativa}>

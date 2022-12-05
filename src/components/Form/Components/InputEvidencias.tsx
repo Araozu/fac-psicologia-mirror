@@ -75,7 +75,7 @@ export default function InputEvidencias(props: any) {
         const token = localStorage.getItem("access_token");
         console.log(id);
         axios.delete(
-            `https://gestion-calidad-rrii-api.herokuapp.com/api/evidencia/${id}`,
+            `https://pis-project-api.up.railway.app/api/evidencia/${id}`,
             {
                 headers: {
                     //"Content-Type": 'multipart/form-data',
