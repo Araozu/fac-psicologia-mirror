@@ -28,6 +28,11 @@ export default function Admin() {
 
     const Routes = () => (
         <Switch>
+            {/*
+             ========================
+                   Estandar 8
+             ========================
+             */}
             <Route path="/admin/estandar8" exact component={Estandar8} />
 
             {/* Crear plan de mejora */}
@@ -38,11 +43,26 @@ export default function Admin() {
             <Route path="/admin/estandar8/plan-mejora/editar/:codigo" exact component={Editar} />
 
             {/* Crear narrativa. */}
-            <Route path="/admin/estandar8/narrativa/crear" exact component={CrearNarrativa} />
+            <Route
+                path="/admin/estandar8/narrativa/crear"
+                exact
+                component={() => <CrearNarrativa idEstandar={8} nombreEstandar={"Estandar 8"} />}
+            />
             {/* Ver narrativa. */}
-            <Route path="/admin/estandar8/narrativa/detalle/:codigo" exact component={DetalleNarrativa} />
+            <Route
+                path="/admin/estandar8/narrativa/detalle/:codigo"
+                exact
+                component={() => <DetalleNarrativa nombreEstandar="Estandar 8" />}
+            />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+
+
+
+
+
+
+
 
             {/*Administración de Usuarios*/}
             {<Route path={"/admin/users"} exact component={Users} />}

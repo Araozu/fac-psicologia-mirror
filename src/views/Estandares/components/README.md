@@ -1,3 +1,5 @@
+## `/views/Estandares/components`
+
 Esta carpeta contiene componentes relacionados a los estándares,
 pero que operan de forma genérica.
 

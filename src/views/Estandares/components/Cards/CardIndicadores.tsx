@@ -1,11 +1,20 @@
-
 import CardStats from "@/components/Cards/CardStats";
 import React, {useEffect, useMemo, useState} from "react";
 import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import {SERVER_PATH} from "@/variables";
 import {useHistory} from "react-router-dom";
 
-export default function CardIndicadores() {
+type Props = {
+    /**
+     * Iniciales del estandar por el cual filtrar.
+     *
+     * Ejm: "E-1"
+     */
+    nombreEstandar: string,
+}
+export default function CardIndicadores(props: Props) {
+    const {nombreEstandar} = props;
+
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
     const history = useHistory();
 
@@ -48,7 +57,12 @@ export default function CardIndicadores() {
                 })
                 .then((objF: { data: Array<PlanMejoraServer> }) => {
                     const planesMejora = objF.data;
-                    setPlanesMejora(planesMejora);
+                    if (nombreEstandar === "E-8") {
+                        setPlanesMejora(planesMejora);
+                    } else {
+                        // Filtrar en las otras paginas
+                        setPlanesMejora(planesMejora.filter((x) => x.estandar_name.startsWith(nombreEstandar)));
+                    }
                 })
                 .catch((err) => {
                     console.log("Error: HeaderStandard");
