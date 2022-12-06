@@ -124,6 +124,7 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
     const [cabecera, setCabecera] = useState<string>("Cargando cabecera...");
     const [isEditingCabecera, setIdEditingCabecera] = useState<boolean>(false);
     const [isManager, setIsManager] = useState<boolean>(false);
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const {
         porcentajeConcluidos,
         porcentajeEnProceso,
@@ -184,10 +185,10 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
             },
         })
             .then((res: any) => res.json())
-            .then((res: { data: { cabecera: string , esEncargado:boolean} }) => {
-                //trae data
+            .then((res: { data: { cabecera: string , esEncargado:boolean, esAdmin:boolean} }) => {
                 setIsManager(res.data.esEncargado);
                 setCabecera(res.data.cabecera);
+                setIsAdmin(res.data.esAdmin);
             })
             .catch((err) => {
                 console.log(err);
@@ -200,7 +201,7 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
         if (isEditingCabecera) {
 
             const data = {
-                "name": "E-8 PLANES DE MEJORA",
+                "name": "",
                 "cabecera": cabecera,
                 "id_user": 5,
             };
@@ -245,8 +246,8 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
 
                 <div className="px-4 md:pl-10 md:pr-4 w-80">
                     {props.icono
-                        ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`}/>
-                        : <></>
+                        && <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`}/>
+
                     }
                     <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
                     <p className="text-lg text-white">{props.descripcion}</p>
@@ -263,7 +264,7 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
                                   style={{width: "100%", height:"120px"}}
                                   disabled={!isEditingCabecera} value={cabecera}
                                   className={isEditingCabecera ? "header editable-header" : "header"}/>
-                        {isManager &&
+                        {(isManager || isAdmin) &&
                             <div className="flex justify-end my-2 mr-6">
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
                                         onClick={() => {
