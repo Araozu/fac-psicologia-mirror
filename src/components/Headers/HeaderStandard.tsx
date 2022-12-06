@@ -1,13 +1,10 @@
 import React, {useEffect, useMemo, useState} from "react";
 
 // components
-import CardStats from "../Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
-import {useLocation} from "react-router";
 import {useHistory} from "react-router-dom";
 import "./HeaderStandard.css";
-import {ThemeConsumer} from "react-bootstrap/esm/ThemeProvider.js";
 
 /**
  * Devuelve que porcentaje de v2 es v1
@@ -64,7 +61,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     const porcentajeConcluidos = useMemo(
         () => {
             if (cantidadPlanesMejora <= 0 || cantidadConcluido === -1) return "";
-            return porcentaje(cantidadConcluido, cantidadPlanesMejora).toString();
+            return porcentaje(cantidadConcluido, cantidadPlanesMejora)
+                .toString();
         },
         [cantidadConcluido, cantidadPlanesMejora],
     );
@@ -72,7 +70,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     const porcentajeEnProceso = useMemo(
         () => {
             if (cantidadPlanesMejora <= 0 || cantidadEnProceso === -1) return "";
-            return porcentaje(cantidadEnProceso, cantidadPlanesMejora).toString();
+            return porcentaje(cantidadEnProceso, cantidadPlanesMejora)
+                .toString();
         },
         [cantidadEnProceso, cantidadPlanesMejora],
     );
@@ -80,7 +79,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     const porcentajeProgramado = useMemo(
         () => {
             if (cantidadPlanesMejora <= 0 || cantidadProgramado === -1) return "";
-            return porcentaje(cantidadProgramado, cantidadPlanesMejora).toString();
+            return porcentaje(cantidadProgramado, cantidadPlanesMejora)
+                .toString();
         },
         [cantidadPlanesMejora, cantidadProgramado],
     );
@@ -88,7 +88,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     const porcentajeReprogramado = useMemo(
         () => {
             if (cantidadPlanesMejora <= 0 || cantidadReprogramado === -1) return "";
-            return porcentaje(cantidadReprogramado, cantidadPlanesMejora).toString();
+            return porcentaje(cantidadReprogramado, cantidadPlanesMejora)
+                .toString();
         },
         [cantidadPlanesMejora, cantidadReprogramado],
     );
@@ -96,7 +97,8 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     const porcentajePlanificado = useMemo(
         () => {
             if (cantidadPlanesMejora <= 0 || cantidadPlanificado === -1) return "";
-            return porcentaje(cantidadPlanificado, cantidadPlanesMejora).toString();
+            return porcentaje(cantidadPlanificado, cantidadPlanesMejora)
+                .toString();
         },
         [cantidadPlanesMejora, cantidadPlanificado],
     );
@@ -116,11 +118,12 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     };
 }
 
-export default function HeaderStandard(props: {titulo: string, descripcion: string, icono?: string, estandar:number}) {
+export default function HeaderStandard(props: { titulo: string, descripcion: string, icono?: string, estandar: number }) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
     const history = useHistory();
     const [cabecera, setCabecera] = useState<string>("Cargando cabecera...");
     const [isEditingCabecera, setIdEditingCabecera] = useState<boolean>(false);
+    const [isManager, setIsManager] = useState<boolean>(false);
     const {
         porcentajeConcluidos,
         porcentajeEnProceso,
@@ -179,10 +182,11 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${userToken}`,
             },
-        }).then((res: any) => res.json())
-            .then((res: {data: {cabecera: string}}) => {
+        })
+            .then((res: any) => res.json())
+            .then((res: { data: { cabecera: string } }) => {
                 //trae data
-                console.log(res.data);
+                setIsManager(res.data.esEncargado);
                 setCabecera(res.data.cabecera);
             })
             .catch((err) => {
@@ -195,7 +199,11 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         const userToken = localStorage.getItem("access_token");
         if (isEditingCabecera) {
 
-            const data = {"name": "E-8 PLANES DE MEJORA", "cabecera": cabecera , "id_user": 5};
+            const data = {
+                "name": "E-8 PLANES DE MEJORA",
+                "cabecera": cabecera,
+                "id_user": 5,
+            };
             fetch(`${SERVER_PATH}/api/estandar/${props.estandar}`, {
                 method: "PUT",
                 headers: {
@@ -204,8 +212,9 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                     "Authorization": `Bearer ${userToken}`,
                 },
                 body: JSON.stringify(data),
-            }).then((res: any) => res.json())
-                .then((res: {data: {cabecera: string}}) => {
+            })
+                .then((res: any) => res.json())
+                .then((res: { data: { cabecera: string } }) => {
 //                    console.log("cabecera",res.data.cabecera);
                     setCabecera(res.data.cabecera);
                 })
@@ -222,17 +231,21 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         setMessage(event.target.value);
         setCabecera(event.target.value);
     };
+    //console.log(isManager);
 
     return (
         <>
             {/* Header */}
             <div className="relative bg-lightBlue-600 flex flex-wrap justify-start"
-                style={ {paddingBottom: "2em", paddingTop: "2em"} }
+                 style={{
+                     paddingBottom: "2em",
+                     paddingTop: "2em",
+                 }}
             >
 
                 <div className="px-4 md:pl-10 md:pr-4">
                     {props.icono
-                        ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`} />
+                        ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`}/>
                         : <></>
                     }
                     <h1 className="text-4xl font-bold text-white">{props.titulo}</h1>
@@ -240,18 +253,26 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
 
                 </div>
                 <div>
-                    <div className="w-full p-2" style={{textAlign: "left", backgroundColor: "white", marginLeft: "5em", borderRadius: "0.5em"}}>
+                    <div className="w-full p-2" style={{
+                        textAlign: "left",
+                        backgroundColor: "white",
+                        marginLeft: "5em",
+                        borderRadius: "0.5em",
+                    }}>
                         <div className="flex justify-start mb-2">
-                            <h2 className="text-xl font-bold mr-2">CABECERA</h2>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
-                                onClick={() => {
-                                    updateCabecera();
-                                    setIdEditingCabecera(!isEditingCabecera);
-                                }}
-                            > {isEditingCabecera ? "Guardar" : "Editar cabecera"}
-                            </button>
+                            <h2 className="text-xl font-bold mr-2">CABECERAs</h2>
+                            {isManager &&
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
+                                        onClick={() => {
+                                            updateCabecera();
+                                            setIdEditingCabecera(!isEditingCabecera);
+                                        }}
+                                > {isEditingCabecera ? "Guardar" : "Editar cabecera"}
+                                </button>}
                         </div>
-                        <textarea onChange={handleMessageChange} id="cabecera-input" style={ {width: "100%"} } disabled={!isEditingCabecera} value={cabecera} className={isEditingCabecera ? "header editable-header" : "header"} />
+                        <textarea onChange={handleMessageChange} id="cabecera-input" style={{width: "100%"}}
+                                  disabled={!isEditingCabecera} value={cabecera}
+                                  className={isEditingCabecera ? "header editable-header" : "header"}/>
                     </div>
                 </div>
             </div>
