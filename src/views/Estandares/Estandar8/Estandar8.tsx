@@ -20,7 +20,7 @@ export default function Estandar8() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad" />
+                <HeaderStandard titulo="Estandar 8" descripcion="Estándar para la gestión de calidad" estandar={8} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

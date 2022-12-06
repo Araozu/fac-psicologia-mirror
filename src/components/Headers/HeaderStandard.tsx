@@ -116,7 +116,7 @@ function useDatos(planesMejora: PlanMejoraServer[]) {
     };
 }
 
-export default function HeaderStandard(props: {titulo: string, descripcion: string, icono?: string}) {
+export default function HeaderStandard(props: {titulo: string, descripcion: string, icono?: string, estandar:number}) {
     const [planesMejora, setPlanesMejora] = useState<PlanMejoraServer[]>([]);
     const history = useHistory();
     const [cabecera, setCabecera] = useState<string>("Cargando cabecera...");
@@ -134,7 +134,6 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         cantidadReprogramado,
         cantidadPlanificado,
     } = useDatos(planesMejora);
-
 
     useEffect(
         () => {
@@ -173,7 +172,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
     useEffect(() => {
         const userToken = localStorage.getItem("access_token");
         if (userToken === null) return;
-        fetch(`${SERVER_PATH}/api/estandar/8`, {
+        fetch(`${SERVER_PATH}/api/estandar/${props.estandar}`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -182,8 +181,8 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
             },
         }).then((res: any) => res.json())
             .then((res: {data: {cabecera: string}}) => {
-
-                console.log(res.data.cabecera);
+                //trae data
+                console.log(res.data);
                 setCabecera(res.data.cabecera);
             })
             .catch((err) => {
@@ -197,8 +196,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
         if (isEditingCabecera) {
 
             const data = {"name": "E-8 PLANES DE MEJORA", "cabecera": cabecera , "id_user": 5};
-            console.log(JSON.stringify(data));
-            fetch(`${SERVER_PATH}/api/estandar/8`, {
+            fetch(`${SERVER_PATH}/api/estandar/${props.estandar}`, {
                 method: "PUT",
                 headers: {
                     "Accept": "application/json",
@@ -208,8 +206,7 @@ export default function HeaderStandard(props: {titulo: string, descripcion: stri
                 body: JSON.stringify(data),
             }).then((res: any) => res.json())
                 .then((res: {data: {cabecera: string}}) => {
-                    console.log(res);
-                    console.log(res.data.cabecera);
+//                    console.log("cabecera",res.data.cabecera);
                     setCabecera(res.data.cabecera);
                 })
                 .catch((err) => {

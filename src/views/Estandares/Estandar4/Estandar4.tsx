@@ -20,7 +20,7 @@ export default function Estandar4() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 4" descripcion="Sostenibilidad" />
+                <HeaderStandard titulo="Estandar 4" descripcion="Sostenibilidad"  estandar={4}/>
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

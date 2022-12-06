@@ -20,7 +20,7 @@ export default function Estandar2() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 2" descripcion="Participación de los Grupos de Interés" />
+                <HeaderStandard titulo="Estandar 2" descripcion="Participación de los Grupos de Interés" estandar={2} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

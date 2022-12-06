@@ -20,7 +20,7 @@ export default function Estandar6() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 6" descripcion="Revisión del Perfil de Egreso" />
+                <HeaderStandard titulo="Estandar 6" descripcion="Revisión del Perfil de Egreso"  estandar={6}/>
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

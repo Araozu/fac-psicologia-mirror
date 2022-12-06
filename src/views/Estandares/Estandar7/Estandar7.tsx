@@ -20,7 +20,7 @@ export default function Estandar7() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 7" descripcion="Sistema de Gestión de la Calidad" />
+                <HeaderStandard titulo="Estandar 7" descripcion="Sistema de Gestión de la Calidad" estandar={7} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

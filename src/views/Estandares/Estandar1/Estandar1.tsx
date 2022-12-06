@@ -20,7 +20,7 @@ export default function Estandar1() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 1" descripcion="Propositos Articulados" />
+                <HeaderStandard titulo="Estandar 1" descripcion="Propositos Articulados" estandar={1} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

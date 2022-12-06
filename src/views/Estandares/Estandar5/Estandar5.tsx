@@ -20,7 +20,7 @@ export default function Estandar5() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 5" descripcion="Pertinencia del Perfil de Egreso" />
+                <HeaderStandard titulo="Estandar 5" descripcion="Pertinencia del Perfil de Egreso" estandar={5} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

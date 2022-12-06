@@ -20,7 +20,7 @@ export default function Estandar3() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 3" descripcion="Revisión Periodica de las Políticas y Objetivos" />
+                <HeaderStandard titulo="Estandar 3" descripcion="Revisión Periodica de las Políticas y Objetivos" estandar={3} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>
