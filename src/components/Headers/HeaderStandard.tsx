@@ -236,14 +236,14 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
     return (
         <>
             {/* Header */}
-            <div className="relative bg-lightBlue-600 flex flex-wrap justify-start"
+            <div className="relative bg-lightBlue-600 flex flex-row justify-start"
                  style={{
                      paddingBottom: "2em",
                      paddingTop: "2em",
                  }}
             >
 
-                <div className="px-4 md:pl-10 md:pr-4">
+                <div className="px-4 md:pl-10 md:pr-4 w-80">
                     {props.icono
                         ? <i className={`fa-regular ${props.icono} mr-1 text-5xl text-white`}/>
                         : <></>
@@ -252,27 +252,28 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
                     <p className="text-lg text-white">{props.descripcion}</p>
 
                 </div>
-                <div>
-                    <div className="w-full p-2" style={{
+                <div className="px-4 md:pl-10 md:pr-14 w-full">
+                    <div className="p-2" style={{
                         textAlign: "left",
                         backgroundColor: "white",
                         marginLeft: "5em",
                         borderRadius: "0.5em",
                     }}>
-                        <div className="flex justify-start mb-2">
-                            <h2 className="text-xl font-bold mr-2">CABECERAs</h2>
-                            {isManager &&
+                        <textarea onChange={handleMessageChange} id="cabecera-input"
+                                  style={{width: "100%", height:"120px"}}
+                                  disabled={!isEditingCabecera} value={cabecera}
+                                  className={isEditingCabecera ? "header editable-header" : "header"}/>
+                        {isManager &&
+                            <div className="flex justify-end my-2 mr-6">
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-xs px-4 rounded-full"
                                         onClick={() => {
                                             updateCabecera();
                                             setIdEditingCabecera(!isEditingCabecera);
                                         }}
-                                > {isEditingCabecera ? "Guardar" : "Editar cabecera"}
-                                </button>}
-                        </div>
-                        <textarea onChange={handleMessageChange} id="cabecera-input" style={{width: "100%"}}
-                                  disabled={!isEditingCabecera} value={cabecera}
-                                  className={isEditingCabecera ? "header editable-header" : "header"}/>
+                                > {isEditingCabecera ? "Guardar" : "Editar"}
+                                </button>
+                            </div>}
+
                     </div>
                 </div>
             </div>
