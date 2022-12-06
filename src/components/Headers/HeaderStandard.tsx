@@ -184,7 +184,7 @@ export default function HeaderStandard(props: { titulo: string, descripcion: str
             },
         })
             .then((res: any) => res.json())
-            .then((res: { data: { cabecera: string } }) => {
+            .then((res: { data: { cabecera: string , esEncargado:boolean} }) => {
                 //trae data
                 setIsManager(res.data.esEncargado);
                 setCabecera(res.data.cabecera);
