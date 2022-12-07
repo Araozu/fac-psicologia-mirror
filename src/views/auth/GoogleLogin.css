@@ -1,0 +1,14 @@
+.imageUnsa{
+    width: 500px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: grayscale(0.98);
+    opacity: 25%;
+}
+
+.card{
+    border-radius: 15px;
+    overflow: hidden;
+}
