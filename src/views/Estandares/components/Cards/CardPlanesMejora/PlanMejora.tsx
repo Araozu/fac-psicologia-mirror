@@ -1,21 +1,21 @@
 import {estadoPlanMejoraToColor, PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import {useHistory} from "react-router";
 
-export function PlanMejora(props: { plan: PlanMejoraServer, eliminar: () => void }) {
+export function PlanMejora(props: { plan: PlanMejoraServer, eliminar: () => void, path: string }) {
     const history = useHistory();
     const [colorFondo1, colorFondo2] = estadoPlanMejoraToColor(props.plan.estado);
 
     const redirectToDetail = (id: number) => {
         // TODO: Colocar todas las rutas en un objeto global, y referenciarlas
         //  para hacer redireccion
-        const path = `/admin/estandar8/plan-mejora/detalle/${id}`;
+        const path = `/admin/${props.path}/plan-mejora/detalle/${id}`;
         history.push(path);
     };
 
     const redirectToEdit = (id: string) => {
         // TODO: Colocar todas las rutas en un objeto global, y referenciarlas
         //  para hacer redireccion
-        const path = `/admin/estandar8/plan-mejora/editar/${id}`;
+        const path = `/admin/${props.path}/plan-mejora/editar/${id}`;
         history.push(path);
     };
     const rol = localStorage.getItem("ROL");

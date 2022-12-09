@@ -43,9 +43,9 @@ export default function Admin() {
             <Route path="/admin/estandar1" exact component={Estandar1} />
 
             {/* Ver plan de mejora */}
-            <Route path="/admin/estandar7/plan-mejora/detalle/:codigo" exact component={Detalle} />
+            <Route path="/admin/estandar1/plan-mejora/detalle/:codigo" exact component={Detalle} />
             {/* Editar plan de mejora */}
-            <Route path="/admin/estandar7/plan-mejora/editar/:codigo" exact component={Editar} />
+            <Route path="/admin/estandar1/plan-mejora/editar/:codigo" exact component={Editar} />
 
             {/* Crear narrativa. */}
             <Route
@@ -236,7 +236,7 @@ export default function Admin() {
                 component={() => <DetalleNarrativa nombreEstandar="Estandar 7" />}
             />
             {/* Editar narrativa. */}
-            <Route path="/admin/estandar1/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            <Route path="/admin/estandar7/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
 
 

@@ -12,7 +12,7 @@ export default function Estandar6() {
     const listTabs = ["narrativa", "planes de mejora", "indicadores"];
     const comp = [
         <CardNarrativas pathNarrativa="estandar6" idEstandar={6} />,
-        <CardPlanesMejora nombreEstandar="E-6" />,
+        <CardPlanesMejora nombreEstandar="E-6" path="estandar6" />,
         <CardIndicadores nombreEstandar="E-6" />,
     ];
 
@@ -20,7 +20,7 @@ export default function Estandar6() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 6" descripcion="Revisión del Perfil de Egreso"  estandar={6}/>
+                <HeaderStandard titulo="Estandar 6" descripcion="Revisión del Perfil de Egreso" estandar={6} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

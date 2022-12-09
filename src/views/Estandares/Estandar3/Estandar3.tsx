@@ -12,7 +12,7 @@ export default function Estandar3() {
     const listTabs = ["narrativa", "planes de mejora", "indicadores"];
     const comp = [
         <CardNarrativas pathNarrativa="estandar3" idEstandar={3} />,
-        <CardPlanesMejora nombreEstandar="E-3" />,
+        <CardPlanesMejora nombreEstandar="E-3" path="estandar3" />,
         <CardIndicadores nombreEstandar="E-3" />,
     ];
 

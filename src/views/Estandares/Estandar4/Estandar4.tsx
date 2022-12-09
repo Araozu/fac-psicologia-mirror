@@ -12,7 +12,7 @@ export default function Estandar4() {
     const listTabs = ["narrativa", "planes de mejora", "indicadores"];
     const comp = [
         <CardNarrativas pathNarrativa="estandar4" idEstandar={4} />,
-        <CardPlanesMejora nombreEstandar="E-4" />,
+        <CardPlanesMejora nombreEstandar="E-4" path="estandar4" />,
         <CardIndicadores nombreEstandar="E-4" />,
     ];
 
@@ -20,7 +20,7 @@ export default function Estandar4() {
     return (
         <>
             <div className="w-full mb-12">
-                <HeaderStandard titulo="Estandar 4" descripcion="Sostenibilidad"  estandar={4}/>
+                <HeaderStandard titulo="Estandar 4" descripcion="Sostenibilidad" estandar={4} />
                 <Tabs headers={listTabs} components={comp} />
             </div>
         </>

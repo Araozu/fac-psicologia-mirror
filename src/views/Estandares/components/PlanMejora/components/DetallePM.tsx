@@ -128,124 +128,118 @@ export default function DetallePM({id}: Props) {
 
     return (
         <div>
-            <HeaderEstandar
-                titulo="Detalles del Plan de Mejora"
-                descripcion="Aqui puedes observar los detalles del plan de mejora y sus evidencias"
-            />
-            <ContentWrapper>
-                <div className="form-container" style={{padding: "1rem 2rem"}}>
-                    <div className="detalle-titulo-container">
-                        <div>
-                            <button className="boton-atras">
-                                <i className="fa-solid fa-arrow-left" style={{fontSize: "1.25rem"}} />
-                            </button>
-                            <span className="titulo-detalle text-lightBlue-600">DATOS DEL PLAN DE MEJORA</span>
-                        </div>
-                        <div>
-                            <button
-                                className="boton-accion text-lightBlue-600 border-2 border-lightBlue-600"
-                                onClick={descargarPM}
-                            >
+            <div className="form-container" style={{padding: "1rem 2rem"}}>
+                <div className="detalle-titulo-container">
+                    <div>
+                        <button className="boton-atras">
+                            <i className="fa-solid fa-arrow-left" style={{fontSize: "1.25rem"}} />
+                        </button>
+                        <span className="titulo-detalle text-lightBlue-600">DATOS DEL PLAN DE MEJORA</span>
+                    </div>
+                    <div>
+                        <button
+                            className="boton-accion text-lightBlue-600 border-2 border-lightBlue-600"
+                            onClick={descargarPM}
+                        >
                         Descargar
-                            </button>
-                            {/* TODO: que backend envie un campo esCreador
-                    <button className="boton-accion bg-lightBlue-600 text-white border-2 border-lightBlue-600">Editar</button>
-                    */}
-                        </div>
+                        </button>
+                        {/* TODO: que backend envie un campo esCreador
+                        <button className="boton-accion bg-lightBlue-600 text-white border-2 border-lightBlue-600">Editar</button>
+                        */}
                     </div>
-                    <hr />
+                </div>
+                <hr />
 
-                    <div style={{display: "flex", justifyContent: "space-between", margin: "1rem 0"}}>
+                <div style={{display: "flex", justifyContent: "space-between", margin: "1rem 0"}}>
+                    <div>
                         <div>
-                            <div>
-                                <span className="font-semibold uppercase text-xl">{pm?.nombre}</span>
-                                <span className="px-10 py-1 mx-4 contenedor-estado font-semibold">{pm?.estado}</span>
-                            </div>
-                            <span className="block text-xs opacity-75 font-semibold uppercase">{pm?.codigo}</span>
+                            <span className="font-semibold uppercase text-xl">{pm?.nombre}</span>
+                            <span className="px-10 py-1 mx-4 contenedor-estado font-semibold">{pm?.estado}</span>
                         </div>
-
-                        <div style={{paddingRight: "1rem"}}>
-                            <span className="block text-xs opacity-75 font-semibold uppercase">avance</span>
-                            <span style={{fontSize: "2rem", fontWeight: "bold"}}>{pm?.avance}%</span>
-                        </div>
+                        <span className="block text-xs opacity-75 font-semibold uppercase">{pm?.codigo}</span>
                     </div>
 
-                    <hr />
-
-                    <div style={{display: "flex"}}>
-                        <Campo titulo="estandar" sinBorde>
-                            <span>{pm?.nombre}</span>
-                        </Campo>
-                        <Campo titulo="semestre" sinBorde>
-                            <span>{pm?.semestre_ejecucion}</span>
-                        </Campo>
-                        <Campo titulo="duracion" sinBorde>
-                            <span>{pm?.duracion}</span>
-                        </Campo>
-                        <Campo titulo="evaluacion eficacia" sinBorde>
-                            <span>{pm?.evaluacion_eficacia ? "SI" : "NO"}</span>
-                        </Campo>
+                    <div style={{paddingRight: "1rem"}}>
+                        <span className="block text-xs opacity-75 font-semibold uppercase">avance</span>
+                        <span style={{fontSize: "2rem", fontWeight: "bold"}}>{pm?.avance}%</span>
                     </div>
+                </div>
 
-                    <Campo titulo={"oportunidades de mejora"}>
-                        <span>{pm?.oportunidad_plan}</span>
+                <hr />
+
+                <div style={{display: "flex"}}>
+                    <Campo titulo="estandar" sinBorde>
+                        <span>{pm?.nombre}</span>
                     </Campo>
-
-                    <Campo titulo={"evidencias"}>
-                        <ul>
-                            {pm?.evidencias.map((x) => <li key={x.id}>{x.denominacion}</li>) ?? <></>}
-                        </ul>
+                    <Campo titulo="semestre" sinBorde>
+                        <span>{pm?.semestre_ejecucion}</span>
                     </Campo>
-
-                    <Campo titulo={"fuentes"}>
-                        <ul>
-                            {arrToLi(pm?.fuentes ?? [])}
-                        </ul>
+                    <Campo titulo="duracion" sinBorde>
+                        <span>{pm?.duracion}</span>
                     </Campo>
-
-                    <Campo titulo={"problema/oportunidad"}>
-                        <ul>
-                            {arrToLi(pm?.problemas_oportunidades ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"causa raiz"}>
-                        <ul>
-                            {arrToLi(pm?.causas_raices ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"oportunidad de mejora"}>
-                        <ul>
-                            {arrToLi(pm?.acciones_mejoras ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"recursos"}>
-                        <ul>
-                            {arrToLi(pm?.recursos ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"metas"}>
-                        <ul>
-                            {arrToLi(pm?.metas ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"responsables"}>
-                        <ul>
-                            {arrToLi(pm?.responsables ?? [])}
-                        </ul>
-                    </Campo>
-
-                    <Campo titulo={"observaciones"}>
-                        <ul>
-                            {arrToLi(pm?.observaciones ?? [])}
-                        </ul>
+                    <Campo titulo="evaluacion eficacia" sinBorde>
+                        <span>{pm?.evaluacion_eficacia ? "SI" : "NO"}</span>
                     </Campo>
                 </div>
-            </ContentWrapper>
+
+                <Campo titulo={"oportunidades de mejora"}>
+                    <span>{pm?.oportunidad_plan}</span>
+                </Campo>
+
+                <Campo titulo={"evidencias"}>
+                    <ul>
+                        {pm?.evidencias.map((x) => <li key={x.id}>{x.denominacion}</li>) ?? <></>}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"fuentes"}>
+                    <ul>
+                        {arrToLi(pm?.fuentes ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"problema/oportunidad"}>
+                    <ul>
+                        {arrToLi(pm?.problemas_oportunidades ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"causa raiz"}>
+                    <ul>
+                        {arrToLi(pm?.causas_raices ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"oportunidad de mejora"}>
+                    <ul>
+                        {arrToLi(pm?.acciones_mejoras ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"recursos"}>
+                    <ul>
+                        {arrToLi(pm?.recursos ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"metas"}>
+                    <ul>
+                        {arrToLi(pm?.metas ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"responsables"}>
+                    <ul>
+                        {arrToLi(pm?.responsables ?? [])}
+                    </ul>
+                </Campo>
+
+                <Campo titulo={"observaciones"}>
+                    <ul>
+                        {arrToLi(pm?.observaciones ?? [])}
+                    </ul>
+                </Campo>
+            </div>
         </div>
     );
 }

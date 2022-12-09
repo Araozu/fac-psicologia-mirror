@@ -58,6 +58,8 @@ type CardPlanesMejoraProps = {
      * Ejm: "E-1"
      */
     nombreEstandar: string,
+    // Ruta configurada en el router. Ejm. "estandar8"
+    path: string,
 }
 export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     const {producerFn = fetchTodosPlanMejora, nombreEstandar} = props;
@@ -172,7 +174,9 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} />),
+            .map((plan, i) => (
+                <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} path={props.path} />
+            )),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora, planesMejora],
     );
 
