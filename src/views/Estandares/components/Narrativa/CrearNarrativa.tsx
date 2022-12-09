@@ -141,10 +141,9 @@ export default function CrearNarrativa(props: Props) {
         const token = localStorage.getItem("access_token");
 
         const values = {
-            // TODO: Usar el ID del estandar en vez de un valor fijo
             id_estandar: idEstandar,
             semestre: `${anio.value}-${semestre.value}`,
-            contenido: tinyEditorRef.current?.getContent(),
+            contenido: tinyEditorRef.current?.getContent().replaceAll("<a", "<a target=\"_blank\" rel=\"noopener noreferrer\""),
         };
         console.log(values);
         axios.post(`${SERVER_PATH}/api/narrativa`, values, {

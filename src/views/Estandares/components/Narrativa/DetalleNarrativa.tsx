@@ -2,6 +2,7 @@ import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar
 import React from "react";
 import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
+import {IFrameNarrativa} from "@/views/Estandares/components/Narrativa/IFrameNarrativa";
 
 // Los datos que el servidor devuelve cuando se pide una narrativa
 export type DataNarrativaServer = {
@@ -22,7 +23,6 @@ export default function DetalleNarrativa(props: Props) {
 
     const {codigo} = useParams<{codigo: string}>();
     const [data, setData] = React.useState<DataNarrativaServer | null>(null);
-    const iframeRef = React.createRef<HTMLIFrameElement>();
 
     React.useEffect(() => {
         const token = localStorage.getItem("access_token");
@@ -38,7 +38,6 @@ export default function DetalleNarrativa(props: Props) {
             .then((res) => res.json())
             .then((dataServer) => {
                 setData(dataServer.data);
-                iframeRef.current?.contentDocument?.write(dataServer.data.contenido);
             });
     }, []);
 
@@ -55,7 +54,7 @@ export default function DetalleNarrativa(props: Props) {
                     )}
                     <hr />
                     <div className="contenedor-narrativa">
-                        <iframe style={{width: "100%"}} ref={iframeRef} />
+                        <IFrameNarrativa html={data?.contenido ?? ""} />
                     </div>
                     <div>&nbsp;</div>
                 </div>

@@ -5,13 +5,20 @@ import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/Detal
 import "./CardNarrativas.css";
 import Modal from "@/components/modals/Modal";
 import CrearPM from "@/views/Estandares/components/PlanMejora/components/CrearPM";
+import {IFrameNarrativa} from "@/views/Estandares/components/Narrativa/IFrameNarrativa";
 
 type Semestre = "A" | "B";
 
-function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}) {
+type NarrativaProps = {
+    narrativa: DataNarrativaServer,
+    eliminar: () => void,
+    // Ruta configurada en el router. Ejm. "estandar8"
+    pathNarrativa: string,
+};
+function Narrativa(props: NarrativaProps) {
     const history = useHistory();
 
-    const redirigirEditarNarrativa = () => history.push(`/admin/estandar8/narrativa/editar/${props.narrativa.id}`);
+    const redirigirEditarNarrativa = () => history.push(`/admin/${props.pathNarrativa}/narrativa/editar/${props.narrativa.id}`);
 
     const eliminar = () => {
         const userToken = localStorage.getItem("access_token");
@@ -33,7 +40,7 @@ function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}
     return (
         <div className="contenedor-card-narrativa">
             <div className="card-narrativa_top">
-                <div onClick={() => history.push(`/admin/estandar8/narrativa/detalle/${props.narrativa.id}`)}>
+                <div onClick={() => history.push(`/admin/${props.pathNarrativa}/narrativa/detalle/${props.narrativa.id}`)}>
                     <span className="card-narrativa_titulo">NARRATIVA</span>
                     <span className="card-narrativa_semestre">{props.narrativa.semestre}</span>
                 </div>
@@ -57,7 +64,8 @@ function Narrativa(props: {narrativa: DataNarrativaServer, eliminar: () => void}
             </div>
             <hr />
             <br />
-            <div dangerouslySetInnerHTML={{__html: props.narrativa.contenido}} />
+            {/* <div dangerouslySetInnerHTML={{__html: props.narrativa.contenido}} /> */}
+            <IFrameNarrativa html={props.narrativa.contenido} />
         </div>
     );
 }
@@ -199,7 +207,11 @@ export default function CardNarrativas(props: Props) {
 
             {/* Mostrar narrativa si existe */}
             {narrativaActual ? (
-                <Narrativa narrativa={narrativaActual} eliminar={() => eliminarNarrativa(narrativaActual)} />
+                <Narrativa
+                    narrativa={narrativaActual}
+                    eliminar={() => eliminarNarrativa(narrativaActual)}
+                    pathNarrativa={props.pathNarrativa}
+                />
             ) : (
                 <div className="relative flex flex-col justify-center items-center min-h-10 min-w-0 break-words bg-white w-full mb-6 rounded py-10"
                     style={{color: "#AEAEAE", fontSize: "24px"}}
