@@ -30,7 +30,7 @@ export default function ItemEvidencia(props: any) {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement("a");
                 link.href = url;
-                link.setAttribute("download", `${denominacion}.pdf`); //or any other extension
+                link.setAttribute("download", `${denominacion}`); //or any other extension
                 document.body.appendChild(link);
                 link.click();
             })
@@ -43,7 +43,7 @@ export default function ItemEvidencia(props: any) {
         <>
             <div className="form-input-buttons-group secondary">
                 <input
-                    key={id} id={id} disabled value={`${denominacion}.pdf`} type="text"
+                    key={id} id={id} disabled value={`${denominacion}`} type="text"
                     className={"form-input-text"}
                 />
                 <a onClick={handleDownload} className="ml-2 mr-2 download-a" download>DESCARGAR</a>

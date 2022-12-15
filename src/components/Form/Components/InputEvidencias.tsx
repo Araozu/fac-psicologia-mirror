@@ -120,7 +120,7 @@ export default function InputEvidencias(props: any) {
                                     m-0
                                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         id={`${name}-file`} type="file"
-                        accept=".pdf,.doc,.docx,.xls,.xlsx" disabled={loading}
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg" disabled={loading}
                     />
                     {/* @ts-ignore */}
                     <a className="form-icon-button form-add-button" onClick={handleAdd} disabled={loading}>
