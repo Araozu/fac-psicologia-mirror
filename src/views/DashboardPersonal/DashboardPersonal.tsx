@@ -7,6 +7,7 @@ import CardStats from "@/components/Cards/CardStats";
 import {SERVER_PATH} from "@/variables";
 import {PlanMejoraServer} from "@/views/Estandares/components/PlanMejora";
 import ContentWrapper from "@/components/ContentWrapper";
+import {useHistory} from "react-router";
 
 
 /**
@@ -24,8 +25,19 @@ async function fetchPlanMejoraUsuario(): Promise<Array<PlanMejoraServer>> {
             "Authorization": `Bearer ${userToken}`,
         },
     });
-    const dataObj: { data: Array<PlanMejoraServer> } = await raw.json();
-    return dataObj.data;
+
+    if (raw.ok) {
+        const dataObj: { data: Array<PlanMejoraServer> } = await raw.json();
+        return dataObj.data;
+    } else {
+        if (raw.status === 401) {
+            localStorage.removeItem("access_token");
+            console.warn("401");
+            useHistory().push("/auth");
+        }
+
+        throw new Error();
+    }
 }
 
 export default function DashboardPersonal() {

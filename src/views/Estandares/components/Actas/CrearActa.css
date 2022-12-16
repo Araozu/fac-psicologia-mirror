@@ -1,0 +1,19 @@
+.titulo-formulario {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.contenedor-form {
+    display: grid;
+    grid-template-columns: 25% 70%;
+    row-gap: 15px;
+    grid-column-gap: 5%;
+    margin: 1rem 0;
+}
+
+.contenedor-narrativa {
+    border: solid 2px gray;
+    padding: 1rem;
+    border-radius: 5px;
+}

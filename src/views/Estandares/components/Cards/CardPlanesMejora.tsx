@@ -135,7 +135,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const listaAnios = useMemo<Array<string>>(() => {
         const map: { [key: string]: boolean } = {};
-        planesMejora.forEach((plan) => {
+        planesMejora?.forEach((plan) => {
             map[plan.codigo.substring(6, 10)] = true;
         });
         return Object.keys(map);
@@ -167,14 +167,14 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
 
     const planesMejoraEls = useMemo(
         () => planesMejora
-            .filter((plan) => {
+            ?.filter((plan) => {
                 const contieneCodigoPlan = plan.codigo.indexOf(filtroCodigo) !== -1;
                 const contieneAnio = filtroAnio === -1 || plan.codigo.indexOf(filtroAnio.toString()) !== -1;
                 const contieneEstado = filtroEstado === "Todos" || plan.estado === filtroEstado;
 
                 return contieneCodigoPlan && contieneAnio && contieneEstado;
             })
-            .map((plan, i) => (
+            ?.map((plan, i) => (
                 <PlanMejora plan={plan} key={i} eliminar={() => eliminarPlanMejora(plan)} path={props.path} />
             )),
         [filtroCodigo, filtroAnio, filtroEstado, planesMejora, planesMejora],
@@ -190,7 +190,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     );
 
     // SI NO HAY NINGUN PLAN DE MEJORA
-    if (planesMejora.length === 0) return (
+    if (planesMejora?.length === 0) return (
         <div className="relative flex flex-col justify-center items-center min-h-10 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-10"
             style={{color: "#AEAEAE", fontSize: "24px"}}
         >

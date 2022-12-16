@@ -5,9 +5,10 @@ import Select from "react-select";
 
 import Label from "./Label/Label";
 import {SERVER_PATH} from "@/variables";
+import {useHistory} from "react-router";
 
 
-export default function InputSelectUsers(props:any) {
+export default function InputSelectUsers(props: any) {
     //INITIAL VALUE RECIBE EL ID
     const {
         name,
@@ -25,20 +26,26 @@ export default function InputSelectUsers(props:any) {
     const [value, setValue] = useState({});
 
     useEffect(() => {
-        axios.get(`${SERVER_PATH}/api/enabled_users`, {headers: { 'Authorization': `Bearer ${access_token}` }})
+        axios.get(`${SERVER_PATH}/api/enabled_users`, {headers: {"Authorization": `Bearer ${access_token}`}})
             .then(function(response) {
-                if (options.length > 0) return;
-                const optionsResponse:any = [];
+                if (response.status === 401) {
+                    localStorage.removeItem("access_token");
+                    console.warn("401");
+                    useHistory().push("/auth");
+                }
 
-                response.data.data.forEach((item:any, index:number) => optionsResponse.push({
+                if (options.length > 0) return;
+                const optionsResponse: any = [];
+
+                response.data.data.forEach((item: any, index: number) => optionsResponse.push({
                     //TODO: CAMBIAR INDEX POR EL ID DEL ESTANDAR CUANNDO LO DEVUELVA LA RUTA
                     value: item.id,
-                    label: item.name?.toUpperCase()+" "+item.lastname?.toUpperCase()+" - "+item.email?.toLowerCase(),
+                    label: `${item.name?.toUpperCase()} ${item.lastname?.toUpperCase()} - ${item.email?.toLowerCase()}`,
                 }));
                 setOptions(optionsResponse);
 
                 if (props.initialValue) {
-                    const labelInitialValue = optionsResponse.find((item:any) => item.value === props.initialValue)?.label;
+                    const labelInitialValue = optionsResponse.find((item: any) => item.value === props.initialValue)?.label;
                     const newValue = {
                         value: props.initialValue,
                         label: labelInitialValue,
@@ -79,7 +86,7 @@ export default function InputSelectUsers(props:any) {
 
 }
 const customStyles = {
-    option: (provided:any, state:any) => ({
+    option: (provided: any, state: any) => ({
         ...provided,
         borderBottom: "1px dotted pink",
         //color: state.isSelected ? "red" : "blue",

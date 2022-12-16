@@ -1,13 +1,11 @@
-import React, {useMemo, useState} from "react";
+import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 // components
 import AdminNavbar from "../../components/Navbars/AdminNavbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import FooterAdmin from "../../components/Footers/FooterAdmin";
 
 // views
-import Estandar8 from "../../views/Estandares/Estandar8/Estandar8";
 import EditarNarrativa from "@/views/Estandares/components/Narrativa/EditarNarrativa";
 import {useHistory} from "react-router";
 import Detalle from "@/views/Estandares/components/PlanMejora/Detalle";
@@ -17,13 +15,7 @@ import CrearNarrativa from "@/views/Estandares/components/Narrativa/CrearNarrati
 import DetalleNarrativa from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import Users from "@/views/admin/Users/Users";
 import GEstandares from "@/views/admin/GEstandares/Estandares";
-import Estandar7 from "@/views/Estandares/Estandar7/Estandar7";
-import Estandar1 from "@/views/Estandares/Estandar1/Estandar1";
-import Estandar2 from "@/views/Estandares/Estandar2/Estandar2";
-import Estandar3 from "@/views/Estandares/Estandar3/Estandar3";
-import Estandar4 from "@/views/Estandares/Estandar4/Estandar4";
-import Estandar5 from "@/views/Estandares/Estandar5/Estandar5";
-import Estandar6 from "@/views/Estandares/Estandar6/Estandar6";
+import EstandarConfigurable from "@/views/Estandares/EstandarConfigurable";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -40,7 +32,16 @@ export default function Admin() {
                    Estandar 1
              ========================
              */}
-            <Route path="/admin/estandar1" exact component={Estandar1} />
+            <Route path="/admin/estandar1" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar1"
+                    idEstandar={1}
+                    nombreEstandar="E-1"
+                    tituloEstandar="Estandar 1"
+                    descripcionEstandar="Propositos Articulados"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar1/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -69,7 +70,16 @@ export default function Admin() {
                    Estandar 2
              ========================
              */}
-            <Route path="/admin/estandar2" exact component={Estandar2} />
+            <Route path="/admin/estandar2" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar2"
+                    idEstandar={2}
+                    nombreEstandar="E-2"
+                    tituloEstandar="Estandar 2"
+                    descripcionEstandar="Participación de los Grupos de Interés"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar2/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -101,7 +111,16 @@ export default function Admin() {
                    Estandar 3
              ========================
              */}
-            <Route path="/admin/estandar3" exact component={Estandar3} />
+            <Route path="/admin/estandar3" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar3"
+                    idEstandar={3}
+                    nombreEstandar="E-3"
+                    tituloEstandar="Estandar 3"
+                    descripcionEstandar="Revisión Periodica de las Políticas y Objetivos"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar3/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -129,7 +148,16 @@ export default function Admin() {
                    Estandar 4
              ========================
              */}
-            <Route path="/admin/estandar4" exact component={Estandar4} />
+            <Route path="/admin/estandar4" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar4"
+                    idEstandar={4}
+                    nombreEstandar="E-4"
+                    tituloEstandar="Estandar 4"
+                    descripcionEstandar="Sostenibilidad"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar4/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -158,7 +186,16 @@ export default function Admin() {
                    Estandar 5
              ========================
              */}
-            <Route path="/admin/estandar5" exact component={Estandar5} />
+            <Route path="/admin/estandar5" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar5"
+                    idEstandar={5}
+                    nombreEstandar="E-5"
+                    tituloEstandar="Estandar 5"
+                    descripcionEstandar="Pertinencia del Perfil de Egreso"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar5/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -187,7 +224,16 @@ export default function Admin() {
                    Estandar 6
              ========================
              */}
-            <Route path="/admin/estandar6" exact component={Estandar6} />
+            <Route path="/admin/estandar6" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar6"
+                    idEstandar={6}
+                    nombreEstandar="E-6"
+                    tituloEstandar="Estandar 6"
+                    descripcionEstandar="Revisión del Perfil de Egreso"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar6/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -216,7 +262,16 @@ export default function Admin() {
                    Estandar 7
              ========================
              */}
-            <Route path="/admin/estandar7" exact component={Estandar7} />
+            <Route path="/admin/estandar7" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar7"
+                    idEstandar={7}
+                    nombreEstandar="E-7"
+                    tituloEstandar="Estandar 7"
+                    descripcionEstandar="Sistema de Gestión de la Calidad"
+                />
+            )}
+            />
 
             {/* Ver plan de mejora */}
             <Route path="/admin/estandar7/plan-mejora/detalle/:codigo" exact component={Detalle} />
@@ -245,7 +300,16 @@ export default function Admin() {
                    Estandar 8
              ========================
              */}
-            <Route path="/admin/estandar8" exact component={Estandar8} />
+            <Route path="/admin/estandar8" exact component={() => (
+                <EstandarConfigurable
+                    path="estandar8"
+                    idEstandar={8}
+                    nombreEstandar="E-8"
+                    tituloEstandar="Estandar 8"
+                    descripcionEstandar="Estándar para la gestión de calidad"
+                />
+            )}
+            />
 
             {/* Crear plan de mejora */}
             <Route path="/admin/estandar8/plan-mejora/crear" exact component={CrearPlanMejora} />
