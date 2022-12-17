@@ -8,14 +8,15 @@ import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
-import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import axios from "axios";
+import {DataActa} from "@/views/Estandares/components/Cards/CardActas";
 
 export default function EditarActa() {
     const tinyEditorRef = React.useRef<Editor>();
     const {codigo} = useParams<{codigo: string}>();
     const [narrativaId, setNarrativaId] = React.useState(-1);
-    const [semestre, setSemestre] = React.useState("Cargando...");
+    const [date, setDate] = useState(-1);
+
     const history = useHistory();
 
     React.useEffect(() => {
@@ -31,7 +32,7 @@ export default function EditarActa() {
 
                 // Recuperar narrativa del servidor
                 const token = localStorage.getItem("access_token");
-                return fetch(`${SERVER_PATH}/api/narrativa/${codigo}`, {
+                return fetch(`${SERVER_PATH}/api/acta/${codigo}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -42,10 +43,10 @@ export default function EditarActa() {
             })
             .then((res) => res.json())
             .then((dataServer) => {
-                const d = dataServer.data as DataNarrativaServer;
+                const d = dataServer.data as DataActa;
                 setNarrativaId(d.id);
-                setSemestre(d.semestre);
-                tinyEditorRef.current?.setContent(d.contenido);
+                setDate(d.fecha);
+                tinyEditorRef.current?.setContent(d.descripcion);
             });
 
         return () => {
@@ -113,9 +114,9 @@ export default function EditarActa() {
 
         const values = {
             id: narrativaId,
-            contenido: tinyEditorRef.current?.getContent(),
+            descripcion: tinyEditorRef.current?.getContent(),
         };
-        axios.put(`${SERVER_PATH}/api/narrativa`, values, {
+        axios.put(`${SERVER_PATH}/api/acta`, values, {
             headers: {
                 "Content-type": "application/json",
                 Accept: "application/json",
@@ -133,21 +134,30 @@ export default function EditarActa() {
             });
     };
 
+    const dateText = () => {
+        if (date === -1) {
+            return "";
+        } else {
+            const d = new Date(date);
+            return `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}`;
+        }
+    };
+
     return (
         <div>
             <HeaderEstandar titulo="Editar Narrativa" />
             <div className="relative px-4" style={{top: "-6rem"}}>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
-                    <h2 className="titulo-formulario">Formulario de edición de Narrativa</h2>
+                    <h2 className="titulo-formulario">Formulario de edición de Acta</h2>
 
                     <hr />
 
                     <div className="contenedor-form">
                         <InputText
-                            name="semestre"
-                            label="Semestre"
-                            description="El semestre del plan de mejora."
-                            value={semestre}
+                            name="fecha"
+                            label="Fecha"
+                            description="La fecha del acta."
+                            value={dateText()}
                             disabled
                         />
                     </div>

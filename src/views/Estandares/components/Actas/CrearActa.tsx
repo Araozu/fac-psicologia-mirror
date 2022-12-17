@@ -10,34 +10,30 @@ import Modal from "@/components/modals/Modal";
 import {useHistory} from "react-router";
 import ContentWrapper from "@/components/ContentWrapper";
 import Label from "@/components/Form/Components/Label/Label";
-import Select from "react-select";
 
-function arrayAnios(initial: number): Array<number> {
-    const current = new Date().getFullYear();
-    const arr = [];
-    for (let i = initial; i <= current + 1; i += 1) {
-        arr.push(i);
-    }
-    return arr;
-}
+import DatePicker from "react-date-picker/dist/entry.nostyle";
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
+
 
 
 type Props = {
-    // Id del estandar del cual crear narrativas, por defecto `8`
+    // Id del estandar del cual crear actas, por defecto `8`
     idEstandar?: number,
     // Nombre del estandar, por defecto "Estandar 8"
     nombreEstandar?: string,
 }
 
 /**
- * Componente generico para crear una narrativa. Se configura mediante los props.
+ * Componente generico para crear una acta. Se configura mediante los props.
  */
 export default function CrearActa(props: Props) {
     const {idEstandar = 8, nombreEstandar = "Estandar 8"} = props;
 
     const tinyEditorRef = React.useRef<Editor>();
     const textareaRef = React.createRef<HTMLTextAreaElement>();
-    console.log("Crear acta");
+
+    const [date, setDate] = useState(new Date());
 
     // Configurar tinymce al cargar el componente
     React.useEffect(
@@ -52,22 +48,9 @@ export default function CrearActa(props: Props) {
                 toolbar: "undo redo | fontfamily fontsize | bold italic underline forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent removeformat",
             });
 
-            // Cargar datos de la última narrativa
-            /* TODO: Usar ID del estandar en vez de '8'
-            const promesaUltimaNarrativa = axios.get(`${SERVER_PATH}/api/narrativa/ultima/9`, {
-                headers: {
-                    "Content-type": "application/json",
-                    Accept: "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-             */
-
             Promise.all([promesaTiny])
                 .then(([editors]) => {
                     tinyEditorRef.current = editors[0];
-                    const contenido = localStorage.getItem("ultima-narrativa-contenido") ?? "";
-                    editors[0].setContent(contenido);
                 });
 
             return () => {
@@ -79,37 +62,11 @@ export default function CrearActa(props: Props) {
                 } finally {
                     // Eliminar script de Tiny y volver a cargarlo,
                     // para "solucionar" error del editor al salir y volver a entrar
-                    /*
-                    const tinyel = document.querySelector(".tox-tinymce-aux")!;
-                    tinyel.parentElement!.removeChild(tinyel);
-
-                    // @ts-ignore
-                    if (window.tinyElRef === undefined) {
-                        const el = document.getElementById("tiny-script-ref")!;
-                        el.parentElement!.removeChild(el);
-                    } else {
-                        // @ts-ignore
-                        const el = window.tinyElRef;
-                        el.parentElement!.removeChild(el);
-                    }
-
-                    const scriptEl = document.createElement("script");
-                    scriptEl.src = "/tinymce.min.js";
-                    scriptEl.id = "tiny-script-ref";
-
-                    document.body.appendChild(scriptEl);
-                    // @ts-ignore
-                    window.tinyElRef = scriptEl;
-
-                     */
                 }
             };
         },
         [],
     );
-
-    const [anio, setAnio] = React.useState({value: "2022", label: "2022"});
-    const [semestre, setSemestre] = React.useState({value: "A", label: "A"});
 
     const history = useHistory();
     const [modal, setModal] = useState(false);
@@ -137,16 +94,16 @@ export default function CrearActa(props: Props) {
         if (modalInfo.estado === "ok") history.go(-1);
     };
 
-    const crearNarrativa = () => {
+    const crearActa = () => {
         const token = localStorage.getItem("access_token");
 
         const values = {
             id_estandar: idEstandar,
-            semestre: `${anio.value}-${semestre.value}`,
-            contenido: tinyEditorRef.current?.getContent().replaceAll("<a", "<a target=\"_blank\" rel=\"noopener noreferrer\""),
+            fecha: date.getTime(),
+            descripcion: tinyEditorRef.current?.getContent().replaceAll("<a", "<a target=\"_blank\" rel=\"noopener noreferrer\""),
         };
-        console.log(values);
-        axios.post(`${SERVER_PATH}/api/narrativa`, values, {
+
+        axios.post(`${SERVER_PATH}/api/acta`, values, {
             headers: {
                 "Content-type": "application/json",
                 Accept: "application/json",
@@ -167,62 +124,25 @@ export default function CrearActa(props: Props) {
     return (
         <div>
             <HeaderEstandar
-                titulo={`Crear Narrativa ${nombreEstandar}`}
-                descripcion={`Crear una nueva narrativa del ${nombreEstandar}`}
+                titulo={`Crear Acta ${nombreEstandar}`}
+                descripcion={`Crear una nueva acta del ${nombreEstandar}`}
             />
             <ContentWrapper>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
-                    <h2 className="titulo-formulario">Formulario de creación de Narrativa</h2>
+                    <h2 className="titulo-formulario">Formulario de creación de Acta</h2>
 
                     <hr />
 
                     <div className="contenedor-form" style={{position: "relative", zIndex: 10}}>
-                        <Label label={"Año"} description={"El año del plan de mejora."} />
-                        <Select
-                            name={"anio-select"}
-                            options={
-                                /* @ts-ignore */
-                                arrayAnios(2018).map((x) => ({label: x.toString(), value: x.toString()}))
-                            }
-                            value={anio}
-                            onChange={(v) => {
-                                // @ts-ignore
-                                setAnio(v);
-                            }}
-                            isDisabled={false}
-                            theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 10,
-                            })}
-                            className={"input-select-container"}
-                        />
-
-                        <Label label={"Semestre"} description={"El semestre del plan de mejora."} />
-                        <Select
-                            name={"semestre-select"}
-                            options={
-                                /* @ts-ignore */
-                                [{value: "A", label: "A"}, {value: "B", label: "B"}]
-                            }
-                            value={semestre}
-                            onChange={(v) => {
-                                // @ts-ignore
-                                setSemestre(v);
-                            }}
-                            isDisabled={false}
-                            theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 10,
-                            })}
-                            className={"input-select-container"}
-                        />
+                        <Label label={"Fecha"} description={"La fecha del acta."} />
+                        <DatePicker onChange={setDate} value={date} locale="es-ES" />
                     </div>
 
 
                     <textarea ref={textareaRef} rows={20} />
 
                     <div className="form-footer">
-                        <button type="submit" onClick={crearNarrativa}>
+                        <button type="submit" onClick={crearActa}>
                             <i className="fa-solid fa-floppy-disk" /> Guardar
                         </button>
                     </div>

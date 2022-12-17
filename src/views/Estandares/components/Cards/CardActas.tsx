@@ -4,7 +4,7 @@ import {SERVER_PATH} from "@/variables";
 import "./CardNarrativas.css";
 import {IframeActa} from "@/views/Estandares/components/Actas/IframeActa";
 
-type ActaT = {
+export type DataActa = {
     id: number,
     descripcion: string,
     // Unix timestamp
@@ -13,7 +13,7 @@ type ActaT = {
 }
 
 type ActaProps = {
-    acta: ActaT,
+    acta: DataActa,
     eliminar: () => void,
     // Ruta configurada en el router. Ejm. "estandar8"
     pathNarrativa: string,
@@ -85,7 +85,7 @@ export default function CardActas(props: Props) {
     const history = useHistory();
 
     const [filtroFecha, setFiltroFecha] = useState(-1);
-    const [actas, setActas] = useState<Array<ActaT>>([]);
+    const [actas, setActas] = useState<Array<DataActa>>([]);
 
     const redirigirCrearActa = () => history.push(`/admin/${props.pathActas}/acta/crear`);
 
@@ -108,7 +108,7 @@ export default function CardActas(props: Props) {
 
                 return res.json();
             })
-            .then((resp: {data: Array<ActaT>}) => {
+            .then((resp: {data: Array<DataActa>}) => {
                 const actas = resp.data
                     .filter((x) => x.id_estandar === props.idEstandar)
                     .sort((x, y) => (x.fecha > y.fecha ? 1 : -1));
@@ -122,7 +122,7 @@ export default function CardActas(props: Props) {
             .catch(() => {});
     }, []);
 
-    const eliminarActa = (acta: ActaT) => {
+    const eliminarActa = (acta: DataActa) => {
         const nuevasActas = actas.filter((x) => x.id !== acta.id);
         setActas(nuevasActas);
     };
@@ -173,7 +173,7 @@ export default function CardActas(props: Props) {
     );
 }
 
-function FiltroFecha(props: { initial: number, values: Array<ActaT>, onChange: (_: number) => void }) {
+function FiltroFecha(props: { initial: number, values: Array<DataActa>, onChange: (_: number) => void }) {
     const [selected, setSelected] = useState(-1);
 
     useEffect(() => {
