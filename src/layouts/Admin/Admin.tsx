@@ -16,6 +16,9 @@ import DetalleNarrativa from "@/views/Estandares/components/Narrativa/DetalleNar
 import Users from "@/views/admin/Users/Users";
 import GEstandares from "@/views/admin/GEstandares/Estandares";
 import EstandarConfigurable from "@/views/Estandares/EstandarConfigurable";
+import CrearActa from "@/views/Estandares/components/Actas/CrearActa";
+import DetalleActa from "@/views/Estandares/components/Actas/DetalleActa";
+import EditarActa from "@/views/Estandares/components/Actas/EditarActa";
 
 export default function Admin() {
     // Redirigir a inicio de sesion si no hay token de inicio de sesion
@@ -27,6 +30,8 @@ export default function Admin() {
 
     const Routes = () => (
         <Switch>
+
+            {/* Esto se deberia reescribir para usar rutas dinamicas... */}
             {/*
              ========================
                    Estandar 1
@@ -63,6 +68,20 @@ export default function Admin() {
             {/* Editar narrativa. */}
             <Route path="/admin/estandar1/narrativa/editar/:codigo" exact component={EditarNarrativa} />
 
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${1}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={1} nombreEstandar={`Estandar ${1}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${1}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${1}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${1}/acta/editar/:codigo`} exact component={EditarActa} />
 
 
             {/*
@@ -100,7 +119,20 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar2/narrativa/editar/:codigo" exact component={EditarNarrativa} />
-
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${2}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={2} nombreEstandar={`Estandar ${2}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${2}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${2}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${2}/acta/editar/:codigo`} exact component={EditarActa} />
 
 
 
@@ -141,6 +173,23 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar3/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${3}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={3} nombreEstandar={`Estandar ${3}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${3}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${3}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${3}/acta/editar/:codigo`} exact component={EditarActa} />
+
+
+
 
 
             {/*
@@ -178,6 +227,23 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar4/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${4}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={4} nombreEstandar={`Estandar ${4}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${4}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${4}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${4}/acta/editar/:codigo`} exact component={EditarActa} />
+
+
+
 
 
 
@@ -216,6 +282,23 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar5/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${5}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={5} nombreEstandar={`Estandar ${5}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${5}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${5}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${5}/acta/editar/:codigo`} exact component={EditarActa} />
+
+
+
 
 
 
@@ -254,6 +337,23 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar6/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${6}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={6} nombreEstandar={`Estandar ${6}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${6}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${6}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${6}/acta/editar/:codigo`} exact component={EditarActa} />
+
+
+
 
 
 
@@ -292,6 +392,23 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar7/narrativa/editar/:codigo" exact component={EditarNarrativa} />
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${7}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={7} nombreEstandar={`Estandar ${7}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${7}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${7}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${7}/acta/editar/:codigo`} exact component={EditarActa} />
+
+
+
 
 
 
@@ -332,7 +449,20 @@ export default function Admin() {
             />
             {/* Editar narrativa. */}
             <Route path="/admin/estandar8/narrativa/editar/:codigo" exact component={EditarNarrativa} />
-
+            {/* Crear acta */}
+            <Route
+                path={`/admin/estandar${8}/acta/crear`}
+                exact
+                component={() => <CrearActa idEstandar={8} nombreEstandar={`Estandar ${8}`} />}
+            />
+            {/* Ver acta */}
+            <Route
+                path={`/admin/estandar${8}/acta/detalle/:codigo`}
+                exact
+                component={() => <DetalleActa nombreEstandar={`Estandar ${8}` } />}
+            />
+            {/* Editar acta */}
+            <Route path={`/admin/estandar${8}/acta/editar/:codigo`} exact component={EditarActa} />
 
 
 

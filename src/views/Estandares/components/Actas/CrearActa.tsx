@@ -2,7 +2,7 @@ import HeaderEstandar from "@/views/Estandares/components/Headers/HeaderEstandar
 
 import type {Editor} from "@/types/tinymce";
 import React, {useState} from "react";
-import "./CrearNarrativa.css";
+import "./CrearActa.css";
 import axios from "axios";
 import {SERVER_PATH} from "@/variables";
 
@@ -37,6 +37,7 @@ export default function CrearActa(props: Props) {
 
     const tinyEditorRef = React.useRef<Editor>();
     const textareaRef = React.createRef<HTMLTextAreaElement>();
+    console.log("Crear acta");
 
     // Configurar tinymce al cargar el componente
     React.useEffect(

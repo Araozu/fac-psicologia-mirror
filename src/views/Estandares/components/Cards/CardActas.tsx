@@ -195,7 +195,7 @@ function FiltroFecha(props: { initial: number, values: Array<ActaT>, onChange: (
 
     return (
         <span className="relative">
-            <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Año</span>
+            <span className="block absolute -top-8 left-2 text-xs opacity-75 font-medium">Fecha</span>
             <select
                 value={selected} onChange={handleChange} name="anio" id="filtro-anio"
                 className="rounded-xl text-sm p-2 w-48"
