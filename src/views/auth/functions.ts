@@ -82,7 +82,6 @@ export const googleLoginFn = (searchParams: string) => new Promise<GoogleRespons
     // const paramsEncoded = window.encodeURIComponent(searchParams);
     fetch(`${SERVER_PATH}/api/login/google/callback${searchParams}`)
         .then((res) => {
-            console.log(res);
             res.json()
                 .then((jsonObj) => {
                     resolve({
