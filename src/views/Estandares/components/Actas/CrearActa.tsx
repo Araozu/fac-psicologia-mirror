@@ -96,10 +96,12 @@ export default function CrearActa(props: Props) {
 
     const crearActa = () => {
         const token = localStorage.getItem("access_token");
+        console.log(date);
+        console.log(date.toISOString());
 
         const values = {
             id_estandar: idEstandar,
-            fecha: date.getTime(),
+            fecha: `${date.toISOString()}`,
             descripcion: tinyEditorRef.current?.getContent().replaceAll("<a", "<a target=\"_blank\" rel=\"noopener noreferrer\""),
         };
 

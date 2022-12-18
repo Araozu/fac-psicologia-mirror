@@ -33,25 +33,16 @@ export default function DetalleActa(props: Props) {
             });
     }, []);
 
-    const dateText = () => {
-        if (data === null) {
-            return "";
-        } else {
-            const date = new Date(data.fecha);
-            return `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
-        }
-    };
-
     return (
         <div>
             <HeaderEstandar
-                titulo={`Detalle de Narrativa del ${nombreEstandar}`}
+                titulo={`Detalle de Acta del ${nombreEstandar}`}
             />
 
             <div className="relative px-4" style={{top: "-6rem"}}>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded px-5">
                     {data === null ? <></> : (
-                        <h2 className="titulo-formulario">Narrativa {dateText()}</h2>
+                        <h2 className="titulo-formulario">Acta {data.fecha ?? ""}</h2>
                     )}
                     <hr />
                     <div className="contenedor-narrativa">

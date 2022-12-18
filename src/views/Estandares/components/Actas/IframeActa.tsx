@@ -1,14 +1,23 @@
 import React, {useEffect} from "react";
 
 export function IframeActa(props: {html: string}) {
-    const iframeRef = React.createRef<HTMLIFrameElement>();
+    const iframeRef = React.createRef<HTMLDivElement>();
 
     useEffect(
         () => {
             const html = props.html;
 
-            const iframe = iframeRef.current;
-            if (iframe === null) return;
+            const iframeContainer = iframeRef.current;
+            if (iframeContainer === null) return;
+
+            const oldIframe = iframeContainer.firstChild;
+            if (oldIframe) {
+                iframeContainer.removeChild(oldIframe);
+            }
+
+            const iframe = document.createElement("iframe");
+            iframe.style.width = "100%";
+            iframeContainer.appendChild(iframe);
 
             iframe.contentDocument?.write(html);
             const iFrameWindow = iframe.contentDocument;
@@ -21,6 +30,8 @@ export function IframeActa(props: {html: string}) {
     );
 
     return (
-        <iframe style={{width: "100%"}} ref={iframeRef} />
+        <div ref={iframeRef}>
+            <iframe style={{width: "100%"}} />
+        </div>
     );
 }

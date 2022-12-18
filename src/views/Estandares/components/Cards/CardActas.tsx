@@ -7,8 +7,8 @@ import {IframeActa} from "@/views/Estandares/components/Actas/IframeActa";
 export type DataActa = {
     id: number,
     descripcion: string,
-    // Unix timestamp
-    fecha: number,
+    // YYYY-mm-dd
+    fecha: string,
     id_estandar: number,
 }
 
@@ -40,14 +40,12 @@ function Acta(props: ActaProps) {
             });
     };
 
-    const date = new Date(props.acta.fecha);
-
     return (
         <div className="contenedor-card-narrativa">
             <div className="card-narrativa_top">
                 <div onClick={() => history.push(`/admin/${props.pathNarrativa}/acta/detalle/${props.acta.id}`)}>
                     <span className="card-narrativa_titulo">ACTAS</span>
-                    <span className="card-narrativa_semestre">{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</span>
+                    <span className="card-narrativa_semestre">{props.acta.fecha}</span>
                 </div>
 
                 <div style={{textAlign: "right"}}>
@@ -84,7 +82,7 @@ type Props = {
 export default function CardActas(props: Props) {
     const history = useHistory();
 
-    const [filtroFecha, setFiltroFecha] = useState(-1);
+    const [filtroFecha, setFiltroFecha] = useState("");
     const [actas, setActas] = useState<Array<DataActa>>([]);
 
     const redirigirCrearActa = () => history.push(`/admin/${props.pathActas}/acta/crear`);
@@ -127,6 +125,7 @@ export default function CardActas(props: Props) {
         setActas(nuevasActas);
     };
 
+    const actaActualIdx = actas.findIndex((x) => x.fecha === filtroFecha);
 
     return (
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded py-5">
@@ -155,10 +154,10 @@ export default function CardActas(props: Props) {
             </div>
 
             {/* Mostrar narrativa si existe */}
-            {actas.length > 0 ? (
+            {actaActualIdx !== -1 ? (
                 <Acta
-                    acta={actas[0]}
-                    eliminar={() => eliminarActa(actas[0])}
+                    acta={actas[actaActualIdx]}
+                    eliminar={() => eliminarActa(actas[actaActualIdx])}
                     pathNarrativa={props.pathActas}
                 />
             ) : (
@@ -173,25 +172,22 @@ export default function CardActas(props: Props) {
     );
 }
 
-function FiltroFecha(props: { initial: number, values: Array<DataActa>, onChange: (_: number) => void }) {
-    const [selected, setSelected] = useState(-1);
+function FiltroFecha(props: { initial: string, values: Array<DataActa>, onChange: (_: string) => void }) {
+    const [selected, setSelected] = useState("");
 
     useEffect(() => {
         setSelected(props.initial);
     }, [props.initial]);
 
     const handleChange: ChangeEventHandler<HTMLSelectElement> = (ev) => {
-        const value = parseInt(ev.target.value, 10);
+        const value = ev.target.value;
         props.onChange(value);
         setSelected(value);
     };
 
-    const elements = props.values.map((acta) => {
-        const date = new Date(acta.fecha);
-        return (
-            <option value={acta.fecha}>{date.getDay()}/{date.getMonth()}/{date.getFullYear()}</option>
-        );
-    });
+    const elements = props.values.map((acta) => (
+        <option value={acta.fecha}>{acta.fecha}</option>
+    ));
 
     return (
         <span className="relative">

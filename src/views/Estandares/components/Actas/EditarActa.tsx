@@ -15,7 +15,7 @@ export default function EditarActa() {
     const tinyEditorRef = React.useRef<Editor>();
     const {codigo} = useParams<{codigo: string}>();
     const [narrativaId, setNarrativaId] = React.useState(-1);
-    const [date, setDate] = useState(-1);
+    const [date, setDate] = useState("");
 
     const history = useHistory();
 
@@ -134,15 +134,6 @@ export default function EditarActa() {
             });
     };
 
-    const dateText = () => {
-        if (date === -1) {
-            return "";
-        } else {
-            const d = new Date(date);
-            return `${d.getDay()}/${d.getMonth()}/${d.getFullYear()}`;
-        }
-    };
-
     return (
         <div>
             <HeaderEstandar titulo="Editar Narrativa" />
@@ -157,7 +148,7 @@ export default function EditarActa() {
                             name="fecha"
                             label="Fecha"
                             description="La fecha del acta."
-                            value={dateText()}
+                            value={date}
                             disabled
                         />
                     </div>
