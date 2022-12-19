@@ -165,7 +165,7 @@ export default function CardActas(props: Props) {
                     style={{color: "#AEAEAE", fontSize: "24px"}}
                 >
                     <i className="fa-brands fa-codepen my-2" style={ {fontSize: "5em"} } />
-                    <h2>No se ha creado ninguna narrativa.</h2>
+                    <h2>No se ha creado ninguna acta.</h2>
                 </div>
             )}
         </div>
