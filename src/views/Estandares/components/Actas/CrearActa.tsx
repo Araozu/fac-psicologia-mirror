@@ -96,8 +96,6 @@ export default function CrearActa(props: Props) {
 
     const crearActa = () => {
         const token = localStorage.getItem("access_token");
-        console.log(date);
-        console.log(date.toISOString());
 
         const values = {
             id_estandar: idEstandar,

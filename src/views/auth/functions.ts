@@ -57,7 +57,6 @@ export const defaultLoginFn: LoginFunction = (data) => new Promise((resolve) => 
         }),
     })
         .then((res) => {
-            console.log(res);
             res.json()
                 .then((jsonObj) => {
                     resolve({

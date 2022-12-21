@@ -53,12 +53,10 @@ export default (props: { registerFn?: RegisterFunction }) => {
                     password,
                 });
 
-                console.log("Login: respuesta.", resInicio.json?.message);
 
                 const token = resInicio.json?.access_token ?? "";
 
                 if (token.length !== 0) {
-                    console.log("Token:", token);
                     localStorage.setItem("access_token", token);
                 }
 

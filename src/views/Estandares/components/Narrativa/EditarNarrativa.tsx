@@ -10,12 +10,13 @@ import {SERVER_PATH} from "@/variables";
 import {useParams} from "react-router-dom";
 import {DataNarrativaServer} from "@/views/Estandares/components/Narrativa/DetalleNarrativa";
 import axios from "axios";
+import Label from "@/components/Form/Components/Label/Label";
 
 export default function EditarNarrativa() {
     const tinyEditorRef = React.useRef<Editor>();
     const {codigo} = useParams<{codigo: string}>();
     const [narrativaId, setNarrativaId] = React.useState(-1);
-    const [semestre, setSemestre] = React.useState("Cargando...");
+    const [codigoSemestre, setCodigoSemestre] = React.useState("XXXX-X");
     const history = useHistory();
 
     React.useEffect(() => {
@@ -44,8 +45,26 @@ export default function EditarNarrativa() {
             .then((dataServer) => {
                 const d = dataServer.data as DataNarrativaServer;
                 setNarrativaId(d.id);
-                setSemestre(d.semestre);
+                let semestre = d.semestre;
+                setCodigoSemestre( semestre );
                 tinyEditorRef.current?.setContent(d.contenido);
+            });
+
+            const token = localStorage.getItem("access_token");
+            fetch(`${SERVER_PATH}/api/narrativa/${codigo}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then((res) => res.json())
+            .then((dataServer) => {
+                const d = dataServer.data as DataNarrativaServer;
+                setNarrativaId(d.id);
+  
+                let semestre = d.semestre;
+                setCodigoSemestre( semestre );
             });
 
         return () => {
@@ -143,13 +162,20 @@ export default function EditarNarrativa() {
                     <hr />
 
                     <div className="contenedor-form">
-                        <InputText
-                            name="semestre"
-                            label="Semestre"
-                            description="El semestre del plan de mejora."
-                            value={semestre}
-                            disabled
-                        />
+                        {/** ENCAPSULAR EN COMPONENTE */}
+                        <Label label={"Semestre"} description={"Semestre de la narrativa"} />
+                        {/** ENCAPSULAR EN COMPONENTE */}
+                        <div>
+                            <input
+                                type="text"
+                                disabled={true}
+                                id="inputSemestre"
+                                name="inputSemestre"
+                                value={codigoSemestre}
+                                className="form-input-text"
+                                placeholder={"XXXX-XX"}
+                            />
+                        </div>
                     </div>
 
                     <textarea id="tiny-editor" rows={20} />

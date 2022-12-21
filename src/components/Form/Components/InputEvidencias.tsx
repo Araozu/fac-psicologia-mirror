@@ -34,11 +34,11 @@ export default function InputEvidencias(props: any) {
             formData.append("denominacion", inputDenominacion.value);
             formData.append("adjunto", inputFile.files[0]);
 
-            // Display the key/value pairs
+           /*  // Display the key/value pairs
             for (const pair of formData.entries()) {
                 console.log(`${pair[0]}, ${pair[1]}`);
             }
-
+ */
             axios.post(
                 `${SERVER_PATH}/api/evidencia`,
                 formData, {
@@ -73,7 +73,6 @@ export default function InputEvidencias(props: any) {
         //TODO: MANEJAR ESTADO DE LOADING MIENTRAS REALIZA CONSULTA A LA API
         setLoading(true);
         const token = localStorage.getItem("access_token");
-        console.log(id);
         axios.delete(
             `${SERVER_PATH}/api/evidencia/${id}`,
             {

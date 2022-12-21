@@ -94,7 +94,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
     };
 
     const handleSumitForm = (value: {id_estandar: number, id_user: number, codigo: string}) => {
-        console.log(value);
+
 
         setIsLoadingModal(true);
         axios.post(
@@ -105,7 +105,7 @@ export default function CardPlanesMejora(props: CardPlanesMejoraProps) {
                 },
             },
         ).then((res) => {
-            console.log(res);
+
             if (res.data.status === 1) {
                 setShowModalAsignar(false);
                 cargarPlanesMejora();
